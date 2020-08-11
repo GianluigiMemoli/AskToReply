@@ -4,8 +4,9 @@
 
 /*
     CreazioneUtente(...)
+    RimozioneUtente(idUtente)
 
-    Per la registrazione di un utente normale e la creazione di un moderatore o master moderatore.
+    Per la registrazione/l'eliminazione di un utente normale o di un moderatore.
 
 */
 
@@ -76,3 +77,24 @@
 
     stato = risolta, declinata, in attesa.
 */
+
+/*
+    GetSegnalazioni()
+*/
+
+/*
+    GetDomandePertinenti(idUtente)
+
+    Per le domande con categorie presenti negli interessi dell'utente.
+*/
+
+/*
+    DisattivaAccount(idUtente)
+*/
+
+/*
+    UpdateCategorieDomanda(idDomanda, cetegorie)
+
+    Aggiorna le categorie di una domanda. Serve per la risoluzione di una segnalazione di domanda offtopic.
+*/
+
