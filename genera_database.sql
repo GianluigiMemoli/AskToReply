@@ -94,6 +94,12 @@ CREATE TABLE Motivazioni (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE StatoSegnalazione(
+    id integer AUTO_INCREMENT, 
+    nome VARCHAR(50), 
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE Segnalazioni (
     id  VARCHAR(256),     
     idMotivazione integer,
@@ -105,11 +111,6 @@ CREATE TABLE Segnalazioni (
     FOREIGN KEY(stato) REFERENCES StatoSegnalazione(id)
 );
 
-CREATE TABLE StatoSegnalazione(
-    id integer AUTO_INCREMENT, 
-    nome VARCHAR(50), 
-    PRIMARY KEY(id)
-);
 
 CREATE TABLE SegnalazioniRisposta (
     idSegnalazione  VARCHAR(256),     
