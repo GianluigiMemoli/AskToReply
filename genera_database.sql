@@ -98,10 +98,17 @@ CREATE TABLE Segnalazioni (
     id  VARCHAR(256),     
     idMotivazione integer,
     dataDegnalazione DATETIME NOT NULL,
-    stato   smallint, -- possibile foreign key ?????????????????????
+    stato   integer, -- possibile foreign key ?????????????????????
     commento VARCHAR(256) DEFAULT NULL, 
     PRIMARY KEY(id), 
-    FOREIGN KEY(idMotivazione) REFERENCES Motivazioni(id)
+    FOREIGN KEY(idMotivazione) REFERENCES Motivazioni(id),
+    FOREIGN KEY(stato) REFERENCES StatoSegnalazione(id)
+);
+
+CREATE TABLE StatoSegnalazione(
+    id integer AUTO_INCREMENT, 
+    nome VARCHAR(50), 
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE SegnalazioniRisposta (
