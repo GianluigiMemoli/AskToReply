@@ -2,14 +2,17 @@
     ... = parametri omessi per rapidità
 */
 
+
+/* [ GIGIO ] */
+
 /*
     
-    CreateUtente(...)    
+    CreateUtente(...) 
+    
     RemoveUtente(idUtente)
+    
     Per la registrazione/l'eliminazione di un utente normale o di un moderatore.
 */
-
-
 
 
 /*
@@ -43,6 +46,11 @@
     Per lo storico domande/risposte.
 */
 
+
+
+
+/* [ DIBENEDETTO ] */
+
 /*
     CreateDomanda(...)
     CreateRisposta(...)
@@ -58,20 +66,24 @@
 */
 
 /*
+    VotazioneRisposta(idRisposta, valore)
+    RemoveVotazioneRisposta(idRisposta)
+*/
+
+
+
+/*[ TUTTI ] */
+
+/*
     RicercaDomande(...)
 
     Per la ricerca con e/o senza filtri.
 */
 
-/*
-    RemoveDomanda(idDomanda)
-    RemoveRisposta(idRisposta)
-*/
 
-/*
-    VotazioneRisposta(idRisposta, valore)
-    RemoveVotazioneRisposta(idRisposta)
-*/
+
+/* [ BELLOGRADO ] */
+
 
 /*
     RisolviSegnalazioneDomanda(idSegnalazione, stato)
@@ -90,6 +102,12 @@
     Per le domande con categorie presenti negli interessi dell'utente.
 */
 
+
+/*
+    RemoveDomanda(idDomanda)
+    RemoveRisposta(idRisposta)
+*/
+
 /*
     DisattivaAccount(idUtente)
 */
@@ -99,4 +117,3 @@
 
     Aggiorna le categorie di una domanda. Serve per la risoluzione di una segnalazione di domanda offtopic.
 */
-
