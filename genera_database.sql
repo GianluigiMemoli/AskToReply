@@ -33,7 +33,7 @@ CREATE TABLE Utenti (
 
  CREATE TABLE Partecipanti (
      idUtente VARCHAR(256),
-     punteggio INTEGER DEFAULT 0,clear
+     punteggio INTEGER DEFAULT 0,
      numeroSegnalazioni INTEGER DEFAULT 0,
      PRIMARY KEY(idUtente),
      FOREIGN KEY(idUtente) REFERENCES Utenti(id)
