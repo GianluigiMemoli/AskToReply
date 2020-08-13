@@ -3,12 +3,14 @@
 */
 
 /*
-    CreazioneUtente(...)
-    RimozioneUtente(idUtente)
+    CreateUtente(...)
 
+    RemoveUtente(idUtente)
     Per la registrazione/l'eliminazione di un utente normale o di un moderatore.
-
 */
+
+
+
 
 /*
     GetUtenteByEmail(email)
@@ -17,7 +19,7 @@
 */
 
 /*
-    SetNuovaPassword(nuovaPassword)
+    ChangePassword(nuovaPassword)
 
     Per il recupero password.
 */
@@ -35,22 +37,22 @@
 */
 
 /*
-    GetDomande(idUtente)
-    GetRiposte(idUtente)
+    GetDomandeByUserId(idUtente)
+    GetRiposteByUserId(idUtente)
 
     Per lo storico domande/risposte.
 */
 
 /*
-    PubblicazioneDomanda(...)
-    PubblicazioneRisposta(...)
+    CreateDomanda(...)
+    CreateRisposta(...)
 
     Per la pubblicazione di una domanda/risposta.
 */
 
 /*
-    SegnalazioneDomanda(idDomanda, idMotivazione, commento)
-    SegnalazioneRisposta(idRisposta, idMotivazione, commmento)
+    CreateSegnalazioneDomanda(idDomanda, idMotivazione, commento)
+    CreateSegnalazioneRisposta(idRisposta, idMotivazione, commmento)
 
     Per la segnalazione di una domanda/risposta.
 */
@@ -62,13 +64,13 @@
 */
 
 /*
-    RimozioneDomanda(idDomanda)
-    RimozioneRisposta(idRisposta)
+    RemoveDomanda(idDomanda)
+    RemoveRisposta(idRisposta)
 */
 
 /*
     VotazioneRisposta(idRisposta, valore)
-    RimozioneVotazioneRisposta(idRisposta)
+    RemoveVotazioneRisposta(idRisposta)
 */
 
 /*
@@ -83,7 +85,7 @@
 */
 
 /*
-    GetDomandePertinenti(idUtente)
+    GetDomandeByCategoria(idUtente)
 
     Per le domande con categorie presenti negli interessi dell'utente.
 */
