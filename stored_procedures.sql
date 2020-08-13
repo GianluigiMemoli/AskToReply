@@ -3,8 +3,7 @@
 */
 
 /*
-    CreateUtente(...)
-
+    CreateUtente(...)    
     RemoveUtente(idUtente)
     Per la registrazione/l'eliminazione di un utente normale o di un moderatore.
 */
