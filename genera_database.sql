@@ -1,3 +1,5 @@
+DROP DATABASE  asktoreply;
+
 CREATE DATABASE asktoreply;
 
 USE asktoreply;
@@ -7,6 +9,27 @@ CREATE TABLE Categorie (
     nome VARCHAR(256) NOT NULL, 
     PRIMARY KEY(id)
 );
+
+ CREATE TABLE Ruoli (
+     id INTEGER,
+     nome VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
+ );
+
+CREATE TABLE Utenti (
+    id VARCHAR(256),
+    email VARCHAR(320) NOT NULL,
+    passwordHash VARCHAR(64) NOT NULL,
+    nuovaPassword VARCHAR(64),
+    username VARCHAR(30) NOT NULL,
+    nome VARCHAR(50) NOT NULL,
+    cognome VARCHAR(50) NOT NULL,
+    ruoloId INTEGER,
+    isDisattivato BOOLEAN NOT NULL DEFAULT FALSE,
+    PRIMARY KEY (id),
+    FOREIGN KEY (ruoloId) REFERENCES Ruoli(id)
+ );
+
 
  CREATE TABLE Partecipanti (
      idUtente VARCHAR(256),
@@ -24,25 +47,7 @@ CREATE TABLE Categorie (
      FOREIGN KEY (idCategoria) REFERENCES Categorie(id)
  );
 
-CREATE TABLE Utenti (
-    id VARCHAR(256),
-    email VARCHAR(320) NOT NULL,
-    passwordHash VARCHAR(64) NOT NULL,
-    nuovaPassword VARCHAR(64),
-    username VARCHAR(30) NOT NULL,
-    nome VARCHAR(50) NOT NULL,
-    cognome VARCHAR(50) NOT NULL,
-    ruoloId INTEGER,
-    isDisattivato BOOLEAN NOT NULL DEFAULT FALSE,
-    PRIMARY KEY (id),
-    FOREIGN KEY (ruoloId) REFERENCES Ruoli(id)
- );
 
- CREATE TABLE Ruoli (
-     id INTEGER,
-     nome VARCHAR(20) NOT NULL,
-    PRIMARY KEY (id)
- );
 
 CREATE TABLE Domande (
     id VARCHAR(256),
@@ -53,14 +58,14 @@ CREATE TABLE Domande (
     dataPubblicazione DATETIME NOT NULL, 
     isArchiviata bit DEFAULT 0, 
     PRIMARY KEY(id), 
-    FOREIGN KEY (id_allegato) REFERENCES Allegati(id), 
+    /*FOREIGN KEY (idAllegato) REFERENCES Allegati(id),*/
     FOREIGN KEY (idAutore) REFERENCES Partecipanti(idUtente)
 );
 
 CREATE TABLE CategorieDomande (
     idDomanda VARCHAR(256),
     idCategoria VARCHAR(256),
-    PRIMARY KEY(idDomanda, idRisposta),
+    PRIMARY KEY(idDomanda, idCategoria),
     FOREIGN KEY (idDomanda) REFERENCES domande(id),
     FOREIGN KEY (idCategoria) REFERENCES categorie(id)
 );
@@ -70,7 +75,7 @@ CREATE TABLE Risposte (
     idDomanda VARCHAR(256) NOT NULL, 
     corpo VARCHAR(256) NOT NULL, 
     allegati VARCHAR(256), 
-    PRIMARY KEY(idRisposta)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE Votazioni (
@@ -82,8 +87,25 @@ CREATE TABLE Votazioni (
     FOREIGN KEY(idRisposta) REFERENCES Risposte(id)
 ); 
 
+
+CREATE TABLE Motivazioni (
+    id integer, 
+    nome VARCHAR(50) NOT NULL, 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE Segnalazioni (
+    id  VARCHAR(256),     
+    idMotivazione integer,
+    dataDegnalazione DATETIME NOT NULL,
+    stato   smallint, -- possibile foreign key ?????????????????????
+    commento VARCHAR(256) DEFAULT NULL, 
+    PRIMARY KEY(id), 
+    FOREIGN KEY(idMotivazione) REFERENCES Motivazioni(id)
+);
+
 CREATE TABLE SegnalazioniRisposta (
-    idDegnalazione  VARCHAR(256),     
+    idSegnalazione  VARCHAR(256),     
     idRisposta  VARCHAR(256),     
     PRIMARY KEY(idSegnalazione, idRisposta),
     FOREIGN KEY(idSegnalazione) REFERENCES Segnalazioni(id),
@@ -93,23 +115,8 @@ CREATE TABLE SegnalazioniRisposta (
 CREATE TABLE SegnalazioniDomanda (
     idSegnalazione  VARCHAR(256),     
     idDomanda  VARCHAR(256),     
-    PRIMARY KEY(idDegnalazione, idDomanda),
-    FOREIGN KEY(idDegnalazione) REFERENCES Segnalazioni(id),
+    PRIMARY KEY(idSegnalazione, idDomanda),
+    FOREIGN KEY(idSegnalazione) REFERENCES Segnalazioni(id),
     FOREIGN KEY(idDomanda) REFERENCES Domande(id)       
 );
 
-CREATE TABLE Motivazioni (
-    id integer, 
-    nome VARCHAR(50) NOT NULL, 
-    PRIMARY KEY(id)
-);
-
-CREATE TABLE Segnalazione (
-    id  VARCHAR(256),     
-    idMotivazione integer,
-    dataDegnalazione DATETIME NOT NULL,
-    stato   smallint, -- possibile foreign key ?????????????????????
-    commento VARCHAR(256) DEFAULT NULL, 
-    PRIMARY KEY(id), 
-    FOREIGN KEY(idMotivazione) REFERENCES Motivazioni(id)
-);
