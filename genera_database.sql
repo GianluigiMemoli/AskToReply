@@ -11,7 +11,7 @@ CREATE TABLE Categorie (
 );
 
  CREATE TABLE Ruoli (
-     id INTEGER,
+     id INTEGER AUTO_INCREMENT,
      nome VARCHAR(20) NOT NULL,
     PRIMARY KEY (id)
  );
@@ -89,7 +89,7 @@ CREATE TABLE Votazioni (
 
 
 CREATE TABLE Motivazioni (
-    id integer, 
+    id integer AUTO_INCREMENT, 
     nome VARCHAR(50) NOT NULL, 
     PRIMARY KEY(id)
 );
