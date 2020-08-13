@@ -1,1 +1,1 @@
-CREATE PROCEDURE GetUtenteByEmail @UserEmail
+CREATE PROCEDURE GetUtenteByEmail @UserEmail 

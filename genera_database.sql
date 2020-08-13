@@ -33,7 +33,7 @@ CREATE TABLE Utenti (
 
  CREATE TABLE Partecipanti (
      idUtente VARCHAR(256),
-     punteggio INTEGER DEFAULT 0,
+     punteggio INTEGER DEFAULT 0,clear
      numeroSegnalazioni INTEGER DEFAULT 0,
      PRIMARY KEY(idUtente),
      FOREIGN KEY(idUtente) REFERENCES Utenti(id)
@@ -66,8 +66,8 @@ CREATE TABLE CategorieDomande (
     idDomanda VARCHAR(256),
     idCategoria VARCHAR(256),
     PRIMARY KEY(idDomanda, idCategoria),
-    FOREIGN KEY (idDomanda) REFERENCES domande(id),
-    FOREIGN KEY (idCategoria) REFERENCES categorie(id)
+    FOREIGN KEY (idDomanda) REFERENCES Domande(id),
+    FOREIGN KEY (idCategoria) REFERENCES Categorie(id)
 );
 
 CREATE TABLE Risposte (
