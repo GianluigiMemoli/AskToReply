@@ -1,4 +1,4 @@
-DROP DATABASE  asktoreply;
+DROP DATABASE IF EXISTS asktoreply;
 
 CREATE DATABASE asktoreply;
 
