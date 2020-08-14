@@ -96,7 +96,7 @@ CREATE TABLE Motivazioni (
 );
 
 CREATE TABLE StatoSegnalazione(
-    id integer AUTO_INCREMENT, 
+    id integer AUTO_INCREMENT, # 0 = da gestire, 1 = approvata, 2 = declinata
     nome VARCHAR(50), 
     PRIMARY KEY(id)
 );
@@ -105,7 +105,7 @@ CREATE TABLE Segnalazioni (
     id  VARCHAR(256),     
     idMotivazione integer,
     dataDegnalazione DATETIME NOT NULL,
-    stato   integer, -- possibile foreign key ?????????????????????
+    stato   integer,
     commento VARCHAR(256) DEFAULT NULL, 
     PRIMARY KEY(id), 
     FOREIGN KEY(idMotivazione) REFERENCES Motivazioni(id),
