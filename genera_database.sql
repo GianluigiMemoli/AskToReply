@@ -75,6 +75,7 @@ CREATE TABLE Risposte (
     idDomanda VARCHAR(256) NOT NULL, 
     corpo VARCHAR(256) NOT NULL, 
     allegati VARCHAR(256), 
+	FOREIGN KEY (idDomanda) REFERENCES Domande(id),
     PRIMARY KEY(id)
 );
 
