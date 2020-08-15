@@ -86,34 +86,34 @@
 
 
 /*
-    RisolviSegnalazioneDomanda(idSegnalazione, stato)
-    RisolviSegnalazioneRisposta(idSegnalazione, stato)
-
-    stato = risolta, declinata, in attesa.
+	• RisolviSegnalazione(idSegnalazione, stato)
+    invece di 	->	RisolviSegnalazioneDomanda(idSegnalazione, stato)
+					RisolviSegnalazioneRisposta(idSegnalazione, stato)
 */
 
 /*
-    GetSegnalazioni()
+#   • GetSegnalazioniDomande()
+#	• GetSegnalazioniRisposte()
+    invece di	->	GetSegnalazioni()
 */
 
 /*
-    GetDomandeByCategoria(idUtente)
-
-    Per le domande con categorie presenti negli interessi dell'utente.
+	• GetDomandeDiInteresseByUser(idUtente)
+    invece di 	->	GetDomandeByCategoria(idUtente)
 */
 
 
 /*
-    RemoveDomanda(idDomanda)
-    RemoveRisposta(idRisposta)
+    • RemoveDomanda(idDomanda)
+#   • RemoveRisposta(idRisposta)
 */
 
 /*
-    DisattivaAccount(idUtente)
+    • DisattivaAccount(idUtente)
 */
 
 /*
-    UpdateCategorieDomanda(idDomanda, cetegorie)
-
-    Aggiorna le categorie di una domanda. Serve per la risoluzione di una segnalazione di domanda offtopic.
+	• AddCategoriaDomanda(idDomanda, idCategoria)
+    • RemoveCategoriaDomanda(idDomanda, idCategoria)
+    invece di	->	UpdateCategorieDomanda(idDomanda, categorie)
 */
