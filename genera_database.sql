@@ -106,8 +106,8 @@ CREATE TABLE StatoSegnalazione(
 CREATE TABLE Segnalazioni (
     id  VARCHAR(256),     
     idMotivazione integer,
-    dataDegnalazione DATETIME NOT NULL,
-    stato   integer,
+    dataSegnalazione DATETIME NOT NULL,
+    stato integer,
     commento VARCHAR(256) DEFAULT NULL, 
     PRIMARY KEY(id), 
     FOREIGN KEY(idMotivazione) REFERENCES Motivazioni(id),
