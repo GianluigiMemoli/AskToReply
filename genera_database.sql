@@ -24,7 +24,7 @@ CREATE TABLE Utenti (
     username VARCHAR(30) NOT NULL,
     nome VARCHAR(50) NOT NULL,
     cognome VARCHAR(50) NOT NULL,
-    ruoloId INTEGER,
+    ruoloId INTEGER NOT NULL,
     isDisattivato BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (id),
     FOREIGN KEY (ruoloId) REFERENCES Ruoli(id)
@@ -56,7 +56,7 @@ CREATE TABLE Domande (
     idAllegato VARCHAR(256) DEFAULT NULL,
     idAutore VARCHAR(256) NOT NULL,
     dataPubblicazione DATETIME NOT NULL, 
-    isArchiviata bit DEFAULT 0, 
+    isArchiviata bit DEFAULT 0 NOT NULL, 
     PRIMARY KEY(id), 
     /*FOREIGN KEY (idAllegato) REFERENCES Allegati(id),*/
     FOREIGN KEY (idAutore) REFERENCES Partecipanti(idUtente)
@@ -84,7 +84,7 @@ CREATE TABLE Risposte (
 CREATE TABLE Votazioni (
     idUtente VARCHAR(256), 
     idRisposta VARCHAR(256), 
-    valore smallint, -- +1  o -1 
+    valore smallint, # +1  o -1 
     PRIMARY KEY(idUtente, idRisposta), 
     FOREIGN KEY(idUtente) REFERENCES Utenti(id), 
     FOREIGN KEY(idRisposta) REFERENCES Risposte(id)
@@ -98,16 +98,16 @@ CREATE TABLE Motivazioni (
 );
 
 CREATE TABLE StatoSegnalazione(
-    id integer AUTO_INCREMENT, # 0 = da gestire, 1 = approvata, 2 = declinata
-    nome VARCHAR(50), 
+    id integer AUTO_INCREMENT, # 1 = da gestire, 2 = approvata, 3 = declinata
+    nome VARCHAR(50) NOT NULL, 
     PRIMARY KEY(id)
 );
 
 CREATE TABLE Segnalazioni (
     id  VARCHAR(256),     
-    idMotivazione integer,
+    idMotivazione integer NOT NULL,
     dataSegnalazione DATETIME NOT NULL,
-    stato integer,
+    stato integer NOT NULL,
     commento VARCHAR(256) DEFAULT NULL, 
     PRIMARY KEY(id), 
     FOREIGN KEY(idMotivazione) REFERENCES Motivazioni(id),
@@ -130,4 +130,3 @@ CREATE TABLE SegnalazioniDomanda (
     FOREIGN KEY(idSegnalazione) REFERENCES Segnalazioni(id),
     FOREIGN KEY(idDomanda) REFERENCES Domande(id)       
 );
-

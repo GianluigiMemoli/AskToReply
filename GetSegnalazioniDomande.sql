@@ -1,7 +1,7 @@
 DELIMITER $$
 CREATE PROCEDURE GetSegnalazioniDomande()
 BEGIN
-	SELECT *
+	SELECT Segn.*, SegnDom.idDomanda
     FROM Segnalazioni AS Segn
     INNER JOIN segnalazioniDomanda AS SegnDom
 		ON (Segn.id = SegnDom.idSegnalazione)
