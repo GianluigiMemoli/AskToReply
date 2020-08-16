@@ -66,7 +66,7 @@ CREATE TABLE CategorieDomande (
     idDomanda VARCHAR(256),
     idCategoria VARCHAR(256),
     PRIMARY KEY(idDomanda, idCategoria),
-    FOREIGN KEY (idDomanda) REFERENCES Domande(id),
+    FOREIGN KEY (idDomanda) REFERENCES Domande(id) ON DELETE CASCADE,
     FOREIGN KEY (idCategoria) REFERENCES Categorie(id)
 );
 
@@ -87,7 +87,7 @@ CREATE TABLE Votazioni (
     valore smallint, # +1  o -1 
     PRIMARY KEY(idUtente, idRisposta), 
     FOREIGN KEY(idUtente) REFERENCES Utenti(id), 
-    FOREIGN KEY(idRisposta) REFERENCES Risposte(id)
+    FOREIGN KEY(idRisposta) REFERENCES Risposte(id) ON DELETE CASCADE
 ); 
 
 
@@ -120,7 +120,7 @@ CREATE TABLE SegnalazioniRisposta (
     idRisposta  VARCHAR(256),     
     PRIMARY KEY(idSegnalazione, idRisposta),
     FOREIGN KEY(idSegnalazione) REFERENCES Segnalazioni(id),
-    FOREIGN KEY(idRisposta) REFERENCES Risposte(id)      
+    FOREIGN KEY(idRisposta) REFERENCES Risposte(id) ON DELETE CASCADE
 );
 
 CREATE TABLE SegnalazioniDomanda (
@@ -128,5 +128,5 @@ CREATE TABLE SegnalazioniDomanda (
     idDomanda  VARCHAR(256),     
     PRIMARY KEY(idSegnalazione, idDomanda),
     FOREIGN KEY(idSegnalazione) REFERENCES Segnalazioni(id),
-    FOREIGN KEY(idDomanda) REFERENCES Domande(id)       
+    FOREIGN KEY(idDomanda) REFERENCES Domande(id) ON DELETE CASCADE
 );
