@@ -1,9 +1,9 @@
 DELIMITER $$
 CREATE PROCEDURE IsArchiviata(_idDomanda VARCHAR(256), OUT _isArchiviata BIT)
 BEGIN 
-    SELECT isArchiviata
+    SELECT isArchiviata INTO @isA
     FROM Domande
 	WHERE id = _idDomanda;
-	SET _isArchiviata = isArchiviata;
+	SET _isArchiviata = @isA;
 END;
 DELIMITER;
