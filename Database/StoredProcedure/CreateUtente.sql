@@ -8,7 +8,7 @@ CREATE PROCEDURE CreateUtente(
     cognome varchar(50), 
     nome varchar(50), 
     ruoloId integer, 
-    OUT userId varchar(256)
+    userId varchar(256) OUT 
     )
     BEGIN 
         SET userId = UUID();         
