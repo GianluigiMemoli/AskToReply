@@ -33,8 +33,7 @@ public class ConnTest extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());	
-		UtenteBean usr = new UtenteBean("asd", "asd", "asd", "asd", "asd", "asd", 1, false, null);
-		UtenteDAO.doAddUtente(usr);		
+		System.out.println(UtenteDAO.getUtenteByUsername("testpurposo"));	
 	}
 	
 

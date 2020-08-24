@@ -26,6 +26,9 @@ public class UtenteBean {
 		this.isDisattivato = isDisattivato;
 		this.id = id;
 	}
+	
+	public UtenteBean() {}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -80,5 +83,15 @@ public class UtenteBean {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "UtenteBean [email=" + email + ", passwordHash=" + passwordHash + ", nuovaPassword=" + nuovaPassword
+				+ ", username=" + username + ", nome=" + nome + ", cognome=" + cognome + ", ruoloID=" + ruoloID
+				+ ", isDisattivato=" + isDisattivato + ", id=" + id + "]";
+	}
+
+
 	private String id; 
 }
