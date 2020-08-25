@@ -3,18 +3,22 @@ package model;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Logger;
 
 import Exceptions.CampiNonConformiException;
 import Exceptions.EmailPresenteException;
 import Exceptions.UsernamePresenteException;
 
 public class AccountManager {
+	static Logger log = Logger.getLogger(AccountManager.class.getName());
+	
 	public void RegisterUser(
 			String nome,
 			String cognome, 
 			String username, 
 			String email, 
-			String password) throws CampiNonConformiException, NoSuchAlgorithmException, EmailPresenteException, UsernamePresenteException {
+			String password,
+			String[] interessi) throws CampiNonConformiException, NoSuchAlgorithmException, EmailPresenteException, UsernamePresenteException {
 		
 		if(!Validator.validateRegistationFields(nome, cognome, email, username, password)) {
 			throw new CampiNonConformiException();
@@ -35,8 +39,24 @@ public class AccountManager {
 			throw new UsernamePresenteException();
 		
 		UtenteDAO.doAddUtente(newUser);
+		
+		PartecipanteBean registeredPartecipante = PartecipanteDAO.getPartecipanteByEmail(newUser.getEmail()); 
+		for (String interesse : interessi) {
+			CategoriaBean categoria = new CategoriaBean();
+			categoria.setNome(interesse);
+			
+			this.addInteressePartecipante(registeredPartecipante, categoria);
+		}
 	}
 	
+	public void addInteressePartecipante(PartecipanteBean partecipante, CategoriaBean categoria) throws CampiNonConformiException {
+		log.info(categoria.getNome());
+		if(CategoriaDAO.getCategoriaByNome(categoria.getNome()) == null) {
+			PartecipanteDAO.removePartecipanteById(partecipante);
+			throw new CampiNonConformiException();
+		}
+		PartecipanteDAO.addInteresse(partecipante, categoria);		
+	}
 	
 	private String getPasswordHash(String password) throws NoSuchAlgorithmException{
 		MessageDigest digest;

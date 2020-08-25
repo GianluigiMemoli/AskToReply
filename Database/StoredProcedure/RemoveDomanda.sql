@@ -1,3 +1,4 @@
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE RemoveDomanda(_idDomanda VARCHAR(256))
 BEGIN 

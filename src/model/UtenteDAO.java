@@ -61,7 +61,7 @@ public class UtenteDAO {
 		DBManager dbManager = DBManager.getInstance();
 		UtenteBean searchedUtente = null;
 		try {
-		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetUtenteByEmail", 1);		
+		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetUtenteByUsername", 1);		
 		callProcedure.setString(1, username);
 		ResultSet rs = callProcedure.executeQuery();
 		if(rs.next()) {
@@ -82,5 +82,7 @@ public class UtenteDAO {
 		}
 		return searchedUtente;
 	}
+	
+	
 }
 

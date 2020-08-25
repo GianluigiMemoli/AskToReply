@@ -42,10 +42,11 @@ public class RegistrazioneServlet extends HttpServlet {
 		username = request.getParameter("username").trim();
 		password = request.getParameter("password").trim();
 		email = request.getParameter("email").trim();
-		log.info("invoking manager");
+		String[] interessi = request.getParameterValues("interessi"); 
+		log.info(interessi.toString());
 		AccountManager accountManager = new AccountManager();
 		try {
-			accountManager.RegisterUser(nome, cognome, username, email, password);
+			accountManager.RegisterUser(nome, cognome, username, email, password, interessi);			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

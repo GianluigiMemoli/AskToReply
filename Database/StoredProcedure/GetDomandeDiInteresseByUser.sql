@@ -1,3 +1,4 @@
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE GetDomandeDiInteresseByUser(_idUtente VARCHAR(256))
 BEGIN

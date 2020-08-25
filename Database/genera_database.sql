@@ -36,7 +36,7 @@ CREATE TABLE Utenti (
      punteggio INTEGER DEFAULT 0,
      numeroSegnalazioni INTEGER DEFAULT 0,
      PRIMARY KEY(idUtente),
-     FOREIGN KEY(idUtente) REFERENCES Utenti(id)
+     FOREIGN KEY(idUtente) REFERENCES Utenti(id) ON DELETE CASCADE
  );
 
  CREATE TABLE Interessi (
