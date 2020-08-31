@@ -1,4 +1,6 @@
 package model;
+
+import java.lang.String;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Logger;
@@ -47,7 +49,14 @@ public class DBManager {
 		CallableStatement preparedProcedure = null;
 		try{
 			connection = this.getSQLConnection();
-			String parametersPlaceholder = "?,".repeat(parametersAmount);
+		
+			
+			//String parametersPlaceholder = "?,".repeat(parametersAmount);
+			
+			String parametersPlaceholder = new String(new char[parametersAmount]).replace("\0", "?,");
+			
+	
+			
 			String query = String.format("{CALL %s(%s)}", procedureName, parametersPlaceholder.substring(0, parametersPlaceholder.length() - 1)); 			
 			preparedProcedure = connection.prepareCall(query); 
 		}

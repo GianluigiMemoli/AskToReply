@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RispostaDAO {
@@ -8,7 +10,7 @@ public class RispostaDAO {
 		
 		DBManager dbManager = DBManager.getInstance();
 		try {
-			CallableStatment callProcedure = dbManager.prepareStoredProcedureCall("CreateRisposta", 4);
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateRisposta", 4);
 			callProcedure.setString(1, risposta.getIdDomanda());
 			callProcedure.setString(2, risposta.getCorpo());
 			callProcedure.setString(3, risposta.getAllegati());
