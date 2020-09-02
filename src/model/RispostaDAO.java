@@ -3,6 +3,7 @@ package model;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class RispostaDAO {
 
@@ -33,16 +34,32 @@ public class RispostaDAO {
 	}
 	
 	//DA CORREGGERE:
-	public static ResultSet getStoricoRisposte(String idUser){
+	public static ArrayList<RispostaBean> getStoricoRisposte(String idUser){
+		
 		DBManager dbManager = DBManager.getInstance();
-		ResultSet storico = null;
+		ResultSet rs = null;
+		ArrayList<RispostaBean> elencoRisposte = null;
+		RispostaBean risposta;
+		
 		try {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRiposteByUser", 1);
 			callProcedure.setString(1, idUser);
-			storico = callProcedure.getResultSet();
+			rs = callProcedure.getResultSet();
+			
+			while(rs.next()) {
+				risposta = new RispostaBean(
+						rs.getString("id"),
+						rs.getString("idDomanda"), 
+						rs.getString("corpo"), 
+						rs.getString("allegati"), 
+						rs.getString("idAutore")
+						);
+				elencoRisposte.add(risposta);
+			}
+			
 		}catch(SQLException exc) {
 			exc.printStackTrace();
 		}
-		return storico;
+		return elencoRisposte;
 	}
 }

@@ -42,6 +42,7 @@ public class SegnalazioneRispostaDAO {
 		try {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetSegnalazioniRisposte",0);
 			rs = callProcedure.getResultSet();
+			
 			while(rs.next()) {
 				segnalazione = new SegnalazioneRispostaBean(
 						rs.getString("id"),
