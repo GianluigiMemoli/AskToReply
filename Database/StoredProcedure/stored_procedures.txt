@@ -82,38 +82,41 @@
 
 
 
-/* [ BELLOGRADO ] */
+	[ BELLOGRADO ]
 
 
-/*
-	• RisolviSegnalazione(idSegnalazione, stato)
-    invece di 	->	RisolviSegnalazioneDomanda(idSegnalazione, stato)
-					RisolviSegnalazioneRisposta(idSegnalazione, stato)
-*/
 
-/*
-#   • GetSegnalazioniDomande()
-#	• GetSegnalazioniRisposte()
-    invece di	->	GetSegnalazioni()
-*/
-
-/*
-	• GetDomandeDiInteresseByUser(idUtente)
-    invece di 	->	GetDomandeByCategoria(idUtente)
-*/
-
-
-/*
-    • RemoveDomanda(idDomanda)
-#   • RemoveRisposta(idRisposta)
-*/
-
-/*
-    • DisattivaAccount(idUtente)
-*/
-
-/*
-	• AddCategoriaDomanda(idDomanda, idCategoria)
-    • RemoveCategoriaDomanda(idDomanda, idCategoria)
-    invece di	->	UpdateCategorieDomanda(idDomanda, categorie)
-*/
+	1)  RisolviSegnalazione(idSegnalazione, stato)
+	invece di	->	RisolviSegnalazioneDomanda(idSegnalazione, stato)
+				RisolviSegnalazioneRisposta(idSegnalazione, stato)
+	
+	
+	
+	2)  GetSegnalazioniDomande()
+	3)  GetSegnalazioniRisposte()
+	invece di	->	GetSegnalazioni()
+	
+	
+	
+	4)  GetDomandeDiInteresseByUser(idUtente)
+	invece di	->	GetDomandeByCategoria(idUtente)
+	
+	
+	
+	5)  RemoveDomanda(idDomanda)
+	6)  RemoveRisposta(idRisposta)
+	
+	
+	
+	7)  DisattivaAccount(idUtente)
+	
+	
+	
+	8)  AddCategoriaDomanda(idDomanda, idCategoria)
+	9)  RemoveCategoriaDomanda(idDomanda, idCategoria)
+	invece di	->	UpdateCategorieDomanda(idDomanda, categorie)
+	
+	
+	
+	10) GetSegnalazioneRispostaById(idSegnalazione)
+	11) GetSegnalazioneDomandaById(idSegnalazione)

@@ -22,9 +22,27 @@ public class RispostaDAO {
 	}
 	
 	public static void removeRisposta(String idRisposta) {
-		/* */
+		DBManager dbManager = DBManager.getInstance();
+		try {
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("RemoveRisposta", 1);
+			callProcedure.setString(1, idRisposta);
+			callProcedure.executeUpdate();
+		}catch(SQLException exc) {
+			exc.printStackTrace();
+		}
 	}
 	
-	//getRisposteByUser 
-	
+	//DA CORREGGERE:
+	public static ResultSet getStoricoRisposte(String idUser){
+		DBManager dbManager = DBManager.getInstance();
+		ResultSet storico = null;
+		try {
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRiposteByUser", 1);
+			callProcedure.setString(1, idUser);
+			storico = callProcedure.getResultSet();
+		}catch(SQLException exc) {
+			exc.printStackTrace();
+		}
+		return storico;
+	}
 }

@@ -1,6 +1,8 @@
 package model;
 
 public class SegnalazioneRispostaBean {
+	
+	/* Bisogna aggiungere i dati contenuti in 'Segnalazioni' (nel database)...credo */
 
 	public SegnalazioneRispostaBean(String idSegnalazione, String idRisposta) {
 		super();
