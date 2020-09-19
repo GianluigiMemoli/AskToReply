@@ -55,9 +55,11 @@ public class DBManager {
 			
 			String parametersPlaceholder = new String(new char[parametersAmount]).replace("\0", "?,");
 			
-	
-			
-			String query = String.format("{CALL %s(%s)}", procedureName, parametersPlaceholder.substring(0, parametersPlaceholder.length() - 1)); 			
+			int lastCommaIndex = 0; 
+			if (parametersAmount > 0) {
+				lastCommaIndex = parametersPlaceholder.length() - 1;
+			}
+			String query = String.format("{CALL %s(%s)}", procedureName, parametersPlaceholder.substring(0, lastCommaIndex)); 			
 			preparedProcedure = connection.prepareCall(query); 
 		}
 		catch(SQLException exc) {
