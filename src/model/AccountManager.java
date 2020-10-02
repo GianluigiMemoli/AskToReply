@@ -6,53 +6,80 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Logger;
 
 import Exceptions.CampiNonConformiException;
+import Exceptions.CredenzialiNonValideException;
 import Exceptions.EmailPresenteException;
 import Exceptions.UsernamePresenteException;
+
 
 public class AccountManager {
 	static Logger log = Logger.getLogger(AccountManager.class.getName());
 	
-	public void RegisterUser(
-			String nome,
-			String cognome, 
-			String username, 
-			String email, 
-			String password,
-			String[] interessi) throws CampiNonConformiException, NoSuchAlgorithmException, EmailPresenteException, UsernamePresenteException {
-		
-		if(!Validator.validateRegistationFields(nome, cognome, email, username, password)) {
-			throw new CampiNonConformiException();
-		}						
-		
-		String passwordHash = this.getPasswordHash(password);
-		UtenteBean newUser = new UtenteBean();
-		newUser.setNome(nome);
-		newUser.setCognome(cognome);
-		newUser.setEmail(email);
-		newUser.setUsername(username);
-		newUser.setPasswordHash(passwordHash);
-		
-		if(!this.isEmailAvailable(newUser.getEmail()))
-			throw new EmailPresenteException();
-		
-		if(!this.isUsernameAvailable(newUser.getUsername()))
-			throw new UsernamePresenteException();
-		
-		UtenteDAO.doAddUtente(newUser);
-		
-		PartecipanteBean registeredPartecipante = PartecipanteDAO.getPartecipanteByEmail(newUser.getEmail()); 
-		for (String interesse : interessi) {
-			CategoriaBean categoria = new CategoriaBean();
-			categoria.setNome(interesse);
+	public void RegisterUser(String nome,String cognome, String username, String email, String password, String[] interessi) throws CampiNonConformiException, NoSuchAlgorithmException, EmailPresenteException, UsernamePresenteException {
+		try {
+			if(!Validator.validateRegistationFields(nome, cognome, email, username, password)) {
+				throw new CampiNonConformiException();
+			}						
 			
-			this.addInteressePartecipante(registeredPartecipante, categoria);
+			String passwordHash = this.getPasswordHash(password);
+			UtenteBean newUser = new UtenteBean();
+			newUser.setNome(nome);
+			newUser.setCognome(cognome);
+			newUser.setEmail(email);
+			newUser.setUsername(username);
+			newUser.setPasswordHash(passwordHash);
+			
+			if(!this.isEmailAvailable(newUser.getEmail()))
+				throw new EmailPresenteException();
+			
+			if(!this.isUsernameAvailable(newUser.getUsername()))
+				throw new UsernamePresenteException();
+			
+			UtenteDAO.doAddUtente(newUser);
+			
+			PartecipanteBean registeredPartecipante = PartecipanteDAO.getPartecipanteByEmail(newUser.getEmail()); 
+			for (String interesse : interessi) {
+				CategoriaBean categoria = new CategoriaBean();
+				categoria.setNome(interesse);
+				
+				this.addInteressePartecipante(registeredPartecipante, categoria);
+			}
+		} catch(EmailPresenteException exc) {
+			throw exc;
 		}
+		 catch(UsernamePresenteException exc) {
+				throw exc;
+			}
+		catch(Exception exc) {
+			//Se scaturisce un errore cancella tutto quello che è stato creato riguardo l'utente
+			PartecipanteBean registeredPartecipante = PartecipanteDAO.getPartecipanteByEmail(email);
+			if (registeredPartecipante != null)
+					PartecipanteDAO.removePartecipanteById(registeredPartecipante);
+			throw exc;
+		}
+	}
+	
+	public UtenteBean autenticaUtente(String email, String password) throws CredenzialiNonValideException {		
+		UtenteBean loggingUser = UtenteDAO.getUtenteByEmail(email);
+		if(loggingUser == null) {
+			throw new CredenzialiNonValideException();
+		}
+		try {
+			String hashedPassword = this.getPasswordHash(password);
+			if(loggingUser.getPasswordHash().equals(hashedPassword)) {
+				return userFactory(loggingUser.getRuoloID(), loggingUser.getEmail());
+				
+			} else {
+				throw new CredenzialiNonValideException();
+			}
+		} catch (NoSuchAlgorithmException e) {			
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public void addInteressePartecipante(PartecipanteBean partecipante, CategoriaBean categoria) throws CampiNonConformiException {
 		log.info(categoria.getNome());
-		if(CategoriaDAO.getCategoriaByNome(categoria.getNome()) == null) {
-			PartecipanteDAO.removePartecipanteById(partecipante);
+		if(CategoriaDAO.getCategoriaByNome(categoria.getNome()) == null) {			
 			throw new CampiNonConformiException();
 		}
 		PartecipanteDAO.addInteresse(partecipante, categoria);		
@@ -79,6 +106,20 @@ public class AccountManager {
 	
 	private static boolean isUsernameAvailable(String username) {
 		return UtenteDAO.getUtenteByUsername(username) == null;				
+	}
+	
+	private UtenteBean userFactory(int roleId, String email) {
+		RuoloBean role = RuoloDAO.getRuoloById(roleId);
+		UtenteBean specializedUser = null; 
+		
+		switch(role.getNome()) {
+			case "Partecipante":
+				specializedUser = PartecipanteDAO.getPartecipanteByEmail(email);
+				break;
+			default:
+				throw new UnsupportedOperationException();
+		}
+		return specializedUser;
 	}
 	
 	

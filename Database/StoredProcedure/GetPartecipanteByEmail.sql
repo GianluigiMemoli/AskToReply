@@ -8,6 +8,6 @@ CREATE PROCEDURE GetPartecipanteByEmail(
         SELECT * FROM Partecipanti 
         LEFT JOIN Utenti  
         ON Partecipanti.idUtente = Utenti.id
-        WHERE Utenti.email = email; 
+        WHERE Utenti.email = UPPER(email); 
 
     END $$

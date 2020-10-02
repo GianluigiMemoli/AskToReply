@@ -1,3 +1,4 @@
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE DisattivaAccount(_idUtente VARCHAR(256))
 BEGIN 

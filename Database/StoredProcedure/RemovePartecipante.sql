@@ -6,6 +6,7 @@ CREATE PROCEDURE RemovePartecipante(
 )
     BEGIN				
         DELETE FROM Partecipanti WHERE idUtente = id ;   
+        DELETE FROM Interessi WHERE idUtente = id; 
         DELETE FROM Utenti WHERE id = id  ;   
           
     END $$

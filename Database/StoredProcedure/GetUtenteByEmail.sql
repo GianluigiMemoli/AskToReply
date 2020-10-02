@@ -5,5 +5,5 @@ CREATE PROCEDURE GetUtenteByEmail(
     email varchar(256)
 )
     BEGIN			
-        SELECT * FROM Utenti WHERE Utenti.email = email; 
+        SELECT * FROM Utenti WHERE Utenti.email = UPPER(email); 
     END $$

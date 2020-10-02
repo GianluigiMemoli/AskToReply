@@ -13,6 +13,6 @@ CREATE PROCEDURE CreateUtente(
     BEGIN 
         SET userId = UUID();         
         INSERT INTO Utenti (id, email, passwordHash, username, nome, cognome, ruoloId)
-        VALUES (userId, email, passwordHash, username, nome, cognome, ruoloId);
+        VALUES (userId, UPPER(email), passwordHash, username, nome, cognome, ruoloId);
         SELECT userId; 
     END $$

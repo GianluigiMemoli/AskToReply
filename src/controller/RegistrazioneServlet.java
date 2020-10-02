@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Exceptions.CampiNonConformiException;
+import Exceptions.EmailPresenteException;
+import Exceptions.UsernamePresenteException;
 import model.AccountManager;
 
 /**
@@ -47,8 +49,22 @@ public class RegistrazioneServlet extends HttpServlet {
 		AccountManager accountManager = new AccountManager();
 		try {
 			accountManager.RegisterUser(nome, cognome, username, email, password, interessi);			
-		} catch(Exception e) {
-			e.printStackTrace();
+		} catch(CampiNonConformiException exc) {
+			exc.printStackTrace();
+			log.info("Eccezione gestita");
+			//TODO codice per creare errore e mandarlo in view 
+		} catch(UsernamePresenteException exc) {
+			exc.printStackTrace();
+			log.info("Eccezione gestita");
+			//TODO codice per creare errore e mandarlo in view 
+		} catch(EmailPresenteException exc) {
+			exc.printStackTrace();
+			log.info("Eccezione gestita");
+			//TODO codice per creare errore e mandarlo in view 
+		} catch(Exception exc) {
+			exc.printStackTrace();
+			log.info("Eccezione gestita");
+			//TODO codice per creare errore e mandarlo in view 
 		}
 	}
 

@@ -12,10 +12,9 @@ CREATE PROCEDURE AddInteresseUtente(
     nomeCategoria VARCHAR(256)
 )
     BEGIN			
-		SELECT id INTO @ruoloId FROM Ruoli WHERE Ruoli.nome = 'Partecipante';        
-		call asktoreply.CreateUtente(email, passwordHash, username, cognome, nome,  @ruoloId, @userId);      
-        select @userId; 
-        INSERT INTO Partecipanti VALUES(@userId, 0, 0);     
+		SELECT id INTO @userId FROM Utenti WHERE Utenti.email = email;        
+		SELECT id INTO @categoriaId FROM Categorie WHERE Categorie.nome = nomeCategoria;                
+        INSERT INTO Interessi VALUES(@userId, @categoriaId);     
     END $$
 use asktoreply; 
 
@@ -48,12 +47,12 @@ CREATE PROCEDURE CreateUtente(
     cognome varchar(50), 
     nome varchar(50), 
     ruoloId integer, 
-    userId varchar(256) OUT 
+    OUT userId varchar(256) 
     )
     BEGIN 
         SET userId = UUID();         
         INSERT INTO Utenti (id, email, passwordHash, username, nome, cognome, ruoloId)
-        VALUES (userId, email, passwordHash, username, nome, cognome, ruoloId);
+        VALUES (userId, UPPER(email), passwordHash, username, nome, cognome, ruoloId);
         SELECT userId; 
     END $$
 
@@ -120,7 +119,7 @@ CREATE PROCEDURE GetPartecipanteByEmail(
         SELECT * FROM Partecipanti 
         LEFT JOIN Utenti  
         ON Partecipanti.idUtente = Utenti.id
-        WHERE Utenti.email = email; 
+        WHERE Utenti.email = UPPER(email); 
 
     END $$
 
@@ -163,7 +162,7 @@ CREATE PROCEDURE GetUtenteByEmail(
     email varchar(256)
 )
     BEGIN			
-        SELECT * FROM Utenti WHERE Utenti.email = email; 
+        SELECT * FROM Utenti WHERE Utenti.email = UPPER(email); 
     END $$
 
 use asktoreply; 
@@ -276,7 +275,7 @@ CREATE PROCEDURE UpdateUtente(
     )
     BEGIN 
         
-        UPDATE Utenti SET email = email, username = username, nome = nome, cognome = cognome
+        UPDATE Utenti SET email = UPPER(email), username = username, nome = nome, cognome = cognome
         WHERE id = userId;
         
     END $$

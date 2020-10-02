@@ -1,3 +1,4 @@
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE RemoveCategoriaDomanda(_idDomanda VARCHAR(256), _idCategoria VARCHAR(256))
 BEGIN 

@@ -1,3 +1,4 @@
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE IsArchiviata(_idDomanda VARCHAR(256), OUT _isArchiviata BIT)
 BEGIN 

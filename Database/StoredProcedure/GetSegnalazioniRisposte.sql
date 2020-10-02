@@ -1,3 +1,4 @@
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE GetSegnalazioniRisposte()
 BEGIN
