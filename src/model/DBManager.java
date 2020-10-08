@@ -51,9 +51,8 @@ public class DBManager {
 			connection = this.getSQLConnection();
 		
 			
-			//String parametersPlaceholder = "?,".repeat(parametersAmount);
-			
-			String parametersPlaceholder = new String(new char[parametersAmount]).replace("\0", "?,");
+			String parametersPlaceholder = "?,".repeat(parametersAmount);
+			//String parametersPlaceholder = new String(new char[parametersAmount]).replace("\0", "?,");
 			
 			int lastCommaIndex = 0; 
 			if (parametersAmount > 0) {
@@ -77,7 +76,5 @@ public class DBManager {
 	public void executePreparedQuery(CallableStatement statement) {
 		
 	}
-	
-
 	
 }

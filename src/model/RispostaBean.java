@@ -1,20 +1,27 @@
 package model;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.Part;
+
 public class RispostaBean {
 		
-	public RispostaBean(String id, String idDomanda, String corpo, String allegati, String idAutore) {
+	
+	public RispostaBean() {
+		super();
+	}
+	
+	public RispostaBean(String id, String idDomanda, String corpo, String idAutore, Date dataPubblicazione) {
 		super();
 		this.id = id;
 		this.idDomanda = idDomanda;
 		this.corpo = corpo;
-		this.allegati = allegati;
+		//this.allegati = string;
 		this.idAutore = idAutore;
+		this.dataPubblicazione = dataPubblicazione;
 	}
 		
-	public RispostaBean() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public String getId() {
 		return id;
@@ -22,6 +29,7 @@ public class RispostaBean {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
 	public String getIdDomanda() {
 		return idDomanda;
 	}
@@ -34,27 +42,39 @@ public class RispostaBean {
 	public void setCorpo(String corpo) {
 		this.corpo = corpo;
 	}
-	public String getAllegati() {
+	/*public List<Part> getAllegati() {
 		return allegati;
 	}
-	public void setAllegati(String allegati) {
+	public void setAllegati(List<Part> allegati) {
 		this.allegati = allegati;
-	}
+	}*/
 	public String getIdAutore() {
 		return idAutore;
 	}
 	public void setIdAutore(String idAutore) {
 		this.idAutore = idAutore;
 	}
-	@Override
-	public String toString() {
-		return "RispostaBean [id=" + id + ", idDomanda=" + idDomanda + ", corpo=" + corpo + ", allegati=" + allegati
-				+ ", idAutore=" + idAutore + "]";
+	
+	public Date getDataPubblicazione() {
+		return dataPubblicazione;
+	}
+	public void setDataPubblicazione(Date dataPubblicazione) {
+		this.dataPubblicazione = dataPubblicazione;
 	}
 	
+
+
+	@Override
+	public String toString() {
+		return "RispostaBean [id=" + id + ", idDomanda=" + idDomanda + ", corpo=" + corpo + ", dataPubblicazione="
+				+ dataPubblicazione + ", idAutore=" + idAutore + "]";
+	}
+
+
 	private String id; 
 	private String idDomanda;
 	private String corpo;
-	private String allegati;
+	private Date dataPubblicazione;
+	//private List<Part> allegati;
 	private String idAutore;
 }

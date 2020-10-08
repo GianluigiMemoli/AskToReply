@@ -2,6 +2,7 @@ package model;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,8 +15,9 @@ public class RispostaDAO {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateRisposta", 4);
 			callProcedure.setString(1, risposta.getIdDomanda());
 			callProcedure.setString(2, risposta.getCorpo());
-			callProcedure.setString(3, risposta.getAllegati());
-			callProcedure.setString(4, risposta.getIdAutore());
+			//callProcedure.setString(3, risposta.getAllegati());				//CONTROLLARE la SP
+			callProcedure.setString(3, risposta.getIdAutore());
+			callProcedure.setDate(4, new java.sql.Date(risposta.getDataPubblicazione().getTime()));
 			callProcedure.executeUpdate();
 		}catch(SQLException exc) {
 			exc.printStackTrace();
@@ -51,8 +53,9 @@ public class RispostaDAO {
 						rs.getString("id"),
 						rs.getString("idDomanda"), 
 						rs.getString("corpo"), 
-						rs.getString("allegati"), 
-						rs.getString("idAutore")
+						//rs.getString("allegati"), 
+						rs.getString("idAutore"),
+						rs.getDate("dataPubblicazione")
 						);
 				elencoRisposte.add(risposta);
 			}
@@ -63,3 +66,5 @@ public class RispostaDAO {
 		return elencoRisposte;
 	}
 }
+
+// da testare
