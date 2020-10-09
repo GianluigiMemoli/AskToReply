@@ -2,6 +2,7 @@ package model;
 
 import java.lang.String;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
@@ -73,11 +74,12 @@ public class DBManager {
 		return preparedProcedure;		
 	}
 	
-
+	public PreparedStatement createPreparedStatement(String query) throws SQLException {
+		return this.getSQLConnection().prepareStatement(query);
+	}
+	
 	public void executePreparedQuery(CallableStatement statement) {
 		
 	}
-	
-
 	
 }

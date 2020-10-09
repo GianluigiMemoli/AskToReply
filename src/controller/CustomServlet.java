@@ -3,6 +3,7 @@ package controller;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
+import model.PartecipanteBean;
 import model.UtenteBean;
 
 public class CustomServlet extends HttpServlet {
@@ -19,7 +20,7 @@ public class CustomServlet extends HttpServlet {
 		if(getLoggedUser(session) == null)
 			return false;
 		
-		// TODO Ci vorrebbe un metodo isPartecipante() perché piazzare ugetRuoloID() == 1 fa davvero schifo
+		// TODO Ci vorrebbe un metodo isPartecipante() perché piazzare getRuoloID() == 1 fa davvero schifo
 		if(getLoggedUser(session).getRuoloID() != 1)
 			return false;
 				
@@ -27,11 +28,13 @@ public class CustomServlet extends HttpServlet {
 	}
 		
 	public void checkPartecipante(HttpSession session) {
-		UtenteBean utente = new UtenteBean();
+		/*
+		PartecipanteBean utente = new PartecipanteBean(null, null, null, null, null, null, 0, false, null, 0, 0);
 		utente.setId("codice_utente_1");
 		utente.setRuoloID(1);
 		
 		session.setAttribute("utenteLoggato", utente);
+		*/
 		
 		if(!isPartecipanteLogged(session))
 			throw new RuntimeException("Un utente deve essere autenticato e questo utente deve essere un partecipante.");
