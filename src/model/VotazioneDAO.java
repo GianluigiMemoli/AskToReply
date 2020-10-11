@@ -1,7 +1,9 @@
 package model;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class VotazioneDAO {
 	
@@ -20,16 +22,48 @@ public class VotazioneDAO {
 		}
 	}
 		
-	public static void removeVotazioneRisposta(String idVotazione) {
+	public static void removeVotazioneRisposta(String idUtente, String idRisposta) { //
 		//Utilizzo della S.P. [RemoveVotazioneRisposta(idRisposta)] { Di Benedetto }
 		
 		DBManager dbManager = DBManager.getInstance();
 		try {
-			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("RemoveVotazioneRisposta", 1);
-			callProcedure.setString(1, idVotazione);
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("RemoveVotazioneRisposta", 2);
+			callProcedure.setString(1, idUtente);
+			callProcedure.setString(2, idRisposta);
 			callProcedure.executeUpdate();
 		}catch(SQLException exc) {
 			exc.printStackTrace();
 		}
 	}
+	
+	
+	public static ArrayList<VotazioneBean> getVotazioniByIdRisposta(String idRisposta){
+		
+		DBManager dbManager = DBManager.getInstance();
+		ResultSet rs = null;
+		ArrayList<VotazioneBean> elencoVoti = null;
+		VotazioneBean voto;
+		
+		try {
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetVotazioniByRisposta", 1);  //DA SCRIVERE (SP)
+			callProcedure.setString(1, idRisposta);
+			rs = callProcedure.getResultSet();
+			
+			while(rs.next()) {
+				voto = new VotazioneBean(  //String idUtente, String idRisposta, int valore
+						rs.getString("idUtente"),
+						rs.getString("idRisposta"), 
+						rs.getInt("valore")
+						);
+				elencoVoti.add(voto);
+			}
+			
+		}catch(SQLException exc) {
+			exc.printStackTrace();
+		}
+		return elencoVoti;
+	}
+
+	//Bisogna scrivere la SP GetVotazioniByRisposta e forse anche IsVotataByUser	
+	
 }

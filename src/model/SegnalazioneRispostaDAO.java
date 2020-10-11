@@ -4,32 +4,36 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 // DA COMPLETARE
 
 public class SegnalazioneRispostaDAO {
 
-	//ASPETTO DIBENE CHE CARICA LA PROCEDURA
+	//ASPETTO DIBENE CHE CARICA LA PROCEDURA //Controllarle perchè c'è qualcosa che non va
 	public static void addSegnalazioneRisposta(SegnalazioneRispostaBean segnalazione) {
 		//Utilizzo della S.P. [CreateSegnalazioneRisposta(idRisposta, idMotivazione, commento)] { Di Benedetto }
 		
-		//La S.P. di DiBene non c'è quindi bisogna poi controllare
+		//La S.P. di DiBene non c'è quindi bisogna poi controllare // Ne ha aggiunte 2 e non so perchè
 		
 		DBManager dbManager = DBManager.getInstance();
 		try {
-			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateSegnalazioneRisposta", 6);
-			//callProcedure.setString(1, segnalazione.getIdSegnalazione());
-			callProcedure.setString(2, segnalazione.getIdMotivazione());
-			//callProcedure.setString(3, segnalazione.getDataSegnalazione());
-			callProcedure.setString(4, segnalazione.getStato());
-			callProcedure.setString(5, segnalazione.getCommento());
-			callProcedure.setString(6, segnalazione.getIdRisposta());
-			callProcedure.executeUpdate();
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateSegnalazione", 4);
+			callProcedure.setString(1, segnalazione.getIdMotivazione());
+			callProcedure.setDate(2, new java.sql.Date(segnalazione.getDataSegnalazione().getTime()));
+			callProcedure.setString(3, segnalazione.getStato());
+			callProcedure.setString(4, segnalazione.getCommento());
+			//callProcedure.executeUpdate();
+			ResultSet rsId = callProcedure.getResultSet();
+			CallableStatement callProcedure2 = dbManager.prepareStoredProcedureCall("CreateSegnalazioneRisposta", 2);
+			callProcedure2.setString(1, rsId.getString("id"));
+			callProcedure2.setString(2, segnalazione.getIdRisposta());
+			callProcedure2.executeUpdate();
 		}catch(SQLException exc) {
 			exc.printStackTrace();
 		}
 	}
-	
+
 	
 	
 	public static ArrayList<SegnalazioneRispostaBean> getElencoSegnalazioniRisposte() {
@@ -45,12 +49,12 @@ public class SegnalazioneRispostaDAO {
 			
 			while(rs.next()) {
 				segnalazione = new SegnalazioneRispostaBean(
-						rs.getString("id"),
+						rs.getString("id"),	
+						rs.getString("idRisposta"),
 						rs.getString("idMotivazione"), 
-						rs.getString("dataSegnalazione"), 
+						rs.getDate("dataSegnalazione"), 
 						rs.getString("stato"), 
-						rs.getString("commento"),
-						rs.getString("idRisposta")
+						rs.getString("commento")
 						);
 				segnalazioniRisposte.add(segnalazione);
 			}
@@ -72,12 +76,12 @@ public class SegnalazioneRispostaDAO {
 			ResultSet rs = callProcedure.executeQuery();
 			if(rs.next()) {
 				segnalazioneRisposta = new SegnalazioneRispostaBean(
-						rs.getString("id"),
+						rs.getString("id"),	
+						rs.getString("idRisposta"),
 						rs.getString("idMotivazione"), 
-						rs.getString("dataSegnalazione"), 
+						rs.getDate("dataSegnalazione"), 
 						rs.getString("stato"), 
-						rs.getString("commento"),
-						rs.getString("idRisposta")
+						rs.getString("commento")
 						);
 			}
 			} catch (SQLException exc) {

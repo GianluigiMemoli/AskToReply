@@ -121,7 +121,5 @@ public class AccountManager {
 		}
 		return specializedUser;
 	}
-	
-	
-	
+		
 }
