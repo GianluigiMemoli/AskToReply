@@ -1,3 +1,5 @@
+use asktoreply;
+
 DELIMITER $$
 CREATE PROCEDURE GetSegnalazioneDomandaById(_idSegnalazione VARCHAR(256))
 BEGIN
