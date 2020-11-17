@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.io.File;
@@ -16,7 +17,7 @@ import Exceptions.ErrorePubblicazioneDomandaException;
 public class DomandeManager {
 
 	public void pubblicaDomanda (
-		String idAutore,
+		PartecipanteBean autore,
 		String titolo,
 		String corpo,
 		Date dataPubblicazione,
@@ -49,13 +50,13 @@ public class DomandeManager {
 			throw new ErrorePubblicazioneDomandaException("Bisogna scegliere almeno un categoria per poter pubblicare una domanda");
 		}
 		
-		//TODO Controllo su estensione e dimensione degli allegati ci vuole solo per le certificazioni e non anche questo
+		//TODO Il controllo su estensione e dimensione degli allegati ci vuole solo per la creazione di certificazioni e quindi non serve per la pubblicazione della domande
 		
 		// Inserimento domanda all'interno della tabella domande
 		
 		DomandaBean domanda = new DomandaBean();
 		
-		domanda.setIdAutore(idAutore);
+		domanda.setAutore(autore);
 		domanda.setTitolo(titolo);
 		domanda.setCorpo(corpo);
 		domanda.setDataPubblicazione(dataPubblicazione);
@@ -94,7 +95,7 @@ public class DomandeManager {
 		        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 		        InputStream fileContent = filePart.getInputStream();
 		        
-		        // TODO Risolvere il problema del nome del file (contiene anche il path)
+		        // TODO C'è un problema col nome del file: al suo interno è presente anche il suo path assoluto
 		        
 		        byte[] data = new byte[fileContent.available()];
 		        
@@ -112,23 +113,47 @@ public class DomandeManager {
 	
 	public File[] getAllegati(DomandaBean domanda) {
 		
-		/*
-			Questo if serve perché se domanda.getId() == "", restituisce tutte le directory
-		*/
+		// Questo if serve perché se domanda.getId() == "", restituisce tutte le directory
+		
 		if(domanda.getId() == "")
 			return null; 
 		
-		File[] files = new File("C:\\uploads\\allegati_domande\\" + domanda.getId()).listFiles();
+		File[] files = new File(UPLOAD_PATH + domanda.getId()).listFiles();
 		
-		/*
+		
 		if(files != null)
 			for (File file : files)
 				logger.info(file.getName());
 		else
 			logger.info("Cartella '" + domanda.getId() + "' non presente.");
-		*/
 		
 		return files;
+	}
+	
+	public ArrayList<DomandaBean> ricerca(String testo, String[] categorie, Boolean isArchiviata) throws Exception {
+		if(testo != null)
+			if(testo.length() < 3)
+				throw new Exception("Il testo, se inserito, deve essere di almeno 3 caratteri.");
+		
+		// TODO Aggiungere l'eliminazione delle congiunzioni, articoli ecc per la ricerca full text
+		
+		return DomandaDAO.getDomandeCercate(testo, isArchiviata, categorie);	
+	}
+	
+	public DomandaBean getDomandaById(String idDomanda) {
+		return DomandaDAO.getDomandaById(idDomanda);
+	}
+	
+	public ArrayList<DomandaBean> getDomandeByAutore(String idAutore) {
+		return DomandaDAO.getDomandeByUtente(idAutore);
+	}
+	
+	public void removeDomanda(String idDomanda) {
+		DomandaDAO.removeDomanda(idDomanda);
+	}
+	
+	public void updateCategorieDomanda(DomandaBean domanda) {
+		DomandaDAO.updateCategorieDomanda(domanda);
 	}
 	
 	//

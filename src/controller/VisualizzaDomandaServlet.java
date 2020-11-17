@@ -53,7 +53,7 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 					File[] allegati = manager.getAllegati(domandaVisualizzata);
 					request.setAttribute("allegati", allegati);
 					
-					// TODO Prelevare le risposte con votazioni comprese
+					// TODO Prelevare le risposte con annesse votazioni
 					
 					UtenteBean utente = getLoggedUser(request.getSession());
 					request.setAttribute("utenteLoggato", utente);
