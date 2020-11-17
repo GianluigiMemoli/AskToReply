@@ -1,0 +1,90 @@
+package controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import model.DomandeManager;
+import model.MotivazioneBean;
+import model.SegnalazioneDomandaBean;
+import model.SegnalazioniManager;
+
+/**
+ * Servlet implementation class RisolviSegnalazioneDomandaServlet
+ */
+@WebServlet("/RisolviSegnalazioneDomandaServlet")
+public class RisolviSegnalazioneDomandaServlet extends CustomServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public RisolviSegnalazioneDomandaServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+    
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	
+    	checkModeratore(req.getSession());
+    	
+    	super.service(req, resp);
+    	
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String idSegnalazione = request.getParameter("idSegnalazione");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(idSegnalazione != null) {
+			
+			SegnalazioniManager managerSegnalazioni = new SegnalazioniManager();
+			
+			SegnalazioneDomandaBean segnalazione = managerSegnalazioni.getSegnalazioneDomanda(idSegnalazione);
+			
+			if(segnalazione != null) {
+				
+				DomandeManager managerDomande = new DomandeManager();
+				
+				if(segnalazione.getMotivazione().getId() == MotivazioneBean.CONTENUTI_OFFENSIVI) {
+					
+					// Con la domanda rimossa, c'è un dangling reference nella segnalazione
+					
+					managerDomande.removeDomanda(segnalazione.getDomandaSegnalata().getId());
+					managerSegnalazioni.risolviSegnalazioneDomanda(segnalazione);
+					
+					out.print("Segnalazione risolta.");
+					
+				} else {
+					out.print("La motivazione della segnalazione NON è 'Contenuto Offensivo'.");
+				}
+				
+			} else {
+				out.print("La segnalazione con ID " + idSegnalazione + " non esiste.");
+			}
+				
+		} else {
+			out.print("ID segnalazione mancante.");
+		}
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

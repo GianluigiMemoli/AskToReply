@@ -26,18 +26,33 @@ public class CustomServlet extends HttpServlet {
 				
 		return true;
 	}
+	
+	public boolean isModeratoreLogged(HttpSession session) {
+		
+		if(getLoggedUser(session) == null)
+			return false;
+		
+		if(getLoggedUser(session).getRuoloID() != 2)
+			return false;
+		
+		return true;
+	}
 		
 	public void checkPartecipante(HttpSession session) {
-		/*
-		PartecipanteBean utente = new PartecipanteBean(null, null, null, null, null, null, 0, false, null, 0, 0);
-		utente.setId("codice_utente_1");
-		utente.setRuoloID(1);
-		
-		session.setAttribute("utenteLoggato", utente);
-		*/
-		
 		if(!isPartecipanteLogged(session))
 			throw new RuntimeException("Un utente deve essere autenticato e questo utente deve essere un partecipante.");
+	}
+	
+	public void checkModeratore(HttpSession session) {
+		
+		PartecipanteBean utente = new PartecipanteBean(null, null, null, null, null, null, 0, false, null, 0, 0);
+		utente.setId("codice_utente_1");
+		utente.setRuoloID(2);
+		
+		session.setAttribute("utenteLoggato", utente);
+		
+		if(!isModeratoreLogged(session))
+			throw new RuntimeException("Un moderatore deve essere autenticato.");
 	}
 	
 	//
