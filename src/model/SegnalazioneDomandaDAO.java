@@ -124,7 +124,23 @@ public class SegnalazioneDomandaDAO {
 		return null;
 	}
 	
-	public static void removeSegnalazione(String idSegnalazione) {
-				
+	public static void updateStatoSegnalazioneDomanda(SegnalazioneDomandaBean segnalazione) {
+		
+		DBManager manager = DBManager.getInstance();
+		
+		try {
+			
+			CallableStatement stmt = manager.prepareStoredProcedureCall("RisolviSegnalazione", 2);
+			
+			stmt.setString(1, segnalazione.getId());
+			stmt.setInt(2, segnalazione.getStato());
+			
+			stmt.executeQuery();
+						
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import model.DomandeManager;
+import model.PartecipanteBean;
 
 /**
  * Servlet implementation class PubblicazioneDomandaServlet
@@ -34,41 +35,37 @@ public class PubblicazioneDomandaServlet extends CustomServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	
     	checkPartecipante(req.getSession());
     	
     	super.service(req, resp);
+    	
     }
     
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		idAutore = "codice_utente_1";
-		titolo = request.getParameter("titolo");
-		corpo = request.getParameter("corpo");
-		dataPubblicazione = new Date();
-		idCategorie = request.getParameterValues("categorie");
 		
-		allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
+		PartecipanteBean autore = (PartecipanteBean) getLoggedUser(request.getSession());
+		String titolo = request.getParameter("titolo");
+		String corpo = request.getParameter("corpo");
+		Date dataPubblicazione = new Date();
+		String[] idCategorie = request.getParameterValues("categorie");
+		
+		List<Part> allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
 			
 		DomandeManager manager = new DomandeManager();
 		
 		try {
-			manager.pubblicaDomanda(idAutore, titolo, corpo, dataPubblicazione, idCategorie, allegati);
+			manager.pubblicaDomanda(autore, titolo, corpo, dataPubblicazione, idCategorie, allegati);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			response.getWriter().print(e.getMessage()); // TODO Eliminare questa riga di codice
 		}
 	}
 
 	//
 	
 	Logger logger = Logger.getLogger(PubblicazioneDomandaServlet.class.getName());
-	
-	private String idAutore;
-	private String titolo;
-	private String corpo;
-	private Date dataPubblicazione;
-	private String[] idCategorie;
-	private List<Part> allegati;
 }

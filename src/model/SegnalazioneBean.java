@@ -61,4 +61,8 @@ public abstract class SegnalazioneBean {
 	private Date dataSegnalazione;
 	private int stato;
 	private String commento;
+	
+	public static final int DA_GESTIRE = 1;
+	public static final int APPROVATA = 2;
+	public static final int DECLINATA = 3;
 }
