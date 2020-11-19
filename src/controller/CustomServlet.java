@@ -44,13 +44,6 @@ public class CustomServlet extends HttpServlet {
 	}
 	
 	public void checkModeratore(HttpSession session) {
-		
-		PartecipanteBean utente = new PartecipanteBean(null, null, null, null, null, null, 0, false, null, 0, 0);
-		utente.setId("codice_utente_1");
-		utente.setRuoloID(2);
-		
-		session.setAttribute("utenteLoggato", utente);
-		
 		if(!isModeratoreLogged(session))
 			throw new RuntimeException("Un moderatore deve essere autenticato.");
 	}
