@@ -1,6 +1,9 @@
 package model;
 
 public class RuoloBean {
+	public static final String ROLE_PARTECIPANTE = "Partecipante";
+	public static final String ROLE_MODERATORE = "Moderatore	";
+	public static final String ROLE_MASTER_MODERATORE = "MasterModeratore";
 	
 	public String getNome() {
 		return nome;

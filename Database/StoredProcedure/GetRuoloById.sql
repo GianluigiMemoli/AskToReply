@@ -1,7 +1,7 @@
 use asktoreply; 
 
 DELIMITER $$
-CREATE PROCEDURE 
+CREATE PROCEDURE GetRuoloById
 (
     idRuolo integer
 )

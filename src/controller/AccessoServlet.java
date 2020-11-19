@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Exceptions.CredenzialiNonValideException;
 import model.AccountManager;
+import model.ModeratoreBean;
 import model.PartecipanteBean;
 import model.UtenteBean;
 
@@ -50,18 +51,11 @@ public class AccessoServlet extends HttpServlet {
 		AccountManager accountManager = new AccountManager();	
 		try {
 			UtenteBean loggedIn = accountManager.autenticaUtente(email, password);
-			if (loggedIn instanceof PartecipanteBean) {
-				PartecipanteBean partecipante = (PartecipanteBean) loggedIn;
-				log.info("Partecipante loggato");
-				request.getSession().setAttribute("loggedUser", partecipante);
-				
-			}
-			
+			request.getSession().setAttribute("utenteLoggato", loggedIn);							
 		} catch(CredenzialiNonValideException exc) {
 			//todo gestire errore 
 			exc.printStackTrace();
-		}
-		
+		}		
 	}
 
 }

@@ -3,6 +3,7 @@ package model;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import Exceptions.CampiNonConformiException;
@@ -16,23 +17,7 @@ public class AccountManager {
 	
 	public void RegisterUser(String nome,String cognome, String username, String email, String password, String[] interessi) throws CampiNonConformiException, NoSuchAlgorithmException, EmailPresenteException, UsernamePresenteException {
 		try {
-			if(!Validator.validateRegistationFields(nome, cognome, email, username, password)) {
-				throw new CampiNonConformiException();
-			}						
-			
-			String passwordHash = this.getPasswordHash(password);
-			UtenteBean newUser = new UtenteBean();
-			newUser.setNome(nome);
-			newUser.setCognome(cognome);
-			newUser.setEmail(email);
-			newUser.setUsername(username);
-			newUser.setPasswordHash(passwordHash);
-			
-			if(!this.isEmailAvailable(newUser.getEmail()))
-				throw new EmailPresenteException();
-			
-			if(!this.isUsernameAvailable(newUser.getUsername()))
-				throw new UsernamePresenteException();
+			UtenteBean newUser = generateUtenteBean(nome, cognome, username, email, password);
 			
 			UtenteDAO.doAddUtente(newUser);
 			
@@ -56,6 +41,11 @@ public class AccountManager {
 					PartecipanteDAO.removePartecipanteById(registeredPartecipante);
 			throw exc;
 		}
+	}
+	
+	public void RegistraModeratore(String email, String password, String username, String nome, String cognome) throws CampiNonConformiException, EmailPresenteException, UsernamePresenteException, NoSuchAlgorithmException, SQLException {				
+		UtenteBean newUser =   generateUtenteBean(nome, cognome, username, email, password);		
+		ModeratoreDAO.doAddModeratore(newUser);		
 	}
 	
 	public UtenteBean autenticaUtente(String email, String password) throws CredenzialiNonValideException {		
@@ -108,17 +98,59 @@ public class AccountManager {
 		return UtenteDAO.getUtenteByUsername(username) == null;				
 	}
 	
+	private UtenteBean generateUtenteBean(String nome,String cognome, String username, String email, String password) throws CampiNonConformiException, EmailPresenteException, UsernamePresenteException, NoSuchAlgorithmException {		
+		UtenteBean newUser;	
+		if(!Validator.validateRegistationFields(nome, cognome, email, username, password)) {
+			throw new CampiNonConformiException();
+		}				
+				
+		String passwordHash = this.getPasswordHash(password);
+		newUser = new UtenteBean();
+		newUser.setNome(nome);
+		newUser.setCognome(cognome);
+		newUser.setEmail(email);
+		newUser.setUsername(username);
+		newUser.setPasswordHash(passwordHash);
+		
+		if(!isEmailAvailable(newUser.getEmail()))
+			throw new EmailPresenteException();
+		
+		if(!isUsernameAvailable(newUser.getUsername()))
+			throw new UsernamePresenteException();						
+			
+			return newUser;
+		}
+	
+	
 	private UtenteBean userFactory(int roleId, String email) {
 		RuoloBean role = RuoloDAO.getRuoloById(roleId);
 		UtenteBean specializedUser = null; 
 		
-		switch(role.getNome()) {
-			case "Partecipante":
-				specializedUser = PartecipanteDAO.getPartecipanteByEmail(email);
-				break;
-			default:
-				throw new UnsupportedOperationException();
+		if (role.getNome().equals(RuoloBean.ROLE_PARTECIPANTE)) {
+			specializedUser = PartecipanteDAO.getPartecipanteByEmail(email);
+		} else {
+			UtenteBean user = UtenteDAO.getUtenteByEmail(email);
+			if (role.getNome().equals(RuoloBean.ROLE_MODERATORE)) {
+			specializedUser = new ModeratoreBean(email, user.getPasswordHash(),
+					user.getNuovaPassword(), 
+					user.getUsername(),
+					user.getNome(),
+					user.getCognome(),
+					roleId,
+					user.isDisattivato(),
+					user.getId());
+			} else if (role.getNome().equals(RuoloBean.ROLE_MASTER_MODERATORE)) {
+				specializedUser = new MasterModeratoreBean(email, user.getPasswordHash(),
+						user.getNuovaPassword(), 
+						user.getUsername(),
+						user.getNome(),
+						user.getCognome(),
+						roleId,
+						user.isDisattivato(),
+						user.getId());
+			} 
 		}
+		
 		return specializedUser;
 	}
 		

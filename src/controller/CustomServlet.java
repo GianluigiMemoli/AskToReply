@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
 import model.PartecipanteBean;
+import model.RuoloBean;
+import model.RuoloDAO;
 import model.UtenteBean;
 
 public class CustomServlet extends HttpServlet {
@@ -31,11 +33,16 @@ public class CustomServlet extends HttpServlet {
 		
 		if(getLoggedUser(session) == null)
 			return false;
+		RuoloBean role = RuoloDAO.getRuoloByName(RuoloBean.ROLE_MODERATORE);
+		return (getLoggedUser(session).getRuoloID() != role.getId());
 		
-		if(getLoggedUser(session).getRuoloID() != 2)
+	}
+	
+	public boolean isMasterModeratoreLogged(HttpSession session) {
+		if(getLoggedUser(session) == null)
 			return false;
-		
-		return true;
+		RuoloBean role = RuoloDAO.getRuoloByName(RuoloBean.ROLE_MASTER_MODERATORE);
+		return (getLoggedUser(session).getRuoloID() != role.getId());		
 	}
 		
 	public void checkPartecipante(HttpSession session) {

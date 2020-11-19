@@ -1,3 +1,4 @@
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE AddCategoriaDomanda(_idDomanda VARCHAR(256), _idCategoria VARCHAR(256))
 BEGIN 
@@ -37,6 +38,123 @@ CREATE PROCEDURE CreateCategoria(
         SET @id = UUID();
         INSERT INTO Categorie VALUES(@id, nome);     
     END $$
+use asktoreply;
+
+delimiter $$
+
+create procedure CreateDomanda (
+	in titolo varchar(256),
+	in corpo varchar(256),
+	in idAutore varchar(256),
+    in dataPubblicazione datetime,
+	out id varchar(256)
+)
+
+begin
+	set id = UUID();
+
+	insert into Domande (id, titolo, corpo, idAutore, dataPubblicazione)
+    values (id, titolo, corpo, idAutore, dataPubblicazione);
+
+	select id;
+end $$
+
+delimiter ;
+
+
+use asktoreply;
+
+delimiter $$
+
+create procedure CreateRisposta( 
+    idDomanda varchar(256), 
+    corpo varchar(256),
+    idAutore varchar(256),
+    out id varchar(256)
+)
+
+begin
+	set id = UUID();
+    
+    insert into Risposte (id, idDomanda, corpo, idAutore)
+    values (id, idDomanda, corpo, idAutore);
+    
+    select id;
+end $$
+
+delimiter ;
+use asktoreply
+
+delimiter $$
+
+
+
+create procedure CreateSegnalazione(
+	in idMotivazione integer,
+    in dataSegnalazione datetime,
+    in stato integer,
+    in commento varchar(256),
+    out id varchar(256)
+)
+
+begin
+	set id = UUID();
+    
+    insert into Segnalazioni(id, idMotivazione, dataSegnalazione, stato, commento)
+    values (id, idMotivazione, dataSegnalazione, stato, commento);
+    
+    select @id;
+end $$
+
+delimiter ;
+use asktoreply;
+
+delimiter $$
+
+
+
+create procedure CreateSegnalazioneDomanda(
+	in idMotivazione integer,
+    in dataSegnalazione datetime,
+    in stato integer,
+    in commento varchar(256),
+    in idDomanda varchar(256)
+)
+
+begin
+	
+	call CreateSegnalazione(idMotivazione, dataSegnalazione, stato, commento, @idSegnalazione);
+	
+    insert into SegnalazioniDomanda(idSegnalazione, idDomanda)
+    values (@idSegnalazione, idDomanda);
+    
+end $$
+
+delimiter ;
+use asktoreply;
+
+delimiter $$
+
+
+
+create procedure CreateSegnalazioneRisposta(
+	in idMotivazione integer,
+    in dataSegnalazione datetime,
+    in stato integer,
+    in commento varchar(256),
+	in idRisposta varchar(256)
+)
+
+begin
+	
+	call CreateSegnalazione(idMotivazione, dataSegnalazione, stato, commento, @idSegnalazione);
+	
+    insert into SegnalazioniRisposta(idSegnalazione, idRisposta)
+    values (@idSegnalazione, idRisposta);
+    
+end $$
+
+delimiter ;
 USE asktoreply; 
 DELIMITER $$
 
@@ -56,6 +174,7 @@ CREATE PROCEDURE CreateUtente(
         SELECT userId; 
     END $$
 
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE DisattivaAccount(_idUtente VARCHAR(256))
 BEGIN 
@@ -64,6 +183,18 @@ BEGIN
 	WHERE id=_idUtente;
 END;
 DELIMITER;
+use asktoreply;
+
+
+
+delimiter $$
+
+create procedure GetAllCategorie()
+begin
+	select id, nome from categorie;
+end $$
+
+delimiter ;
 use asktoreply; 
 
 DELIMITER $$
@@ -75,6 +206,18 @@ CREATE PROCEDURE GetAllInteressiByUserEmail(
         SELECT id,nome FROM Categorie JOIN Interessi on Categorie.id = Interessi.idCategoria     ; 
     END $$
 
+use asktoreply;
+
+
+
+DELIMITER &&
+
+create procedure GetAllMotivazioni()
+begin
+	select id, nome from motivazioni;
+end &&
+
+DELIMITER ;
 use asktoreply; 
 
 DELIMITER $$
@@ -84,6 +227,26 @@ CREATE PROCEDURE GetCategoriaByName(
     BEGIN					
         SELECT * from Categorie WHERE Categorie.nome = nome;     
     END $$
+use asktoreply;
+
+delimiter $$
+
+
+
+create procedure GetCategorieDomandeByIdDomanda(
+	in idDomanda varchar(256)
+)
+begin
+	
+	select id, nome
+	from categorie
+		left join categoriedomande 
+		on categorie.id = categoriedomande.idCategoria 
+        and categoriedomande.idDomanda = idDomanda;
+    
+end $$
+
+delimiter ;
 use asktoreply; 
 
 DELIMITER $$
@@ -133,6 +296,44 @@ CREATE PROCEDURE GetRisposteByUser(
         SELECT * FROM Riposte WHERE Risposte.idAutore = userId; 
     END $$
 
+use asktoreply; 
+
+DELIMITER $$
+CREATE PROCEDURE GetRuoloById
+(
+    idRuolo integer
+)
+    BEGIN			
+       SELECT * FROM Ruoli WHERE Ruoli.id = idRuolo; 
+
+    END $$
+
+
+use asktoreply;
+
+DELIMITER $$
+CREATE PROCEDURE GetSegnalazioneDomandaById(_idSegnalazione VARCHAR(256))
+BEGIN
+	SELECT Segn.*, SegnDom.idDomanda
+    FROM Segnalazioni AS Segn
+    INNER JOIN segnalazioniDomanda AS SegnDom
+		ON (Segn.id = SegnDom.idSegnalazione)
+    WHERE Segn.stato=0 AND Segn.id=_idSegnalazione
+	ORDER BY Segn.dataSegnalazione ASC;
+END;
+DELIMITER;
+DELIMITER $$
+CREATE PROCEDURE GetSegnalazioneRispostaById(_idSegnalazione VARCHAR(256))
+BEGIN
+	SELECT Segn.*, SegnRis.idRisposta
+    FROM Segnalazioni AS Segn
+    INNER JOIN segnalazioniRisposta AS SegnRis
+		ON (Segn.id = SegnRis.idSegnalazione)
+    WHERE Segn.stato=1 AND Segn.id=_idSegnalazione
+	ORDER BY Segn.dataSegnalazione ASC;
+END;
+DELIMITER;
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE GetSegnalazioniDomande()
 BEGIN
@@ -144,6 +345,7 @@ BEGIN
 	ORDER BY Segn.dataSegnalazione ASC;
 END;
 DELIMITER;
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE GetSegnalazioniRisposte()
 BEGIN
@@ -175,6 +377,7 @@ CREATE PROCEDURE GetUtenteByUsername(
         SELECT * FROM Utenti WHERE Utenti.username = username; 
     END $$
 
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE IsArchiviata(_idDomanda VARCHAR(256), OUT _isArchiviata BIT)
 BEGIN 
@@ -184,7 +387,6 @@ BEGIN
 	SET _isArchiviata = @isA;
 END;
 DELIMITER;
-
 use asktoreply; 
 
 DELIMITER $$
@@ -201,6 +403,7 @@ CREATE PROCEDURE Registrazione(
         select @userId; 
         INSERT INTO Partecipanti VALUES(@userId, 0, 0);     
     END $$
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE RemoveCategoriaDomanda(_idDomanda VARCHAR(256), _idCategoria VARCHAR(256))
 BEGIN 
@@ -238,6 +441,7 @@ CREATE PROCEDURE RemovePartecipante(
 )
     BEGIN				
         DELETE FROM Partecipanti WHERE idUtente = id ;   
+        DELETE FROM Interessi WHERE idUtente = id; 
         DELETE FROM Utenti WHERE id = id  ;   
           
     END $$
@@ -255,6 +459,23 @@ IF @output = 0 THEN
 END IF;
 END;
 DELIMITER;
+use asktoreply;
+
+delimiter $$
+
+
+
+create procedure RimozioneVotazione(
+	in idRisposta varchar(256),
+    in idUtente varchar(256)
+)
+
+begin
+	delete from Votazioni where idRisposta = idRisposta and idUtente = idUtente;
+end $$
+
+delimiter ;
+use asktoreply;
 DELIMITER $$
 CREATE PROCEDURE RisolviSegnalazione(_idSegnalazione VARCHAR(256), _stato INTEGER)
 BEGIN
@@ -280,3 +501,20 @@ CREATE PROCEDURE UpdateUtente(
         
     END $$
 
+use asktoreply;
+
+delimiter $$
+
+
+
+create procedure VotazioneRisposta(
+	in idUtente varchar(256),
+    in idRisposta varchar(256),
+    in valore smallint
+)
+
+begin
+	insert into votazioni(idUtente, idRisposta, valore) values (idUtente, idRisposta, valore);
+end $$
+
+delimiter ;

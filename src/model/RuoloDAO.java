@@ -25,4 +25,23 @@ public class RuoloDAO {
 		}
 		return ruolo;
 	}
+	
+	public static RuoloBean getRuoloByName(String name) {
+		DBManager dbManager = DBManager.getInstance();
+		RuoloBean ruolo = null;
+		try {
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRuoloByName", 1);
+			callProcedure.setString(1, name);
+			ResultSet rs = callProcedure.executeQuery();
+			if(rs.next()) {
+				ruolo = new RuoloBean();
+				ruolo.setId(rs.getInt("id"));
+				ruolo.setNome(rs.getNString("nome"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ruolo;
+	}
 }
