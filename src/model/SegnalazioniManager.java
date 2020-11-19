@@ -29,16 +29,16 @@ public class SegnalazioniManager {
 	
 	public ArrayList<SegnalazioneRispostaBean> getAllSegnalazioniRisposta() {
 		// TODO
-		return null;
+		return SegnalazioneRispostaDAO.getElencoSegnalazioniRisposte();
 	}
 
 	public SegnalazioneDomandaBean getSegnalazioneDomanda(String id) {
 		return SegnalazioneDomandaDAO.getSegnalazioneDomandaById(id);
 	}
 
-	public SegnalazioneRispostaBean getSegnalazioneRisposta() {
+	public SegnalazioneRispostaBean getSegnalazioneRisposta(String id) {
 		// TODO
-		return null;
+		return SegnalazioneRispostaDAO.getSegnalazioneRispostaById(id);
 	}
 
 	/*
@@ -56,5 +56,17 @@ public class SegnalazioniManager {
 		segnalazione.setStato(SegnalazioneBean.DECLINATA);
 		SegnalazioneDomandaDAO.updateStatoSegnalazioneDomanda(segnalazione);
 	}
+	
+	
+	public void risolviSegnalazioneRisposta(SegnalazioneRispostaBean segnalazione) {
+		segnalazione.setStato(SegnalazioneBean.APPROVATA);
+		SegnalazioneRispostaDAO.updateStatoSegnalazioneRisposta(segnalazione);
+	}
+	
+	public void declinaSegnalazioneRisposta(SegnalazioneRispostaBean segnalazione) {
+		segnalazione.setStato(SegnalazioneBean.DECLINATA);
+		SegnalazioneRispostaDAO.updateStatoSegnalazioneRisposta(segnalazione);
+	}
+	
 	
 }

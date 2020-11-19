@@ -4,8 +4,16 @@ import java.util.Date;
 
 public class SegnalazioneRispostaBean {
 	
+	public RispostaBean getRispostaSegnalata() {
+		return rispostaSegnalata;
+	}
+
+	public void setRispostaSegnalata(RispostaBean rispostaSegnalata) {
+		this.rispostaSegnalata = rispostaSegnalata;
+	}
+	
 	public SegnalazioneRispostaBean(String idSegnalazione, String idRisposta, String idMotivazione,
-			Date dataSegnalazione, String stato, String commento) {
+			Date dataSegnalazione, int stato, String commento) {
 		super();
 		this.idSegnalazione = idSegnalazione;
 		this.idMotivazione = idMotivazione;
@@ -16,7 +24,7 @@ public class SegnalazioneRispostaBean {
 	}
 
 	public SegnalazioneRispostaBean(String idRisposta, Date dataSegnalazione,
-			String idMotivazione, String stato, String commento) {
+			String idMotivazione, int stato, String commento) {
 		super();
 		this.idMotivazione = idMotivazione;
 		this.dataSegnalazione = dataSegnalazione;
@@ -54,11 +62,11 @@ public class SegnalazioneRispostaBean {
 	public void setDataSegnalazione(Date dataSegnalazione) {
 		this.dataSegnalazione = dataSegnalazione;
 	}
-	public String getStato() {
+	public int getStato() {
 		return stato;
 	}
-	public void setStato(String stato) {
-		this.stato = stato;
+	public void setStato(int declinata) {
+		this.stato = declinata;
 	}
 	public String getCommento() {
 		return commento;
@@ -78,9 +86,9 @@ public class SegnalazioneRispostaBean {
 	private String idSegnalazione; 
 	private String idMotivazione;
 	private Date dataSegnalazione;
-	private String stato;
+	private int stato;
 	private String commento;
 	private String idRisposta; 
 
-	
+	private RispostaBean rispostaSegnalata; 
 }

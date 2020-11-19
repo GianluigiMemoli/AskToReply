@@ -51,7 +51,6 @@ public class DBManager {
 		try{
 			connection = this.getSQLConnection();
 		
-			
 			String parametersPlaceholder = "?,".repeat(parametersAmount);
 			//String parametersPlaceholder = new String(new char[parametersAmount]).replace("\0", "?,");
 			
@@ -80,5 +79,4 @@ public class DBManager {
 	public void executePreparedQuery(CallableStatement statement) {
 		
 	}
-	
 }

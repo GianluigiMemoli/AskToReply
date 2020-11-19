@@ -21,7 +21,7 @@ public class SegnalazioneRispostaDAO {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateSegnalazione", 4);
 			callProcedure.setString(1, segnalazione.getIdMotivazione());
 			callProcedure.setDate(2, new java.sql.Date(segnalazione.getDataSegnalazione().getTime()));
-			callProcedure.setString(3, segnalazione.getStato());
+			callProcedure.setInt(3, segnalazione.getStato());
 			callProcedure.setString(4, segnalazione.getCommento());
 			//callProcedure.executeUpdate();
 			ResultSet rsId = callProcedure.getResultSet();
@@ -35,6 +35,24 @@ public class SegnalazioneRispostaDAO {
 	}
 
 	
+	
+	public static void updateStatoSegnalazioneRisposta(SegnalazioneRispostaBean segnalazione) {
+		
+		DBManager manager = DBManager.getInstance();
+		
+		try {
+			CallableStatement stmt = manager.prepareStoredProcedureCall("RisolviSegnalazione", 2);
+			
+			stmt.setString(1, segnalazione.getIdSegnalazione());
+			stmt.setInt(2, segnalazione.getStato());
+			
+			stmt.executeQuery();
+						
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public static ArrayList<SegnalazioneRispostaBean> getElencoSegnalazioniRisposte() {
 		
@@ -53,7 +71,7 @@ public class SegnalazioneRispostaDAO {
 						rs.getString("idRisposta"),
 						rs.getString("idMotivazione"), 
 						rs.getDate("dataSegnalazione"), 
-						rs.getString("stato"), 
+						rs.getInt("stato"), 
 						rs.getString("commento")
 						);
 				segnalazioniRisposte.add(segnalazione);
@@ -80,7 +98,7 @@ public class SegnalazioneRispostaDAO {
 						rs.getString("idRisposta"),
 						rs.getString("idMotivazione"), 
 						rs.getDate("dataSegnalazione"), 
-						rs.getString("stato"), 
+						rs.getInt("stato"), 
 						rs.getString("commento")
 						);
 			}

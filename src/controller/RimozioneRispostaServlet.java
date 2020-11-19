@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import model.PartecipanteBean;
+import model.RispostaBean;
 import model.RispostaDAO;
 import model.RisposteManager;
 
@@ -36,11 +37,13 @@ public class RimozioneRispostaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//RisposteManager manager = new RisposteManager();
 		idRisposta = request.getParameter("idRisposta");
+		RispostaBean risposta = new RispostaBean();
+		risposta.setId(idRisposta);
 		try {
 			partecipanteBean = (PartecipanteBean) request.getSession().getAttribute("loggedUser");
 			idPartecipanteSessione = partecipanteBean.getId();
 			if(idPartecipanteSessione == request.getParameter("idPartecipante"))
-			RispostaDAO.removeRisposta(idRisposta);
+			RispostaDAO.removeRisposta(risposta);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

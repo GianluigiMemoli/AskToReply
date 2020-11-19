@@ -22,14 +22,14 @@ public class VotazioneDAO {
 		}
 	}
 		
-	public static void removeVotazioneRisposta(String idUtente, String idRisposta) { //
+	public static void removeVotazioneRisposta(VotazioneBean votazione) { //
 		//Utilizzo della S.P. [RemoveVotazioneRisposta(idRisposta)] { Di Benedetto }
 		
 		DBManager dbManager = DBManager.getInstance();
 		try {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("RemoveVotazioneRisposta", 2);
-			callProcedure.setString(1, idUtente);
-			callProcedure.setString(2, idRisposta);
+			callProcedure.setString(1, votazione.getIdUtente());
+			callProcedure.setString(2, votazione.getIdRisposta());
 			callProcedure.executeUpdate();
 		}catch(SQLException exc) {
 			exc.printStackTrace();

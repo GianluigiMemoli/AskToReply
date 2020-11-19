@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.VotazioneBean;
+import model.VotazioneDAO;
+
 /**
  * Servlet implementation class VotazioneRispostaServlet
  */
@@ -27,9 +30,15 @@ public class VotazioneRispostaServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		//
-		
+		idUtente = request.getParameter("idUtente");
+		idRisposta = request.getParameter("idRisposta");
+		valore = Integer.parseInt(request.getParameter("valore"));
+		VotazioneBean votazione=new VotazioneBean(idUtente, idRisposta, valore);
+		VotazioneDAO.addVotazioneRisposta(votazione);	
 	}
 
+	private String idUtente;
+	private String idRisposta;
+	private int valore;
+	
 }
