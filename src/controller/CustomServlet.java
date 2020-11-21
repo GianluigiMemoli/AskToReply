@@ -1,9 +1,9 @@
 package controller;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.PartecipanteBean;
 import model.RuoloBean;
 import model.RuoloDAO;
 import model.UtenteBean;
@@ -18,41 +18,51 @@ public class CustomServlet extends HttpServlet {
 		return (getLoggedUser(session) != null);
 	}
 	
-	public boolean isPartecipanteLogged(HttpSession session) {	
+	private boolean isUserRoleLogged(HttpSession session, String role) {
+		
 		if(getLoggedUser(session) == null)
 			return false;
 		
-		// TODO Ci vorrebbe un metodo isPartecipante() perché piazzare getRuoloID() == 1 fa davvero schifo
-		if(getLoggedUser(session).getRuoloID() != 1)
+		RuoloBean ruolo = RuoloDAO.getRuoloByName(role);
+		
+		if((getLoggedUser(session).getRuoloID() != ruolo.getId()))
 			return false;
-				
+		
 		return true;
+		
+	}
+	
+	public boolean isPartecipanteLogged(HttpSession session) {
+		return isUserRoleLogged(session, RuoloBean.ROLE_PARTECIPANTE);	
 	}
 	
 	public boolean isModeratoreLogged(HttpSession session) {
-		
-		if(getLoggedUser(session) == null)
-			return false;
-		RuoloBean role = RuoloDAO.getRuoloByName(RuoloBean.ROLE_MODERATORE);
-		return (getLoggedUser(session).getRuoloID() != role.getId());
-		
+		return isUserRoleLogged(session, RuoloBean.ROLE_MODERATORE);
 	}
 	
 	public boolean isMasterModeratoreLogged(HttpSession session) {
-		if(getLoggedUser(session) == null)
-			return false;
-		RuoloBean role = RuoloDAO.getRuoloByName(RuoloBean.ROLE_MASTER_MODERATORE);
-		return (getLoggedUser(session).getRuoloID() != role.getId());		
-	}
-		
-	public void checkPartecipante(HttpSession session) {
-		if(!isPartecipanteLogged(session))
-			throw new RuntimeException("Un utente deve essere autenticato e questo utente deve essere un partecipante.");
+		return isUserRoleLogged(session, RuoloBean.ROLE_MASTER_MODERATORE);
 	}
 	
-	public void checkModeratore(HttpSession session) {
-		if(!isModeratoreLogged(session))
-			throw new RuntimeException("Un moderatore deve essere autenticato.");
+	public void checkPartecipante(HttpSession session, HttpServletResponse resp) {
+		if(!isPartecipanteLogged(session)) {
+			// resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso negato. Non sei un Partecipante.");
+			throw new RuntimeException("Non sei un Patecipante");
+		}
+	}
+	
+	public void checkModeratore(HttpSession session, HttpServletResponse resp) {
+		if(!isModeratoreLogged(session)) {
+			// resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso negato. Non sei un Moderatore.");
+			throw new RuntimeException("Non sei un Moderatore");
+		}
+	}
+
+	public void checkMasterModeratore(HttpSession session, HttpServletResponse resp) {	
+		if(!isMasterModeratoreLogged(session)) {
+			// resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso negato. Non sei un Master Moderatore.");
+			throw new RuntimeException("Non sei un Master Moderatore");
+		}
 	}
 	
 	//

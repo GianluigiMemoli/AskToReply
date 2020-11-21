@@ -27,7 +27,7 @@ public class VisualizzaFormSegnalazioneDomandaServlet extends CustomServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
-    	checkPartecipante(req.getSession());
+    	checkPartecipante(req.getSession(), resp);
     	
     	super.service(req, resp);
     	

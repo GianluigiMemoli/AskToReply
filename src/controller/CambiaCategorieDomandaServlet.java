@@ -35,7 +35,7 @@ public class CambiaCategorieDomandaServlet extends CustomServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
-    	checkModeratore(req.getSession());
+    	checkModeratore(req.getSession(), resp);
     	
     	super.service(req, resp);
     	
