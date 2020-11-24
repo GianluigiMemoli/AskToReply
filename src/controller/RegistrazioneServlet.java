@@ -50,22 +50,19 @@ public class RegistrazioneServlet extends HttpServlet {
 		try {
 			accountManager.RegisterUser(nome, cognome, username, email, password, interessi);			
 		} catch(CampiNonConformiException exc) {
-			exc.printStackTrace();
-			log.info("Eccezione gestita");
-			//TODO codice per creare errore e mandarlo in view 
+			
+			log.info("Eccezione:" + exc.getMessage() + " gestita");			
 		} catch(UsernamePresenteException exc) {
-			exc.printStackTrace();
-			log.info("Eccezione gestita");
-			//TODO codice per creare errore e mandarlo in view 
+			log.info("Eccezione:" + exc.getMessage() + " gestita");
+			request.setAttribute("errore", exc.getMessage());
 		} catch(EmailPresenteException exc) {
-			exc.printStackTrace();
-			log.info("Eccezione gestita");
-			//TODO codice per creare errore e mandarlo in view 
+			log.info("Eccezione:" + exc.getMessage() + " gestita");
+			request.setAttribute("errore", exc.getMessage()); 
 		} catch(Exception exc) {
-			exc.printStackTrace();
-			log.info("Eccezione gestita");
-			//TODO codice per creare errore e mandarlo in view 
-		}
+			log.info("Eccezione:" + exc.getMessage() + " gestita");
+			request.setAttribute("errore", "Unhandled error"); 
+		}		
+		request.getRequestDispatcher("registrazione").forward(request, response);
 	}
 
 }

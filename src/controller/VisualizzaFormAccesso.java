@@ -1,31 +1,23 @@
 package controller;
 
 import java.io.IOException;
-import java.util.logging.Logger;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Exceptions.CredenzialiNonValideException;
-import model.AccountManager;
-import model.ModeratoreBean;
-import model.PartecipanteBean;
-import model.UtenteBean;
-
 /**
- * Servlet implementation class AccessoServlet
+ * Servlet implementation class VisualizzaAccesso
  */
-@WebServlet("/AccessoServlet")
-public class AccessoServlet extends HttpServlet {
+@WebServlet("/accesso")
+public class VisualizzaFormAccesso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AccessoServlet() {
+    public VisualizzaFormAccesso() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,26 +28,15 @@ public class AccessoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("FormAccesso.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	Logger log = Logger.getLogger(AccessoServlet.class.getName());
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email").trim(); 
-		String password = request.getParameter("password").trim();
-		
-		AccountManager accountManager = new AccountManager();	
-		try {
-			UtenteBean loggedIn = accountManager.autenticaUtente(email, password);
-			request.getSession().setAttribute("utenteLoggato", loggedIn);							
-		} catch(CredenzialiNonValideException exc) {
-			//todo gestire errore 
-			request.setAttribute("errore", exc.getMessage()); 
-		}		
+		doGet(request, response);
 	}
 
 }
