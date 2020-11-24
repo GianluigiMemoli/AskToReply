@@ -144,7 +144,7 @@ div.content {
 }
 
 
-@media screen and (min-width: 501px) {
+@media screen and (min-width: 516px) {
   .sidebar {
    border-right: 1px solid #f0f0f0;
    margin: 0;
@@ -160,10 +160,10 @@ div.content {
 }
 
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 515px) {
   .sidebar {
     width: auto;
-	height: 55pt;
+	height: 325pt;
     position: relative;
 	/*border-right: 1px solid white;*/
 	border-bottom: 1px solid #f0f0f0;
@@ -201,13 +201,13 @@ display: none;
 }
 </style>
 </head>
-<body onresize="fixSidebar()">
+<body>
 
-<div class="sidebar" id="sidebar">
+<div class="sidebar aperta" id="sidebar">
 <div class="line">
 	<a class="title" > <b>Ask to Reply</b></a>
 	</div>
-  <a class="active" href="#home"><svg class ="responsivesvg" style="margin-right:5pt" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <a class="active" href="#home"><svg  class ="responsivesvg" style="margin-right:5pt" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
   <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
 </svg> Home</a>
@@ -228,8 +228,12 @@ display: none;
   <button href="#CHIEDI">CHIEDI</button>
 
 <!-- --><a></a>
-  <button id="bottonesuperiore" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <button style="display:none;" id="bottonesuperiore_apri" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+</svg></button>
+
+<button style="display:none;" id="bottonesuperiore_chiudi" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
 </svg></button>
 
 </div>
@@ -244,6 +248,20 @@ display: none;
 
 <!-- -->
 <script>
+
+fixbtn();
+
+function fixbtn(){
+  var w = window.outerWidth;
+  if(w<=515){
+    document.getElementById("bottonesuperiore_chiudi").style.display="block";
+  }
+}
+
+
+window.addEventListener('resize', fixSidebar);
+
+
 function openBar(){
 	//mi è venuta sete
   var x = document.getElementById("sidebar");
@@ -252,29 +270,58 @@ function openBar(){
     /*x.style.height="100%";*/
     x.style.height="325pt";
     /*document.getElementById("bottonesuperiore").style.top="8%";*/
-    document.getElementById("bottonesuperiore").style.top="35px";
+    document.getElementById("bottonesuperiore_apri").style.top="35px";
 
     x.className += " aperta";
 
     var a = "la sidebar si è aperta";
     console.log(a);
+
+  //document.getElementById("avg_plus").style.display="none"; /*ooooo*/
+
+  document.getElementById("bottonesuperiore_apri").style.top="35px";
+  document.getElementById("bottonesuperiore_chiudi").style.top="35px";
+  document.getElementById("bottonesuperiore_apri").style.display="none";
+  document.getElementById("bottonesuperiore_chiudi").style.display="block";
+
   }
   else{
+      //document.getElementById("avg_plus").style.display="block"; /*ooooo*/
     var a = "la sidebar si è chiusa";
 console.log(a);
 x.style.height="55pt";
   x.className = "sidebar";
     /*document.getElementById("bottonesuperiore").style.top="50%"*/;
-    document.getElementById("bottonesuperiore").style.top="35px";
+    document.getElementById("bottonesuperiore_apri").style.top="35px";
+    document.getElementById("bottonesuperiore_chiudi").style.top="35px";
+    document.getElementById("bottonesuperiore_apri").style.display="block";
+    document.getElementById("bottonesuperiore_chiudi").style.display="none";
+
 
   }
 }
 
 function fixSidebar(){
   var w = window.outerWidth;
-  if(w>500){
-    var x = document.getElementById("sidebar");
+  var x = document.getElementById("sidebar");
+
+  if(w>515){
     x.style.height="100%";
+    console.log("maggiore di 500: ");
+    console.log(w);
+    document.getElementById("bottonesuperiore_apri").style.display="none";
+    document.getElementById("bottonesuperiore_chiudi").style.display="none";
+
+    document.getElementById("sidebar").className="sidebar";
+
+
+  }else{
+    document.getElementById("bottonesuperiore_chiudi").style.display="block";
+    x.style.height="325pt";
+    if(document.getElementById("sidebar").className!="sidebar aperta"){
+    document.getElementById("sidebar").className+=" aperta";}
+    console.log("minore di 500: ");
+    console.log(w);
   }
 }
 </script>
