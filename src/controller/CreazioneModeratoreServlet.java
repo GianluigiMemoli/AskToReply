@@ -33,9 +33,7 @@ public class CreazioneModeratoreServlet extends CustomServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	// TODO Auto-generated method stub    	
-    	super.checkMasterModeratore(req.getSession(), resp);
-    	 
-    	     	
+    	super.checkMasterModeratore(req.getSession(), resp);    	     	
     	super.service(req, resp);
     }
 	/**
