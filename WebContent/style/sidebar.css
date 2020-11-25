@@ -1,0 +1,161 @@
+@charset "ISO-8859-1";
+
+.sidebar {
+  border-right: 1px solid #f0f0f0;
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  position: fixed;
+  overflow: auto;
+  font-size: 20pt;
+}
+
+.sidebar a {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+  display: block;
+  color: black;
+  padding: 17px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 45pt;
+}
+
+.sidebar div.line {
+  height: 55pt;
+}
+
+.sidebar a.title {
+  font-size: 20pt;
+  text-align: center;
+  padding: 25px;
+  color: #5d34af;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+  margin-left: 0pt;
+}
+
+.sidebar a.active {
+  color: #5d34af;
+}
+
+.sidebar button {
+  border: 0;
+  color: white;
+  min-width: 9em;
+  max-width: 9em;
+  font-weight: 700;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 15pt;
+  text-align: center;
+  align: center;
+  align-items: center;
+  background: #5d34af;
+  border-radius: 99em;
+  height: 2.25em;
+  padding: 0 1em;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top:45pt;
+  margin-bottom: 20pt;
+}
+
+.sidebar button.bottonesuperiore {
+  text-align: center;
+  border: 0;
+  color: #5d34af;
+  min-width: 2em;
+  max-width: 2em;
+  background: white;
+  border-radius: 99em;
+  height: 1.25em;
+  position: absolute;
+  left: 90%;
+  /*top: 50%;*/
+  top: 35px;
+  margin-top:5pt;
+  margin-bottom: 5pt;
+  display: none;
+  padding: 0 0em;
+
+}
+
+.sidebar button:hover {
+  font-style:italic;
+  outline:0;
+}
+
+
+.sidebar a:hover:not(.active):not(.title){
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+  font-weight: bold;
+}
+
+div.content {
+  margin-left: 300px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+
+@media screen and (min-width: 516px) {
+
+  .sidebar {
+    border-right: 1px solid #f0f0f0;
+    margin: 0;
+    padding: 0;
+    width: 300px;
+    height: 100%;
+    background-color: white;
+    position: fixed;
+    overflow: hidden;
+  }
+
+}
+
+
+@media screen and (max-width: 515px) {
+
+  .sidebar {
+    width: auto;
+    height: 355pt;
+    position: relative;
+    border-right: 0px solid white;
+    border-bottom: 1px solid #f0f0f0;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+
+  .sidebar a {
+    margin-left: 0pt;
+    text-align: center;
+    float: none;
+  }
+
+  div.content {
+    margin-left: 0;
+  }
+
+  .sidebar a.title {
+    left: 10%;
+    text-align: left;
+  }
+
+  .sidebar button.bottonesuperiore{
+    display: block;
+  }
+
+  .sidebar div.line {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  svg.responsivesvg{
+    display: none;
+  }
+
+}
