@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
 
-<jsp:include page="Header.jsp"></jsp:include>
-<jsp:include page="Sidebar.jsp"></jsp:include>
-
-<div class="content">
-<h2>Form pubblicazione risposta test</h2>
+<div class="container">
+			<form action="PubblicazioneRispostaServlet" method="post">
+				<div class="form-group">
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" pattern="([A-Za-z']+\s*)+" required placeholder="scrivi risposta..." ></textarea>
+					</div>
+				 <button type="submit" class="btn btn-primary">Rispondi</button>
+			</form>
 </div>
 
-<jsp:include page="Footer.jsp"></jsp:include>
