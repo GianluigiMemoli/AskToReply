@@ -83,6 +83,31 @@ public class UtenteDAO {
 		return searchedUtente;
 	}
 	
+	public static UtenteBean getUtenteById(String id) {
+		DBManager dbManager = DBManager.getInstance();
+		UtenteBean searchedUtente = null;
+		try {
+		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetUtenteById", 1);		
+		callProcedure.setString(1, id);
+		ResultSet rs = callProcedure.executeQuery();
+		if(rs.next()) {
+			searchedUtente = new UtenteBean(
+					rs.getString("email"),
+					rs.getString("passwordHash"), 
+					rs.getString("nuovaPassword"), 
+					rs.getString("username"), 
+					rs.getString("nome"),
+					rs.getString("cognome"), 
+					rs.getInt("ruoloId"), 
+					rs.getBoolean("isDisattivato"), 
+					rs.getString("id")
+					);
+		}
+		} catch (SQLException exc) {
+			exc.printStackTrace();
+		}
+		return searchedUtente;
+	}
 	
 }
 

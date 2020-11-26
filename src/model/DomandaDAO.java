@@ -318,8 +318,42 @@ public class DomandaDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}		
+	}
+	
+	public static ArrayList<DomandaBean> getDomandeRecenti(int start, int end){		
+		String query = "SELECT * FROM Domande ORDER BY dataPubblicazione  LIMIT ?, ?" ;		
+		DBManager dbManager = DBManager.getInstance();
+		ArrayList<DomandaBean> domande = new ArrayList<DomandaBean>();
+		try {
+			PreparedStatement stmt = dbManager.createPreparedStatement(query);
+			stmt.setInt(1, start);
+			stmt.setInt(2, end);
+			ResultSet records = stmt.executeQuery();			
+			
+			while(records.next()) {
+				String id = records.getNString("id");
+				String titolo = records.getNString("titolo");
+				String corpo = records.getNString("corpo");
+				String idAutore = records.getNString("idAutore");
+				Date dataPubblicazione = records.getDate("dataPubblicazione");
+				boolean isArchiviata = records.getBoolean("isArchiviata");
+				DomandaBean domandaInstance = new DomandaBean();
+				domandaInstance.setId(id);
+				domandaInstance.setTitolo(titolo);
+				domandaInstance.setCorpo(corpo);
+				domandaInstance.setArchiviata(isArchiviata);
+				domandaInstance.setDataPubblicazione(dataPubblicazione);
+				UtenteBean autore = new UtenteBean();
+				autore.setId(idAutore);
+				domandaInstance.setAutore(autore);
+				domande.add(domandaInstance);		
 		}
-		
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return domande;
 	}
 	
 	private static Logger logger = Logger.getLogger(DomandaDAO.class.getName());

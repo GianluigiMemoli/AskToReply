@@ -156,7 +156,34 @@ public class DomandeManager {
 		DomandaDAO.updateCategorieDomanda(domanda);
 	}
 	
-	//
+	private DomandaBean populateAutore(DomandaBean domanda) {
+		UtenteBean autore = UtenteDAO.getUtenteById(domanda.getAutore().getId());
+		domanda.setAutore(autore);
+		return domanda;
+	}
+	
+	private DomandaBean populateCategorie(DomandaBean domanda) {
+		ArrayList<CategoriaBean> categorie = CategoriaDAO.getCategorieDomandaByIdDomanda(domanda.getId());		
+		domanda.setCategorie(categorie);		
+		return domanda;
+	}
+	
+	private DomandaBean populateReferencedEntities(DomandaBean domanda) {
+		domanda = populateAutore(domanda);
+		domanda = populateCategorie(domanda);
+		return domanda;
+	}
+	
+	public ArrayList<DomandaBean> getDomandeRecenti(int start, int end){
+		ArrayList<DomandaBean> domandeRecenti = DomandaDAO.getDomandeRecenti(start, end);
+		ArrayList<DomandaBean> domandePopolate = new ArrayList<DomandaBean>();
+		for(DomandaBean domanda : domandeRecenti) {
+			domandePopolate.add(populateReferencedEntities(domanda));
+		}
+		return domandePopolate;
+	}
+	
+	
 	
 	private static Logger logger = Logger.getLogger(DomandeManager.class.getName());
 	

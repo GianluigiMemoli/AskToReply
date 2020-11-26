@@ -47,14 +47,17 @@ public class AccessoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email").trim(); 
 		String password = request.getParameter("password").trim();
-		
+		log.info("login called");
 		AccountManager accountManager = new AccountManager();	
 		try {
 			UtenteBean loggedIn = accountManager.autenticaUtente(email, password);
-			request.getSession().setAttribute("utenteLoggato", loggedIn);							
+			request.getSession().setAttribute("utenteLoggato", loggedIn);
+			request.getRequestDispatcher("VisualizzaHome").forward(request, response);
 		} catch(CredenzialiNonValideException exc) {
 			//todo gestire errore 
-			request.setAttribute("errore", exc.getMessage()); 
+			request.setAttribute("errore", exc.getMessage());
+			response.setStatus(401);
+			request.getRequestDispatcher("FormAccesso.jsp").forward(request, response);
 		}		
 	}
 
