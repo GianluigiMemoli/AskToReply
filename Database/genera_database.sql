@@ -30,7 +30,6 @@ CREATE TABLE Utenti (
     FOREIGN KEY (ruoloId) REFERENCES Ruoli(id)
  );
 
-
  CREATE TABLE Partecipanti (
      idUtente VARCHAR(256),
      punteggio INTEGER DEFAULT 0,
@@ -47,8 +46,6 @@ CREATE TABLE Utenti (
      FOREIGN KEY (idCategoria) REFERENCES Categorie(id)
  );
 
-
-
 CREATE TABLE Domande (
     id VARCHAR(256),
     titolo VARCHAR(256) NOT NULL, 
@@ -57,8 +54,7 @@ CREATE TABLE Domande (
     idAutore VARCHAR(256) NOT NULL,
     dataPubblicazione DATETIME NOT NULL, 
     isArchiviata bit DEFAULT 0 NOT NULL, 
-    PRIMARY KEY(id), 
-    /*FOREIGN KEY (idAllegato) REFERENCES Allegati(id),*/
+    PRIMARY KEY(id),
     FOREIGN KEY (idAutore) REFERENCES Partecipanti(idUtente)
 );
 
@@ -90,7 +86,6 @@ CREATE TABLE Votazioni (
     FOREIGN KEY(idRisposta) REFERENCES Risposte(id) ON DELETE CASCADE
 ); 
 
-
 CREATE TABLE Motivazioni (
     id integer AUTO_INCREMENT, 
     nome VARCHAR(50) NOT NULL, 
@@ -113,7 +108,6 @@ CREATE TABLE Segnalazioni (
     FOREIGN KEY(idMotivazione) REFERENCES Motivazioni(id),
     FOREIGN KEY(stato) REFERENCES StatoSegnalazione(id)
 );
-
 
 CREATE TABLE SegnalazioniRisposta (
     idSegnalazione  VARCHAR(256),     
