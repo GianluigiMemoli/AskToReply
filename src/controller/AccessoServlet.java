@@ -51,7 +51,7 @@ public class AccessoServlet extends HttpServlet {
 		AccountManager accountManager = new AccountManager();	
 		try {
 			UtenteBean loggedIn = accountManager.autenticaUtente(email, password);
-			request.getSession().setAttribute("utenteLoggato", loggedIn);
+			request.getSession().setAttribute("utenteLoggato", loggedIn);			
 			request.getRequestDispatcher("VisualizzaHome").forward(request, response);
 		} catch(CredenzialiNonValideException exc) {
 			//todo gestire errore 

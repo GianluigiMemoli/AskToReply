@@ -48,7 +48,7 @@ public class DomandaDAO {
 			
 			// E se inserisce una categoria già presente?
 			
-			CallableStatement procedure = manager.prepareStoredProcedureCall("AddCategoriadomanda", 2);
+			CallableStatement procedure = manager.prepareStoredProcedureCall("AddCategoriaDomanda", 2);
 			
 			procedure.setNString(1, domanda.getId());
 			procedure.setNString(2, categoria.getId());
@@ -332,6 +332,53 @@ public class DomandaDAO {
 			ResultSet records = stmt.executeQuery();			
 			
 			while(records.next()) {
+				String id = records.getNString("id");
+				String titolo = records.getNString("titolo");
+				String corpo = records.getNString("corpo");
+				String idAutore = records.getNString("idAutore");
+				Date dataPubblicazione = records.getDate("dataPubblicazione");
+				boolean isArchiviata = records.getBoolean("isArchiviata");
+				DomandaBean domandaInstance = new DomandaBean();
+				domandaInstance.setId(id);
+				domandaInstance.setTitolo(titolo);
+				domandaInstance.setCorpo(corpo);
+				domandaInstance.setArchiviata(isArchiviata);
+				domandaInstance.setDataPubblicazione(dataPubblicazione);
+				UtenteBean autore = new UtenteBean();
+				autore.setId(idAutore);
+				domandaInstance.setAutore(autore);
+				domande.add(domandaInstance);		
+		}
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return domande;
+	}
+	public static Logger log = Logger.getAnonymousLogger();
+	public static ArrayList<DomandaBean> getDomandePertinenti(ArrayList<CategoriaBean> categorie, int start, int end){		
+		String paramPlaceholder = "?,";
+		String catParams = paramPlaceholder.repeat(categorie.size());
+		catParams = catParams.substring(0, catParams.length() - 1);
+		String query =
+				"SELECT * FROM Domande AS dom JOIN categoriedomande as catDom ON dom.id = catDom.idDomanda "
+				+ "WHERE catDom.idCategoria IN (" + catParams +") ORDER BY dom.dataPubblicazione DESC limit ?, ?" ;										
+		log.info(query);
+		log.info(catParams);
+		DBManager dbManager = DBManager.getInstance();
+		ArrayList<DomandaBean> domande = new ArrayList<DomandaBean>();
+		try {
+			PreparedStatement stmt = dbManager.createPreparedStatement(query);
+			int currentParam = 1;
+			for (; currentParam <= categorie.size(); currentParam++) {
+				stmt.setInt(currentParam, Integer.parseInt(categorie.get(currentParam-1).getId()));
+			}
+			stmt.setInt(currentParam, start);
+			stmt.setInt(++currentParam, end);
+			ResultSet records = stmt.executeQuery();			
+			log.info(stmt.toString());
+			while(records.next()) {
+				log.info(records.toString());
 				String id = records.getNString("id");
 				String titolo = records.getNString("titolo");
 				String corpo = records.getNString("corpo");

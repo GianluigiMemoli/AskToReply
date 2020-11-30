@@ -13,4 +13,4 @@ CREATE PROCEDURE UpdateUtente(
         UPDATE Utenti SET email = UPPER(email), username = username, nome = nome, cognome = cognome
         WHERE id = userId;
         
-    END $$
+    END 

@@ -69,6 +69,7 @@ public class DomandeManager {
 		CategoriaBean categoria = new CategoriaBean();
 		
 		for (String idCategoria : idCategorie) {		
+			System.out.println("INSERISCO IN CATEGORIE DOMANDE ID CATEGORIA " + idCategoria);
 			categoria.setId(idCategoria);
 			DomandaDAO.addCategoriaDomanda(domanda, categoria);
 		}
@@ -183,6 +184,14 @@ public class DomandeManager {
 		return domandePopolate;
 	}
 	
+	public ArrayList<DomandaBean> getDomandePertinenti(PartecipanteBean utente, int start, int end){
+		ArrayList<CategoriaBean> categorie = CategoriaDAO.getCategorieByUtente(utente.getId());
+		ArrayList<DomandaBean> domande = new ArrayList<DomandaBean>();
+		for(DomandaBean domanda : DomandaDAO.getDomandePertinenti(categorie, start, end)) {
+			domande.add(this.populateReferencedEntities(domanda));
+		}
+		return domande;
+	}   
 	
 	
 	private static Logger logger = Logger.getLogger(DomandeManager.class.getName());
