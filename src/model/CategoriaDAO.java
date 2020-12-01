@@ -90,4 +90,25 @@ public class CategoriaDAO {
 		
 		return categorie;
 	}
+	
+	public static ArrayList<CategoriaBean> getCategorieByUtente(String idUtente){
+		DBManager dbManager = DBManager.getInstance();
+		ArrayList<CategoriaBean> categorie = new ArrayList<CategoriaBean>();
+		try {
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetInteressiByUtente", 1);
+			callProcedure.setString(1, idUtente);
+			ResultSet records = callProcedure.executeQuery();
+			while(records.next()) {
+				CategoriaBean categoria = new CategoriaBean();
+				categoria.setId(records.getNString("idCategoria"));
+				categoria.setNome(records.getNString("nome"));
+				categorie.add(categoria);
+			}
+			return categorie;
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
