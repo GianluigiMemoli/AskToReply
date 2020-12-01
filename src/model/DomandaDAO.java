@@ -228,7 +228,7 @@ public class DomandaDAO {
 		
 		String query = query_select + "\n" + query_from + "\n" + query_where + "\n" + query_group_by + "\n" + query_having + "\n" + query_order_by;
 		
-		logger.info(query);
+		// logger.info(query);
 		
 		DBManager manager = DBManager.getInstance();
 		
