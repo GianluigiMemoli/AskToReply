@@ -60,4 +60,12 @@ public class Validator {
 		
 	}
 	
+	public static boolean validateUpdateProfileFields(String nome, String cognome, String username, String email) {
+		return 
+			   hasOnlyLettersApostropheAndSpaces(nome) &&
+			   hasOnlyLettersApostropheAndSpaces(cognome) && 
+			   isAnEmail(email) && 
+			   isUsernameValid(username); 				   
+	}
+	
 }

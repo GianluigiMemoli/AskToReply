@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class ModeratoreDAO {
 	
-	public static void doAddModeratore(UtenteBean newUser) throws SQLException{
+	public static void doAddModeratore(UtenteBean newUser) {
 		DBManager dbManager = DBManager.getInstance();	
+		try {
 		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("RegistraModeratore", 5);
 		
 		callProcedure.setString(1, newUser.getEmail());
@@ -16,16 +17,20 @@ public class ModeratoreDAO {
 		callProcedure.setString(3, newUser.getUsername());
 		callProcedure.setString(4, newUser.getCognome());
 		callProcedure.setString(5, newUser.getNome());																	
-		callProcedure.executeUpdate();				
+		callProcedure.executeUpdate();
+		}catch(SQLException exc) {
+			exc.printStackTrace();
+		}
 	}
 	
-	public static ArrayList<ModeratoreBean> doGetModeratori() throws SQLException{
+	public static ArrayList<ModeratoreBean> doGetAllModeratori() {
 		DBManager dbManager = DBManager.getInstance();	
-		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetModeratori", 0);
-		ResultSet resultSet = callProcedure.executeQuery();
-		ArrayList<ModeratoreBean> moderatori = new ArrayList<ModeratoreBean>();
-		while(resultSet.next()){			
-			moderatori.add(
+		try {
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetModeratori", 0);
+			ResultSet resultSet = callProcedure.executeQuery();
+			ArrayList<ModeratoreBean> moderatori = new ArrayList<ModeratoreBean>();
+			while(resultSet.next()){			
+				moderatori.add(
 					new ModeratoreBean(
 						resultSet.getNString("email"),
 						resultSet.getNString("passwordHash"),
@@ -38,15 +43,23 @@ public class ModeratoreDAO {
 						resultSet.getNString("id")					
 					)
 			);
-		}
+			}		
 		return moderatori;
+		} catch (SQLException exc) {
+			exc.printStackTrace();
+		}
+		return null;
 	}
 	
-	public static void doDeactivateModeratore(String id) throws SQLException {
+	public static void doDeactivateModeratore(String id) {
 		DBManager dbManager = DBManager.getInstance();	
+		try {
 		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("DeleteModeratore", 1);
 		callProcedure.setNString(1, id);
 		callProcedure.executeUpdate();
+		} catch (SQLException exc) {
+			exc.printStackTrace();
+		}
 	}
 }
 
