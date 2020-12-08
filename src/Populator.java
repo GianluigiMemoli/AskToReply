@@ -92,6 +92,26 @@ public class Populator {
 			}
 		}
 	}
+	
+	public static void createModeratori(int numMods) {
+		AccountManager managerAccount = new AccountManager();						
+		for(int i = 0; i < numMods; i++) {
+			String nome = generaStringa(5);
+			String cognome = generaStringa(5);
+			String username = generaStringa(5);
+			String email = makeEmail();
+			String password = "password";
+			String[] interessi = getRandomInteressi(2);			
+			try {
+				
+				managerAccount.RegistraModeratore(email, password, username, nome, cognome);
+			} catch (NoSuchAlgorithmException | CampiNonConformiException | EmailPresenteException
+					| UsernamePresenteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	public static void populateUsers() {
 		createUsers(10);
 	}

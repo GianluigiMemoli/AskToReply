@@ -70,8 +70,8 @@ public class CategoriaDAO {
 		DBManager dbManager = DBManager.getInstance();
 		
 		try {
-			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetACategorieDomandaByIdDomanda", 1);
-			
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetCategorieDomandeByIdDomanda", 1);
+			callProcedure.setNString(1, idDomanda);
 			ResultSet rs = callProcedure.executeQuery();
 			
 			while(rs.next()) {

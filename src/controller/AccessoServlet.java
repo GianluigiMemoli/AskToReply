@@ -43,6 +43,8 @@ public class AccessoServlet extends HttpServlet {
 	 */
 	Logger log = Logger.getLogger(AccessoServlet.class.getName());
 	
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email").trim(); 
@@ -52,7 +54,7 @@ public class AccessoServlet extends HttpServlet {
 		try {
 			UtenteBean loggedIn = accountManager.autenticaUtente(email, password);
 			request.getSession().setAttribute("utenteLoggato", loggedIn);			
-			request.getRequestDispatcher("VisualizzaHome").forward(request, response);
+			request.getRequestDispatcher("RoleRouterServlet").forward(request, response);
 		} catch(CredenzialiNonValideException exc) {
 			//todo gestire errore 
 			request.setAttribute("errore", exc.getMessage());

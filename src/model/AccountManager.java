@@ -3,7 +3,7 @@ package model;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import Exceptions.CampiNonConformiException;
@@ -42,9 +42,10 @@ public class AccountManager {
 			throw exc;
 		}
 	}
+		
 	
-	public void RegistraModeratore(String email, String password, String username, String nome, String cognome) throws CampiNonConformiException, EmailPresenteException, UsernamePresenteException, NoSuchAlgorithmException, SQLException {				
-		UtenteBean newUser =   generateUtenteBean(nome, cognome, username, email, password);		
+	public void RegistraModeratore(String email, String password, String username, String nome, String cognome) throws CampiNonConformiException, EmailPresenteException, UsernamePresenteException, NoSuchAlgorithmException {				
+		UtenteBean newUser =   generateUtenteBean(nome, cognome, username, email, password);				
 		ModeratoreDAO.doAddModeratore(newUser);		
 	}
 	
@@ -75,13 +76,59 @@ public class AccountManager {
 		PartecipanteDAO.addInteresse(partecipante, categoria);		
 	}
 	
+	public void removeInteressePartecipante(PartecipanteBean partecipante, CategoriaBean categoria) throws CampiNonConformiException {
+		log.info(categoria.getNome());
+		if(CategoriaDAO.getCategoriaByNome(categoria.getNome()) == null) {			
+			throw new CampiNonConformiException();
+		}
+		PartecipanteDAO.removeInteresse(partecipante, categoria);		
+	}
+	
+	private void updateInteressiUtente(PartecipanteBean user, String[] interessi) throws CampiNonConformiException {
+		ArrayList<CategoriaBean> newInteressi = new ArrayList<CategoriaBean>(); 
+		for(String nomeInteresse : interessi) {
+			newInteressi.add(CategoriaDAO.getCategoriaByNome(nomeInteresse));			
+		}
+		ArrayList<CategoriaBean> interessiUtente = CategoriaDAO.getCategorieByUtente(user.getId());
+		
+		
+		for(CategoriaBean interesse : newInteressi) {
+			if(!interessiUtente.contains(interesse)) {
+				this.addInteressePartecipante(user, interesse);
+			}
+		}
+		
+		for(CategoriaBean interesse : interessiUtente) {
+			if(!newInteressi.contains(interesse)) {
+				this.removeInteressePartecipante(user, interesse);
+			}
+		}
+	}
+	
+	
+	public void updateUtente(PartecipanteBean user, String newNome, String newCognome, String newUsername, String newEmail, String[] interessi) throws CampiNonConformiException {
+		if((!Validator.validateUpdateProfileFields(newNome, newCognome, newUsername, newEmail))) {
+			throw new CampiNonConformiException();
+		}
+		if (interessi.length == 0) {
+			throw new CampiNonConformiException("Inserire almeno una categoria");
+		}		
+		
+		user.setNome(newNome);
+		user.setCognome(newCognome);
+		user.setEmail(newEmail);
+		user.setUsername(newUsername);		
+		this.updateInteressiUtente(user, interessi);
+		PartecipanteDAO.updateUtente(user);		
+	}
+	
 	private String getPasswordHash(String password) throws NoSuchAlgorithmException{
 		MessageDigest digest;
 		digest = MessageDigest.getInstance("SHA-256");
 		byte[] hashedPassword = digest.digest(password.getBytes(StandardCharsets.UTF_8));
 		StringBuffer hexString = new StringBuffer();
-		for (int ii = 0; ii < hashedPassword.length; ii++) {
-			String hex = Integer.toHexString(0xff & hashedPassword[ii]);
+		for (int i = 0; i < hashedPassword.length; i++) {
+			String hex = Integer.toHexString(0xff & hashedPassword[i]);
             if(hex.length() == 1) 
             	hexString.append('0');
             

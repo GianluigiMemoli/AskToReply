@@ -5,4 +5,9 @@ public class CampiNonConformiException extends Exception{
 			super("Dati inseriti non validi"); 
 		}
 		
+		
+		public CampiNonConformiException(String msg) {
+			super(msg);
+		}
+		
 }

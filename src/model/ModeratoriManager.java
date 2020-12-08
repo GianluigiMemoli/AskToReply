@@ -1,15 +1,14 @@
 package model;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ModeratoriManager {
 	
-	public ArrayList<ModeratoreBean> getAllModeratori() throws SQLException{
-		return ModeratoreDAO.doGetModeratori();
+	public ArrayList<ModeratoreBean> getAllModeratori(){
+		return ModeratoreDAO.doGetAllModeratori();
 	}
 	
-	public void deleteModeratore(String id) throws SQLException{
+	public void deleteModeratore(String id){
 		ModeratoreDAO.doDeactivateModeratore(id);
 	}
 }

@@ -5,4 +5,5 @@ public class CredenzialiNonValideException extends Exception{
 		// TODO Auto-generated constructor stub
 		super("Credenziali inserite non valide."); 
 	}
+	
 }

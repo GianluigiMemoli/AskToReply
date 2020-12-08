@@ -16,14 +16,14 @@ import model.ModeratoriManager;
 /**
  * Servlet implementation class VisualizzaListaModeratori
  */
-@WebServlet("/VisualizzaListaModeratori")
-public class VisualizzaListaModeratori extends CustomServlet {
+@WebServlet("/GestioneModeratori")
+public class GestioneModeratoriServlet extends CustomServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VisualizzaListaModeratori() {
+    public GestioneModeratoriServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,6 +33,7 @@ public class VisualizzaListaModeratori extends CustomServlet {
     	// TODO Auto-generated method stub
     	if(!super.isMasterModeratoreLogged(req.getSession())){
     		resp.setStatus(403);
+    		resp.sendRedirect("/accesso");
     	}
     	super.service(req, resp);
     }
@@ -43,15 +44,10 @@ public class VisualizzaListaModeratori extends CustomServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ModeratoriManager modManager = new ModeratoriManager();
-		ArrayList<ModeratoreBean> moderatoriList;
-		try {
-			moderatoriList = modManager.getAllModeratori();
-			request.setAttribute("moderatoriList", moderatoriList);
-			request.getRequestDispatcher("WEB-INF\\ElencoModeratori.jsp").forward(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		ArrayList<ModeratoreBean> moderatoriList;		
+		moderatoriList = modManager.getAllModeratori();
+		request.setAttribute("moderatoriList", moderatoriList);
+		request.getRequestDispatcher("GestioneModeratori.jsp").forward(request, response);		
 	}
 
 	/**
