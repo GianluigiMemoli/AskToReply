@@ -4,11 +4,15 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.logging.Logger;
+
 
 // DA COMPLETARE
 
 public class SegnalazioneRispostaDAO {
+	
+	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); //test
+	
 
 	//ASPETTO DIBENE CHE CARICA LA PROCEDURA //Controllarle perchè c'è qualcosa che non va
 	public static void addSegnalazioneRisposta(SegnalazioneRispostaBean segnalazione) {
@@ -19,7 +23,7 @@ public class SegnalazioneRispostaDAO {
 		DBManager dbManager = DBManager.getInstance();
 		try {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateSegnalazione", 4);
-			callProcedure.setString(1, segnalazione.getIdMotivazione());
+			callProcedure.setInt(1, segnalazione.getIdMotivazione());
 			callProcedure.setDate(2, new java.sql.Date(segnalazione.getDataSegnalazione().getTime()));
 			callProcedure.setInt(3, segnalazione.getStato());
 			callProcedure.setString(4, segnalazione.getCommento());
@@ -55,26 +59,28 @@ public class SegnalazioneRispostaDAO {
 	}
 	
 	public static ArrayList<SegnalazioneRispostaBean> getElencoSegnalazioniRisposte() {
-		
+		ArrayList<SegnalazioneRispostaBean> segnalazioniRisposte = new ArrayList<SegnalazioneRispostaBean>();
+		SegnalazioneRispostaBean segnalazioneRisposta = null;
 		DBManager dbManager = DBManager.getInstance();
-		ArrayList<SegnalazioneRispostaBean> segnalazioniRisposte = null; 
-		SegnalazioneRispostaBean segnalazione = null;
 		ResultSet rs = null;
 		
 		try {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetSegnalazioniRisposte",0);
-			rs = callProcedure.getResultSet();
-			
-			while(rs.next()) {
-				segnalazione = new SegnalazioneRispostaBean(
-						rs.getString("id"),	
-						rs.getString("idRisposta"),
-						rs.getString("idMotivazione"), 
-						rs.getDate("dataSegnalazione"), 
-						rs.getInt("stato"), 
-						rs.getString("commento")
-						);
-				segnalazioniRisposte.add(segnalazione);
+			//rs = callProcedure.getResultSet();
+			rs = callProcedure.executeQuery();
+			//log.info("pw");
+			while(rs.next()){
+				segnalazioneRisposta = new SegnalazioneRispostaBean();
+				segnalazioneRisposta.setIdSegnalazione(rs.getString("id"));
+				segnalazioneRisposta.setCorpoRisposta(RispostaDAO.getCorpoRispostaById((rs.getString("idRisposta"))).getCorpo());
+				segnalazioneRisposta.setTitoloDomanda((DomandaDAO.getDomandaById(RispostaDAO.getRispostaById((rs.getString("idRisposta"))).getIdDomanda())).getTitolo());
+				segnalazioneRisposta.setCorpoDomanda((DomandaDAO.getDomandaById(RispostaDAO.getRispostaById((rs.getString("idRisposta"))).getIdDomanda())).getCorpo());
+				segnalazioneRisposta.setMotivazione((MotivazioneDAO.getMotivazioneById(rs.getInt("idMotivazione"))).getNome());
+				segnalazioneRisposta.setDataSegnalazione(rs.getDate("dataSegnalazione")); 
+				segnalazioneRisposta.setStato(rs.getInt("stato")); 
+				segnalazioneRisposta.setCommento(rs.getString("commento"));
+				segnalazioneRisposta.setIdRisposta(rs.getString("idRisposta")); //aggiunta ora
+				segnalazioniRisposte.add(segnalazioneRisposta);
 			}
 		}catch(SQLException exc) {
 			exc.printStackTrace();
@@ -87,25 +93,24 @@ public class SegnalazioneRispostaDAO {
 	public static SegnalazioneRispostaBean getSegnalazioneRispostaById(String idSegnalazione) {
 		//Utilizzo della S.P. [GetSegnalazioneRispostaById] { aggiungere S.P. }
 		DBManager dbManager = DBManager.getInstance();
-		SegnalazioneRispostaBean segnalazioneRisposta=null;
+		SegnalazioneRispostaBean segnalazioneRisposta = null;
 		try {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetSegnalazioneRispostaById", 1);		
 			callProcedure.setString(1, idSegnalazione);
 			ResultSet rs = callProcedure.executeQuery();
 			if(rs.next()) {
-				segnalazioneRisposta = new SegnalazioneRispostaBean(
-						rs.getString("id"),	
-						rs.getString("idRisposta"),
-						rs.getString("idMotivazione"), 
-						rs.getDate("dataSegnalazione"), 
-						rs.getInt("stato"), 
-						rs.getString("commento")
-						);
+				segnalazioneRisposta = new SegnalazioneRispostaBean();
+				segnalazioneRisposta.setIdSegnalazione(rs.getString("id"));
+				segnalazioneRisposta.setCorpoRisposta(RispostaDAO.getCorpoRispostaById((rs.getString("idRisposta"))).getCorpo());
+				segnalazioneRisposta.setIdMotivazione(rs.getInt("idMotivazione"));
+				segnalazioneRisposta.setDataSegnalazione(rs.getDate("dataSegnalazione")); 
+				segnalazioneRisposta.setStato(rs.getInt("stato")); 
+				segnalazioneRisposta.setCommento(rs.getString("commento"));
+				segnalazioneRisposta.setIdRisposta(rs.getString("idRisposta")); //aggiunta ora
 			}
 			} catch (SQLException exc) {
 				exc.printStackTrace();
 			}
 		return segnalazioneRisposta;
-	}
-	
+	}	
 }

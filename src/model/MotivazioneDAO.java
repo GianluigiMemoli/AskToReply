@@ -39,4 +39,29 @@ public class MotivazioneDAO {
 		return null;
 	}
 	
+	
+	
+public static MotivazioneBean getMotivazioneById(int id) {
+		
+		DBManager manager = DBManager.getInstance();
+		
+		try {
+			CallableStatement stmt = manager.prepareStoredProcedureCall("GetMotivazioneById", 1);
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				MotivazioneBean motivazione = new MotivazioneBean();
+				motivazione.setNome(rs.getString("nome"));
+		        return motivazione;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 }

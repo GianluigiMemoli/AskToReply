@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,7 @@ import model.MotivazioneBean;
 import model.RispostaBean;
 import model.RisposteManager;
 import model.SegnalazioneRispostaBean;
+import model.SegnalazioneRispostaDAO;
 import model.SegnalazioniManager;
 
 /**
@@ -20,6 +22,9 @@ import model.SegnalazioniManager;
  */
 @WebServlet("/RisolviSegnalazioneRispostaServlet")
 public class RisolviSegnalazioneRispostaServlet extends HttpServlet {
+	
+	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); //test
+
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -35,14 +40,14 @@ public class RisolviSegnalazioneRispostaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+	    if (request.getParameter("approva") != null) {
+			log.info("segnalazione approvata");
 
+	    } else if (request.getParameter("ignora") != null) {
+			log.info("segnalazione ignorata");
+	    }
 		
-		
-		
-		
-
-		
-		String idSegnalazione = request.getParameter("idSegnalazione");
+		/*String idSegnalazione = request.getParameter("idSegnalazione");
 		
 		PrintWriter out = response.getWriter();
 		
@@ -56,7 +61,7 @@ public class RisolviSegnalazioneRispostaServlet extends HttpServlet {
 				
 				RisposteManager managerRispo = new RisposteManager();
 				
-				if(Integer.parseInt(segnalazione.getIdMotivazione()) == MotivazioneBean.CONTENUTI_OFFENSIVI) {
+				if(segnalazione.getIdMotivazione() == MotivazioneBean.CONTENUTI_OFFENSIVI) {
 									
 					RispostaBean rb= new RispostaBean();
 					rb.setId(segnalazione.getRispostaSegnalata().getId());
@@ -66,7 +71,7 @@ public class RisolviSegnalazioneRispostaServlet extends HttpServlet {
 					
 				} else {
 					out.print("La motivazione della segnalazione NON è 'Contenuto Offensivo'.");
-				}
+				}*/
 		
 	}
 

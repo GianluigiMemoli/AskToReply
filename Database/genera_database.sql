@@ -72,6 +72,7 @@ CREATE TABLE Risposte (
     corpo VARCHAR(256) NOT NULL, 
     allegati VARCHAR(256), 
     idAutore VARCHAR(256),
+	dataPubblicazione DATETIME NOT NULL, 
 	FOREIGN KEY (idDomanda) REFERENCES Domande(id),
     FOREIGN KEY (idAutore) REFERENCES Utenti(id),
     PRIMARY KEY(id)

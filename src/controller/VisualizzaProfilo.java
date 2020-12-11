@@ -16,6 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import model.CategoriaBean;
 import model.CategoriaDAO;
 import model.PartecipanteBean;
+import model.RispostaBean;
+import model.RispostaDAO;
+import model.RisposteManager;
+import model.SegnalazioneRispostaBean;
+import model.SegnalazioniManager;
+import model.UtenteBean;
 
 /**
  * Servlet implementation class VisualizzaProfilo
@@ -55,6 +61,12 @@ public class VisualizzaProfilo extends CustomServlet {
 		ArrayList<CategoriaBean> interessiUtente = CategoriaDAO.getCategorieByUtente(currUser.getId());			
 		request.setAttribute("interessi", interessi);						
 		request.setAttribute("interessiUtente", interessiUtente);
+		//
+		UtenteBean ub = new UtenteBean();
+		ub.setId(currUser.getId());
+		ArrayList<RispostaBean> risposte = RispostaDAO.getStoricoRisposteByUtente(ub);
+		request.setAttribute("storicoRisposte", risposte);
+		//
 		log.info(interessi.toString());
 		log.info(interessiUtente.toString());
 		request.getRequestDispatcher("Profilo.jsp").forward(request, response);		

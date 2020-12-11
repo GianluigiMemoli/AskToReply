@@ -41,6 +41,10 @@
   color: #5d34af;
 }
 
+.sidebar a.activemod {
+  color: #ff6633;
+}
+
 .sidebar button {
   border: 0;
   color: white;
@@ -157,5 +161,9 @@ div.content {
   svg.responsivesvg{
     display: none;
   }
+  
+  ion-icon.responsive{
+      display: none;
+    }
 
 }

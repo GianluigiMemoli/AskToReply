@@ -53,11 +53,13 @@
 					</ul>
 				 	<button type="submit" class="btn btn-primary">Invia</button>
 			</form>
-	    </form>
    	  	</div>  
-	    
 	  </div>
-	</div>
+
+	<jsp:include page="StoricoRisposte.jsp"></jsp:include> 
+
 </div>
+
+
 <jsp:include page="Footer.jsp"></jsp:include> 
   
