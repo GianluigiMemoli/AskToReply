@@ -5,5 +5,5 @@ CREATE PROCEDURE GetRisposteByUser(
     userId varchar(256)
 )
     BEGIN			
-        SELECT * FROM Riposte WHERE Risposte.idAutore = userId; 
+        SELECT * FROM Risposte WHERE Risposte.idAutore = userId; 
     END $$

@@ -36,7 +36,7 @@ public class SegnalazioneRispostaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		idRisposta = request.getParameter("idRisposta");
-		idMotivazione = request.getParameter("idMotivazione");
+		idMotivazione = Integer.parseInt(request.getParameter("idMotivazione"));
 		commento = request.getParameter("commento");
 		stato = Integer.parseInt(request.getParameter("stato"));
 		dataSegnalazione = new Date();
@@ -46,7 +46,7 @@ public class SegnalazioneRispostaServlet extends HttpServlet {
 	}
 	
 	private String idRisposta;
-	private String idMotivazione;
+	private int idMotivazione;
 	private String commento;
 	private int stato;
 	private Date dataSegnalazione;
