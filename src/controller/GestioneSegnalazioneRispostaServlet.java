@@ -20,7 +20,7 @@ import model.SegnalazioniManager;
  * Servlet implementation class gestioneSegnalazioneRispostaServlet
  */
 @WebServlet("/gestioneSegnalazioneRispostaServlet")
-public class gestioneSegnalazioneRispostaServlet extends HttpServlet {
+public class GestioneSegnalazioneRispostaServlet extends HttpServlet {
 	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); //test
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +28,7 @@ public class gestioneSegnalazioneRispostaServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public gestioneSegnalazioneRispostaServlet() {
+    public GestioneSegnalazioneRispostaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

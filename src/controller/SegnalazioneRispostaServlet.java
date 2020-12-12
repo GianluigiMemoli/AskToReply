@@ -41,7 +41,12 @@ public class SegnalazioneRispostaServlet extends HttpServlet {
 		stato = Integer.parseInt(request.getParameter("stato"));
 		dataSegnalazione = new Date();
 		
-		SegnalazioneRispostaBean sr=new SegnalazioneRispostaBean(idRisposta, dataSegnalazione, idMotivazione, stato, commento);
+		SegnalazioneRispostaBean sr=new SegnalazioneRispostaBean();
+		sr.setIdRisposta(idRisposta);
+		sr.setDataSegnalazione(dataSegnalazione);
+		sr.setIdMotivazione(idMotivazione);
+		sr.setStato(stato);
+		sr.setCommento(commento);
 		SegnalazioneRispostaDAO.addSegnalazioneRisposta(sr);		
 	}
 	

@@ -20,7 +20,7 @@ public class RispostaDAO {
 			callProcedure.setString(1, risposta.getIdDomanda());
 			callProcedure.setString(2, risposta.getCorpo());	
 			callProcedure.setString(3, risposta.getIdAutore());
-			//callProcedure.setDate(4, new java.sql.Date(risposta.getDataPubblicazione().getTime())); //Apportare modifica al DB?
+			callProcedure.setDate(4, new java.sql.Date(risposta.getDataPubblicazione().getTime())); //Apportare modifica al DB?
 			callProcedure.registerOutParameter(4, Types.VARCHAR);
 			callProcedure.executeUpdate();
 			RispostaBean rb = new RispostaBean();
@@ -46,9 +46,6 @@ public class RispostaDAO {
 
 	public static ArrayList<RispostaBean> getStoricoRisposteByUtente(UtenteBean utente){
 		String idUser = utente.getId();
-		log.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-		log.info("L'id dell'utente è: "+idUser);
-		log.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		DBManager dbManager = DBManager.getInstance();
 		ResultSet rs = null;
 		ArrayList<RispostaBean> elencoRisposte = new ArrayList<RispostaBean>();
@@ -58,19 +55,7 @@ public class RispostaDAO {
 			callProcedure.setString(1, idUser);
 			//rs = callProcedure.getResultSet();//esplosione
 			rs = callProcedure.executeQuery();
-			
-			if(rs==null)log.info("RRRRRSSSS E' NUUUULLLL");
-			else log.info("RRRRRSSSS E' PIEEENOOO");
-
-		
-			
-			log.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-			log.info("Prima del while con rs.next");
-			log.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			while(rs.next()) {
-				log.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				log.info("Dentro il while");
-				log.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				risposta = new RispostaBean();
 				risposta.setId(rs.getString("id"));
 				risposta.setIdDomanda(rs.getString("idDomanda")); 
@@ -78,13 +63,7 @@ public class RispostaDAO {
 				risposta.setIdAutore(rs.getString("idAutore"));
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
 				elencoRisposte.add(risposta);
-				log.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				log.info(rs.getString("corpo"));
-				log.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			}
-			log.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-			log.info("Dopo il while");
-			log.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			return elencoRisposte;
 		}catch(SQLException exc) {
 			exc.printStackTrace();
@@ -99,7 +78,7 @@ public static RispostaBean getRispostaById(String id) {
 		DBManager manager = DBManager.getInstance();
 		
 		try {
-			CallableStatement stmt = manager.prepareStoredProcedureCall("GetRispostaById", 1); //aggiungere procedura
+			CallableStatement stmt = manager.prepareStoredProcedureCall("GetRispostaById", 1);
 			stmt.setString(1, id);
 			ResultSet rs = stmt.executeQuery();
 			
@@ -114,28 +93,5 @@ public static RispostaBean getRispostaById(String id) {
 		}
 		return null;
 	}
-
-//aggiunta
-public static RispostaBean getCorpoRispostaById(String id) {
-	
-	DBManager manager = DBManager.getInstance();
-	
-	try {
-		CallableStatement stmt = manager.prepareStoredProcedureCall("GetCorpoRispostaById", 1); //aggiungere procedura
-		stmt.setString(1, id);
-		ResultSet rs = stmt.executeQuery();
-		
-		if(rs.next()) {
-			RispostaBean risp = new RispostaBean();
-			risp.setCorpo(rs.getString("corpo"));
-	        return risp;
-		}
-		
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	return null;
-}
 
 }
