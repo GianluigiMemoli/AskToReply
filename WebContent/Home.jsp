@@ -35,46 +35,49 @@
 
 <div class="content debug"> 
 
-	<div class="col-sm-12">
+
 		<div class="questions-list">
+		
 			<c:forEach var="domanda" items="${domande}">				
 				<div class="question rounded border">								
 				  <div>
+				  	
+				  	
 				    <h5 class="mt-0">${domanda.getTitolo()}</h5>
 				    <p>${domanda.getCorpo()}</p>				    
 				  </div>
 				<h6>Pubblicato da: ${domanda.getAutore().getUsername()}</h6>
-				<div>
-					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  						<path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v11.586l2-2A2 2 0 0 1 4.414 11H14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-					</svg>
-					<span>Rispondi</span>
+				<div>							
+					
+					<button type="submit" class="btn btn-outline-primary btn-sm border-0" data-toggle="modal" data-target="#pubblicaRispostaModal" data-whatever="@getbootstrap"><ion-icon name="chatbubble-ellipses"></ion-icon> Rispondi</button>
+					<button type="submit" class="btn btn-outline-warning btn-sm border-0" data-toggle="modal" data-target="#dibenedettoinserisciquiiltitolodelmodalchehaifatto" data-whatever="@getbootstrap"><ion-icon name="warning"></ion-icon> Segnala</button>
+					 
+					 
+					<jsp:include page="FormPubblicazioneRisposta.jsp"><jsp:param name="idDomanda" value="${domanda.getId()}"/></jsp:include> 				
+					
 				</div>							 
 				</div>
-		</c:forEach>		
+		</c:forEach>
+		
+		
+				
 		</div>
-		<nav class="paginator" aria-label="Page navigation example">
+		<nav class="paginator d-flex justify-content-center" aria-label="Page navigation example">
   		<ul class="pagination">
   		<c:if test="${currentPage > 1 }">
-    		<li class="page-item"><a class="page-link" onclick=changePage(<%=(currentPage - 1)%>)>Previous</a></li>
+    		<li class="page-item"><a class="page-link" onclick=changePage(<%=(currentPage - 1)%>)><ion-icon name="arrow-back"></ion-icon> Previous</a></li>
     		</c:if>    	
-    		<li class="page-item"><a class="page-link" onclick=changePage(<%=(currentPage+1)%>)>Next</a></li>
+    		<li class="page-item"><a class="page-link" onclick=changePage(<%=(currentPage+1)%>)>Next <ion-icon name="arrow-forward"></ion-icon></a></li>
 		</ul>
-		</nav>
-		</div>  
+		</nav>		
 	</div>
+	
+
 	<script>
 		function changePage(pageNumber){
 			window.location.href = "/AskToReply/VisualizzaHome?page="+pageNumber;
 		}
 	</script>
+		
+	
 <jsp:include page="Footer.jsp"></jsp:include> 
-
-
-
-
-
-
-
-
-

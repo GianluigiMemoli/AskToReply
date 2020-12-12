@@ -13,7 +13,6 @@
  	}
  </style> 
 <div class="content edit-profile">
-	<div class=" card col-sm-12 col-md-12">
 	  	<div class="card-body">
 	  		<jsp:include page="PopupErrore.jsp"></jsp:include>	  	
 	  		<div class="card-title">
@@ -51,12 +50,17 @@
 							</li>
 						</c:forEach>						
 					</ul>
+					<br>
 				 	<button type="submit" class="btn btn-primary">Invia</button>
 			</form>
    	  	</div>  
-	  </div>
 
+	<hr/>
 	<jsp:include page="StoricoRisposte.jsp"></jsp:include> 
+	<hr/>
+
+	
+	
 
 </div>
 

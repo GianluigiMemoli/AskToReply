@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Paths;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,7 +16,7 @@ import Exceptions.ErrorePubblicazioneRispostaException;
 public class RisposteManager {
 
 	public void pubblicaRisposta(String idDomanda, String corpo, List<Part> allegati, String idAutore
-			/*, Date dataPubblicazione*/) throws Exception{
+			, Date dataPubblicazione) throws Exception{
 		if(corpo.trim().length() < 2) {
 			throw new ErrorePubblicazioneRispostaException("Il corpo della risposta deve contenere almeno due caratteri.");
 		}
@@ -26,7 +26,7 @@ public class RisposteManager {
 		risposta.setIdAutore(idAutore);
 		risposta.setCorpo(corpo);
 		risposta.setIdDomanda(idDomanda);
-		//risposta.setDataPubblicazione(dataPubblicazione);
+		risposta.setDataPubblicazione(dataPubblicazione);
 
 		RispostaDAO.addRisposta(risposta);
 

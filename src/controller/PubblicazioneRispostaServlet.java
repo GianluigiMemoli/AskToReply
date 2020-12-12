@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -14,12 +14,17 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import model.PartecipanteBean;
 import model.RisposteManager;
+import model.SegnalazioneRispostaDAO;
 
 /**
  * Servlet implementation class PubblicazioneRispostaServlet
  */
 @WebServlet("/PubblicazioneRispostaServlet")
 public class PubblicazioneRispostaServlet extends CustomServlet {
+	
+	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); //test
+
+	
 	private static final long serialVersionUID = 1L;
 
 	public PubblicazioneRispostaServlet() {
@@ -37,21 +42,33 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		idDomanda = request.getParameter("idDomanda");
+		log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		log.info(idDomanda);
+		log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+		//idDomanda="1";
+		
 		corpo = request.getParameter("corpo");
-		allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
-		autoreBean = (PartecipanteBean) request.getSession().getAttribute("loggedUser");
+		//allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
+		
+		PartecipanteBean autoreBean = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 		idAutore = autoreBean.getId();
-		//dataPubblicazione = new Date();
+		
+		Date dataPubblicazione = new Date(0);
 
 		RisposteManager manager = new RisposteManager();
 
 		try {
-			manager.pubblicaRisposta(idDomanda, corpo, allegati, idAutore/*, dataPubblicazione*/);
+			manager.pubblicaRisposta(idDomanda, corpo, allegati, idAutore, dataPubblicazione);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		request.getRequestDispatcher("VisualizzaHome").forward(request, response);
+
 
 	}
 

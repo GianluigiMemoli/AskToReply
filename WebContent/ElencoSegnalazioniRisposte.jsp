@@ -6,9 +6,15 @@
 <jsp:include page="Header.jsp"></jsp:include>
 <jsp:include page="SidebarMod.jsp" ></jsp:include>
 
-	<div class="content">
+<style>
+	.segnalazioni-list{
+		padding: 2em;
+	}
+</style>
 
-				<br>	
+	<div class="content">
+		<div class="segnalazioni-list">
+	
 		<c:forEach var="segnalazionerisposta" items="${segnalazionirisposte}">
 					<form action="gestioneSegnalazioneRispostaServlet" method="post" enctype="application/x-www-form-urlencoded">
 					        <input type="hidden" id="idSegnalazione" name="idSegnalazione" value="${segnalazionerisposta.getIdSegnalazione()}"/>
@@ -30,10 +36,12 @@
 
     </div>
     <br>
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-    <button type="submit" class="btn btn-outline-success btn-sm" name="approva" id="approva"><ion-icon name="shield-checkmark-outline"></ion-icon> Approva</button>
-  <button type="submit" class="btn btn-outline-danger btn-sm" name="ignora" id="ignora"><ion-icon name="trash-outline"></ion-icon></ion-icon> Ignora</button>
-  </div>
+    <button type="submit" class="btn btn-outline-success btn-sm border-0" name="approva" id="approva"><ion-icon name="shield-checkmark"></ion-icon> Approva</button>
+  <button type="submit" class="btn btn-outline-danger btn-sm border-0" name="ignora" id="ignora"><ion-icon name="trash"></ion-icon> Ignora</button>
+  
+    <button type="submit" class="btn btn-outline-info btn-sm border-0" name="ignora" id="ignora"><ion-icon name="eye"></ion-icon> Mostra allegato</button>
+  
+  
   </a>
   </div>
   </form>
@@ -42,7 +50,7 @@
 							</c:forEach>						
 					
 
-					
+	</div>				
 	</div>
 
 

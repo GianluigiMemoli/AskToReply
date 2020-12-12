@@ -8,48 +8,6 @@ public class SegnalazioneRispostaBean {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
-	
-	public SegnalazioneRispostaBean(String idRisposta, Date dataSegnalazione, int idMotivazione, int stato,
-			String commento) {
-		super();
-		this.idRisposta = idRisposta;
-		this.dataSegnalazione = dataSegnalazione;
-		this.idMotivazione = idMotivazione;
-		this.stato = stato;
-		this.commento = commento;
-	}
-
-
-
-	public SegnalazioneRispostaBean(String idSegnalazione, String idRisposta, int idMotivazione,
-			Date dataSegnalazione, int stato, String commento) {
-		super();
-		this.idSegnalazione = idSegnalazione;
-		this.idRisposta = idRisposta;
-		this.idMotivazione = idMotivazione;
-		this.dataSegnalazione = dataSegnalazione;
-		this.stato = stato;
-		this.commento = commento;
-	}
-
-
-
-	public SegnalazioneRispostaBean(int idMotivazione, String motivazione,
-			Date dataSegnalazione, int stato, String commento, String idRisposta, String corpoRisposta,
-			String filepathRisposta, RispostaBean rispostaSegnalata) {
-		super();
-		this.idMotivazione = idMotivazione;
-		this.motivazione = motivazione;
-		this.dataSegnalazione = dataSegnalazione;
-		this.stato = stato;
-		this.commento = commento;
-		this.idRisposta = idRisposta;
-		this.corpoRisposta = corpoRisposta;
-		this.filepathRisposta = filepathRisposta;
-		this.rispostaSegnalata = rispostaSegnalata;
-	}
 	
 	
 	public SegnalazioneRispostaBean(String idSegnalazione, int idMotivazione, String motivazione,
