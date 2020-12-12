@@ -3,6 +3,7 @@
     
 
 <div class="container">
+<%=request.getParameter("idDomanda") %>
 			<form action="PubblicazioneRispostaServlet" method="post">
 			
 				<div class="modal fade" id="pubblicaRispostaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
