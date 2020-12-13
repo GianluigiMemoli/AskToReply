@@ -3,7 +3,6 @@
     
 
 <div class="container">
-<%=request.getParameter("idDomanda") %>
 			<form action="PubblicazioneRispostaServlet" method="post">
 			
 				<div class="modal fade" id="pubblicaRispostaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -18,7 +17,9 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <textarea class="form-control" id="corpo" name="corpo" placeholder="Scrivi qui la tua risposta"></textarea>
+          		  <input type="hidden" id="idDom" name="idDom" value="" readonly>
+          		  <h1 id="solo_per_testare"></h1>
+            <textarea onclick="getIdDom()" class="form-control" id="corpo" name="corpo" placeholder="Scrivi qui la tua risposta"></textarea>
           </div>
           
   <div class="custom-file">
@@ -39,6 +40,13 @@
 </form>
 
 <script>
+
+function getIdDom(){
+	document.getElementById("idDom").value=document.getElementById("idDomanda").value;
+	document.getElementById("solo_per_testare").innerHTML=document.getElementById("idDomanda").value;
+
+}
+
 $(".custom-file-input").on("change", function() {
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
@@ -48,4 +56,3 @@ $(".custom-file-input").on("change", function() {
 
 			
 </div>
-
