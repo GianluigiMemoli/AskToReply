@@ -66,7 +66,7 @@ public class VisualizzaProfilo extends CustomServlet {
 		request.setAttribute("interessiUtente", interessiUtente);
 		//
 		
-		int page = 1;
+		int page = 0;
 		if(request.getParameter("pageRi") != null) {
 			log.info("Pagina numero: "+request.getParameter("pageRi"));		
 			page = Integer.parseInt(request.getParameter("pageRi"));	

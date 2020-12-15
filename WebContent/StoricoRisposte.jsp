@@ -5,7 +5,7 @@
 <!--  -->
 
 <%  
-	int currentPage = 1;
+	int currentPage = 0;
 	if(request.getParameter("pageRi") != null){
 		currentPage = Integer.parseInt(request.getParameter("pageRi"));		
 	}  
@@ -45,7 +45,7 @@
 			<c:if test="${not empty storicoRisposte}">
 		<nav class="paginator d-flex justify-content-center" aria-label="Page navigation example">
   		<ul class="pagination">
-  		<c:if test="${pageRi > 1 }">
+  		<c:if test="${pageRi > 0 }">
     		<li class="page-item"><a class="page-link" onclick=changePage(<%=(currentPage-1)%>)><ion-icon name="arrow-back"></ion-icon> Previous</a></li>
     		</c:if>    	
     		<li class="page-item"><a class="page-link" onclick=changePage(<%=(currentPage+1)%>)>Next <ion-icon name="arrow-forward"></ion-icon></a></li>
