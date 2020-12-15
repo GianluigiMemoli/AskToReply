@@ -29,53 +29,68 @@ import model.UtenteBean;
 @WebServlet("/VisualizzaProfilo")
 public class VisualizzaProfilo extends CustomServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public VisualizzaProfilo() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    Logger log = Logger.getAnonymousLogger();
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	// TODO Auto-generated method stub
-    	try {
-    		super.checkPartecipante(req.getSession(), resp);
-    	} catch(Exception exc) {
-    		log.info("exc thrown");  
-    		req.getRequestDispatcher("/accesso").forward(req, resp);    	
-    	}
-    	super.service(req, resp);
-
-    } 
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+	public VisualizzaProfilo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	Logger log = Logger.getAnonymousLogger();
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		try {
+			super.checkPartecipante(req.getSession(), resp);
+		} catch (Exception exc) {
+			log.info("exc thrown");
+			req.getRequestDispatcher("/accesso").forward(req, resp);
+		}
+		super.service(req, resp);
+
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		PartecipanteBean currUser = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 		ArrayList<CategoriaBean> interessi = CategoriaDAO.getAll();
-		ArrayList<CategoriaBean> interessiUtente = CategoriaDAO.getCategorieByUtente(currUser.getId());			
-		request.setAttribute("interessi", interessi);						
+		ArrayList<CategoriaBean> interessiUtente = CategoriaDAO.getCategorieByUtente(currUser.getId());
+		request.setAttribute("interessi", interessi);
 		request.setAttribute("interessiUtente", interessiUtente);
 		//
+		
+		int page = 1;
+		if(request.getParameter("pageRi") != null) {
+			log.info("Pagina numero: "+request.getParameter("pageRi"));		
+			page = Integer.parseInt(request.getParameter("pageRi"));	
+		}
+		
 		UtenteBean ub = new UtenteBean();
 		ub.setId(currUser.getId());
-		ArrayList<RispostaBean> risposte = RispostaDAO.getStoricoRisposteByUtente(ub);
+		log.info("Pagina numero: "+page);		
+
+		
+		ArrayList<RispostaBean> risposte = RispostaDAO.getStoricoRisposteByUtente(ub, page); //aggiunta nPag
 		request.setAttribute("storicoRisposte", risposte);
 		//
 		log.info(interessi.toString());
 		log.info(interessiUtente.toString());
-		request.getRequestDispatcher("Profilo.jsp").forward(request, response);		
+		request.getRequestDispatcher("Profilo.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

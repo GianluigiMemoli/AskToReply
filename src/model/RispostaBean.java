@@ -16,7 +16,7 @@ public class RispostaBean {
 		this.id = id;
 		this.idDomanda = idDomanda;
 		this.corpo = corpo;
-		//this.allegati = string;
+		// this.allegati = string;
 		this.idAutore = idAutore;
 		this.dataPubblicazione = dataPubblicazione;
 	}
@@ -45,12 +45,10 @@ public class RispostaBean {
 		this.corpo = corpo;
 	}
 
-	/*public List<Part> getAllegati() {
-		return allegati;
-	}
-	public void setAllegati(List<Part> allegati) {
-		this.allegati = allegati;
-	}*/
+	/*
+	 * public List<Part> getAllegati() { return allegati; } public void
+	 * setAllegati(List<Part> allegati) { this.allegati = allegati; }
+	 */
 
 	public String getIdAutore() {
 		return idAutore;
@@ -68,16 +66,25 @@ public class RispostaBean {
 		this.dataPubblicazione = dataPubblicazione;
 	}
 
+	public void setTitoloDomanda(String titolo) { // 151220
+		this.titoloDomanda = titolo;
+	}
+
+	public String getTitoloDomanda() { // 151220
+		return titoloDomanda;
+	}
+
 	@Override
 	public String toString() {
 		return "RispostaBean [id=" + id + ", idDomanda=" + idDomanda + ", corpo=" + corpo + ", dataPubblicazione="
 				+ dataPubblicazione + ", idAutore=" + idAutore + "]";
 	}
 
-	private String id; 
+	private String id;
 	private String idDomanda;
 	private String corpo;
 	private Date dataPubblicazione;
-	//private List<Part> allegati;
+	// private List<Part> allegati;
 	private String idAutore;
+	private String titoloDomanda;// 151220
 }

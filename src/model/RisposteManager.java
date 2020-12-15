@@ -30,7 +30,7 @@ public class RisposteManager {
 
 		RispostaDAO.addRisposta(risposta);
 
-		caricaAllegati(allegati, risposta);
+		//caricaAllegati(allegati, risposta);
 	}
 
 

@@ -28,8 +28,8 @@ public class LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.getSession().invalidate(); 
-		return;
+		request.getSession().invalidate();
+		request.getRequestDispatcher("accesso").forward(request, response);
 	}
 
 	/**
