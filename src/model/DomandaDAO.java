@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 
 public class DomandaDAO {
 
+	public static Logger log = Logger.getAnonymousLogger();
+	
 	public static DomandaBean addDomanda(DomandaBean domanda) {
 		
 		DBManager manager = DBManager.getInstance();
@@ -84,14 +86,17 @@ public class DomandaDAO {
 			String query_insert = "";
 			
 			for(int i = 0; i < domanda.getCategorie().size(); i++) {
-				query_insert += "INSERT INTO categoriedomande(idDomanda, idCategoria) VALUES (?, ?);" + "\n";
+				query_insert += "INSERT INTO categoriedomande(idDomanda, idCategoria) VALUES (?, ?);";
 			}
 			
 			PreparedStatement stmt_insert = manager.createPreparedStatement(query_insert);
 			
+			int p = 1;
+			
 			for(int i = 0; i < domanda.getCategorie().size(); i++) {
-				stmt_insert.setString(i + 1, domanda.getId());
-				stmt_insert.setString(i + 2, domanda.getCategorie().get(i).getId());
+				stmt_insert.setString(p, domanda.getId());
+				stmt_insert.setString(p + 1, domanda.getCategorie().get(i).getId());
+				p += 2;
 			}
 			
 			stmt_insert.executeUpdate();
@@ -110,6 +115,52 @@ public class DomandaDAO {
 			CallableStatement procedure = manager.prepareStoredProcedureCall("GetDomandeByUser", 1);
 			
 			procedure.setNString(1, idUtente);
+			
+			ResultSet rs = procedure.executeQuery();
+			
+			ArrayList<DomandaBean> domande = new ArrayList<DomandaBean>();
+			
+			while(rs.next()) {
+				
+				DomandaBean domanda = new DomandaBean();
+				
+				domanda.setArchiviata(rs.getBoolean("isArchiviata"));
+				
+				UtenteBean autore = new UtenteBean();
+				autore.setId(rs.getNString("idAutore"));
+				
+				domanda.setAutore(autore);
+				domanda.setCorpo(rs.getNString("corpo"));
+				domanda.setDataPubblicazione(rs.getDate("dataPubblicazione"));
+				domanda.setId(rs.getNString("id"));
+				domanda.setTitolo(rs.getString("titolo"));
+				
+				domande.add(domanda);
+				
+			}
+			
+			return domande;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
+	public static ArrayList<DomandaBean> getDomandeByUtente(String idUtente, int start, int end) {
+		
+		DBManager manager = DBManager.getInstance();
+		
+		try {
+			
+			CallableStatement procedure = manager.prepareStoredProcedureCall("GetDomandeByAutoreLimit", 3);
+			
+			procedure.setNString(1, idUtente);
+			procedure.setInt(2, start);
+			procedure.setInt(3, end);
 			
 			ResultSet rs = procedure.executeQuery();
 			
@@ -173,7 +224,7 @@ public class DomandaDAO {
 		        domanda.setDataPubblicazione(rs.getDate("DataPubblicazione"));
 		        domanda.setArchiviata(rs.getBoolean("isArchiviata"));
 		        
-		        logger.info(domanda.toString());
+		        log.info(domanda.toString());
 		        
 		        return domanda;
 		        
@@ -355,7 +406,7 @@ public class DomandaDAO {
 		}
 		return domande;
 	}
-	public static Logger log = Logger.getAnonymousLogger();
+	
 	public static ArrayList<DomandaBean> getDomandePertinenti(ArrayList<CategoriaBean> categorie, int start, int end){		
 		String paramPlaceholder = "?,";
 		String catParams = paramPlaceholder.repeat(categorie.size());
@@ -371,7 +422,7 @@ public class DomandaDAO {
 			PreparedStatement stmt = dbManager.createPreparedStatement(query);
 			int currentParam = 1;
 			for (; currentParam <= categorie.size(); currentParam++) {
-				stmt.setInt(currentParam, Integer.parseInt(categorie.get(currentParam-1).getId()));
+				stmt.setNString(currentParam, categorie.get(currentParam-1).getId());
 			}
 			stmt.setInt(currentParam, start);
 			stmt.setInt(++currentParam, end);
@@ -403,5 +454,28 @@ public class DomandaDAO {
 		return domande;
 	}
 	
-	private static Logger logger = Logger.getLogger(DomandaDAO.class.getName());
+	public static int getNumeroDomandeByAutore(String idAutore) {
+		
+		DBManager manager = DBManager.getInstance();
+		
+		try {
+			
+			CallableStatement stmt = manager.prepareStoredProcedureCall("GetNumeroDomandeByAutore", 1);
+			
+			stmt.setString(1, idAutore);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next())
+				return rs.getInt(1);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return -1;
+		
+	}
+	
 }
