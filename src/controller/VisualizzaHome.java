@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.DomandaBean;
 import model.DomandeManager;
 import model.PartecipanteBean;
+import model.RispostaDAO;
 
 /**
  * Servlet implementation class VisualizzaHome
@@ -55,7 +56,19 @@ public class VisualizzaHome extends CustomServlet {
 		int start = (page - 1) * offset;
 		int end = page * offset;
 		ArrayList<DomandaBean> domande = managerDomande.getDomandePertinenti(utente, start, end);
-		request.setAttribute("domande", domande);		
+		request.setAttribute("domande", domande);
+		//
+		
+		boolean b = (managerDomande.getDomandePertinenti(utente, start+10, end)).isEmpty();
+		if(b) {
+			log.info("La prossima scheda è vuota");
+			request.setAttribute("next", 0);
+		}else {
+			log.info("La prossima scheda è piena");
+			request.setAttribute("next", 1);
+		}
+		
+		//
 		request.getRequestDispatcher("Home.jsp").forward(request, response);
 	}  
 

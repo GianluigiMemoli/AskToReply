@@ -43,21 +43,19 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		idDomanda = request.getParameter("idDomanda");
+		idDomanda = request.getParameter("idDom");
 		log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		log.info(idDomanda);
 		log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
-		//idDomanda="1";
 		
 		corpo = request.getParameter("corpo");
 		//allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
+		allegati=null;
 		
 		PartecipanteBean autoreBean = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 		idAutore = autoreBean.getId();
 		
-		Date dataPubblicazione = new Date(0);
-
+		Date dataPubblicazione = new Date(System.currentTimeMillis());
 		RisposteManager manager = new RisposteManager();
 
 		try {

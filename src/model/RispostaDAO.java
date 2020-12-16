@@ -10,23 +10,22 @@ import java.util.logging.Logger;
 
 public class RispostaDAO {
 
-	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); //test
+	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); // test
 
-	
 	public static RispostaBean addRisposta(RispostaBean risposta) {
 		DBManager dbManager = DBManager.getInstance();
 		try {
-			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateRisposta", 4);
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateRisposta", 5);
 			callProcedure.setString(1, risposta.getIdDomanda());
-			callProcedure.setString(2, risposta.getCorpo());	
+			callProcedure.setString(2, risposta.getCorpo());
 			callProcedure.setString(3, risposta.getIdAutore());
-			callProcedure.setDate(4, new java.sql.Date(risposta.getDataPubblicazione().getTime())); //Apportare modifica al DB?
-			callProcedure.registerOutParameter(4, Types.VARCHAR);
+			callProcedure.setDate(4, new java.sql.Date(risposta.getDataPubblicazione().getTime()));
+			callProcedure.registerOutParameter(5, Types.VARCHAR);
 			callProcedure.executeUpdate();
 			RispostaBean rb = new RispostaBean();
-			rb.setId(callProcedure.getNString(5));
+			rb.setId(callProcedure.getNString(5)); // forse è 6???
 			return rb;
-		}catch(SQLException exc) {
+		} catch (SQLException exc) {
 			exc.printStackTrace();
 		}
 		return null;
@@ -39,54 +38,55 @@ public class RispostaDAO {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("RemoveRisposta", 1);
 			callProcedure.setString(1, idRisposta);
 			callProcedure.executeUpdate();
-		}catch(SQLException exc) {
+		} catch (SQLException exc) {
 			exc.printStackTrace();
 		}
 	}
 
-	public static ArrayList<RispostaBean> getStoricoRisposteByUtente(UtenteBean utente){
+	public static ArrayList<RispostaBean> getStoricoRisposteByUtente(UtenteBean utente, int numPagina) {//aggiunta: int x
 		String idUser = utente.getId();
 		DBManager dbManager = DBManager.getInstance();
 		ResultSet rs = null;
 		ArrayList<RispostaBean> elencoRisposte = new ArrayList<RispostaBean>();
 		RispostaBean risposta = null;
 		try {
-			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRisposteByUser", 1);
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRisposteByUser", 2); //modificato 1 in 2
 			callProcedure.setString(1, idUser);
-			//rs = callProcedure.getResultSet();//esplosione
+			callProcedure.setInt(2, numPagina*4); //rigo aggiunto
+			// rs = callProcedure.getResultSet();//esplosione
 			rs = callProcedure.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				risposta = new RispostaBean();
 				risposta.setId(rs.getString("id"));
-				risposta.setIdDomanda(rs.getString("idDomanda")); 
+				risposta.setIdDomanda(rs.getString("idDomanda"));
 				risposta.setCorpo(rs.getString("corpo"));
 				risposta.setIdAutore(rs.getString("idAutore"));
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
+				risposta.setTitoloDomanda(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo()); // 151220
 				elencoRisposte.add(risposta);
 			}
 			return elencoRisposte;
-		}catch(SQLException exc) {
+		} catch (SQLException exc) {
 			exc.printStackTrace();
 		}
 		return null;
 	}
-	
-	
-	
-public static RispostaBean getRispostaById(String id) {
-		
+
+	public static RispostaBean getRispostaById(String id) {
+
 		DBManager manager = DBManager.getInstance();
-		
+
 		try {
 			CallableStatement stmt = manager.prepareStoredProcedureCall("GetRispostaById", 1);
 			stmt.setString(1, id);
 			ResultSet rs = stmt.executeQuery();
-			
-			if(rs.next()) {
-				RispostaBean risp = new RispostaBean(rs.getString("id"),rs.getString("idDomanda"),rs.getString("corpo"), rs.getNString("idAutore"),rs.getDate("dataPubblicazione"));		        
-		        return risp;
+
+			if (rs.next()) {
+				RispostaBean risp = new RispostaBean(rs.getString("id"), rs.getString("idDomanda"),
+						rs.getString("corpo"), rs.getNString("idAutore"), rs.getDate("dataPubblicazione"));
+				return risp;
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
