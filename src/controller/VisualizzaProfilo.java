@@ -78,6 +78,17 @@ public class VisualizzaProfilo extends CustomServlet {
 
 		
 		ArrayList<RispostaBean> risposte = RispostaDAO.getStoricoRisposteByUtente(ub, page); //aggiunta nPag
+		
+		
+		boolean b = (RispostaDAO.getStoricoRisposteByUtente(ub, page+1)).isEmpty();
+		if(b) {
+			log.info("La prossima scheda è vuota");
+			request.setAttribute("next", 0);
+		}else {
+			log.info("La prossima scheda è piena");
+			request.setAttribute("next", 1);
+		}
+		
 		request.setAttribute("storicoRisposte", risposte);
 		//
 		log.info(interessi.toString());

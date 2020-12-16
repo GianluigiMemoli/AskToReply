@@ -2,17 +2,17 @@
   
 		<div class="sidebar aperta" id="sidebar">
 			<div class="line" >
-				<a class="title" style="color:tomato"> <b>Ask to Reply MOD</b></a>
+				<a class="title"> <b>Ask to Reply</b></a>
 			</div>
-		    <a class="activemod" href="#risposte"><ion-icon class="responsive" name = "chatbubbles"></ion-icon> Risposte</a>
-		    <a href="#domande"><ion-icon name="megaphone" class="responsive"></ion-icon> Domande</a>
-			<a href="#logout"><ion-icon name="trail-sign" class="responsive"></ion-icon> Esci</a>
-					
-				
-			<button style="display:none; color:tomato;" id="bottonesuperiore_apri" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()">
+
+		   				 <a class="active mod" href="#risposte"><ion-icon class="responsive" name = "chatbubbles"></ion-icon> Risposte</a>
+		    			<a class="mod" href="#domande"><ion-icon name="megaphone" class="responsive"></ion-icon> Domande</a>
+					<a class="mod" href="#logout"><ion-icon name="trail-sign" class="responsive"></ion-icon> Esci</a>
+
+			<button style="display:none;" id="bottonesuperiore_apri" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()">
 				<ion-icon name="add-circle"></ion-icon>
 			</button>
-			<button style="display:none; color:tomato;" id="bottonesuperiore_chiudi" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()">
+			<button style="display:none;" id="bottonesuperiore_chiudi" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()">
 				<ion-icon name="remove-circle"></ion-icon>
 			</button>
 		</div>

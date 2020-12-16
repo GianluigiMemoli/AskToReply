@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import Exceptions.CredenzialiNonValideException;
 import model.AccountManager;
-import model.ModeratoreBean;
-import model.PartecipanteBean;
 import model.UtenteBean;
 
 /**

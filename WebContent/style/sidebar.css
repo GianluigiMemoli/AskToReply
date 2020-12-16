@@ -21,6 +21,23 @@
   text-decoration: none;
   font-weight: bold;
   margin-left: 45pt;
+  
+    margin-right: 45pt;
+  
+}
+
+.sidebar a.mod {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+  display: block;
+  color: black;
+  padding: 17px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 45pt;
+  
+    margin-right: 20pt;
+  
 }
 
 .sidebar div.line {
@@ -31,19 +48,16 @@
   font-size: 20pt;
   text-align: center;
   padding: 25px;
-  color: #5d34af;
+  color: #6615b4;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 700;
   margin-left: 0pt;
 }
 
 .sidebar a.active {
-  color: #5d34af;
+  color: #6615b4;
 }
 
-.sidebar a.activemod {
-  color: #ff6633;
-}
 
 .sidebar button {
   border: 0;
@@ -56,9 +70,9 @@
   text-align: center;
   align: center;
   align-items: center;
-  background: #5d34af;
+  background: #6615b4;
   border-radius: 99em;
-  height: 2.25em;
+  height: 2.60em;
   padding: 0 1em;
   position: absolute;
   left: 50%;
@@ -70,7 +84,7 @@
 .sidebar button.bottonesuperiore {
   text-align: center;
   border: 0;
-  color: #5d34af;
+  color: #6615b4;
   min-width: 2em;
   max-width: 2em;
   background: white;
@@ -96,8 +110,11 @@
 .sidebar a:hover:not(.active):not(.title){
   font-family: "Josefin Sans", sans-serif;
   font-weight: 500;
-  font-style: italic;
   font-weight: bold;
+    
+    border-radius: 99em;
+    background-color: #eeeaf7;
+    
 }
 
 div.content {
@@ -136,10 +153,24 @@ div.content {
   }
 
   .sidebar a {
-    margin-left: 0pt;
+    margin-left: 25pt;
     text-align: center;
     float: none;
+    
+        margin-right: 25pt;
+    
   }
+  
+  
+    .sidebar a.mod {
+    margin-left: 25pt;
+    text-align: center;
+    float: none;
+    
+        margin-right: 25pt;
+    
+  }
+  
 
   div.content {
     margin-left: 0;
@@ -165,5 +196,6 @@ div.content {
   ion-icon.responsive{
       display: none;
     }
+    
 
 }

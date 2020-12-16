@@ -15,7 +15,7 @@
 </style>
 <div class="content edit-profile">
 	<div class="card-body">
-		<jsp:include page="PopupErrore.jsp"></jsp:include>
+		<jsp:include page="PopupErrore.jsp"><jsp:param name="errore" value="Devi selezionare almeno una categoria."/></jsp:include>
 		<div class="card-title">
 			<h3>Modifica profilo</h3>
 		</div>
