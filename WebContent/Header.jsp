@@ -7,6 +7,20 @@
 
 
 	<head>
+	
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
+
+.content {
+	font-family: 'Lexend Deca', sans-serif;
+}
+
+button.btnsmussato {
+    border-radius: 99em;
+}
+
+</style>
+
   
 	    <!-- Required meta tags -->
 	    <meta charset="utf-8">

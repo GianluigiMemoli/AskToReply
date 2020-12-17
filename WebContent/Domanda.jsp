@@ -62,10 +62,8 @@
 				<div class="col-12">
 					<c:choose>
 						<c:when test="${utenteLoggato != null && utenteLoggato.getId() != domanda.getAutore().getId()}">
-							<form action="" method="">
-								<textarea name="" rows="3"></textarea>
-								<input type="submit" value="Rispondi" />
-							</form>
+								<button onclick="document.getElementById('idDomanda').value=${domanda.getId()}" type="submit" class="btn btn-outline-primary btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#pubblicaRispostaModal" data-whatever="@getbootstrap"><ion-icon name="chatbubble-ellipses"></ion-icon> Rispondi</button>
+								<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include> 		
 						</c:when>
 						<c:otherwise>
 							<p class="lead">Non puoi rispondere</p>
@@ -77,22 +75,7 @@
 				<!-- 
 					aggiungere bottone upvote, downvote, nome utente, bottone per segnalare la risposta, voti 
 				-->
-				<div class="col-12">
-					<c:choose>
-						<c:when test="${risposte.size() > 0}">
-							<ul class="list-group">
-								<c:forEach items="${risposte}" var="risposta">
-									<li class="list-group-item">
-										${risposta.getCorpo()}
-									</li>
-								</c:forEach>
-							</ul>	
-						</c:when>
-						<c:otherwise>
-							<p class="lead">Nessuna risposta.</p>
-						</c:otherwise>
-					</c:choose>		
-				</div>
+				<jsp:include page="ElencoRisposte.jsp"></jsp:include>
 			
 			</div>
 		

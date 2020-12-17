@@ -57,7 +57,7 @@
 				</c:forEach>
 			</ul>
 			<br>
-			<button type="submit" class="btn btn-primary">Invia</button>
+			<button type="submit" class="btn btn-primary btnsmussato">Salva modifiche</button>
 		</form>
 	</div>
 
