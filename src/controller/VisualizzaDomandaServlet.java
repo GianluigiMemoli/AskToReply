@@ -3,6 +3,8 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.DomandaBean;
 import model.DomandeManager;
+import model.RispostaBean;
 import model.UtenteBean;
+import model.UtenteDAO;
 
 /**
  * Servlet implementation class VisualizzaDomandaServlet
@@ -44,21 +48,34 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 			try {
 				
 				DomandeManager manager = new DomandeManager();
+				
 				DomandaBean domandaVisualizzata = manager.getDomandaById(idDomanda);
 				
 				if(domandaVisualizzata != null) {
 					
 					request.setAttribute("domanda", domandaVisualizzata);
 					
-					File[] allegati = manager.getAllegati(domandaVisualizzata);
+					// allegati
+					/* 
+					 * Li metto all'interno di un ArrayList perché con un array normale ci sono problemi nella JSP.
+					 * Il problema consiste in ${allegati.length > 0} che da errore. Con ${allegati.size() > 0} funziona.
+					 */
+					
+					ArrayList<File> allegati = new ArrayList<File>();
+					
+					File[] a = manager.getAllegati(domandaVisualizzata);
+					
+					for(int i = 0; i < a.length; i++) {
+						allegati.add(a[i]);
+					}
+					
 					request.setAttribute("allegati", allegati);
 					
-					// TODO Prelevare le risposte con annesse votazioni
-					
+					/* Per sapere se l'utente è loggato E non è l'autore della domanda e quindi se può apparirgli o meno il form per pubblicare la risposta. */
 					UtenteBean utente = getLoggedUser(request.getSession());
 					request.setAttribute("utenteLoggato", utente);
-					
-					RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Domanda.jsp");
+										
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/Domanda.jsp");
 					dispatcher.forward(request, response);
 					
 				} else {

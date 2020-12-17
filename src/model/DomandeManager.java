@@ -142,11 +142,34 @@ public class DomandeManager {
 	}
 	
 	public DomandaBean getDomandaById(String idDomanda) {
-		return DomandaDAO.getDomandaById(idDomanda);
+		
+		// domanda
+		DomandaBean domanda = DomandaDAO.getDomandaById(idDomanda);
+		
+		if(domanda != null) {
+		
+			// autore
+			String idAutore = domanda.getAutore().getId();
+			domanda.setAutore(UtenteDAO.getUtenteById(idAutore));
+			
+			// categorie
+			domanda.setCategorie(CategoriaDAO.getCategorieDomandaByIdDomanda(idDomanda));
+		
+			// TODO risposte
+			ArrayList<RispostaBean> risposte = new ArrayList<RispostaBean>();
+			domanda.setRisposte(risposte);
+			
+		}
+			
+		return domanda;
 	}
 	
 	public ArrayList<DomandaBean> getDomandeByAutore(String idAutore) {
 		return DomandaDAO.getDomandeByUtente(idAutore);
+	}
+	
+	public ArrayList<DomandaBean> getDomandeByAutore(String idAutore, int start, int end) {
+		return DomandaDAO.getDomandeByUtente(idAutore, start, end);
 	}
 	
 	public void removeDomanda(String idDomanda) {
@@ -193,6 +216,9 @@ public class DomandeManager {
 		return domande;
 	}   
 	
+	public int getNumeroDomandeByAutore(String idAutore) {
+		return DomandaDAO.getNumeroDomandeByAutore(idAutore);
+	}
 	
 	private static Logger logger = Logger.getLogger(DomandeManager.class.getName());
 	
