@@ -60,6 +60,14 @@ public class DomandaBean {
 	public void setCategorie(ArrayList<CategoriaBean> categorie) {
 		this.categorie = categorie;
 	}
+		
+	public ArrayList<RispostaBean> getRisposte() {
+		return risposte;
+	}
+
+	public void setRisposte(ArrayList<RispostaBean> risposte) {
+		this.risposte = risposte;
+	}
 	
 	@Override
 	public String toString() {
@@ -67,7 +75,7 @@ public class DomandaBean {
 	}
 	
 	//
-	
+
 	private String id;
 	private UtenteBean autore;
 	private String titolo;
@@ -75,5 +83,5 @@ public class DomandaBean {
 	private Date dataPubblicazione;
 	private boolean isArchiviata;
 	private ArrayList<CategoriaBean> categorie;
-	 
+	private ArrayList<RispostaBean> risposte;
 }

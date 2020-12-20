@@ -15,7 +15,7 @@
 </style>
 <div class="content edit-profile">
 	<div class="card-body">
-		<jsp:include page="PopupErrore.jsp"><jsp:param name="errore" value="Devi selezionare almeno una categoria."/></jsp:include>
+		<jsp:include page="PopupErrore.jsp"></jsp:include>
 		<div class="card-title">
 			<h3>Modifica profilo</h3>
 		</div>
@@ -57,7 +57,7 @@
 				</c:forEach>
 			</ul>
 			<br>
-			<button type="submit" class="btn btn-primary">Invia</button>
+			<button type="submit" class="btn btn-primary btnsmussato">Salva modifiche</button>
 		</form>
 	</div>
 
