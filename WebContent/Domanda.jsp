@@ -75,13 +75,15 @@
 				<!-- 
 					aggiungere bottone upvote, downvote, nome utente, bottone per segnalare la risposta, voti 
 				-->
-				<jsp:include page="ElencoRisposte.jsp"></jsp:include>
 			
 			</div>
 		
 		</div>
 		
 	</div>
+	
+					<jsp:include page="ElencoRisposte.jsp"></jsp:include>
+	
 	
 </div>
 		

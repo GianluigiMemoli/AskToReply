@@ -16,7 +16,7 @@
 <div class="card-body">
 	<div class="card-title">
 	<a name="storicoRisposte"></a>
-		<h3 >Storico Risposte</h3>
+		<h3>Storico Risposte</h3>
 	</div>
 	
 	
@@ -27,12 +27,14 @@
 				class="list-group-item list-group-item-action flex-column align-items-start">
 
 				<div class="d-flex w-100 justify-content-between">
-					<h5 class="mt-0">${storicoRisposte.getCorpo()}</h5>
+					<p style="color:black;" class="mt-0">${storicoRisposte.getCorpo()}</p>
 					<small>${storicoRisposte.getDataPubblicazione()}</small>
 				</div>
 
 				<p class="mb-1">
-					in risposta alla domanda <b>${storicoRisposte.getTitoloDomanda()}</b>
+					<small>
+					in risposta a: ${storicoRisposte.getTitoloDomanda()}
+					</small>
 				</p>
 			</a>
 		</div>

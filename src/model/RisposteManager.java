@@ -6,17 +6,63 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.Part;
 
+import com.mysql.cj.jdbc.CallableStatement;
+
 import Exceptions.ErrorePubblicazioneRispostaException;
 
 public class RisposteManager {
+	
+	static Logger log = Logger.getLogger(RisposteManager.class.getName()); //test
+
 
 	public void pubblicaRisposta(String idDomanda, String corpo, List<Part> allegati, String idAutore
 			, Date dataPubblicazione) throws Exception{
+		
+
+		//if //controllo se l'utente ha già risposto
+		
+		DBManager manager = DBManager.getInstance();
+		
+			String query = "SELECT * FROM risposte WHERE idDomanda = ? AND idAutore = ?;";
+			//String query = "SELECT * FROM risposte;";
+			PreparedStatement statement = manager.createPreparedStatement(query);
+			statement.setString(1, idDomanda);
+			statement.setString(2, idAutore);
+			ResultSet rs = statement.executeQuery();
+			
+			if(rs.next()){
+				
+				log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+				log.info("HAI GIA' RISPOSTOOOOOOOOOO ALLA DOMANDA");
+				log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+				throw new ErrorePubblicazioneRispostaException("L'utente ha già risposto alla domanda!");
+
+			}
+			
+			else {
+				log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+				log.info("BENE, HAI PPENA DATO LA TUA RISPOSTA");
+				log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+			/*
+			 * 
+			CallableStatement procedure = manager.prepareStoredProcedureCall("GetDomandeByAutoreLimit", 3);
+			
+			procedure.setNString(1, idUtente);
+			procedure.setInt(2, start);
+			procedure.setInt(3, end);
+			
+			ResultSet rs = procedure.executeQuery();
+			
+			 * 
+			 * */
+		
 		if(corpo.trim().length() < 2) {
 			throw new ErrorePubblicazioneRispostaException("Il corpo della risposta deve contenere almeno due caratteri.");
 		}
@@ -31,6 +77,7 @@ public class RisposteManager {
 		RispostaDAO.addRisposta(risposta);
 
 		//caricaAllegati(allegati, risposta);
+			}
 	}
 
 

@@ -3,6 +3,7 @@ package model;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -22,18 +23,31 @@ public class SegnalazioneRispostaDAO {
 		
 		DBManager dbManager = DBManager.getInstance();
 		try {
-			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateSegnalazione", 4);
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateSegnalazione", 5);
 			callProcedure.setInt(1, segnalazione.getIdMotivazione());
 			callProcedure.setDate(2, new java.sql.Date(segnalazione.getDataSegnalazione().getTime()));
 			callProcedure.setInt(3, segnalazione.getStato());
 			callProcedure.setString(4, segnalazione.getCommento());
+			callProcedure.registerOutParameter(5, Types.VARCHAR);
+			log.info("EEEEEEEEEEEEE111111111111");
+			log.info(segnalazione.getIdRisposta());
+			log.info("EEEEEEEEEEEEE11111111111");
+
 			//callProcedure.executeUpdate();
-			ResultSet rsId = callProcedure.getResultSet();
+			//ResultSet rsId = callProcedure.getResultSet();
+			
+			ResultSet rsId = callProcedure.executeQuery();
+			if (rsId.next()){
 			CallableStatement callProcedure2 = dbManager.prepareStoredProcedureCall("CreateSegnalazioneRisposta", 2);
 			callProcedure2.setString(1, rsId.getString("id"));
+			log.info("EEEEEEEEEEEEE");
+			log.info(segnalazione.getIdRisposta());
+			log.info("EEEEEEEEEEEEE");
+
 			callProcedure2.setString(2, segnalazione.getIdRisposta());
-			callProcedure2.executeUpdate();
-		}catch(SQLException exc) {
+			//callProcedure2.executeUpdate();
+			callProcedure2.executeQuery();
+			}}catch(SQLException exc) {
 			exc.printStackTrace();
 		}
 	}

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,9 +19,10 @@ import model.VotazioneDAO;
  * Servlet implementation class SegnalazioneRispostaServlet
  */
 @WebServlet("/SegnalazioneRispostaServlet")
-public class SegnalazioneRispostaServlet extends HttpServlet {
+public class SegnalazioneRispostaServlet extends CustomServlet {
 	private static final long serialVersionUID = 1L;
-       
+	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); //test
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -29,16 +31,35 @@ public class SegnalazioneRispostaServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		checkPartecipante(req.getSession(), resp);
+		
+		super.service(req, resp);
+		
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		idRisposta = request.getParameter("idRisposta");
+		idRisposta = request.getParameter("idRisp");
+		
+		
+		log.info("VSSVSVVS	RISP VSVSVSVSVSVSV");
+		log.info(request.getParameter("idRisp"));
+		log.info("VSSVSVVS	RISP VSVSVSVSVSVSV");
+		
+		log.info("VSSVSVVSVSVSVSVSVSVSV");
+		log.info(request.getParameter("idMotivazione"));
+		log.info("VSSVSVVSVSVSVSVSVSVSV");
+		
 		idMotivazione = Integer.parseInt(request.getParameter("idMotivazione"));
 		commento = request.getParameter("commento");
-		stato = Integer.parseInt(request.getParameter("stato"));
+		//stato = Integer.parseInt(request.getParameter("stato"));
+		stato=1;
 		dataSegnalazione = new Date();
 		
 		SegnalazioneRispostaBean sr=new SegnalazioneRispostaBean();
@@ -48,6 +69,9 @@ public class SegnalazioneRispostaServlet extends HttpServlet {
 		sr.setStato(stato);
 		sr.setCommento(commento);
 		SegnalazioneRispostaDAO.addSegnalazioneRisposta(sr);		
+		
+		request.getRequestDispatcher("VisualizzaDomandaServlet?id="+request.getParameter("idDomanda")).forward(request, response);
+
 	}
 	
 	private String idRisposta;

@@ -12,11 +12,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
 
 .content {
+	height: 100%;
 	font-family: 'Lexend Deca', sans-serif;
 }
 
 button.btnsmussato {
+	margin-top: 3pt;
     border-radius: 99em;
+}
+
+button.mipiace {
+	background-color:#E8F5E9;
+}
+
+button.nonmipiace {
+	background-color:#FFEBEE;
+}
+
+button.bianco {
+	background-color:white;
 }
 
 </style>

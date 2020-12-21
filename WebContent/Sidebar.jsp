@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
   
-		<div class="sidebar aperta" id="sidebar">
+		<div class="sidebar aperta" id="sidebar"  unselectable="on"  onselectstart="return false;" onmousedown="return false;">
 			<div class="line">
 				<a class="title" > <b>Ask to Reply</b></a>
 			</div>

@@ -93,5 +93,57 @@ public class RispostaDAO {
 		}
 		return null;
 	}
+	
+	
+	
+	public static ArrayList<RispostaBean> getRisposteByIdDomanda(String idDomanda, int numPagina) {//aggiunta: int x
+		DBManager dbManager = DBManager.getInstance();
+		ResultSet rs = null;
+		ArrayList<RispostaBean> elencoRisposte = new ArrayList<RispostaBean>();
+		RispostaBean risposta = null;
+		try {
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRisposteByIdDomanda", 2); //modificato 1 in 2
+			callProcedure.setString(1, idDomanda);
+			callProcedure.setInt(2, numPagina*4); //rigo aggiunto
+			// rs = callProcedure.getResultSet();//esplosione
+			rs = callProcedure.executeQuery();
+			log.info("prima del while");
+			while (rs.next()) {
+				log.info("EEEEEEEEEENNNNNNNTROOOOOOOOOOOO NEEEEEEEEE WHIIIIIIIIIIIIIIIIILLLLLLLLLLLLEEEEEEEEEEE");
+				risposta = new RispostaBean();
+				risposta.setId(rs.getString("id"));
+				risposta.setIdDomanda(rs.getString("idDomanda"));
+				risposta.setCorpo(rs.getString("corpo"));
+				risposta.setIdAutore(rs.getString("idAutore"));
+				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
+				risposta.setTitoloDomanda(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo()); // 151220
+				risposta.setAutore(UtenteDAO.getUtenteById(rs.getString("idAutore")).getUsername());
+				
+				int miPiace=0;
+				int nonMiPiace=0;
+				ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(rs.getString("id"));
+				risposta.setVoti(vb);//aggiunto
+				if(vb!=null)for(int k=0; k<vb.size(); k++)if(vb.get(k).getValore()==1)miPiace+=1;else nonMiPiace+=1;
+				
+				log.info("SSSSSSSSSSSSSSSSSSSSSS");
+
+				log.info("STA risposta["+rs.getString("corpo")+"]ha avuto "+miPiace+"mi Piace");
+				log.info("STA risposta["+rs.getString("corpo")+"] ha avuto "+nonMiPiace+"Non mi Piace");
+
+				log.info("SSSSSSSSSSSSSSSSSSSSSS");
+
+				risposta.setMiPiace(miPiace);
+				risposta.setNonMiPiace(nonMiPiace);
+				elencoRisposte.add(risposta);
+			}
+			return elencoRisposte;
+		} catch (SQLException exc) {
+			exc.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 
 }

@@ -49,6 +49,12 @@
   
 							</c:forEach>						
 					
+						<c:if test="${empty segnalazionirisposte}">
+	<div class="text-center">
+		<p>Nessuna segnalazione</p>
+		</div>
+	</c:if>
+		</div>
 
 	</div>				
 	</div>

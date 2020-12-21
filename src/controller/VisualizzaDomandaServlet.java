@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.DomandaBean;
 import model.DomandeManager;
+import model.MotivazioneBean;
+import model.MotivazioneDAO;
 import model.RispostaBean;
+import model.RispostaDAO;
 import model.UtenteBean;
 import model.UtenteDAO;
 
@@ -25,7 +29,8 @@ import model.UtenteDAO;
 @WebServlet("/VisualizzaDomandaServlet")
 public class VisualizzaDomandaServlet extends CustomServlet {
 	private static final long serialVersionUID = 1L;
-       
+	Logger log = Logger.getAnonymousLogger();
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -62,11 +67,40 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 					 */
 					
 					ArrayList<File> allegati = new ArrayList<File>();
+					//
+				
+					ArrayList<RispostaBean> risposte = new ArrayList<RispostaBean>();
+					ArrayList<MotivazioneBean> motivazioni = new ArrayList<MotivazioneBean>();
 					
+					motivazioni=MotivazioneDAO.getAll();
+					request.setAttribute("motivazioni", motivazioni);
+											
+					int page = 0;
+					if(request.getParameter("pageRi") != null) {
+						log.info("Pagina numero: "+request.getParameter("pageRi"));		
+						page = Integer.parseInt(request.getParameter("pageRi"));	
+					}
+					
+					risposte=RispostaDAO.getRisposteByIdDomanda(idDomanda, page);//aggiunta
+					boolean b = RispostaDAO.getRisposteByIdDomanda(idDomanda, page+1).isEmpty();
+					if(b) {
+						//log.info("La prossima scheda è vuota");
+						request.setAttribute("next", 0);
+					}else {
+						//log.info("La prossima scheda è piena");
+						request.setAttribute("next", 1);
+					}
+					
+					request.setAttribute("risposte", risposte);
+					
+					
+					//
 					File[] a = manager.getAllegati(domandaVisualizzata);
 					
-					for(int i = 0; i < a.length; i++) {
-						allegati.add(a[i]);
+					if(a!=null) {
+						for(int i = 0; i < a.length; i++) {
+							allegati.add(a[i]);
+						}
 					}
 					
 					request.setAttribute("allegati", allegati);

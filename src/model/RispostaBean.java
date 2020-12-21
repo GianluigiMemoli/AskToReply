@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.Part;
 
@@ -74,11 +75,64 @@ public class RispostaBean {
 		return titoloDomanda;
 	}
 
+
+
+	public String getAutore() {
+		return autore;
+	}
+
+	public void setAutore(String autore) {
+		this.autore = autore;
+	}
+
+	public int getMiPiace() {
+		return miPiace;
+	}
+
+	public void setMiPiace(int miPiace) {
+		this.miPiace = miPiace;
+	}
+
+	public int getNonMiPiace() {
+		return nonMiPiace;
+	}
+
+	public void setNonMiPiace(int nonMiPiace) {
+		this.nonMiPiace = nonMiPiace;
+	}
+
+
+
+	public ArrayList<VotazioneBean> getVoti() {
+		return voti;
+	}
+
+	public void setVoti(ArrayList<VotazioneBean> voti) {
+		this.voti = voti;
+	}
+
+
+
+
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "RispostaBean [id=" + id + ", idDomanda=" + idDomanda + ", corpo=" + corpo + ", dataPubblicazione="
-				+ dataPubblicazione + ", idAutore=" + idAutore + "]";
+				+ dataPubblicazione + ", idAutore=" + idAutore + ", titoloDomanda=" + titoloDomanda + ", autore="
+				+ autore + ", miPiace=" + miPiace + ", nonMiPiace=" + nonMiPiace + ", voti=" + voti + "]";
 	}
+
+
+
+
+
+
+
+
 
 	private String id;
 	private String idDomanda;
@@ -87,4 +141,8 @@ public class RispostaBean {
 	// private List<Part> allegati;
 	private String idAutore;
 	private String titoloDomanda;// 151220
+	private String autore;
+	private int miPiace;
+	private int nonMiPiace;
+	private ArrayList <VotazioneBean> voti; //aggiunto
 }

@@ -18,7 +18,7 @@ begin
     insert into Segnalazioni(id, idMotivazione, dataSegnalazione, stato, commento)
     values (id, idMotivazione, dataSegnalazione, stato, commento);
     
-    select @id;
+    select id;
 end $$
 
 delimiter ;
