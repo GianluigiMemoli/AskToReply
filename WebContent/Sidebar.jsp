@@ -7,11 +7,11 @@
 			</div>
 		    <a href="VisualizzaHome" id="home"><ion-icon class="responsive" name = "home"></ion-icon> Home</a>
 		    <a href="VisualizzaProfilo" id="profilo"><ion-icon name="person" class="responsive"></ion-icon> Profilo</a>
-		    <a href="Ricerca" id="cerca"><ion-icon name="search" class="responsive"></ion-icon> Cerca</a>
+		    <a href="RicercaServlet" id="cerca"><ion-icon name="search" class="responsive"></ion-icon> Cerca</a>
 		    <a href="LogoutServlet" id="logout"><ion-icon name="trail-sign" class="responsive"></ion-icon> Esci</a>
-			<button href="FormPubblicazioneDomanda.jsp" id="chiedi_sidebar_button">
-				CHIEDI
-			</button>
+			<a href="VisualizzaFormPubblicazioneDomandaServlet">
+				<button id="chiedi_sidebar_button">CHIEDI</button>
+			</a>
 			<button style="display:none;" id="bottonesuperiore_apri" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()">
 				<ion-icon name="add-circle"></ion-icon>
 			</button>

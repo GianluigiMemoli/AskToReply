@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.CategoriaBean;
+import model.CategoriaDAO;
 import model.DomandaBean;
 import model.DomandeManager;
 
@@ -35,25 +37,33 @@ public class RicercaServlet extends HttpServlet {
 		// TODO
 		
 		String testo = request.getParameter("testo");
-		String archiviazione = request.getParameter("archiviata");
-		String[] categorie = request.getParameterValues("categorie");
+		String[] archiviazione = request.getParameterValues("archiviazione");
+		String[] categorieDomanda = request.getParameterValues("categorie");
 		
-		Boolean isArchiviata;
+		if(testo != null)
+			if(testo.compareTo("") == 0)
+				testo = null;
 		
-		if(archiviazione.compareTo("archiviate") == 0)
-			isArchiviata = true;
-		else if(archiviazione.compareTo("non archiviate") == 0)
-			isArchiviata = false;
-		else 
-			isArchiviata = null;
+		Boolean isArchiviata = null;
+		
+		if(archiviazione != null) {
+			
+			if(archiviazione.length == 0 || archiviazione.length == 2)
+				isArchiviata = null;
+			else if(archiviazione.length == 1)
+				if(archiviazione[0].compareTo("archiviate") == 0)
+					isArchiviata = true;
+				else if(archiviazione[0].compareTo("non archiviate") == 0)
+					isArchiviata = false;					
+		}
 		
 		DomandeManager manager = new DomandeManager();
 		
 		try {
 			
-			ArrayList<DomandaBean> domande = manager.ricerca(testo, categorie, isArchiviata);
+			ArrayList<DomandaBean> domande = manager.ricerca(testo, categorieDomanda, isArchiviata);
 			
-			request.setAttribute("domandeCercate", domande);
+			request.setAttribute("risultatoRicerca", domande);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -61,7 +71,11 @@ public class RicercaServlet extends HttpServlet {
 			response.getWriter().print(e.getMessage());
 		}
 		
-		request.getRequestDispatcher("WEB-INF/ElencoRisultatoRicerca.jsp").forward(request, response);
+		ArrayList<CategoriaBean> categorie = CategoriaDAO.getAll();
+		
+		request.setAttribute("categorie", categorie);
+		
+		request.getRequestDispatcher("ElencoRisultatoRicerca.jsp").forward(request, response);
 	}
 
 	/**
