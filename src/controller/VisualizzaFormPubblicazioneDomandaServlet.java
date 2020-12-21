@@ -12,7 +12,7 @@ import model.CategoriaDAO;
 /**
  * Servlet implementation class FormPubblicazioneDomanda
  */
-@WebServlet("/VisualizzaFormPubblicazioneDomanda")
+@WebServlet("/VisualizzaFormPubblicazioneDomandaServlet")
 public class VisualizzaFormPubblicazioneDomandaServlet extends CustomServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,7 +38,7 @@ public class VisualizzaFormPubblicazioneDomandaServlet extends CustomServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("categorie", CategoriaDAO.getAll());
-		request.getRequestDispatcher("WEB-INF/FormPubblicazioneDomanda.jsp").forward(request, response);
+		request.getRequestDispatcher("FormPubblicazioneDomanda.jsp").forward(request, response);
 	}
 
 	/**
