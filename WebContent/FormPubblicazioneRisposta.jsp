@@ -35,8 +35,6 @@
     </div>
   </div>
 </div>
-=======
-	pageEncoding="ISO-8859-1"%>
 
 
 <div class="container">	
@@ -83,7 +81,6 @@
 		</div>
 
 	</form>
->>>>>>> Stashed changes
 
 	<script>
 		$(".custom-file-input").on(
@@ -95,7 +92,6 @@
 				});
 	</script>
 
-<<<<<<< Updated upstream
 <script>
 
 function getIdDom(){
@@ -113,9 +109,7 @@ $(".custom-file-input").on("change", function() {
 
 			
 </div>
-=======
 
 
 </div>
 
->>>>>>> Stashed changes
