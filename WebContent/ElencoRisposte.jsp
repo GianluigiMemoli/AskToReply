@@ -32,7 +32,6 @@
 				<c:forEach var="risposta" items="${risposte}">
 			
 				<div class="question rounded border">								
-				  <div  style="margin:15pt">
 				  				<div class="d-flex w-100 justify-content-between">
 					<small class="text-secondary">@${risposta.getAutore()}</small>
 					<small class="text-secondary">${risposta.getDataPubblicazione()}</small>
@@ -44,11 +43,10 @@
 					
 					 <button onclick="document.getElementById('idRisposta').value='${risposta.getId()}';"  type="submit" class="btn btn-outline-warning btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#segnalaRispostaModal" data-whatever="@getbootstrap"><ion-icon name="warning"></ion-icon> Segnala&nbsp;</button>
 					     
-					     <button type="submit" class="btn btn-outline-info btn-sm border-0 btnsmussato" name="ignora" id="ignora"><ion-icon name="eye"></ion-icon> Mostra allegati&nbsp;</button>
+					     <button type="submit" class="btn btn-outline-info btn-sm border-0 btnsmussato" name="allegati" id="allegati"><ion-icon name="eye"></ion-icon> Mostra allegati&nbsp;</button>
 					 
 					 
 					 
-				  </div>
 										
 					 
 								
@@ -56,7 +54,6 @@
 				
 											 
 				</div>
-				<br>
 				</c:forEach>
 		
 		</div>

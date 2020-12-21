@@ -5,33 +5,63 @@
 
 <jsp:include page="Header.jsp" />
 
-<jsp:include page="Sidebar.jsp" />
+<jsp:include page="Sidebar.jsp">
+	<jsp:param name="active" value="cerca" />
+</jsp:include>
 
-	<div class="content">
-		<div class="container m-2">
+<style>
+	.debug-content{
+		border: 2px solid red; 
+	}
+	.questions-list{
+		padding: 2em;
+	}
+	.question{
+		margin-bottom: 2em;
+		padding: 1em;
+	}
+</style>
+
+
+	<div class="content debug">
+		<div class="container m-0">
 			<div class="row">
-				<div class="col-8">
+			<div class="card-body">
 					<c:choose>
 						<c:when test="${risultatoRicerca.size() > 0}">
 							<div class="list-group">
-								<c:forEach items="${risultatoRicerca}" var="d">
-									<div class="list-group-item">
-										<small>Pubblicata da: ${d.getAutore().getUsername()}</small>
-										<h5>
-											<a href="VisualizzaDomandaServlet?id=${d.getId()}">${d.getTitolo()}</a>
-										</h5>
-	    								<p>${d.getCorpo()}</p>
-	    								<c:choose>
-	    									<c:when test="${d.isArchiviata()}">
-	    										<span class="btn">Rispondi (Archiviata)</span>
-	    									</c:when>
-	    									<c:otherwise>
-	    										<a href="VisualizzaDomandaServlet?id=${d.getId()}" class="btn btn-dark">Rispondi</a>
-	    									</c:otherwise>	
-	    								</c:choose>
-	    								
-	    								<a href="VisualizzaFormSegnalazioneDomandaServlet?idDomanda=${d.getId()}" class="btn btn-dark">Segnala</a>
-  									</div>
+								<c:forEach items="${risultatoRicerca}" var="domanda">
+									<div class="question rounded border">
+					
+																					
+									  <div>
+									  	
+									  				<div class="d-flex w-100 justify-content-between">
+										<small class="text-secondary">@${domanda.getAutore().getUsername()}</small>
+										<small class="text-secondary">${domanda.getDataPubblicazione()}</small>
+									</div>
+									
+										<c:forEach items="${domanda.getCategorie()}" var="categoria">
+											<small><a style="background-color:#EDE7F6; color:purple; border-radius:99em;" href="RicercaServlet?categorie=${categoria.getId()}" class="badge">${categoria.nome}</a></small>
+										</c:forEach>
+									
+												<a href="VisualizzaDomandaServlet?id=${domanda.getId()}"
+									class="list-group-item-action">
+									    <h5 style="margin-bottom:0pt; color:black;" class="lead">${domanda.getTitolo()}</h5>
+									    <p style="color:black;">${domanda.getCorpo()}</p>			
+									    </a>	    
+									  </div>
+									<div>							
+										
+										<button onclick="document.getElementById('idDomanda').value=${domanda.getId()}" type="submit" class="btn btn-outline-primary btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#pubblicaRispostaModal" data-whatever="@getbootstrap"><ion-icon name="chatbubble-ellipses"></ion-icon> Rispondi</button>
+										<button type="submit" class="btn btn-outline-warning btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#dibenedettoinserisciquiiltitolodelmodalchehaifatto" data-whatever="@getbootstrap"><ion-icon name="warning"></ion-icon> Segnala</button>
+										 
+										 
+										<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include> 				
+										
+									</div>
+																 
+									</div>
 								</c:forEach>
 							</div>
 						</c:when>
@@ -41,7 +71,8 @@
 					</c:choose>
 				</div>
 				
-				<div class="col">
+				<div>
+							<div class="card-body">
 				
 					<form action="RicercaServlet" method="get">
 					
@@ -54,29 +85,22 @@
 							<c:forEach items="${categorie}" var="c">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" value="${c.getId()}" name="categorie">
-									<label class="form-check-label">${c.getNome()}</label>
+									<label class="form-check-label">
+										<a style="background-color:#EDE7F6; color:purple; border-radius:99em;" class="badge">${c.nome}</a>
+									</label>							
 								</div>
 							</c:forEach>
 						</div>
 						
-						<div class="form-group">
-							<div class="form-check">
-	  							<input class="form-check-input" type="checkbox" name="archiviazione" value="archiviate">
-	  							<label class="form-check-label">Archiviate</label>
-	  						</div>
-	  						<div class="form-check">
-	  							<input class="form-check-input" type="checkbox" name="archiviazione" value="non archiviate">
-	  							<label class="form-check-label">Non archiviate</label>
-							</div>
-						</div>
 						
-						<input type="submit" value="Cerca" class="btn btn-dark">
+						<input type="submit" value="Cerca" class="btn btn-primary" style="border-radius:99em;">
 						
 					</form>
-					
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+					</div>
+			</div>
+			
 
 <jsp:include page="Footer.jsp" />

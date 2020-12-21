@@ -9,9 +9,11 @@
 		    <a href="VisualizzaProfilo" id="profilo"><ion-icon name="person" class="responsive"></ion-icon> Profilo</a>
 		    <a href="RicercaServlet" id="cerca"><ion-icon name="search" class="responsive"></ion-icon> Cerca</a>
 		    <a href="LogoutServlet" id="logout"><ion-icon name="trail-sign" class="responsive"></ion-icon> Esci</a>
-			<a href="VisualizzaFormPubblicazioneDomandaServlet">
-				<button id="chiedi_sidebar_button">CHIEDI</button>
-			</a>
+			
+			
+			<button onclick="chiedi()" id="chiedi_sidebar_button">CHIEDI</button>
+			
+			
 			<button style="display:none;" id="bottonesuperiore_apri" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()">
 				<ion-icon name="add-circle"></ion-icon>
 			</button>
@@ -85,6 +87,12 @@
 					console.log(w); //test
 				}
 			}
+				
+			function chiedi(){
+				window.location.href = "/AskToReply/VisualizzaFormPubblicazioneDomandaServlet";
+
+			}
+			
 			
 		</script>
 

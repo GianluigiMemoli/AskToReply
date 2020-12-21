@@ -36,20 +36,32 @@
 <div class="content debug"> 
 
 
-		<div class="questions-list">
+		<div class="card-body">
 		
 		  <input type="hidden" id="idDomanda" name="idDomanda" value="">
 		
 		
 			<c:forEach var="domanda" items="${domande}">				
-				<div class="question rounded border">								
+				<div class="question rounded border">
+
+																
 				  <div>
 				  	
-				  	
-				    <h5 class="mt-0">${domanda.getTitolo()}</h5>
-				    <p>${domanda.getCorpo()}</p>				    
+				  				<div class="d-flex w-100 justify-content-between">
+					<small class="text-secondary">@${domanda.getAutore().getUsername()}</small>
+					<small class="text-secondary">${domanda.getDataPubblicazione()}</small>
+				</div>
+				
+									<c:forEach items="${domanda.getCategorie()}" var="categoria">
+						<small><a style="background-color:#EDE7F6; color:purple; border-radius:99em;" href="RicercaServlet?categorie=${categoria.getId()}" class="badge">${categoria.nome}</a></small>
+					</c:forEach>
+				
+							<a href="VisualizzaDomandaServlet?id=${domanda.getId()}"
+				class="list-group-item-action">
+				    <h5 style="margin-bottom:0pt; color:black;" class="lead">${domanda.getTitolo()}</h5>
+				    <p style="color:black;">${domanda.getCorpo()}</p>			
+				    </a>	    
 				  </div>
-				<h6>Pubblicato da: ${domanda.getAutore().getUsername()}</h6>
 				<div>							
 					
 					<button onclick="document.getElementById('idDomanda').value=${domanda.getId()}" type="submit" class="btn btn-outline-primary btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#pubblicaRispostaModal" data-whatever="@getbootstrap"><ion-icon name="chatbubble-ellipses"></ion-icon> Rispondi</button>
@@ -58,7 +70,8 @@
 					 
 					<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include> 				
 					
-				</div>							 
+				</div>
+											 
 				</div>
 		</c:forEach>
 		
