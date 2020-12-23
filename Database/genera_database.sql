@@ -49,13 +49,13 @@ CREATE TABLE Utenti (
 CREATE TABLE Domande (
     id VARCHAR(256),
     titolo VARCHAR(256) NOT NULL, 
-    corpo VARCHAR(256) NOT NULL, 
-    idAllegato VARCHAR(256) DEFAULT NULL,
+    corpo VARCHAR(256) NOT NULL,
     idAutore VARCHAR(256) NOT NULL,
     dataPubblicazione DATETIME NOT NULL, 
     isArchiviata bit DEFAULT 0 NOT NULL, 
-    PRIMARY KEY(id),
-    FOREIGN KEY (idAutore) REFERENCES Partecipanti(idUtente)
+    PRIMARY KEY (id),
+    FOREIGN KEY (idAutore) REFERENCES Partecipanti(idUtente),
+    FULLTEXT (titolo, corpo)
 );
 
 CREATE TABLE CategorieDomande (
