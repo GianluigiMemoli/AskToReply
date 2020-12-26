@@ -8,5 +8,5 @@ BEGIN
 		ON (Segn.id = SegnDom.idSegnalazione)
     WHERE Segn.stato=0
 	ORDER BY Segn.dataSegnalazione ASC;
-END;
-DELIMITER;
+END $$
+DELIMITER ;

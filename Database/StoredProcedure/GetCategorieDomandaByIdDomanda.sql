@@ -2,7 +2,6 @@ use asktoreply;
 
 delimiter $$
 
-drop procedure if exists GetCategorieDomandeByIdDomanda;
 
 create procedure GetCategorieDomandeByIdDomanda(
 	in idDomanda varchar(256)

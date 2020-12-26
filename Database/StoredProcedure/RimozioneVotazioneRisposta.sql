@@ -2,7 +2,6 @@ use asktoreply;
 
 delimiter $$
 
-drop procedure if exists RimozioneVotazione;
 
 create procedure RimozioneVotazione(
 	in idRisposta varchar(256),

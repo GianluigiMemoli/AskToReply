@@ -2,7 +2,6 @@ use asktoreply;
 
 delimiter $$
 
-drop procedure if exists CreateSegnalazioneDomanda;
 
 create procedure CreateSegnalazioneDomanda(
 	in idMotivazione integer,

@@ -2,7 +2,6 @@ use asktoreply;
 
 delimiter $$
 
-drop procedure if exists VotazioneRisposta;
 
 create procedure VotazioneRisposta(
 	in idUtente varchar(256),

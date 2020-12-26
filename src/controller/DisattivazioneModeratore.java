@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -11,54 +9,55 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ModeratoreBean;
 import model.ModeratoriManager;
 
 /**
- * Servlet implementation class VisualizzaListaModeratori
+ * Servlet implementation class DisattivazioneModeratore
  */
-@WebServlet("/GestioneModeratori")
-public class GestioneModeratoriServlet extends CustomServlet {
+@WebServlet("/DisattivazioneModeratore")
+public class DisattivazioneModeratore extends CustomServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GestioneModeratoriServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    Logger log = Logger.getAnonymousLogger();
+	Logger log = Logger.getAnonymousLogger();
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	// TODO Auto-generated method stub    
-    	if(!super.isMasterModeratoreLogged(req.getSession())){    	
-    		log.info("Non sei master mod");
+    	// TODO Auto-generated method stub
+    	try {
+    		super.checkMasterModeratore(req.getSession(), resp);
+    	} catch(RuntimeException exc) {
+    		log.info("NON SEI MASTER MODERATORE");
     		req.getRequestDispatcher("/accesso").forward(req, resp);
     	}
-    	super.service(req, resp);
-
+    	super.service(req, resp);    	
     }
-          
+	public DisattivazioneModeratore() {
+        	super();
+        // TODO Auto-generated constructor stub
+    }
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String idModeratore; 
+		idModeratore = request.getParameter("idModeratore");
 		ModeratoriManager modManager = new ModeratoriManager();
-		ArrayList<ModeratoreBean> moderatoriList;		
-		moderatoriList = modManager.getAllModeratori();
-		request.setAttribute("moderatoriList", moderatoriList);
-		request.getRequestDispatcher("GestioneModeratori.jsp").forward(request, response);		
+		modManager.deleteModeratore(idModeratore);
+		log.info("Mod disattivato");
+		response.sendRedirect("GestioneModeratori");
+		log.info("Dispatching");
 	}
 
-	/**
+	/** 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
 	}
-
+ 
 }

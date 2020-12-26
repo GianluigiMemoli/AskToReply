@@ -2,7 +2,6 @@ use asktoreply;
 
 delimiter $$
 
-drop procedure if exists CreateSegnalazioneRisposta;
 
 create procedure CreateSegnalazioneRisposta(
     in idSegn varchar(256),

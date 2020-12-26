@@ -8,5 +8,5 @@ BEGIN
 		ON (Segn.id = SegnRis.idSegnalazione)
     WHERE Segn.stato=1
 	ORDER BY Segn.dataSegnalazione ASC;
-END;
-DELIMITER;
+END $$
+DELIMITER ;

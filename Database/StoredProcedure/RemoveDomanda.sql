@@ -7,5 +7,5 @@ SELECT @output;
 IF @output = 0 THEN
 	DELETE FROM Domande WHERE id=_idDomanda;
 END IF;
-END;
+END $$
 DELIMITER;

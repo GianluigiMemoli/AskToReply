@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.connector.Response;
 
+import Exceptions.CampiNonConformiException;
+import Exceptions.EmailPresenteException;
+import Exceptions.UsernamePresenteException;
 import model.AccountManager;
 
 /**
@@ -66,11 +69,19 @@ public class CreazioneModeratoreServlet extends CustomServlet {
 			
 			try {
 				accountManager.RegistraModeratore(email, password, username, nome, cognome);
-			} catch (Exception exc) {
-				//todo gestisci l'eccezione
-				logger.info("ERRORE");
-				exc.printStackTrace();
 			}
+			catch(CampiNonConformiException exc) {			
+				request.setAttribute("errore", exc.getMessage());
+			} catch(UsernamePresenteException exc) {			
+				request.setAttribute("errore", exc.getMessage());
+			} catch(EmailPresenteException exc) {			
+				request.setAttribute("errore", exc.getMessage()); 
+			} catch(Exception exc) {
+			
+				request.setAttribute("errore", "Unhandled error"); 
+			}	
+			
+			request.getRequestDispatcher("/GestioneModeratori").forward(request, response);
 		
 		
 	}

@@ -1,19 +1,31 @@
 import os 
+import mysql.connector 
+from mysql.connector import Error
 
-def main():
+def execute_query(connection, query_text):
+    connection.execute(query_text, multi=True)
+
+
+
+def compile_sp(connection):
+    executed = 0
     dir_entries = os.listdir(".")
-    mergedText = ""    
     for entry in dir_entries:            
         extensions = entry.split(".")
         if extensions[len(extensions) - 1] == 'sql': 
             print("opening {}".format(entry))
             with open(entry) as stored_proc_script:
-                mergedText += stored_proc_script.read() + "\n"
-    
-    
-    
-    with open("merged.sql", "w") as merged: 
-        merged.write(mergedText)
+                queryText = stored_proc_script.read() 
+                execute_query(connection, queryText)
+                executed += 1
+    print("executed {} sp".format(executed))
 
 if __name__ == "__main__":
-    main()
+    db = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="root",
+        database="asktoreply"
+        )
+    connection = db.cursor()
+    compile_sp(connection)

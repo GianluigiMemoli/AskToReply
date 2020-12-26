@@ -1,89 +1,112 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-   <style>
-   		#collapseOne{
-   			max-height: 400px;   			
-   			overflow: scroll;  
-   		}
-   		.mod-item:hover{
-   			background-color: #5d34af;
-   			color: white;
-   			cursor: pointer;
-   		}
-   </style>
-<jsp:include page="Header.jsp"></jsp:include>
-<jsp:include page="Sidebar.jsp" >
-	<jsp:param name="active" value="profilo"/>
-</jsp:include>
- 
-	<div class="content">		
-		<div class=" card col-sm-12 col-md-12">		
-	  	<div class="card-body">
-	  		<jsp:include page="PopupErrore.jsp"></jsp:include>	  	
-	  		<div class="card-title">
-	  			<h3>Dashboard</h3>
-	  		</div>
-	  		<div class="accordion" id="accordionExample">
-			  <div class="card">
-			    <div class="card-header" id="headingOne">
-			      <h2 class="mb-0">
-			        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-			          Gestione moderatori
-			        </button>
-			      </h2>
-			    </div>
-			
-			    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-			      <div class="card-body">			        
-					<c:forEach var="moderatore" items="${moderatoriList}" varStatus="loop">
-							<li class="list-group-item mod-item" data-toggle="modal" data-target="${'#mod'}${loop.index}">								
-								  ${moderatore.getUsername()}								
-							</li>
-						</c:forEach>
-			      </div>
-			    </div>
-			  </div>
-			  <div class="card">
-			    <div class="card-header" id="headingTwo">
-			      <h2 class="mb-0">
-			        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-			          Creazione moderatori
-			        </button>
-			      </h2>
-			    </div>
-			    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-			      <div class="card-body">
-			        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-			      </div>
-			    </div>
-			  </div>
-		</div>
-  	</div>
-  </div>
-<!-- Modal -->
-<c:forEach var="moderatore" items="${moderatoriList}" varStatus="loop">
-	<div class="modal fade" id="${'mod'}${loop.index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">${moderatore.getUsername()}</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	</div>
-</c:forEach>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+#collapseOne {
+	max-height: 400px;
+	overflow: scroll;
+}
 
-<jsp:include page="Footer.jsp"></jsp:include> 
-  
+.mod-item:hover {
+	background-color: #5d34af;
+	color: white;
+	cursor: pointer;
+}
+
+.mod-list{
+	max-height: 500px;
+	overflow-y: scroll;
+}
+
+.mod-container-form{	
+	margin-top: 2em;
+}
+.mod-form{
+align-self: center;
+	max-width: 80%;
+}
+.content{
+	padding: 3em;
+}
+</style>
+<jsp:include page="Header.jsp"></jsp:include>
+<jsp:include page="Sidebar.jsp">
+	<jsp:param name="active" value="profilo" />
+</jsp:include>
+
+<div class="content">
+	<h3>Dashboard</h3>
+	<div class="row">
+		<div class="card col-12">
+			<h4 class="card-title">Moderatori esistenti</h4>
+			<div class="card-body mod-list">
+				<table class="table table-responsive">
+					<thead>
+						<tr>
+							<th scope="col">Username</th>
+							<th scope="col">Nome</th>
+							<th scope="col">Cognome</th>
+							<th scope="col">Email</th>
+							<th scope="col">Disattivato</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+					<div class="mod-list">
+						<c:forEach var="moderatore" items="${moderatoriList}"
+							varStatus="loop">
+							<tr>
+								<td>${moderatore.getUsername()}</td>
+								<td>${moderatore.getNome()}</td>
+								<td>${moderatore.getCognome()}</td>
+								<td>${moderatore.getEmail()}</td>
+								<c:choose>
+									<c:when test="${moderatore.isDisattivato() == true}">
+										<td>Sì</td>
+									</c:when>
+									<c:when test="${moderatore.isDisattivato() == false}">
+										<td>No</td>
+										<td><a type="button" class="btn btn-outline-danger" href= "/AskToReply/DisattivazioneModeratore?idModeratore=${moderatore.getId() }">Disattiva</button></td>
+									</c:when>
+								</c:choose>																
+							</tr>
+						</c:forEach>
+						</div>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="card mod-container-form col-12">
+			<h4 class="card-title">Registra un moderatore</h4>
+			<div class="card-body">
+				<jsp:include page="PopupErrore.jsp"></jsp:include>
+				<form class="mod-form" action="CreazioneModeratoreServlet" method="post" enctype="application/x-www-form-urlencoded">
+				<div class="form-group">
+						<label for="nome">Nome</label>
+						<input id="nome" type="text" class="form-control" name="nome" pattern="([A-Za-z']+\s*)+" required >
+					</div>
+					<div class="form-group">
+						<label for="cognome">Cognome</label>
+						<input id="cognome" type="text" class="form-control" name="cognome" pattern="([A-Za-z']+\s*)+" required >
+					</div>
+					<div class="form-group">
+						<label for="username">Username</label>
+						<input id="username" type="text" class="form-control" name="username" pattern=".{3,10}" required >
+					</div>
+					<div class="form-group">
+						<label for="email">Indirizzo email</label>
+						<input id="email" type="email" class="form-control" name="email" required >
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>
+						<input id="password" type="password" class="form-control" name="password" pattern=".{6,32}" required >
+					</div>									
+				 	<button type="submit" class="btn btn-primary">Invia</button>
+			</form>
+			</div>
+	</div>
+</div>
+
+
+
+<jsp:include page="Footer.jsp"></jsp:include>

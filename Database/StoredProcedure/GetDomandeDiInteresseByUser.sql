@@ -10,5 +10,5 @@ BEGIN
 		ON(CaDom.idCategoria=Inter.idCategoria)
 	WHERE Inter.idUtente=_idUtente
     ORDER BY Dom.dataPubblicazione DESC;
-END;
-DELIMITER;
+END $$
+DELIMITER ; 

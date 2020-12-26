@@ -10,5 +10,5 @@ SELECT @output;
 IF @output = 0 THEN
 	DELETE FROM Risposte WHERE id=_idRisposta;
 END IF;
-END;
+END $$
 DELIMITER;

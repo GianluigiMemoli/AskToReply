@@ -54,7 +54,7 @@ public class ModeratoreDAO {
 	public static void doDeactivateModeratore(String id) {
 		DBManager dbManager = DBManager.getInstance();	
 		try {
-		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("DeleteModeratore", 1);
+		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("DisattivaAccount", 1);
 		callProcedure.setNString(1, id);
 		callProcedure.executeUpdate();
 		} catch (SQLException exc) {
@@ -62,5 +62,5 @@ public class ModeratoreDAO {
 		}
 	}
 }
-
+  
 

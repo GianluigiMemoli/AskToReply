@@ -6,5 +6,5 @@ BEGIN
     FROM Domande
 	WHERE id = _idDomanda;
 	SET _isArchiviata = @isA;
-END;
-DELIMITER;
+END $$
+DELIMITER ;

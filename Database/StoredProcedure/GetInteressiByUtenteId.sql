@@ -1,5 +1,5 @@
 use asktoreply;
-DELIMITER $$; 
+DELIMITER $$
 CREATE PROCEDURE GetInteressiByUtente(
     id varchar(256)
 )
