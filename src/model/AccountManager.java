@@ -106,14 +106,18 @@ public class AccountManager {
 	}
 	
 	
-	public void updateUtente(PartecipanteBean user, String newNome, String newCognome, String newUsername, String newEmail, String[] interessi) throws CampiNonConformiException {
+	public void updateUtente(PartecipanteBean user, String newNome, String newCognome, String newUsername, String newEmail, String[] interessi) throws CampiNonConformiException, EmailPresenteException, UsernamePresenteException {
 		if((!Validator.validateUpdateProfileFields(newNome, newCognome, newUsername, newEmail))) {
 			throw new CampiNonConformiException();
 		}
 		if (interessi.length == 0) {
 			throw new CampiNonConformiException("Inserire almeno una categoria");
 		}		
+		if(!isEmailAvailable(newEmail))
+			throw new EmailPresenteException();
 		
+		if(!isUsernameAvailable(newUsername))
+			throw new UsernamePresenteException();
 		user.setNome(newNome);
 		user.setCognome(newCognome);
 		user.setEmail(newEmail);

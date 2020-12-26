@@ -70,6 +70,13 @@ public class UpdateProfilo extends CustomServlet {
 			accountManager.updateUtente(loggedUser, nome, cognome, username, email, interessi);			
 		} catch(CampiNonConformiException exc) {			
 			log.info("Eccezione:" + exc.getMessage() + " gestita");
+			request.setAttribute("errore", exc.getMessage());
+		} catch (EmailPresenteException e) {
+			// TODO Auto-generated catch block
+			request.setAttribute("errore", e.getMessage());
+		} catch (UsernamePresenteException e) {
+			// TODO Auto-generated catch block
+			request.setAttribute("errore", e.getMessage());
 		}
 		catch(Exception exc) {
 			log.info("Eccezione:" + exc.getMessage() + " gestita");
