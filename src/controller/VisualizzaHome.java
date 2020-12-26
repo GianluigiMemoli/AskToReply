@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import model.DomandaBean;
 import model.DomandeManager;
 import model.PartecipanteBean;
 import model.RispostaDAO;
+import model.RisposteManager;
 
 /**
  * Servlet implementation class VisualizzaHome
@@ -57,8 +59,13 @@ public class VisualizzaHome extends CustomServlet {
 		int end = page * offset;
 		ArrayList<DomandaBean> domande = managerDomande.getDomandePertinenti(utente, start, end);
 		request.setAttribute("domande", domande);
-		//
 		
+		HashMap<String, Integer> numeroRisposte = new HashMap<String, Integer>();
+		RisposteManager risposteManager = new RisposteManager();
+		for(DomandaBean domanda : domande) {
+			numeroRisposte.put(domanda.getId(), risposteManager.getNumeroRisposte(domanda));
+		}
+		request.setAttribute("numeroRisposte", numeroRisposte);
 		boolean b = (managerDomande.getDomandePertinenti(utente, start+10, end)).isEmpty();
 		if(b) {
 			log.info("La prossima scheda è vuota");
@@ -66,6 +73,7 @@ public class VisualizzaHome extends CustomServlet {
 		}else {
 			log.info("La prossima scheda è piena");
 			request.setAttribute("next", 1);
+			
 		}
 		
 		//

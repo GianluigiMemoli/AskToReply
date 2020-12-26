@@ -145,6 +145,10 @@ public class RisposteManager {
 		RispostaDAO.removeRisposta(risposta);
 	}
 	
+	public int getNumeroRisposte(DomandaBean domanda) {
+		return RispostaDAO.countRisposteByDomandaId(domanda.getId());
+	}
+	
 	private static Logger logger = Logger.getLogger(DomandeManager.class.getName());
 
 	private static final String UPLOAD_PATH = "C:\\uploads\\allegati_risposte\\";

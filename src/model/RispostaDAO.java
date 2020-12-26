@@ -143,7 +143,24 @@ public class RispostaDAO {
 		return null;
 	}
 	
-	
+	public static int countRisposteByDomandaId(String id) {
+		DBManager manager = DBManager.getInstance();
+		int num = 0;
+
+		try {
+			CallableStatement stmt = manager.prepareStoredProcedureCall("GetNumeroRisposteByDomanda", 1);
+			stmt.setString(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				num = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return num;
+	}
 	
 
 }
