@@ -77,12 +77,9 @@ request.setAttribute("currentPage", currentPage);
 					<c:choose>
 					<c:when test="${domandeRisposte.contains(domanda)}">
 					<button
-						style="background-color:#E3F2FD;"
-						onclick="document.getElementById('idDomanda').value=${domanda.getId()}"
-						type="submit"
-						class="btn btn-outline-primary btn-sm border-0 btnsmussato"
-						data-toggle="modal" data-target="#pubblicaRispostaModal"
-						data-whatever="@getbootstrap">
+						style="background-color:#E3F2FD; pointer-events: none;"
+						type="button"
+						class="btn btn-outline-primary btn-sm border-0 btnsmussato">
 						<ion-icon name="chatbubble-ellipses"></ion-icon>
 						Hai risposto
 						<span style="background-color:#BBDEFB;"  class="badge badge-pill badge-success text-primary">${numeroRisposte.get(domanda.getId())}</span>
