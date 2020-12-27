@@ -81,7 +81,7 @@
 		</div>
 	</div>
 	
-					<jsp:include page="ElencoRisposte.jsp"></jsp:include>
+					<jsp:include page="ElencoRisposte.jsp"><jsp:param name="idDom" value="${domanda.id}"/></jsp:include>
 	
 	
 </div>

@@ -74,6 +74,21 @@ request.setAttribute("currentPage", currentPage);
 				</div>
 				<div>
 
+					<c:choose>
+					<c:when test="${domandeRisposte.contains(domanda)}">
+					<button
+						style="background-color:#E3F2FD;"
+						onclick="document.getElementById('idDomanda').value=${domanda.getId()}"
+						type="submit"
+						class="btn btn-outline-primary btn-sm border-0 btnsmussato"
+						data-toggle="modal" data-target="#pubblicaRispostaModal"
+						data-whatever="@getbootstrap">
+						<ion-icon name="chatbubble-ellipses"></ion-icon>
+						Hai risposto
+						<span style="background-color:#BBDEFB;"  class="badge badge-pill badge-success text-primary">${numeroRisposte.get(domanda.getId())}</span>
+					</button>
+					</c:when>
+					<c:otherwise>
 					<button
 						onclick="document.getElementById('idDomanda').value=${domanda.getId()}"
 						type="submit"
@@ -81,8 +96,12 @@ request.setAttribute("currentPage", currentPage);
 						data-toggle="modal" data-target="#pubblicaRispostaModal"
 						data-whatever="@getbootstrap">
 						<ion-icon name="chatbubble-ellipses"></ion-icon>
-						Rispondi(${numeroRisposte.get(domanda.getId( ))})
+						Rispondi
+						<span style="background-color:#BBDEFB;"  class="badge badge-pill badge-success text-primary">${numeroRisposte.get(domanda.getId())}</span>
 					</button>
+					</c:otherwise>	
+					</c:choose>
+					
 					<button type="submit"
 						class="btn btn-outline-warning btn-sm border-0 btnsmussato"
 						data-toggle="modal"
@@ -91,12 +110,6 @@ request.setAttribute("currentPage", currentPage);
 						<ion-icon name="warning"></ion-icon>
 						Segnala
 					</button>
-					<c:if test="${domandeRisposte.contains(domanda)}">
-					<div class="d-flex w-100 justify-content-end">
-						<small>hai risposto 
-						</small>
-					</div>
-</c:if>
 					<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include>
 
 				</div>
