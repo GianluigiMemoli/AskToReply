@@ -7,6 +7,8 @@
 <%@page import="model.DomandaBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import= "java.util.HashMap" %>
+<%@page import= "java.util.HashSet" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	int currentPage = 1;
@@ -89,10 +91,12 @@ request.setAttribute("currentPage", currentPage);
 						<ion-icon name="warning"></ion-icon>
 						Segnala
 					</button>
+					<c:if test="${domandeRisposte.contains(domanda)}">
 					<div class="d-flex w-100 justify-content-end">
-						<small>hai risposto placeholder</small>
+						<small>hai risposto 
+						</small>
 					</div>
-
+</c:if>
 					<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include>
 
 				</div>

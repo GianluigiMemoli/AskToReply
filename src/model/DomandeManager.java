@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -218,6 +219,13 @@ public class DomandeManager {
 	
 	public int getNumeroDomandeByAutore(String idAutore) {
 		return DomandaDAO.getNumeroDomandeByAutore(idAutore);
+	}
+	
+	public HashSet<DomandaBean> getDomandeRisposte(PartecipanteBean utente){
+		HashSet<DomandaBean> domandeRisposte = new HashSet<DomandaBean>();		
+		domandeRisposte.addAll(DomandaDAO.getDomandeRisposte(utente.getId())) ;
+		
+		return domandeRisposte;
 	}
 	
 	private static Logger logger = Logger.getLogger(DomandeManager.class.getName());

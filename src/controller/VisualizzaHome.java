@@ -66,6 +66,8 @@ public class VisualizzaHome extends CustomServlet {
 			numeroRisposte.put(domanda.getId(), risposteManager.getNumeroRisposte(domanda));
 		}
 		request.setAttribute("numeroRisposte", numeroRisposte);
+		request.setAttribute("domandeRisposte", managerDomande.getDomandeRisposte(utente));
+		
 		boolean b = (managerDomande.getDomandePertinenti(utente, start+10, end)).isEmpty();
 		if(b) {
 			log.info("La prossima scheda è vuota");

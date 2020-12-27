@@ -74,7 +74,20 @@ public class DomandaBean {
 		return "Domanda [id = " + id+ ", idAutore = " + autore.getId() + ", titolo = " + titolo + ", corpo = " + corpo + ", dataPubblicazione = " + dataPubblicazione + ", isArchiviata = " + isArchiviata + "]";
 	}
 	
-	//
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		DomandaBean toCompare = (DomandaBean) obj;
+		return toCompare.getId().equals(this.id);
+	}
+	
+	@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id.hashCode();  
+        return result;
+    }
 
 	private String id;
 	private UtenteBean autore;
