@@ -113,7 +113,9 @@ public class AccountManager {
 		if (interessi.length == 0) {
 			throw new CampiNonConformiException("Inserire almeno una categoria");
 		}		
-		if(!isEmailAvailable(newEmail))
+		UtenteBean oldUser = UtenteDAO.getUtenteById(user.getId());
+		
+		if(!oldUser.getEmail().equals(newEmail) && !isEmailAvailable(newEmail))
 			throw new EmailPresenteException();
 		
 		if(!isUsernameAvailable(newUsername))
