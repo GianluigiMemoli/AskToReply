@@ -10,7 +10,7 @@ begin
 	
 	select id, nome
 	from categorie
-		left join categoriedomande 
+		join categoriedomande 
 		on categorie.id = categoriedomande.idCategoria 
         and categoriedomande.idDomanda = idDomanda;
     
