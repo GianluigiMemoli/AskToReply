@@ -118,7 +118,7 @@ public class AccountManager {
 		if(!oldUser.getEmail().equals(newEmail) && !isEmailAvailable(newEmail))
 			throw new EmailPresenteException();
 		
-		if(!isUsernameAvailable(newUsername))
+		if(!oldUser.getUsername().equals(user.getUsername()) && !isUsernameAvailable(newUsername))
 			throw new UsernamePresenteException();
 		user.setNome(newNome);
 		user.setCognome(newCognome);

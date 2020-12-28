@@ -135,13 +135,12 @@ request.setAttribute("currentPage", currentPage);
 			aria-label="Page navigation example">
 			<ul class="pagination">
 				<c:if test="${currentPage > 1 }">
-					<li class="page-item"><a class="page-link" onclick=changePage(
-						<%=(currentPage - 1)%> )><ion-icon name="arrow-back"></ion-icon>
+					<li class="page-item"><a class="page-link" onclick="changePage(<%=(currentPage - 1)%>)">
+					<ion-icon name="arrow-back"></ion-icon>
 							Previous</a></li>
 				</c:if>
 				<c:if test="${next == 1}">
-					<li class="page-item"><a class="page-link" onclick=changePage(
-						<%=(currentPage + 1)%> )>Next <ion-icon name="arrow-forward"></ion-icon></a></li>
+					<li class="page-item"><a class="page-link" onclick="changePage(<%=(currentPage + 1)%>)">Next <ion-icon name="arrow-forward"></ion-icon></a></li>
 				</c:if>
 			</ul>
 		</nav>
