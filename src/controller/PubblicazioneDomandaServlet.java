@@ -45,27 +45,26 @@ public class PubblicazioneDomandaServlet extends CustomServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		PartecipanteBean autore = (PartecipanteBean) getLoggedUser(request.getSession());
 		String titolo = request.getParameter("titolo");
 		String corpo = request.getParameter("corpo");
 		Date dataPubblicazione = new Date();
-		String[] idCategorie = request.getParameterValues("categorie");
-		
-		List<Part> allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
-			
-		DomandeManager manager = new DomandeManager();
-		
+		String[] idCategorie = request.getParameterValues("categorie");		
+		List<Part> allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());			
+		DomandeManager manager = new DomandeManager();		
 		try {
 			manager.pubblicaDomanda(autore, titolo, corpo, dataPubblicazione, idCategorie, allegati);
 		} catch (Exception e) {
-			e.printStackTrace();
-			response.getWriter().print(e.getMessage()); // TODO Eliminare questa riga di codice
+			e.printStackTrace();			
+			//response.getWriter().print(e.getMessage());
+			// TODO Eliminare questa riga di codice
+		} finally {
+			request.getRequestDispatcher("Home.jsp").forward(request, response);
 		}
+		
+				
 	}
-
-	//
 	
 	Logger logger = Logger.getLogger(PubblicazioneDomandaServlet.class.getName());
 }
