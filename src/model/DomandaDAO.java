@@ -495,6 +495,7 @@ public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return domande;
 	}
 	

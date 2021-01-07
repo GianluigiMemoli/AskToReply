@@ -67,16 +67,15 @@ public class DBManager {
 		finally {
 			if(connection != null) {
 				connection.close();
-			}
+			} 
 		}
 		return preparedProcedure;		
 	}
 	
 	public PreparedStatement createPreparedStatement(String query) throws SQLException {
-		return this.getSQLConnection().prepareStatement(query);
-	}
-	
-	public void executePreparedQuery(CallableStatement statement) {
-		
-	}
+		Connection conn = this.getSQLConnection();
+		PreparedStatement stmt = conn.prepareStatement(query);
+		conn.close();
+		return stmt;
+	}  	
 }
