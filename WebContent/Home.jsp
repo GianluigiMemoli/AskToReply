@@ -73,7 +73,8 @@ request.setAttribute("currentPage", currentPage);
 					</a>
 				</div>
 				<div>
-
+			
+				<c:if test="${!utenteLoggato.getId().equals(domanda.getId())}">
 					<c:choose>
 					<c:when test="${domandeRisposte.contains(domanda)}">
 					<button
@@ -85,7 +86,7 @@ request.setAttribute("currentPage", currentPage);
 						<span style="background-color:#BBDEFB;"  class="badge badge-pill badge-success text-primary">${numeroRisposte.get(domanda.getId())}</span>
 					</button>
 					</c:when>
-					<c:otherwise>
+					<c:otherwise>					
 					<button
 						onclick="document.getElementById('idDomanda').value=${domanda.getId()}"
 						type="submit"
@@ -98,7 +99,7 @@ request.setAttribute("currentPage", currentPage);
 					</button>
 					</c:otherwise>	
 					</c:choose>
-					
+					</c:if>
 					<button type="submit"
 						class="btn btn-outline-warning btn-sm border-0 btnsmussato"
 						data-toggle="modal"

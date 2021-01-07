@@ -457,7 +457,7 @@ public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 		catParams = catParams.substring(0, catParams.length() - 1);
 		String query =
 				"SELECT * FROM Domande AS dom JOIN categoriedomande as catDom ON dom.id = catDom.idDomanda "
-				+ "WHERE catDom.idCategoria IN (" + catParams +") ORDER BY dom.dataPubblicazione DESC limit ?, ?" ;										
+				+ "WHERE catDom.idCategoria IN (" + catParams +") GROUP BY dom.id ORDER BY dom.dataPubblicazione DESC limit ?, ?" ;										
 		log.info(query);
 		log.info(catParams);
 		DBManager dbManager = DBManager.getInstance();
