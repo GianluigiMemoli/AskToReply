@@ -3,6 +3,7 @@ package model;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -161,6 +162,54 @@ public class RispostaDAO {
 		}
 		return num;
 	}
+	
+	
+	
+	
+
+	public static ArrayList<RispostaBean> getRisposteApprezzate(String idutente){		
+		String query = "SELECT idRisposta FROM votazioni WHERE idUtente = ? AND valore = 1";		
+		DBManager dbManager = DBManager.getInstance();
+		ArrayList<RispostaBean> risposte = new ArrayList<RispostaBean>();
+		try {
+			PreparedStatement stmt = dbManager.createPreparedStatement(query);
+			stmt.setString(1, idutente);
+			ResultSet records = stmt.executeQuery();			
+			while(records.next()) {
+				String idRisp= records.getNString("idRisposta");
+				RispostaBean rispostaB = new RispostaBean();
+				rispostaB.setId(idRisp);
+				risposte.add(rispostaB);		
+		}
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return risposte;
+	}
+	
+	
+	public static ArrayList<RispostaBean> getRisposteNonApprezzate(String idutente){		
+		String query = "SELECT idRisposta FROM votazioni WHERE idUtente = ? AND valore = -1";		
+		DBManager dbManager = DBManager.getInstance();
+		ArrayList<RispostaBean> risposte = new ArrayList<RispostaBean>();
+		try {
+			PreparedStatement stmt = dbManager.createPreparedStatement(query);
+			stmt.setString(1, idutente);
+			ResultSet records = stmt.executeQuery();			
+			while(records.next()) {
+				String idRisp= records.getNString("idRisposta");
+				RispostaBean rispostaB = new RispostaBean();
+				rispostaB.setId(idRisp);
+				risposte.add(rispostaB);		
+		}
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return risposte;
+	}
+	
 	
 
 }

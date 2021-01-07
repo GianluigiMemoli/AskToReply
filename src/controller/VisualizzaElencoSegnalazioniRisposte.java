@@ -28,7 +28,7 @@ public class VisualizzaElencoSegnalazioniRisposte extends CustomServlet {
     }
 
     
-    /*protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	// TODO Auto-generated method stub
     	try {
     		super.checkModeratore(req.getSession(), resp);
@@ -36,7 +36,7 @@ public class VisualizzaElencoSegnalazioniRisposte extends CustomServlet {
     		req.getRequestDispatcher("/accesso").forward(req, resp);    	
     	}
     	super.service(req, resp);
-    }*/
+    }
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

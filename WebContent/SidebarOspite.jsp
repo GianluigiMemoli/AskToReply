@@ -1,14 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
   
-		<div class="sidebar aperta" id="sidebar">
-			<div class="line" >
-				<a class="title"> <b>Ask to Reply</b></a>
+		<div class="sidebar aperta" id="sidebar"  unselectable="on"  onselectstart="return false;" onmousedown="return false;">
+			<div class="line">
+				<a class="title" > <b>Ask to Reply</b></a>
 			</div>
+			
+		    <a href="VisualizzaProfilo" id="iscriviti"><ion-icon name="person-add" class="responsive"></ion-icon> Iscriviti</a>
+		    <a href="VisualizzaHome" id="accedi"><ion-icon name="key" class="responsive"></ion-icon> Accedi</a>
+		    <a href="RicercaServlet" id="cerca"><ion-icon name="search" class="responsive"></ion-icon> Cerca</a>
 
-		   				 <a class="mod" href="VisualizzaElencoSegnalazioniRisposte" id="risposte"><ion-icon class="responsive" name = "chatbubbles"></ion-icon> Risposte</a>
-		    			<a class="mod" href="VisualizzaElencoSegnalazioniDomande" id="domande"><ion-icon name="megaphone" class="responsive"></ion-icon> Domande</a>
-					<a class="mod" href="LogoutServlet" id="logout"><ion-icon name="trail-sign" class="responsive"></ion-icon> Esci</a>
-
+			
 			<button style="display:none;" id="bottonesuperiore_apri" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()">
 				<ion-icon name="add-circle"></ion-icon>
 			</button>
@@ -34,25 +36,26 @@
 				var w = window.outerWidth;
 				if(w<=529){
 					document.getElementById("bottonesuperiore_chiudi").style.display="block";
+					openBar();//AGGIUNTO IL 07/01
 				}
 			}
 			
 			function openBar(){
 				var apri = document.getElementById("bottonesuperiore_apri");
 				var chiudi = document.getElementById("bottonesuperiore_chiudi");
-				//mi è venuta sete
+				//mi ï¿½ venuta sete
 				var x = document.getElementById("sidebar");
 				if (x.className === "sidebar") {
-					x.style.height="355pt";
+					x.style.height="225pt";
 					x.className += " aperta";
-					console.log("la sidebar si è aperta");
+					console.log("la sidebar si ï¿½ aperta");
 					apri.style.top="35px";
 					chiudi.style.top="35px";
 					apri.style.display="none";
 					chiudi.style.display="block";
 				}
 				else{
-					console.log("la sidebar si è chiusa");
+					console.log("la sidebar si ï¿½ chiusa");
 					x.style.height="55pt";
 					x.className = "sidebar";
 					apri.style.top="35px";
@@ -75,15 +78,21 @@
 				}
 				else{
 					chiudi.style.display="block";
-					sidebar.style.height="355pt";
+					sidebar.style.height="225pt";
 					if(sidebar.className!="sidebar aperta"){
 						sidebar.className+=" aperta";
 					}
 					console.log(w); //test
+					openBar();//AGGIUNTO IL 07/01
 				}
 			}
+				
+			function chiedi(){
+				window.location.href = "/AskToReply/VisualizzaFormPubblicazioneDomandaServlet";
+
+			}
+			
 			
 		</script>
 
 		<!--fine script sidebar-->  
-		

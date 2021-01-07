@@ -4,7 +4,9 @@
 
 <jsp:include page="Header.jsp"/>
 	
-<jsp:include page="Sidebar.jsp"/>
+<jsp:include page="Sidebar.jsp">
+	<jsp:param name="active" value="empty" />
+</jsp:include>
 
 <style>
 	.question{

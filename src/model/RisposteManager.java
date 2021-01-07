@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -153,6 +154,22 @@ public class RisposteManager {
 
 	private static final String UPLOAD_PATH = "C:\\uploads\\allegati_risposte\\";
 
+
+
+
+
+public HashSet<RispostaBean> getRisposteApprezzate(UtenteBean utente){
+	HashSet<RispostaBean> risposteApprezzate = new HashSet<RispostaBean>();		
+	risposteApprezzate.addAll(RispostaDAO.getRisposteApprezzate(utente.getId()));
+	return risposteApprezzate;
 }
 
+
+public HashSet<RispostaBean> getRisposteNonApprezzate(UtenteBean utente){
+	HashSet<RispostaBean> risposteNonApprezzate = new HashSet<RispostaBean>();		
+	risposteNonApprezzate.addAll(RispostaDAO.getRisposteNonApprezzate(utente.getId()));
+	return risposteNonApprezzate;
+}
+
+}
 //da testare

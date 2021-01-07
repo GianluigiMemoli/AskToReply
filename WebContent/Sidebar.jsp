@@ -3,12 +3,14 @@
   
 		<div class="sidebar aperta" id="sidebar"  unselectable="on"  onselectstart="return false;" onmousedown="return false;">
 			<div class="line">
-				<a class="title" > <b>Ask to Reply</b></a>
+				<a class="title"> <b>Ask to Reply</b></a>
 			</div>
 		    <a href="VisualizzaHome" id="home"><ion-icon class="responsive" name = "home"></ion-icon> Home</a>
 		    <a href="VisualizzaProfilo" id="profilo"><ion-icon name="person" class="responsive"></ion-icon> Profilo</a>
 		    <a href="RicercaServlet" id="cerca"><ion-icon name="search" class="responsive"></ion-icon> Cerca</a>
 		    <a href="LogoutServlet" id="logout"><ion-icon name="trail-sign" class="responsive"></ion-icon> Esci</a>
+			
+			<input type="hidden" id="empty" name="empty" value="">
 			
 			
 			<button onclick="chiedi()" id="chiedi_sidebar_button">CHIEDI</button>
@@ -34,11 +36,14 @@
 			
 			window.addEventListener('resize', fixSidebar);
 			
+			
+			
 			function fixbtn(){
 				console.log("test"); //test
 				var w = window.outerWidth;
 				if(w<=529){
 					document.getElementById("bottonesuperiore_chiudi").style.display="block";
+					openBar();//AGGIUNTO IL 07/01
 				}
 			}
 			
@@ -66,6 +71,7 @@
 					chiudi.style.display="none";
 				}
 			}
+			
 			function fixSidebar(){
 				var apri = document.getElementById("bottonesuperiore_apri");
 				var chiudi = document.getElementById("bottonesuperiore_chiudi");
@@ -84,6 +90,7 @@
 					if(sidebar.className!="sidebar aperta"){
 						sidebar.className+=" aperta";
 					}
+					openBar();//AGGIUNTO IL 07/01
 					console.log(w); //test
 				}
 			}

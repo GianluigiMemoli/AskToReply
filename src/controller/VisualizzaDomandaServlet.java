@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -20,8 +21,11 @@ import model.MotivazioneBean;
 import model.MotivazioneDAO;
 import model.RispostaBean;
 import model.RispostaDAO;
+import model.RisposteManager;
 import model.UtenteBean;
 import model.UtenteDAO;
+import model.VotazioneBean;
+import model.VotazioneDAO;
 
 /**
  * Servlet implementation class VisualizzaDomandaServlet
@@ -81,7 +85,46 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 						page = Integer.parseInt(request.getParameter("pageRi"));	
 					}
 					
+					
 					risposte=RispostaDAO.getRisposteByIdDomanda(idDomanda, page);//aggiunta
+					
+
+					RisposteManager managerRisposte = new RisposteManager();
+					UtenteBean utenteloggato = getLoggedUser(request.getSession());
+					//request.setAttribute("risposteApprezzate", managerRisposte.getRisposteApprezzate(utenteloggato));
+					HashSet<RispostaBean> rsrb =  managerRisposte.getRisposteApprezzate(utenteloggato);
+					HashSet<RispostaBean> rsrb2 =  managerRisposte.getRisposteNonApprezzate(utenteloggato);
+
+
+					
+					 log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+					 log.info("LA SIZE DELL'HASHSET E' "+ String.valueOf(rsrb.size()));
+					 
+					 HashSet<String> risposteApprezzate = new HashSet<String>();
+					 HashSet<String> risposteNonApprezzate = new HashSet<String>();
+
+					 
+						for (RispostaBean x : rsrb) {
+							 risposteApprezzate.add(x.getId());
+							 log.info(x.getId());
+						}
+						
+						for (RispostaBean y : rsrb2) {
+							 risposteNonApprezzate.add(y.getId());
+							 log.info(y.getId());
+						}
+						
+						
+						request.setAttribute("risposteApprezzate", risposteApprezzate);
+						request.setAttribute("risposteNonApprezzate", risposteNonApprezzate);
+
+						
+						/*rsrb.forEach((k) -> {
+							log.info(k.getId());
+						});*/
+					 
+					 log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
 					boolean b = RispostaDAO.getRisposteByIdDomanda(idDomanda, page+1).isEmpty();
 					if(b) {
 						//log.info("La prossima scheda è vuota");
@@ -92,7 +135,6 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 					}
 					
 					request.setAttribute("risposte", risposte);
-					
 					
 					//
 					File[] a = manager.getAllegati(domandaVisualizzata);

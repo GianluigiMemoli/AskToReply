@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -55,9 +56,55 @@ public class VotazioneRispostaServlet extends HttpServlet {
 		log.info("#######################  valoreee:  #########################");
 		log.info(String.valueOf(valore));
 		
-		VotazioneBean votazione=new VotazioneBean(idUtente, idRisposta, valore);
-		VotazioneDAO.addVotazioneRisposta(votazione);
+		int n=-1;
+		ArrayList<VotazioneBean> voti = VotazioneDAO.getVotazioniByIdRisposta(idRisposta);
+		for(int i=0; i<voti.size();i++) {
+			
+			log.info("nella lista c'è: "+voti.get(i).getIdUtente());
+			log.info("mentre l'utente loggato è: "+idUtente);
+			if(voti.get(i).getIdUtente().contentEquals(idUtente))n=i;
+			
+		}
 		
+		VotazioneBean votazione=new VotazioneBean(idUtente, idRisposta, valore);
+
+		if(n>=0) {
+			
+			if(voti.get(n).getValore()==1) {
+				log.info("Ha già messo mi piace");
+				if(valore==1) {
+					//rimuovo il mi piace
+					log.info("RIMUOVO IL [MI PIACE]");
+					VotazioneDAO.removeVotazioneRisposta(votazione);
+				}else {
+					//rimuovo il mi piace e aggiungo il non mi piace
+					log.info("RIMUOVO IL [MI PIACE]");
+					log.info("AGGIUNGO IL [NON MI PIACE]");
+					VotazioneDAO.removeVotazioneRisposta(votazione);
+					VotazioneDAO.addVotazioneRisposta(votazione);
+				}
+			}
+			else{
+				log.info("Ha già messo NON mi piace");
+				if(valore==-1) {
+					log.info("RIMUOVO IL [NON MI PIACE]");
+					VotazioneDAO.removeVotazioneRisposta(votazione);
+				}else {
+					//rimuovo il non mi piace e aggiungo il mi piace
+					log.info("RIMUOVO IL [NON MI PIACE]");
+					log.info("AGGIUNGO IL [MI PIACE]");
+					VotazioneDAO.removeVotazioneRisposta(votazione);
+					VotazioneDAO.addVotazioneRisposta(votazione);
+				}
+			}
+
+			
+		}
+		else {
+			log.info("NON AVEVA MESSO NULLA, QUINDI AGGIUNGO ORA");
+		//VotazioneBean votazione=new VotazioneBean(idUtente, idRisposta, valore);
+		VotazioneDAO.addVotazioneRisposta(votazione);
+		}
 		request.getRequestDispatcher("VisualizzaDomandaServlet?id="+idDomanda).forward(request, response);
 	}
 

@@ -4,12 +4,12 @@ delimiter $$
 
 
 create procedure RimozioneVotazione(
-	in idRisposta varchar(256),
-    in idUtente varchar(256)
+	in idR varchar(256),
+    in idU varchar(256)
 )
 
 begin
-	delete from Votazioni where idRisposta = idRisposta and idUtente = idUtente;
+	delete from Votazioni where idR = Votazioni.idRisposta and idU = Votazioni.idUtente;
 end $$
 
 delimiter ;

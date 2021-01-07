@@ -31,9 +31,9 @@ public class VotazioneDAO {
 		
 		DBManager dbManager = DBManager.getInstance();
 		try {
-			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("RemoveVotazioneRisposta", 2);
-			callProcedure.setString(1, votazione.getIdUtente());
-			callProcedure.setString(2, votazione.getIdRisposta());
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("RimozioneVotazione", 2);
+			callProcedure.setString(1, votazione.getIdRisposta());
+			callProcedure.setString(2, votazione.getIdUtente());
 			callProcedure.executeUpdate();
 		}catch(SQLException exc) {
 			exc.printStackTrace();
