@@ -88,7 +88,7 @@ request.setAttribute("currentPage", currentPage);
 					</c:when>
 					<c:otherwise>					
 					<button
-						onclick="document.getElementById('idDomanda').value=${domanda.getId()}"
+						onclick="document.getElementById('idDomanda').value='${domanda.getId()}'"
 						type="submit"
 						class="btn btn-outline-primary btn-sm border-0 btnsmussato"
 						data-toggle="modal" data-target="#pubblicaRispostaModal"
@@ -108,12 +108,14 @@ request.setAttribute("currentPage", currentPage);
 						<ion-icon name="warning"></ion-icon>
 						Segnala
 					</button>
-					<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include>
 
 				</div>
 
 			</div>
 		</c:forEach>
+
+					<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include>
+
 
 		<c:if test="${empty domande}">
 			<div class="card text-center">
@@ -132,8 +134,7 @@ request.setAttribute("currentPage", currentPage);
 
 	</div>
 	<c:if test="${not empty domande}">
-		<nav class="paginator d-flex justify-content-center"
-			aria-label="Page navigation example">
+		<nav class="paginator d-flex justify-content-center" aria-label="Page navigation example">
 			<ul class="pagination">
 				<c:if test="${currentPage > 1 }">
 					<li class="page-item"><a class="page-link" onclick="changePage(<%=(currentPage - 1)%>)">

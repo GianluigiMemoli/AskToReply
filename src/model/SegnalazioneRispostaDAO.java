@@ -29,9 +29,6 @@ public class SegnalazioneRispostaDAO {
 			callProcedure.setInt(3, segnalazione.getStato());
 			callProcedure.setString(4, segnalazione.getCommento());
 			callProcedure.registerOutParameter(5, Types.VARCHAR);
-			log.info("EEEEEEEEEEEEE111111111111");
-			log.info(segnalazione.getIdRisposta());
-			log.info("EEEEEEEEEEEEE11111111111");
 
 			//callProcedure.executeUpdate();
 			//ResultSet rsId = callProcedure.getResultSet();
@@ -40,9 +37,6 @@ public class SegnalazioneRispostaDAO {
 			if (rsId.next()){
 			CallableStatement callProcedure2 = dbManager.prepareStoredProcedureCall("CreateSegnalazioneRisposta", 2);
 			callProcedure2.setString(1, rsId.getString("id"));
-			log.info("EEEEEEEEEEEEE");
-			log.info(segnalazione.getIdRisposta());
-			log.info("EEEEEEEEEEEEE");
 
 			callProcedure2.setString(2, segnalazione.getIdRisposta());
 			//callProcedure2.executeUpdate();

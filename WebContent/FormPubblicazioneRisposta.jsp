@@ -15,7 +15,6 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
           <div class="form-group">
           		  <input type="hidden" id="idDom" name="idDom" value="" readonly>
           		  <!-- h1 id="solo_per_testare"></h1-->
@@ -26,9 +25,7 @@
     <input type="file" class="custom-file-input" id="customFile">
     <label class="custom-file-label" for="customFile">Carica allegato</label>
   </div>
-  
-</form>
-      </div>
+        </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-secondary btnsmussato" data-dismiss="modal">Annulla</button>
         <button type="submit" class="btn btn-primary btnsmussato"><ion-icon name="send"></ion-icon> Invia risposta</button>
@@ -47,10 +44,6 @@ function getIdDom(){
 
 }
 
-$(".custom-file-input").on("change", function() {
-  var fileName = $(this).val().split("\\").pop();
-  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-});
 </script>
 
 

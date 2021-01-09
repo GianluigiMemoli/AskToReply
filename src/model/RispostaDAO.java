@@ -110,7 +110,6 @@ public class RispostaDAO {
 			rs = callProcedure.executeQuery();
 			log.info("prima del while");
 			while (rs.next()) {
-				log.info("EEEEEEEEEENNNNNNNTROOOOOOOOOOOO NEEEEEEEEE WHIIIIIIIIIIIIIIIIILLLLLLLLLLLLEEEEEEEEEEE");
 				risposta = new RispostaBean();
 				risposta.setId(rs.getString("id"));
 				risposta.setIdDomanda(rs.getString("idDomanda"));
@@ -125,13 +124,6 @@ public class RispostaDAO {
 				ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(rs.getString("id"));
 				risposta.setVoti(vb);//aggiunto
 				if(vb!=null)for(int k=0; k<vb.size(); k++)if(vb.get(k).getValore()==1)miPiace+=1;else nonMiPiace+=1;
-				
-				log.info("SSSSSSSSSSSSSSSSSSSSSS");
-
-				log.info("STA risposta["+rs.getString("corpo")+"]ha avuto "+miPiace+"mi Piace");
-				log.info("STA risposta["+rs.getString("corpo")+"] ha avuto "+nonMiPiace+"Non mi Piace");
-
-				log.info("SSSSSSSSSSSSSSSSSSSSSS");
 
 				risposta.setMiPiace(miPiace);
 				risposta.setNonMiPiace(nonMiPiace);

@@ -109,19 +109,19 @@ button.responsivebtn{
 				
 						<c:choose>
 						<c:when test="${risposteApprezzate.contains(risposta.getId())}">
-								<button name="mipiace" id="btn_${risposta.getId()}_mipiace" onmouseover=likeFunctionOnOver("${risposta.getId()}")  class="btn btn-outline-success btn-sm border-0 btnsmussato responsivebtn mipiace"><ion-icon name="thumbs-up"></ion-icon><span class="responsivespan"> Mi piace</span>&nbsp;<span id="span_${risposta.getId()}_mipiace" style="background-color:#C8E6C9;"  class="badge badge-pill badge-success text-success">${risposta.getMiPiace()}</span></button>
+								<button name="mipiace" id="btn_${risposta.getId()}_mipiace" onmouseover="likeFunctionOnOver('${risposta.getId()}')"  class="btn btn-outline-success btn-sm border-0 btnsmussato responsivebtn mipiace"><ion-icon name="thumbs-up"></ion-icon><span class="responsivespan"> Mi piace</span>&nbsp;<span id="span_${risposta.getId()}_mipiace" style="background-color:#C8E6C9;"  class="badge badge-pill badge-success text-success">${risposta.getMiPiace()}</span></button>
 						</c:when>
 						<c:otherwise>
-								<button name="mipiace" id="btn_${risposta.getId()}_mipiace" onmouseover=likeFunctionOnOver("${risposta.getId()}") class="btn btn-outline-success btn-sm border-0 btnsmussato responsivebtn"><ion-icon name="thumbs-up"></ion-icon><span class="responsivespan"> Mi piace</span>&nbsp;<span id="span_${risposta.getId()}_mipiace" style="background-color:#C8E6C9;"  class="badge badge-pill badge-success text-success">${risposta.getMiPiace()}</span></button>
+								<button name="mipiace" id="btn_${risposta.getId()}_mipiace" onmouseover="likeFunctionOnOver('${risposta.getId()}')" class="btn btn-outline-success btn-sm border-0 btnsmussato responsivebtn"><ion-icon name="thumbs-up"></ion-icon><span class="responsivespan"> Mi piace</span>&nbsp;<span id="span_${risposta.getId()}_mipiace" style="background-color:#C8E6C9;"  class="badge badge-pill badge-success text-success">${risposta.getMiPiace()}</span></button>
 						</c:otherwise>
 						</c:choose>					
 				
 												<c:choose>
 						<c:when test="${risposteNonApprezzate.contains(risposta.getId())}">
-								<button name="nonmipiace" id="btn_${risposta.getId()}_nonmipiace" onmouseover=dislikeFunctionOnOver("${risposta.getId()}") type="submit" class="btn btn-outline-danger btn-sm border-0 btnsmussato responsivebtn nonmipiace" data-toggle="modal" data-target="" data-whatever="@getbootstrap"><ion-icon name="thumbs-down"></ion-icon><span class="responsivespan"> Non mi piace</span>&nbsp;<span id="span_${risposta.getId()}_nonmipiace"  style="background-color:#FFCDD2" class="badge badge-pill badge-danger text-danger">${risposta.getNonMiPiace()}</span></button>
+								<button name="nonmipiace" id="btn_${risposta.getId()}_nonmipiace" onmouseover="dislikeFunctionOnOver('${risposta.getId()}')" type="submit" class="btn btn-outline-danger btn-sm border-0 btnsmussato responsivebtn nonmipiace" data-toggle="modal" data-target="" data-whatever="@getbootstrap"><ion-icon name="thumbs-down"></ion-icon><span class="responsivespan"> Non mi piace</span>&nbsp;<span id="span_${risposta.getId()}_nonmipiace"  style="background-color:#FFCDD2" class="badge badge-pill badge-danger text-danger">${risposta.getNonMiPiace()}</span></button>
 						</c:when>
 						<c:otherwise>
-								<button name="nonmipiace" id="btn_${risposta.getId()}_nonmipiace" onmouseover=dislikeFunctionOnOver("${risposta.getId()}") type="submit" class="btn btn-outline-danger btn-sm border-0 btnsmussato responsivebtn" data-toggle="modal" data-target="" data-whatever="@getbootstrap"><ion-icon name="thumbs-down"></ion-icon><span class="responsivespan"> Non mi piace</span>&nbsp;<span id="span_${risposta.getId()}_nonmipiace"  style="background-color:#FFCDD2" class="badge badge-pill badge-danger text-danger">${risposta.getNonMiPiace()}</span></button>
+								<button name="nonmipiace" id="btn_${risposta.getId()}_nonmipiace" onmouseover="dislikeFunctionOnOver('${risposta.getId()}')" type="submit" class="btn btn-outline-danger btn-sm border-0 btnsmussato responsivebtn" data-toggle="modal" data-target="" data-whatever="@getbootstrap"><ion-icon name="thumbs-down"></ion-icon><span class="responsivespan"> Non mi piace</span>&nbsp;<span id="span_${risposta.getId()}_nonmipiace"  style="background-color:#FFCDD2" class="badge badge-pill badge-danger text-danger">${risposta.getNonMiPiace()}</span></button>
 						</c:otherwise>
 						</c:choose>		
 					
@@ -215,7 +215,7 @@ button.responsivebtn{
 		
 		
 		function changePage(pageNumber){
-			//window.location.href = "/AskToReply/VisualizzaDomandaServlet?id="+${domanda.getId()}+"&pageRi="+pageNumber+"#Risposte";
+			window.location.href = "/AskToReply/VisualizzaDomandaServlet?id="+"${domanda.getId()}"+"&pageRi="+pageNumber+"#Risposte";
 		}
 		
 	</script>

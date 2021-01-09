@@ -46,9 +46,6 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		idDomanda = request.getParameter("idDom");
-		log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		log.info(idDomanda);
-		log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		
 		corpo = request.getParameter("corpo");
 		//allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());

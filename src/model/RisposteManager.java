@@ -40,17 +40,13 @@ public class RisposteManager {
 			
 			if(rs.next()){
 				
-				log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 				log.info("HAI GIA' RISPOSTOOOOOOOOOO ALLA DOMANDA");
-				log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 				throw new ErrorePubblicazioneRispostaException("L'utente ha già risposto alla domanda!");
 
 			}
 			
 			else {
-				log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-				log.info("BENE, HAI PPENA DATO LA TUA RISPOSTA");
-				log.info("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+				log.info("BENE, HAI APPENA DATO LA TUA RISPOSTA");
 			/*
 			 * 
 			CallableStatement procedure = manager.prepareStoredProcedureCall("GetDomandeByAutoreLimit", 3);

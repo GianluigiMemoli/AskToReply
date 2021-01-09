@@ -37,24 +37,12 @@ public class VotazioneRispostaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PartecipanteBean autoreBean = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 		idUtente = autoreBean.getId();
-		
-		log.info("#######################  idUtenteee:  #########################");
-		log.info(idUtente);
 
 		idRisposta = request.getParameter("idRisposta");
 		
-		log.info("#######################  idRispostaaa:  #########################");
-		log.info(idRisposta);
-		
 		idDomanda = request.getParameter("idDom");
 		
-		log.info("#######################  idDomanda:  #########################");
-		log.info(idDomanda);
-		
 		valore = Integer.parseInt(request.getParameter("value"));
-		
-		log.info("#######################  valoreee:  #########################");
-		log.info(String.valueOf(valore));
 		
 		int n=-1;
 		ArrayList<VotazioneBean> voti = VotazioneDAO.getVotazioniByIdRisposta(idRisposta);
@@ -71,27 +59,20 @@ public class VotazioneRispostaServlet extends HttpServlet {
 		if(n>=0) {
 			
 			if(voti.get(n).getValore()==1) {
-				log.info("Ha già messo mi piace");
+				log.info("RIMUOVO IL [MI PIACE]");
 				if(valore==1) {
-					//rimuovo il mi piace
-					log.info("RIMUOVO IL [MI PIACE]");
 					VotazioneDAO.removeVotazioneRisposta(votazione);
 				}else {
-					//rimuovo il mi piace e aggiungo il non mi piace
-					log.info("RIMUOVO IL [MI PIACE]");
 					log.info("AGGIUNGO IL [NON MI PIACE]");
 					VotazioneDAO.removeVotazioneRisposta(votazione);
 					VotazioneDAO.addVotazioneRisposta(votazione);
 				}
 			}
 			else{
-				log.info("Ha già messo NON mi piace");
+				log.info("RIMUOVO IL [NON MI PIACE]");
 				if(valore==-1) {
-					log.info("RIMUOVO IL [NON MI PIACE]");
 					VotazioneDAO.removeVotazioneRisposta(votazione);
 				}else {
-					//rimuovo il non mi piace e aggiungo il mi piace
-					log.info("RIMUOVO IL [NON MI PIACE]");
 					log.info("AGGIUNGO IL [MI PIACE]");
 					VotazioneDAO.removeVotazioneRisposta(votazione);
 					VotazioneDAO.addVotazioneRisposta(votazione);
@@ -101,7 +82,7 @@ public class VotazioneRispostaServlet extends HttpServlet {
 			
 		}
 		else {
-			log.info("NON AVEVA MESSO NULLA, QUINDI AGGIUNGO ORA");
+			log.info("VOTO AGGIUNTO");
 		//VotazioneBean votazione=new VotazioneBean(idUtente, idRisposta, valore);
 		VotazioneDAO.addVotazioneRisposta(votazione);
 		}
