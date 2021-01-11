@@ -16,7 +16,7 @@ public class RoleRouterServlet extends CustomServlet {
 	private static final long serialVersionUID = 1L;
 	final static String MASTER_MODERATORE_HOME = "GestioneModeratori";
 	final static String PARTECIPANTE_HOME = "VisualizzaHome";
-	final static String MODERATORE_HOME = "stub";
+	final static String MODERATORE_HOME = "VisualizzaElencoSegnalazioniRisposte";
 	
     public RoleRouterServlet(){
         super();

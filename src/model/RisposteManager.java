@@ -24,10 +24,15 @@ public class RisposteManager {
 
 
 	public void pubblicaRisposta(String idDomanda, String corpo, List<Part> allegati, String idAutore
-			, Date dataPubblicazione) throws Exception{
+			,String idAutoreDomanda, Date dataPubblicazione) throws Exception{
 		
+		
+		//controllo se l'utente tenta di rispondere ad una propria domanda
+		
+		if(idAutore.equals(idAutoreDomanda))throw new ErrorePubblicazioneRispostaException("La domanda è stata pubblicata dall'utente che sta tentando di rispondere.");
 
-		//if //controllo se l'utente ha già risposto
+		
+		//controllo se l'utente ha già risposto
 		
 		DBManager manager = DBManager.getInstance();
 		
@@ -40,13 +45,13 @@ public class RisposteManager {
 			
 			if(rs.next()){
 				
-				log.info("HAI GIA' RISPOSTOOOOOOOOOO ALLA DOMANDA");
+				log.info("L'UTENTE HA GIA' RISPOSTO ALLA DOMANDA");
 				throw new ErrorePubblicazioneRispostaException("L'utente ha già risposto alla domanda!");
 
 			}
 			
 			else {
-				log.info("BENE, HAI APPENA DATO LA TUA RISPOSTA");
+				log.info("RISPOSTA INVIATA CON SUCCESSO");
 			/*
 			 * 
 			CallableStatement procedure = manager.prepareStoredProcedureCall("GetDomandeByAutoreLimit", 3);

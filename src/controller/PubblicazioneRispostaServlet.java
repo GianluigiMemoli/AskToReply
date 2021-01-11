@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import model.DomandaDAO;
 import model.PartecipanteBean;
 import model.RisposteManager;
 import model.SegnalazioneRispostaDAO;
@@ -46,6 +48,7 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		idDomanda = request.getParameter("idDom");
+		idAutoreDomanda=DomandaDAO.getDomandaById(idDomanda).getAutore().getId();
 		
 		corpo = request.getParameter("corpo");
 		//allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
@@ -58,7 +61,7 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 		RisposteManager manager = new RisposteManager();
 
 		try {
-			manager.pubblicaRisposta(idDomanda, corpo, allegati, idAutore, dataPubblicazione);
+			manager.pubblicaRisposta(idDomanda, corpo, allegati, idAutore, idAutoreDomanda, dataPubblicazione);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,7 +75,8 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 	Logger logger = Logger.getLogger(PubblicazioneRispostaServlet.class.getName());
 
 	private PartecipanteBean autoreBean;
-
+	
+	private String idAutoreDomanda;
 	private String idDomanda;
 	private String corpo;
 	private List<Part> allegati;
