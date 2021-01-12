@@ -34,7 +34,7 @@ public class VisualizzaFormRegistrazione extends HttpServlet {
 		// TODO Auto-generated method stub
 		ArrayList<CategoriaBean> interessi = CategoriaDAO.getAll();
 		request.setAttribute("interessi", interessi);
-		request.getRequestDispatcher("FormRegistrazione.jsp").forward(request, response);;
+		request.getRequestDispatcher("FormRegistrazioneNuovo.jsp").forward(request, response);;
 	}
 
 	/**

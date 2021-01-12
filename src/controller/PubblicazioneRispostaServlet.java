@@ -67,6 +67,7 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 			e.printStackTrace();
 		}
 		
+		
 		request.getRequestDispatcher("VisualizzaHome").forward(request, response);
 
 
@@ -76,6 +77,7 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 
 	private PartecipanteBean autoreBean;
 	
+	private String href;
 	private String idAutoreDomanda;
 	private String idDomanda;
 	private String corpo;
