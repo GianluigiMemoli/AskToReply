@@ -44,18 +44,20 @@
 			</div>
 
 			<label>Scegli almeno un'area di interesse</label>
-			<ul class="list-group">
-				<c:forEach var="interesse" items="${interessi}">
-					<li class="list-group-item"><c:if
-							test="${interessiUtente.contains(interesse)}">
-							<input type="checkbox" value="${interesse.getNome()}"
-								name="interessi" id="interesseCheck" checked>
-						</c:if> <c:if test="${interessiUtente.contains(interesse) == false}">
-							<input type="checkbox" value="${interesse.getNome()}"
-								name="interessi" id="interesseCheck">
-						</c:if> <label for="interesseCheck"> ${interesse.getNome()}</label></li>
-				</c:forEach>
-			</ul>
+			<div class="overflow-auto" style="height: 229px;">
+				<ul class="list-group">
+					<c:forEach var="interesse" items="${interessi}">
+						<li class="list-group-item"><c:if
+								test="${interessiUtente.contains(interesse)}">
+								<input type="checkbox" value="${interesse.getNome()}"
+									name="interessi" id="interesseCheck" checked>
+							</c:if> <c:if test="${interessiUtente.contains(interesse) == false}">
+								<input type="checkbox" value="${interesse.getNome()}"
+									name="interessi" id="interesseCheck">
+							</c:if> <label for="interesseCheck"> ${interesse.getNome()}</label></li>
+					</c:forEach>
+				</ul>
+			</div>
 			<br>
 			<button type="submit" class="btn btn-primary btnsmussato">Salva modifiche</button>
 		</form>

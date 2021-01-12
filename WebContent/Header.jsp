@@ -33,6 +33,23 @@ button.bianco {
 	background-color:white;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: white; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #EEEEEE; 
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E0E0E0; 
+}
+
 </style>
 
   
