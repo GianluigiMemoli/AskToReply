@@ -5,10 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Paths;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javax.servlet.http.Part;
@@ -16,7 +13,7 @@ import javax.servlet.http.Part;
 import Exceptions.ErrorePubblicazioneDomandaException;
 
 public class DomandeManager {
-
+	
 	public void pubblicaDomanda (
 		PartecipanteBean autore,
 		String titolo,
@@ -77,59 +74,9 @@ public class DomandeManager {
 		
 		// Inserimento allegati
 		
-		caricaAllegati(allegati, domanda);
+		AllegatiHandler allegatiHandler = new AllegatiHandler();
+		allegatiHandler.caricaAllegati(allegati, UPLOAD_PATH + domanda.getId());
 		
-	}
-	
-	private void caricaAllegati(List<Part> allegati, DomandaBean domanda) throws Exception {
-		if(allegati.size() > 0) {
-			
-			String destinationFolder =  UPLOAD_PATH + domanda.getId();
-			
-			File dir = new File(destinationFolder);
-			
-			if(!dir.exists())
-				dir.mkdirs();
-			
-			OutputStream out = null;
-			
-		    for (Part filePart : allegati) {
-		        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-		        InputStream fileContent = filePart.getInputStream();
-		        
-		        // TODO C'è un problema col nome del file: al suo interno è presente anche il suo path assoluto
-		        
-		        byte[] data = new byte[fileContent.available()];
-		        
-		        fileContent.read(data);
-		        
-		        File file = new File(destinationFolder + "\\" + fileName);
-		        
-		        out = new FileOutputStream(file);
-		        out.write(data);
-		    }
-		    
-		    out.close();
-		}
-	}
-	
-	public File[] getAllegati(DomandaBean domanda) {
-		
-		// Questo if serve perché se domanda.getId() == "", restituisce tutte le directory
-		
-		if(domanda.getId() == "")
-			return null; 
-		
-		File[] files = new File(UPLOAD_PATH + domanda.getId()).listFiles();
-		
-		
-		if(files != null)
-			for (File file : files)
-				logger.info(file.getName());
-		else
-			logger.info("Cartella '" + domanda.getId() + "' non presente.");
-		
-		return files;
 	}
 	
 	public ArrayList<DomandaBean> ricerca(String testo, String[] categorie, Boolean isArchiviata) throws Exception {
@@ -159,6 +106,17 @@ public class DomandeManager {
 			// TODO risposte
 			ArrayList<RispostaBean> risposte = new ArrayList<RispostaBean>();
 			domanda.setRisposte(risposte);
+			
+			// allegati
+			AllegatiHandler allegatiHandler = new AllegatiHandler();
+			File[] allegati = allegatiHandler.getAllegati(UPLOAD_PATH + idDomanda);
+			
+			try {
+				domanda.setAllegati(allegatiHandler.convertToBase64(allegati));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 			

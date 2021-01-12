@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.io.File;
 import java.util.ArrayList;
 
 public class DomandaBean {
@@ -69,6 +70,14 @@ public class DomandaBean {
 		this.risposte = risposte;
 	}
 	
+	public ArrayList<String> getAllegati() {
+		return allegati;
+	}
+
+	public void setAllegati(ArrayList<String> allegati) {
+		this.allegati = allegati;
+	}
+	
 	@Override
 	public String toString() {
 		return "Domanda [id = " + id+ ", idAutore = " + autore.getId() + ", titolo = " + titolo + ", corpo = " + corpo + ", dataPubblicazione = " + dataPubblicazione + ", isArchiviata = " + isArchiviata + "]";
@@ -97,4 +106,5 @@ public class DomandaBean {
 	private boolean isArchiviata;
 	private ArrayList<CategoriaBean> categorie;
 	private ArrayList<RispostaBean> risposte;
+	private ArrayList<String> allegati;
 }
