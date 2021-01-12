@@ -57,10 +57,11 @@ public class GestioneSegnalazioneRispostaServlet extends HttpServlet {
 			request.getRequestDispatcher("ElencoSegnalazioniRisposte.jsp").forward(request, response);
 
 	    } else if (request.getParameter("ignora") != null) {
-			log.info("segnalazione "+request.getParameter("idSegnalazione")+" approvata");
+			log.info("segnalazione "+request.getParameter("idSegnalazione")+" ignorata");
 			
 			SegnalazioneRispostaBean  srb = new SegnalazioneRispostaBean();
 			srb.setIdSegnalazione(request.getParameter("idSegnalazione"));
+			srb.setStato(2);
 			SegnalazioneRispostaDAO.updateStatoSegnalazioneRisposta(srb);
 			
 			//response.sendRedirect(request.getContextPath() + "/ElencoSegnalazioniRisposte.jsp");
