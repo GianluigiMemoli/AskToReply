@@ -1,10 +1,15 @@
 package controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
@@ -15,6 +20,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+
+import model.AllegatiHandler;
 import model.DomandaBean;
 import model.DomandeManager;
 import model.MotivazioneBean;
@@ -70,9 +78,6 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 					 * Il problema consiste in ${allegati.length > 0} che da errore. Con ${allegati.size() > 0} funziona.
 					 */
 					
-					ArrayList<File> allegati = new ArrayList<File>();
-					//
-				
 					ArrayList<RispostaBean> risposte = new ArrayList<RispostaBean>();
 					ArrayList<MotivazioneBean> motivazioni = new ArrayList<MotivazioneBean>();
 					
@@ -136,21 +141,10 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 					
 					request.setAttribute("risposte", risposte);
 					
-					//
-					File[] a = manager.getAllegati(domandaVisualizzata);
-					
-					if(a!=null) {
-						for(int i = 0; i < a.length; i++) {
-							allegati.add(a[i]);
-						}
-					}
-					
-					request.setAttribute("allegati", allegati);
-					
 					/* Per sapere se l'utente è loggato E non è l'autore della domanda e quindi se può apparirgli o meno il form per pubblicare la risposta. */
 					UtenteBean utente = getLoggedUser(request.getSession());
 					request.setAttribute("utenteLoggato", utente);
-										
+					
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/Domanda.jsp");
 					dispatcher.forward(request, response);
 					
