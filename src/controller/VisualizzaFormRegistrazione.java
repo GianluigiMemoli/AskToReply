@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.CategoriaBean;
-import model.CategoriaDAO;
+import model.CategorieManager;
 
 /**
  * Servlet implementation class VisualizzaFormRegistrazione
@@ -31,8 +31,8 @@ public class VisualizzaFormRegistrazione extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		ArrayList<CategoriaBean> interessi = CategoriaDAO.getAll();
+		CategorieManager categorieManager = new CategorieManager();
+		ArrayList<CategoriaBean> interessi = categorieManager.getAll();
 		request.setAttribute("interessi", interessi);
 		request.getRequestDispatcher("FormRegistrazioneNuovo.jsp").forward(request, response);;
 	}
