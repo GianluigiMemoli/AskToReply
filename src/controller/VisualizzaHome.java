@@ -55,9 +55,8 @@ public class VisualizzaHome extends CustomServlet {
 		}
 		DomandeManager managerDomande = new DomandeManager();
 		PartecipanteBean utente = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
-		int start = (page - 1) * offset;
-		int end = page * offset;
-		ArrayList<DomandaBean> domande = managerDomande.getDomandePertinenti(utente, start, end);
+		int start = (page - 1) * offset;		
+		ArrayList<DomandaBean> domande = managerDomande.getDomandePertinenti(utente, start, offset);
 		request.setAttribute("domande", domande);
 		
 		HashMap<String, Integer> numeroRisposte = new HashMap<String, Integer>();
@@ -68,7 +67,7 @@ public class VisualizzaHome extends CustomServlet {
 		request.setAttribute("numeroRisposte", numeroRisposte);
 		request.setAttribute("domandeRisposte", managerDomande.getDomandeRisposte(utente));
 		
-		boolean b = (managerDomande.getDomandePertinenti(utente, start+10, end)).isEmpty();
+		boolean b = (managerDomande.getDomandePertinenti(utente, start+10, offset)).isEmpty();
 		if(b) {
 			log.info("La prossima scheda è vuota");
 			request.setAttribute("next", 0);

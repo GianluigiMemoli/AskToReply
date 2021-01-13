@@ -86,7 +86,8 @@ request.setAttribute("currentPage", currentPage);
 						<span style="background-color:#BBDEFB;"  class="badge badge-pill badge-success text-primary">${numeroRisposte.get(domanda.getId())}</span>
 					</button>
 					</c:when>
-					<c:otherwise>					
+					<c:otherwise>
+					<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">					
 					<button
 						onclick="document.getElementById('idDomanda').value='${domanda.getId()}'"
 						type="submit"
@@ -97,18 +98,20 @@ request.setAttribute("currentPage", currentPage);
 						Rispondi
 						<span style="background-color:#BBDEFB;"  class="badge badge-pill badge-success text-primary">${numeroRisposte.get(domanda.getId())}</span>
 					</button>
+					</c:if>
 					</c:otherwise>	
 					</c:choose>
 					</c:if>
-					<button type="submit"
-						class="btn btn-outline-warning btn-sm border-0 btnsmussato"
-						data-toggle="modal"
-						data-target="#dibenedettoinserisciquiiltitolodelmodalchehaifatto"
-						data-whatever="@getbootstrap">
-						<ion-icon name="warning"></ion-icon>
-						Segnala
-					</button>
-
+					<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">										
+						<button type="submit"
+							class="btn btn-outline-warning btn-sm border-0 btnsmussato"
+							data-toggle="modal"
+							data-target="#dibenedettoinserisciquiiltitolodelmodalchehaifatto"
+							data-whatever="@getbootstrap">
+							<ion-icon name="warning"></ion-icon>
+							Segnala
+						</button>
+					</c:if>
 				</div>
 
 			</div>
