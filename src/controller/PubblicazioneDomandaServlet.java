@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import model.DomandaBean;
 import model.DomandeManager;
 import model.PartecipanteBean;
 
@@ -46,21 +47,27 @@ public class PubblicazioneDomandaServlet extends CustomServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		
 		PartecipanteBean autore = (PartecipanteBean) getLoggedUser(request.getSession());
+		
 		String titolo = request.getParameter("titolo");
 		String corpo = request.getParameter("corpo");
 		Date dataPubblicazione = new Date();
 		String[] idCategorie = request.getParameterValues("categorie");		
-		List<Part> allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());			
-		DomandeManager manager = new DomandeManager();		
+		List<Part> allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
+		
+		DomandeManager manager = new DomandeManager();
+		
+		DomandaBean domanda = null;
+		
 		try {
-			manager.pubblicaDomanda(autore, titolo, corpo, dataPubblicazione, idCategorie, allegati);
+			domanda = manager.pubblicaDomanda(autore, titolo, corpo, dataPubblicazione, idCategorie, allegati);
 		} catch (Exception e) {
 			e.printStackTrace();			
 			//response.getWriter().print(e.getMessage());
 			// TODO Eliminare questa riga di codice
 		} finally {
-			request.getRequestDispatcher("Home.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/VisualizzaDomandaServlet?id=" + domanda.getId());
 		}
 		
 				
