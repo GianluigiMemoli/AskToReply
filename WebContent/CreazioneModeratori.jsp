@@ -31,14 +31,13 @@ align-self: center;
 </style>
 <jsp:include page="Header.jsp"></jsp:include>
 <jsp:include page="SidebarMasterMod.jsp">
-	<jsp:param name="active" value="profilo" />
+	<jsp:param name="active" value="registra" />
 </jsp:include>
 
 <div class="content">
-	<h3>Dashboard</h3>
 	<div class="row">
-		<div class="card col-12">		
-		<div class="card mod-container-form col-12">
+		<div class="col-12">		
+		<div class="card border-0 mod-container-form col-12">
 			<h4 class="card-title">Registra un moderatore</h4>
 			<div class="card-body">
 				<jsp:include page="PopupErrore.jsp"></jsp:include>

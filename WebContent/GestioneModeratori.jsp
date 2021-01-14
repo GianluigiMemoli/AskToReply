@@ -18,7 +18,7 @@
 	overflow-y: scroll;
 }
 
-.mod-container-form{	
+.mod-container{	
 	margin-top: 2em;
 }
 .mod-form{
@@ -31,13 +31,13 @@ align-self: center;
 </style>
 <jsp:include page="Header.jsp"></jsp:include>
 <jsp:include page="SidebarMasterMod.jsp">
-	<jsp:param name="active" value="profilo" />
+	<jsp:param name="active" value="gestione" />
 </jsp:include>
 
 <div class="content">
-	<h3>Dashboard</h3>
 	<div class="row">
-		<div class="card col-12">
+		<div class="col-12">
+		<div class="card border-0 mod-container">
 			<h4 class="card-title">Moderatori esistenti</h4>
 			<div class="card-body mod-list">
 				<table class="table table-responsive">
@@ -76,7 +76,7 @@ align-self: center;
 				</table>
 			</div>
 		</div>
-	
+	</div>
 </div>
 
 

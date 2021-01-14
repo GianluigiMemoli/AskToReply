@@ -5,8 +5,8 @@
 			<div class="line">
 				<a class="title"> <b>Ask to Reply</b></a>
 			</div>
-		    <a href="GestioneModeratori" id="home"><ion-icon class="responsive" name = "home"></ion-icon>Gestione moderatori</a>
-		    <a href="CreazioneModeratori" id="profilo"><ion-icon name="person" class="responsive"></ion-icon> Creazione moderatori</a>		    
+		    <a href="GestioneModeratori" id="gestione"><ion-icon name="cog"></ion-icon></ion-icon>Mods</a>
+		    <a href="CreazioneModeratori" id="registra"><ion-icon class="responsive" name="person-add"></ion-icon>Registra</a>		    
 		    <a href="LogoutServlet" id="logout"><ion-icon name="trail-sign" class="responsive"></ion-icon> Esci</a>
 			
 			<input type="hidden" id="empty" name="empty" value="">
