@@ -14,7 +14,7 @@ import Exceptions.ErrorePubblicazioneDomandaException;
 
 public class DomandeManager {
 	
-	public void pubblicaDomanda (
+	public DomandaBean pubblicaDomanda (
 		PartecipanteBean autore,
 		String titolo,
 		String corpo,
@@ -77,6 +77,7 @@ public class DomandeManager {
 		AllegatiHandler allegatiHandler = new AllegatiHandler();
 		allegatiHandler.caricaAllegati(allegati, UPLOAD_PATH + domanda.getId());
 		
+		return domanda;
 	}
 	
 	public ArrayList<DomandaBean> ricerca(String testo, String[] categorie, Boolean isArchiviata) throws Exception {
