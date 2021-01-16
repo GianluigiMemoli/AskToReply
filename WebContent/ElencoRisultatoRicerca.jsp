@@ -24,8 +24,42 @@
 
 
 	<div class="content debug">
-		<div class="container m-0">
 			<div class="row">
+
+							
+				<div class="col-md-4 order-md-2 mb-4">
+							<div class="card-body">
+				
+					<form action="RicercaServlet" method="get">
+					
+						<div class="form-group">
+							<input type="text" class="form-control" name="testo" placeholder="Cerca">
+						</div>
+						
+						<div class="form-group">
+							<label>Categorie:</label>
+							<c:forEach items="${categorie}" var="c">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="${c.getId()}" name="categorie">
+									<label class="form-check-label">
+										<a style="background-color:#EDE7F6; color:purple; border-radius:99em;" class="badge">${c.nome}</a>
+									</label>							
+								</div>
+							</c:forEach>
+						</div>
+						
+						
+						<input type="submit" value="Cerca" class="btn btn-primary" style="border-radius:99em;">
+						
+					</form>
+					</div>
+				</div>
+			
+			
+			
+			
+			
+			<div class="col-md-8 order-md-1">
 			<div class="card-body">
 					<input type="hidden" id="idDomanda" name="idDomanda" value="">
 					<c:choose>
@@ -71,36 +105,10 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				
-				<div>
-							<div class="card-body">
-				
-					<form action="RicercaServlet" method="get">
-					
-						<div class="form-group">
-							<input type="text" class="form-control" name="testo" placeholder="Cerca">
-						</div>
-						
-						<div class="form-group">
-							<label>Categorie:</label>
-							<c:forEach items="${categorie}" var="c">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="${c.getId()}" name="categorie">
-									<label class="form-check-label">
-										<a style="background-color:#EDE7F6; color:purple; border-radius:99em;" class="badge">${c.nome}</a>
-									</label>							
-								</div>
-							</c:forEach>
-						</div>
-						
-						
-						<input type="submit" value="Cerca" class="btn btn-primary" style="border-radius:99em;">
-						
-					</form>
-					</div>
 				</div>
+
 			</div>
-					</div>
+			
 			</div>
 			
 
