@@ -11,7 +11,7 @@
 		currentPage = Integer.parseInt(request.getParameter("pageRi"));		
 	}  
 	request.setAttribute("pageRi", currentPage);
-
+	
 %> 
 
 <style>
@@ -94,7 +94,21 @@ button.responsivebtn{
 	    					
 				
 					 
-
+				<c:choose>
+					<c:when test="${risposta.getAllegati().size() > 0}">
+						<%session.setAttribute("allegati_${risposta.getId()}", "${risposta.getAllegati()}");%>
+						<%session.setAttribute("testina", "valorepassato");%>
+							<c:forEach items="${risposta.getAllegati()}" var="allegato">
+								<div class="col-2 p-0">
+									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail">
+								</div>
+							</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<p><small>Nessun allegato presente.[questo messaggio va poi eliminato]</small></p>
+					</c:otherwise>
+				</c:choose>
+				
 					
 					
 														<c:choose>
@@ -147,7 +161,7 @@ button.responsivebtn{
 					   						</c:otherwise>
 					</c:choose>	
 					
-						    		   <button type="button" class="btn btn-outline-info btn-sm border-0 btnsmussato" name="allegati" id="allegati"><ion-icon name="eye"></ion-icon><span class="responsivespan"> Mostra allegati&nbsp;</span></button>
+					<button onclick="document.getElementById('idRisposta').value='${risposta.getId()}';"  type="button" class="btn btn-outline-info btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#visualizzaAllegatoModal" data-whatever="@getbootstrap"><ion-icon name="eye"></ion-icon><span class="responsivespan"> Mostra allegati&nbsp;</span></button>
 					
 					 
 								
@@ -173,7 +187,7 @@ button.responsivebtn{
 		</div>	
 						 						<jsp:include page="FormSegnalazioneRisposta.jsp"></jsp:include>
 	
-	<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include> 	
+	<jsp:include page="ModalAllegati.jsp"></jsp:include> 	
 	
 
 

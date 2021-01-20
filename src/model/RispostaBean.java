@@ -110,26 +110,23 @@ public class RispostaBean {
 	public void setVoti(ArrayList<VotazioneBean> voti) {
 		this.voti = voti;
 	}
+	
 
+	public ArrayList<String> getAllegati() {
+		return allegati;
+	}
 
-
-
-
-
-
-
+	public void setAllegati(ArrayList<String> allegati) {
+		this.allegati = allegati;
+	}
 
 	@Override
 	public String toString() {
 		return "RispostaBean [id=" + id + ", idDomanda=" + idDomanda + ", corpo=" + corpo + ", dataPubblicazione="
 				+ dataPubblicazione + ", idAutore=" + idAutore + ", titoloDomanda=" + titoloDomanda + ", autore="
-				+ autore + ", miPiace=" + miPiace + ", nonMiPiace=" + nonMiPiace + ", voti=" + voti + "]";
+				+ autore + ", miPiace=" + miPiace + ", nonMiPiace=" + nonMiPiace + ", voti=" + voti + ", allegati="
+				+ allegati + "]";
 	}
-
-
-
-
-
 
 
 
@@ -145,4 +142,5 @@ public class RispostaBean {
 	private int miPiace;
 	private int nonMiPiace;
 	private ArrayList <VotazioneBean> voti; //aggiunto
+	private ArrayList<String> allegati;
 }

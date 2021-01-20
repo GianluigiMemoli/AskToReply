@@ -21,10 +21,11 @@
             <textarea onclick="getIdDom()" class="form-control" id="corpo" name="corpo" placeholder="Scrivi qui la tua risposta"></textarea>
           </div>
           
-  <div class="custom-file">
-    <input type="file" class="custom-file-input" id="customFile">
-    <label class="custom-file-label" for="customFile">Carica allegato</label>
-  </div>
+	  <div class="custom-file">
+	    <input type="file" class="custom-file-input" id="allegati" name="allegati">
+	    <label class="custom-file-label" for="allegati">Carica allegato</label>
+	  </div>
+            
         </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-secondary btnsmussato" data-dismiss="modal">Annulla</button>
@@ -45,7 +46,6 @@ function getIdDom(){
 }
 
 </script>
-
 
 			
 </div>

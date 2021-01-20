@@ -45,7 +45,7 @@
 
 			<label>Scegli almeno un'area di interesse</label>
 			<div class="overflow-auto" style="height: 229px;">
-				<ul class="list-group">
+				<ul class="list-group" style="margin-right:5pt;">
 					<c:forEach var="interesse" items="${interessi}">
 						<li class="list-group-item"><c:if
 								test="${interessiUtente.contains(interesse)}">

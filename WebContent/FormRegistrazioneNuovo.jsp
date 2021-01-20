@@ -71,11 +71,13 @@
 				Inserisi una password.
               </div>
             </div>
-
-		<label>Aree di interesse <span class="text-muted">(almeno una)</span></label>
+<div>
+		<label style="margin-bottom: 0pt;">Aree di interesse <span class="text-muted">(almeno una)</span></label>
+	</div>	
+		<span class="text-muted"><small>Potrai modificare le categorie scelte successivamente mediante l'apposita sezione</small></span>
 		
 		<div class="overflow-auto" style="height: 172px;">
-		<ul class="list-group " required="">
+		<ul class="list-group " required="" style="margin-right:5pt;">
 			<c:forEach var="interesse" items="${interessi}">	
 				<li class="list-group-item">
 		              <input type="checkbox" name="interessi" id="interesseCheck" value="${interesse.getNome()}">

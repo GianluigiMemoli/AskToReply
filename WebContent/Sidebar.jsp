@@ -3,7 +3,7 @@
   
 		<div class="sidebar aperta" id="sidebar"  unselectable="on"  onselectstart="return false;" onmousedown="return false;">
 			<div class="line">
-				<a class="title"> <b>Ask to Reply</b></a>
+				<a class="title" href="VisualizzaHome"> <b>Ask to Reply</b></a>
 			</div>
 		    <a href="VisualizzaHome" id="home"><ion-icon class="responsive" name = "home"></ion-icon> Home</a>
 		    <a href="VisualizzaProfilo" id="profilo"><ion-icon name="person" class="responsive"></ion-icon> Profilo</a>

@@ -91,7 +91,8 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 					}
 					
 					
-					risposte=RispostaDAO.getRisposteByIdDomanda(idDomanda, page);//aggiunta
+					//risposte=RispostaDAO.getRisposteByIdDomanda(idDomanda, page);//aggiunta
+					risposte=RisposteManager.getRisposteByIdDomanda(idDomanda, page);
 					
 
 					RisposteManager managerRisposte = new RisposteManager();

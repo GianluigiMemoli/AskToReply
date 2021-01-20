@@ -2,12 +2,15 @@ package model;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
@@ -21,6 +24,7 @@ import Exceptions.ErrorePubblicazioneRispostaException;
 public class RisposteManager {
 	
 	static Logger log = Logger.getLogger(RisposteManager.class.getName()); //test
+	private static final String UPLOAD_PATH = "C:\\uploads\\allegati_risposte\\";
 
 
 	public void pubblicaRisposta(String idDomanda, String corpo, List<Part> allegati, String idAutore
@@ -84,7 +88,33 @@ public class RisposteManager {
 
 
 	public RispostaBean getRispostaById(String idRisposta) {
-		return RispostaDAO.getRispostaById(idRisposta);
+		
+		RispostaBean rb = RispostaDAO.getRispostaById(idRisposta);
+		
+		AllegatiHandler allegatiHandler = new AllegatiHandler();
+		File[] allegati = allegatiHandler.getAllegati(UPLOAD_PATH + idRisposta);
+		
+		try {
+			rb.setAllegati(allegatiHandler.convertToBase64(allegati));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return rb;
+	}
+	
+	
+	public static ArrayList<RispostaBean> getRisposteByIdDomanda(String idDomanda, int numPagina) throws IOException {//aggiunta: int x
+		ArrayList<RispostaBean> arrayListRisposte = RispostaDAO.getRisposteByIdDomanda(idDomanda, numPagina);
+		ArrayList<RispostaBean> arrayListRisposteConAllegati = new ArrayList<RispostaBean>();
+
+		for (int counter = 0; counter < arrayListRisposte.size(); counter++) { 	
+			AllegatiHandler allegatiHandler = new AllegatiHandler();
+			File[] allegati = allegatiHandler.getAllegati(UPLOAD_PATH + arrayListRisposte.get(counter).getId());
+			arrayListRisposte.get(counter).setAllegati(allegatiHandler.convertToBase64(allegati));
+			arrayListRisposteConAllegati.add(arrayListRisposte.get(counter));
+	      }   
+		return arrayListRisposteConAllegati;
 	}
 	
 	
@@ -121,27 +151,6 @@ public class RisposteManager {
 		}
 	}
 
-	//DIBENEDETTO:
-	public File[] getAllegati(RispostaBean risposta) {
-
-		/*
-			Questo if serve perché se domanda.getId() == "", restituisce tutte le directory
-		 */
-		if(risposta.getId() == "")
-			return null; 
-
-		File[] files = new File("C:\\uploads\\allegati_risposte\\" + risposta.getId()).listFiles();
-
-		/*
-		if(files != null)
-			for (File file : files)
-				logger.info(file.getName());
-		else
-			logger.info("Cartella '" + domanda.getId() + "' non presente.");
-		 */
-
-		return files;
-	}
 
 	public void removeRisposta(RispostaBean risposta) {
 		RispostaDAO.removeRisposta(risposta);
@@ -151,13 +160,6 @@ public class RisposteManager {
 		return RispostaDAO.countRisposteByDomandaId(domanda.getId());
 	}
 	
-	private static Logger logger = Logger.getLogger(DomandeManager.class.getName());
-
-	private static final String UPLOAD_PATH = "C:\\uploads\\allegati_risposte\\";
-
-
-
-
 
 public HashSet<RispostaBean> getRisposteApprezzate(UtenteBean utente){
 	HashSet<RispostaBean> risposteApprezzate = new HashSet<RispostaBean>();		
@@ -171,6 +173,8 @@ public HashSet<RispostaBean> getRisposteNonApprezzate(UtenteBean utente){
 	risposteNonApprezzate.addAll(RispostaDAO.getRisposteNonApprezzate(utente.getId()));
 	return risposteNonApprezzate;
 }
+
+
 
 }
 //da testare
