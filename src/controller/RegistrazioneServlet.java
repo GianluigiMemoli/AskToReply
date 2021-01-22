@@ -45,21 +45,22 @@ public class RegistrazioneServlet extends HttpServlet {
 		password = request.getParameter("password").trim();
 		email = request.getParameter("email").trim();
 		String[] interessi = request.getParameterValues("interessi"); 
-		log.info(interessi.toString());
+		
 		AccountManager accountManager = new AccountManager();
 		try {
 			accountManager.RegisterUser(nome, cognome, username, email, password, interessi);			
-		} catch(CampiNonConformiException exc) {
-			
-			log.info("Eccezione:" + exc.getMessage() + " gestita");			
+		} catch(CampiNonConformiException exc) {			
+			log.info("Eccezione:" + exc.getMessage() + " gestita");
+			request.setAttribute("errore", exc.getMessage());
 		} catch(UsernamePresenteException exc) {
 			log.info("Eccezione:" + exc.getMessage() + " gestita");
 			request.setAttribute("errore", exc.getMessage());
 		} catch(EmailPresenteException exc) {
 			log.info("Eccezione:" + exc.getMessage() + " gestita");
-			request.setAttribute("errore", exc.getMessage()); 
+			request.setAttribute("errore", exc.getMessage());  
 		} catch(Exception exc) {
 			log.info("Eccezione:" + exc.getMessage() + " gestita");
+			exc.printStackTrace();
 			request.setAttribute("errore", "Unhandled error"); 
 		}		
 		request.getRequestDispatcher("registrazione").forward(request, response);

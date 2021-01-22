@@ -8,7 +8,7 @@
 			
 		    <a href="registrazione" id="iscriviti"><ion-icon name="person-add" class="responsive"></ion-icon> Iscriviti</a>
 		    <a href="accesso" id="accedi"><ion-icon name="key" class="responsive"></ion-icon> Accedi</a>
-		    <a href="#Cerca" id="cerca"><ion-icon name="search" class="responsive"></ion-icon> Cerca</a>
+		    <a href="RicercaServlet" id="cerca"><ion-icon name="search" class="responsive"></ion-icon> Cerca</a>
 
 			
 			<button style="display:none;" id="bottonesuperiore_apri" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()">

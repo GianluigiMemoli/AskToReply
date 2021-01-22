@@ -21,20 +21,16 @@ request.setAttribute("currentPage", currentPage);
 .debug-content {
 	border: 2px solid red;
 }
-
 .debug-media {
 	border: 2px solid blue;
 }
-
 .questions-list {
 	padding: 2em;
 }
-
 .question {
 	margin-bottom: 2em;
 	padding: 1em;
 }
-
 .paginator {
 	align-self: center;
 }

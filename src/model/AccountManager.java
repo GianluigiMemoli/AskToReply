@@ -16,6 +16,9 @@ public class AccountManager {
 	static Logger log = Logger.getLogger(AccountManager.class.getName());
 	
 	public void RegisterUser(String nome,String cognome, String username, String email, String password, String[] interessi) throws CampiNonConformiException, NoSuchAlgorithmException, EmailPresenteException, UsernamePresenteException {
+		if(interessi == null) {
+			throw new CampiNonConformiException("Scegli almeno una categoria");
+		}
 		try {
 			UtenteBean newUser = generateUtenteBean(nome, cognome, username, email, password);
 			
@@ -28,12 +31,7 @@ public class AccountManager {
 				
 				this.addInteressePartecipante(registeredPartecipante, categoria);
 			}
-		} catch(EmailPresenteException exc) {
-			throw exc;
-		}
-		 catch(UsernamePresenteException exc) {
-				throw exc;
-			}
+		} 
 		catch(Exception exc) {
 			//Se scaturisce un errore cancella tutto quello che è stato creato riguardo l'utente
 			PartecipanteBean registeredPartecipante = PartecipanteDAO.getPartecipanteByEmail(email);

@@ -4,10 +4,21 @@
 <%@ page import="model.DomandaBean" %>
 
 <jsp:include page="Header.jsp" />
-
-<jsp:include page="Sidebar.jsp">
+<c:choose>
+	<c:when test="${utenteLoggato != null }">
+		<jsp:include page="Sidebar.jsp">
 	<jsp:param name="active" value="cerca" />
 </jsp:include>
+</c:when>
+<c:otherwise>
+		<jsp:include page="SidebarOspite.jsp">
+	<jsp:param name="active" value="cerca" />
+</jsp:include>
+</c:otherwise>
+</c:choose>
+
+
+
 
 <style>
 	.debug-content{
@@ -79,13 +90,25 @@
 										<c:forEach items="${domanda.getCategorie()}" var="categoria">
 											<small><a style="background-color:#EDE7F6; color:purple; border-radius:99em;" href="RicercaServlet?categorie=${categoria.getId()}" class="badge">${categoria.nome}</a></small>
 										</c:forEach>
-									
-												<a href="VisualizzaDomandaServlet?id=${domanda.getId()}"
-									class="list-group-item-action">
-									    <h5 style="margin-bottom:0pt; color:black;" class="lead">${domanda.getTitolo()}</h5>
-									    <p style="color:black;">${domanda.getCorpo()}</p>			
-									    </a>	    
+										<c:choose>
+											<c:when test="${utenteLoggato != null}">
+														<a href="VisualizzaDomandaServlet?id=${domanda.getId()}"
+															class="list-group-item-action">
+									    				<h5 style="margin-bottom:0pt; color:black;" class="lead">${domanda.getTitolo()}</h5>
+									    				<p style="color:black;">${domanda.getCorpo()}</p>			
+									    				</a>	
+											</c:when>
+											<c:otherwise>
+												<a href="registrazione"
+															class="list-group-item-action">
+									    				<h5 style="margin-bottom:0pt; color:black;" class="lead">${domanda.getTitolo()}</h5>
+									    				<p style="color:black;">${domanda.getCorpo()}</p>
+											</c:otherwise>
+										</c:choose>
+										
+									    	    
 									  </div>
+									  <c:if test="${utenteLoggato != null }">
 									<div>							
 										
 										<button onclick="document.getElementById('idDomanda').value='${domanda.getId()}'" type="submit" class="btn btn-outline-primary btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#pubblicaRispostaModal" data-whatever="@getbootstrap"><ion-icon name="chatbubble-ellipses"></ion-icon> Rispondi</button>
@@ -95,6 +118,7 @@
 										<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include> 				
 										
 									</div>
+									</c:if>
 																 
 									</div>
 								</c:forEach>
