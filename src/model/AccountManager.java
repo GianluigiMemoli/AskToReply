@@ -105,6 +105,9 @@ public class AccountManager {
 	
 	
 	public void updateUtente(PartecipanteBean user, String newNome, String newCognome, String newUsername, String newEmail, String[] interessi) throws CampiNonConformiException, EmailPresenteException, UsernamePresenteException {
+		if(interessi == null) {
+			throw new CampiNonConformiException("Inserisci almeno una categoria");
+		}
 		if((!Validator.validateUpdateProfileFields(newNome, newCognome, newUsername, newEmail))) {
 			throw new CampiNonConformiException();
 		}
