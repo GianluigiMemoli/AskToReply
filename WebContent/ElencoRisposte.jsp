@@ -75,10 +75,7 @@ button.responsivebtn{
 																	<c:choose>
 						<c:when test="${utenteLoggato != null && utenteLoggato.getId() != risposta.getIdAutore()}">
 						
-						 										<small class="text-secondary">@${risposta.getAutore()}</small>
-						
-					  
-					  
+						 										<small class="text-secondary">@${risposta.getAutore()}</small>	  
 						</c:when>
 						<c:otherwise>
 											   <small class="text-secondary">hai risposto:</small>
@@ -100,7 +97,7 @@ button.responsivebtn{
 						<%session.setAttribute("testina", "valorepassato");%>
 							<c:forEach items="${risposta.getAllegati()}" var="allegato">
 								<div class="col-2 p-0">
-									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail">
+									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail" style="min-width: 150px;">
 								</div>
 							</c:forEach>
 					</c:when>
@@ -108,19 +105,9 @@ button.responsivebtn{
 						<p><small>Nessun allegato presente.[questo messaggio va poi eliminato]</small></p>
 					</c:otherwise>
 				</c:choose>
-				
-					
-					
-														<c:choose>
+											<c:choose>
 						<c:when test="${utenteLoggato != null && utenteLoggato.getId() != risposta.getIdAutore()}">
 						
-						
-						
-						
-											<!-- aggiunto oggi -->
-											
-							 
-				
 						<c:choose>
 						<c:when test="${risposteApprezzate.contains(risposta.getId())}">
 								<button name="mipiace" id="btn_${risposta.getId()}_mipiace" onmouseover="likeFunctionOnOver('${risposta.getId()}')"  class="btn btn-outline-success btn-sm border-0 btnsmussato responsivebtn mipiace"><ion-icon name="thumbs-up"></ion-icon><span class="responsivespan"> Mi piace</span>&nbsp;<span id="span_${risposta.getId()}_mipiace" style="background-color:#C8E6C9;"  class="badge badge-pill badge-success text-success">${risposta.getMiPiace()}</span></button>
@@ -138,48 +125,24 @@ button.responsivebtn{
 								<button name="nonmipiace" id="btn_${risposta.getId()}_nonmipiace" onmouseover="dislikeFunctionOnOver('${risposta.getId()}')" type="submit" class="btn btn-outline-danger btn-sm border-0 btnsmussato responsivebtn" data-toggle="modal" data-target="" data-whatever="@getbootstrap"><ion-icon name="thumbs-down"></ion-icon><span class="responsivespan"> Non mi piace</span>&nbsp;<span id="span_${risposta.getId()}_nonmipiace"  style="background-color:#FFCDD2" class="badge badge-pill badge-danger text-danger">${risposta.getNonMiPiace()}</span></button>
 						</c:otherwise>
 						</c:choose>		
-					
-						<!-- aggiunto oggi -->
-						
-						
-						
-						
-						
-						
+									
 					 <button onclick="document.getElementById('idRisposta').value='${risposta.getId()}';"  type="button" class="btn btn-outline-warning btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#segnalaRispostaModal" data-whatever="@getbootstrap"><ion-icon name="warning"></ion-icon><span class="responsivespan"> Segnala&nbsp;</span></button>
 					     
 					  
 						</c:when>
 						<c:otherwise>
-						
-	
-						
-						
-						
+		
  					<button name="mipiace" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="thumbs-up"></ion-icon><span class="responsivespan"> Mi piace</span>&nbsp;<span id="span_${risposta.getId()}_mipiace" style="background-color:Gainsboro;"  class="badge badge-pill badge-success text-dark">${risposta.getMiPiace()}</span></button>
 					<button name="nonmipiace" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="thumbs-down"></ion-icon><span class="responsivespan"> Non mi piace</span>&nbsp;<span id="span_${risposta.getId()}_nonmipiace"  style="background-color:Gainsboro" class="badge badge-pill badge-danger text-dark">${risposta.getNonMiPiace()}</span></button>
 					   						</c:otherwise>
 					</c:choose>	
 					
-					<button onclick="document.getElementById('idRisposta').value='${risposta.getId()}';"  type="button" class="btn btn-outline-info btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#visualizzaAllegatoModal" data-whatever="@getbootstrap"><ion-icon name="eye"></ion-icon><span class="responsivespan"> Mostra allegati&nbsp;</span></button>
-					
-					 
-								
-					
-				
-											 
+					<button type="button" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="image"></ion-icon><span class="responsivespan"> Contiene allegati&nbsp;</span></button>
+										 
 				</div>
 				
 				
-				
-				
-				
-				
-
-				
-				
-				
-				
+	
 				
 				</c:forEach>
 		</form>

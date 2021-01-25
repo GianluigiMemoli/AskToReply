@@ -45,13 +45,20 @@ request.setAttribute("currentPage", currentPage);
 
 
 		<c:forEach var="domanda" items="${domande}">
+		
+			
 			<div class="question rounded border">
 
 
 				<div>
 
 					<div class="d-flex w-100 justify-content-between">
-						<small class="text-secondary">@${domanda.getAutore().getUsername()}</small>
+						<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId())}">
+							<small class="text-secondary">hai chiesto:</small>
+						</c:if>
+						<c:if test="${!utenteLoggato.getId().equals(domanda.getAutore().getId())}">
+							<small class="text-secondary">@${domanda.getAutore().getUsername()}</small>
+						</c:if>
 						<small class="text-secondary">${domanda.getDataPubblicazione()}</small>
 					</div>
 
@@ -69,6 +76,20 @@ request.setAttribute("currentPage", currentPage);
 					</a>
 				</div>
 				<div>
+			
+			
+				<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId())}">
+					<button
+						onclick="document.getElementById('idDomanda').value='${domanda.getId()}'"
+						style="pointer-events: none;"
+						type="button"
+						class="btn btn-outline-primary btn-sm border-0 btnsmussato text-dark">
+						<ion-icon name="chatbubble-ellipses"></ion-icon>
+						Risposte ricevute
+						<span style="background-color:Gainsboro;"  class="badge badge-pill badge-success text-dark">${numeroRisposte.get(domanda.getId())}</span>
+					</button>
+				</c:if>
+			
 			
 				<c:if test="${!utenteLoggato.getId().equals(domanda.getId())}">
 					<c:choose>
@@ -107,7 +128,12 @@ request.setAttribute("currentPage", currentPage);
 							<ion-icon name="warning"></ion-icon>
 							Segnala
 						</button>
-					</c:if>
+					</c:if>				
+					
+					<c:if test="${domanda.getAllegati().size() > 0}">									
+						<button type="button" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="image"></ion-icon><span class="responsivespan"> Contiene allegati&nbsp;</span></button>
+					</c:if>					
+					
 				</div>
 
 			</div>

@@ -19,7 +19,7 @@
           <div class="form-group">
           		  <input type="hidden" id="idDom" name="idDom" value="" readonly>
           		  <!-- h1 id="solo_per_testare"></h1-->
-            <textarea onclick="getIdDom()" class="form-control" id="corpo" name="corpo" placeholder="Scrivi qui la tua risposta"></textarea>
+            <textarea onclick="getIdDom()" class="form-control" id="corpo" name="corpo" placeholder="Scrivi qui la tua risposta" required></textarea>
           </div>
           
 					<div class="form-group">

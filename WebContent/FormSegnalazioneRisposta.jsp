@@ -22,7 +22,7 @@
           		  		<input type="hidden" id="idDomanda" name="idDomanda" value="${domanda.getId()}">
           		  
           		  <!-- h1 id="solo_per_testare"></h1-->
-            <textarea onclick="getIdRisp()" class="form-control" id="commento" name="commento" placeholder="Commenta segnalazione"></textarea>
+            <textarea onclick="getIdRisp()" class="form-control" id="commento" name="commento" placeholder="Commenta segnalazione" required></textarea>
    </div>
           
 	<br>
@@ -31,7 +31,7 @@
 				<c:forEach var="motivazione" items="${motivazioni}">
 					<li class="list-group-item">					
 							<input onclick="getIdRisp()"  type="radio" value="${motivazione.getId()}"
-								name="idMotivazione" id="idMotivazione">
+								name="idMotivazione" id="idMotivazione" required>
 						<label for="interesseCheck"> ${motivazione.getNome()}</label></li>
 				</c:forEach>
 			</ul> 
