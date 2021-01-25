@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import model.SegnalazioneRispostaDAO;
  * Servlet implementation class PubblicazioneRispostaServlet
  */
 @WebServlet("/PubblicazioneRispostaServlet")
+@MultipartConfig
 public class PubblicazioneRispostaServlet extends CustomServlet {
 	
 	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); //test
@@ -50,9 +52,9 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 		idDomanda = request.getParameter("idDom");
 		idAutoreDomanda=DomandaDAO.getDomandaById(idDomanda).getAutore().getId();
 		
+		List <Part> allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
+		
 		corpo = request.getParameter("corpo");
-		//allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
-		allegati=null;
 		
 		PartecipanteBean autoreBean = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 		idAutore = autoreBean.getId();
@@ -81,7 +83,6 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 	private String idAutoreDomanda;
 	private String idDomanda;
 	private String corpo;
-	private List<Part> allegati;
 	private String idAutore; //Autore della risposta
 	//private Date dataPubblicazione;
 }

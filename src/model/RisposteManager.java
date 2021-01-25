@@ -56,18 +56,7 @@ public class RisposteManager {
 			
 			else {
 				log.info("RISPOSTA INVIATA CON SUCCESSO");
-			/*
-			 * 
-			CallableStatement procedure = manager.prepareStoredProcedureCall("GetDomandeByAutoreLimit", 3);
-			
-			procedure.setNString(1, idUtente);
-			procedure.setInt(2, start);
-			procedure.setInt(3, end);
-			
-			ResultSet rs = procedure.executeQuery();
-			
-			 * 
-			 * */
+	
 		
 		if(corpo.trim().length() < 2) {
 			throw new ErrorePubblicazioneRispostaException("Il corpo della risposta deve contenere almeno due caratteri.");
@@ -80,9 +69,12 @@ public class RisposteManager {
 		risposta.setIdDomanda(idDomanda);
 		risposta.setDataPubblicazione(dataPubblicazione);
 
-		RispostaDAO.addRisposta(risposta);
+		risposta=RispostaDAO.addRisposta(risposta);
 
-		//caricaAllegati(allegati, risposta);
+		
+		AllegatiHandler allegatiHandler = new AllegatiHandler();
+		allegatiHandler.caricaAllegati(allegati, UPLOAD_PATH + risposta.getId());
+		
 			}
 	}
 
@@ -177,4 +169,3 @@ public HashSet<RispostaBean> getRisposteNonApprezzate(UtenteBean utente){
 
 
 }
-//da testare
