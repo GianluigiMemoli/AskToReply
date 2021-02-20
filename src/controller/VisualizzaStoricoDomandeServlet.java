@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.DomandaBean;
 import model.DomandeManager;
+import model.UtenteBean;
 
 /**
  * Servlet implementation class VisualizzaStoricoDomandeServlet
@@ -41,13 +41,40 @@ public class VisualizzaStoricoDomandeServlet extends CustomServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int domandePerPagina = 10;
+		int currentPage = 1;
+	
+		if(request.getParameter("p") != null) {
+			
+			try {
+				currentPage = Integer.parseInt(request.getParameter("p"));
+			} catch(NumberFormatException e) {
+				currentPage = 1;
+			}
+			
+		}
+				
 		DomandeManager manager = new DomandeManager();
+
+		int numeroDomande = manager.getNumeroDomandeByAutore(getLoggedUser(request.getSession()).getId());
+		int totalPages = (int) Math.ceil((double) numeroDomande/domandePerPagina);
 		
-		ArrayList<DomandaBean> domande = manager.getDomandeByAutore((getLoggedUser(request.getSession()).getId()));
+		// TODO Cambiare in partecipanteBean
 		
+		UtenteBean utente = getLoggedUser(request.getSession());
+		
+		ArrayList<DomandaBean> domande = 
+				manager.getDomandeByAutore(
+					utente.getId(), 
+					(currentPage - 1) * domandePerPagina,
+					currentPage * domandePerPagina
+				);
+		
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("totalPages", totalPages);
 		request.setAttribute("domande", domande);
 		
-		request.getRequestDispatcher("WEB-INF/VisualizzaStoricoDomande.jsp").forward(request, response);
+		request.getRequestDispatcher("VisualizzaStoricoDomande.jsp").forward(request, response);
 		
 	}
 
@@ -58,5 +85,5 @@ public class VisualizzaStoricoDomandeServlet extends CustomServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+	
 }
