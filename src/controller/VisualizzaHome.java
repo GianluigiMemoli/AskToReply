@@ -71,7 +71,7 @@ public class VisualizzaHome extends CustomServlet {
 		boolean hasNext = start + offset < amountDomandePertinenti; 
 		log.info("start: " + start); 
 		log.info("hasNext: " + hasNext); 
-		request.setAttribute("hasNext", hasNext);  
+		request.setAttribute("hasNext", hasNext);   
 		request.getRequestDispatcher("Home.jsp").forward(request, response);
 	}  
 
