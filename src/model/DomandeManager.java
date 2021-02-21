@@ -176,6 +176,14 @@ public class DomandeManager {
 		return domande;
 	}   
 	
+	public int getNumOfDomandePertinenti(PartecipanteBean utente) {
+		int num;
+		ArrayList<CategoriaBean> categorie = CategoriaDAO.getCategorieByUtente(utente.getId());
+		num = DomandaDAO.getNumeroDomandePertinenti(categorie);
+		logger.info("contate="+num);
+		return num;
+	}
+	
 	public int getNumeroDomandeByAutore(String idAutore) {
 		return DomandaDAO.getNumeroDomandeByAutore(idAutore);
 	}

@@ -451,6 +451,36 @@ public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 		return domande;
 	}
 	
+	public static int getNumeroDomandePertinenti(ArrayList<CategoriaBean> categorie) {
+		int amount = 0;
+		String paramPlaceholder = "?,";
+		String catParams = paramPlaceholder.repeat(categorie.size());
+		catParams = catParams.substring(0, catParams.length() - 1);
+		String query =
+				"SELECT Count(DISTINCT dom.id) as Amount FROM Domande AS dom JOIN categoriedomande as catDom ON dom.id = catDom.idDomanda "
+				+ "WHERE catDom.idCategoria IN (" + catParams +")" ;
+		log.info(query);
+		log.info(catParams);
+		DBManager dbManager = DBManager.getInstance();
+		ArrayList<DomandaBean> domande = new ArrayList<DomandaBean>();
+		try {
+			PreparedStatement stmt = dbManager.createPreparedStatement(query);			
+			for (int currentParam = 1; currentParam <= categorie.size(); currentParam++) {
+				stmt.setNString(currentParam, categorie.get(currentParam-1).getId());
+			}			
+			ResultSet record = stmt.executeQuery();			
+			log.info(stmt.toString());
+			while(record.next()) {
+					amount = record.getInt("Amount");
+		}
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return amount;
+	}
+	
 	public static ArrayList<DomandaBean> getDomandePertinenti(ArrayList<CategoriaBean> categorie, int start, int end){		
 		String paramPlaceholder = "?,";
 		String catParams = paramPlaceholder.repeat(categorie.size());
@@ -503,14 +533,11 @@ public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 		
 		DBManager manager = DBManager.getInstance();
 		
-		try {
+		try {			
+			CallableStatement stmt = manager.prepareStoredProcedureCall("GetNumeroDomandeByAutore", 1);			
+			stmt.setString(1, idAutore);			
 			
-			CallableStatement stmt = manager.prepareStoredProcedureCall("GetNumeroDomandeByAutore", 1);
-			
-			stmt.setString(1, idAutore);
-			
-			ResultSet rs = stmt.executeQuery();
-			
+			ResultSet rs = stmt.executeQuery();			
 			if(rs.next())
 				return rs.getInt(1);
 			

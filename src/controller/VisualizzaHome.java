@@ -58,26 +58,20 @@ public class VisualizzaHome extends CustomServlet {
 		int start = (page - 1) * offset;		
 		ArrayList<DomandaBean> domande = managerDomande.getDomandePertinenti(utente, start, offset);
 		request.setAttribute("domande", domande);
+		int amountDomandePertinenti = managerDomande.getNumOfDomandePertinenti(utente);
 		
 		HashMap<String, Integer> numeroRisposte = new HashMap<String, Integer>();
 		RisposteManager risposteManager = new RisposteManager();
 		for(DomandaBean domanda : domande) {
 			numeroRisposte.put(domanda.getId(), risposteManager.getNumeroRisposte(domanda));
 		}
+		
 		request.setAttribute("numeroRisposte", numeroRisposte);
 		request.setAttribute("domandeRisposte", managerDomande.getDomandeRisposte(utente));
-		
-		boolean b = (managerDomande.getDomandePertinenti(utente, start+10, offset)).isEmpty();
-		if(b) {
-			log.info("La prossima scheda è vuota");
-			request.setAttribute("next", 0);
-		}else {
-			log.info("La prossima scheda è piena");
-			request.setAttribute("next", 1);
-			
-		}
-		
-		//
+		boolean hasNext = start + offset < amountDomandePertinenti; 
+		log.info("start: " + start); 
+		log.info("hasNext: " + hasNext); 
+		request.setAttribute("hasNext", hasNext);  
 		request.getRequestDispatcher("Home.jsp").forward(request, response);
 	}  
 
