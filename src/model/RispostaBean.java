@@ -12,13 +12,13 @@ public class RispostaBean {
 		super();
 	}
 
-	public RispostaBean(String id, String idDomanda, String corpo, String idAutore, Date dataPubblicazione) {
+	public RispostaBean(String id, String idDomanda, String corpo,PartecipanteBean autore, Date dataPubblicazione) {
 		super();
 		this.id = id;
 		this.idDomanda = idDomanda;
 		this.corpo = corpo;
+		this.autore = autore;
 		// this.allegati = string;
-		this.idAutore = idAutore;
 		this.dataPubblicazione = dataPubblicazione;
 	}
 
@@ -51,13 +51,6 @@ public class RispostaBean {
 	 * setAllegati(List<Part> allegati) { this.allegati = allegati; }
 	 */
 
-	public String getIdAutore() {
-		return idAutore;
-	}
-
-	public void setIdAutore(String idAutore) {
-		this.idAutore = idAutore;
-	}
 
 	public Date getDataPubblicazione() {
 		return dataPubblicazione;
@@ -77,13 +70,6 @@ public class RispostaBean {
 
 
 
-	public String getAutore() {
-		return autore;
-	}
-
-	public void setAutore(String autore) {
-		this.autore = autore;
-	}
 
 	public int getMiPiace() {
 		return miPiace;
@@ -120,12 +106,15 @@ public class RispostaBean {
 		this.allegati = allegati;
 	}
 
-	@Override
-	public String toString() {
-		return "RispostaBean [id=" + id + ", idDomanda=" + idDomanda + ", corpo=" + corpo + ", dataPubblicazione="
-				+ dataPubblicazione + ", idAutore=" + idAutore + ", titoloDomanda=" + titoloDomanda + ", autore="
-				+ autore + ", miPiace=" + miPiace + ", nonMiPiace=" + nonMiPiace + ", voti=" + voti + ", allegati="
-				+ allegati + "]";
+
+	
+	
+	public PartecipanteBean getAutore() {
+		return autore;
+	}
+
+	public void setAutore(PartecipanteBean autore) {
+		this.autore = autore;
 	}
 
 
@@ -136,9 +125,8 @@ public class RispostaBean {
 	private String corpo;
 	private Date dataPubblicazione;
 	// private List<Part> allegati;
-	private String idAutore;
+	private PartecipanteBean autore;
 	private String titoloDomanda;// 151220
-	private String autore;
 	private int miPiace;
 	private int nonMiPiace;
 	private ArrayList <VotazioneBean> voti; //aggiunto

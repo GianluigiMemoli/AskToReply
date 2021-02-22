@@ -64,7 +64,9 @@ public class RisposteManager {
 
 		RispostaBean risposta = new RispostaBean();
 
-		risposta.setIdAutore(idAutore);
+		PartecipanteBean pb = new PartecipanteBean();
+		pb.setId(idAutore);
+		risposta.setAutore(pb);
 		risposta.setCorpo(corpo);
 		risposta.setIdDomanda(idDomanda);
 		risposta.setDataPubblicazione(dataPubblicazione);

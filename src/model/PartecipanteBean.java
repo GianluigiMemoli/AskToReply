@@ -1,6 +1,11 @@
 package model;
 
 public class PartecipanteBean extends UtenteBean{
+	
+	public PartecipanteBean() {
+		super();
+	}
+	
 	public PartecipanteBean(String email, String passwordHash, String nuovaPassword, String username, String nome,
 			String cognome, int ruoloID, boolean isDisattivato, String id, int punteggio, int numeroSegnalazioni) {
 		super(email, passwordHash, nuovaPassword, username, nome, cognome, ruoloID, isDisattivato, id);

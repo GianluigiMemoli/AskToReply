@@ -19,7 +19,7 @@ public class RispostaDAO {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateRisposta", 5);
 			callProcedure.setString(1, risposta.getIdDomanda());
 			callProcedure.setString(2, risposta.getCorpo());
-			callProcedure.setString(3, risposta.getIdAutore());
+			callProcedure.setString(3, risposta.getAutore().getId());
 			callProcedure.setDate(4, new java.sql.Date(risposta.getDataPubblicazione().getTime()));
 			callProcedure.registerOutParameter(5, Types.VARCHAR);
 			callProcedure.executeUpdate();
@@ -61,7 +61,9 @@ public class RispostaDAO {
 				risposta.setId(rs.getString("id"));
 				risposta.setIdDomanda(rs.getString("idDomanda"));
 				risposta.setCorpo(rs.getString("corpo"));
-				risposta.setIdAutore(rs.getString("idAutore"));
+				PartecipanteBean pb = new PartecipanteBean();
+				pb.setId(rs.getString("idAutore"));
+				risposta.setAutore(pb);
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
 				risposta.setTitoloDomanda(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo()); // 151220
 				elencoRisposte.add(risposta);
@@ -83,8 +85,10 @@ public class RispostaDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
+				PartecipanteBean pb=new PartecipanteBean();
+				pb.setId(rs.getNString("idAutore"));
 				RispostaBean risp = new RispostaBean(rs.getString("id"), rs.getString("idDomanda"),
-						rs.getString("corpo"), rs.getNString("idAutore"), rs.getDate("dataPubblicazione"));
+						rs.getString("corpo"), pb, rs.getDate("dataPubblicazione"));
 				return risp;
 			}
 
@@ -114,10 +118,9 @@ public class RispostaDAO {
 				risposta.setId(rs.getString("id"));
 				risposta.setIdDomanda(rs.getString("idDomanda"));
 				risposta.setCorpo(rs.getString("corpo"));
-				risposta.setIdAutore(rs.getString("idAutore"));
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
 				risposta.setTitoloDomanda(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo()); // 151220
-				risposta.setAutore(UtenteDAO.getUtenteById(rs.getString("idAutore")).getUsername());
+				risposta.setAutore(PartecipanteDAO.getPartecipanteByEmail(UtenteDAO.getUtenteById(rs.getString("idAutore")).getEmail()));
 				
 				int miPiace=0;
 				int nonMiPiace=0;

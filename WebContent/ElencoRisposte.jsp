@@ -73,9 +73,9 @@ button.responsivebtn{
 												
 				  				<div class="d-flex w-100 justify-content-between">
 																	<c:choose>
-						<c:when test="${utenteLoggato != null && utenteLoggato.getId() != risposta.getIdAutore()}">
+						<c:when test="${utenteLoggato != null && utenteLoggato.getId() != risposta.getAutore().getId()}">
 						
-						 										<small class="text-secondary">@${risposta.getAutore()}</small>	  
+						 										<small class="text-secondary">@${risposta.getAutore().getUsername()}</small>	  
 						</c:when>
 						<c:otherwise>
 											   <small class="text-secondary">hai risposto:</small>
@@ -106,7 +106,7 @@ button.responsivebtn{
 					</c:otherwise>
 				</c:choose>
 											<c:choose>
-						<c:when test="${utenteLoggato != null && utenteLoggato.getId() != risposta.getIdAutore()}">
+						<c:when test="${utenteLoggato != null && utenteLoggato.getId() != risposta.getAutore().getId()}">
 						
 						<c:choose>
 						<c:when test="${risposteApprezzate.contains(risposta.getId())}">
