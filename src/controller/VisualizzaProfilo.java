@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.CategoriaBean;
 import model.CategoriaDAO;
+import model.CategorieManager;
 import model.PartecipanteBean;
 import model.RispostaBean;
 import model.RispostaDAO;
@@ -59,24 +60,25 @@ public class VisualizzaProfilo extends CustomServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		PartecipanteBean currUser = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
-		ArrayList<CategoriaBean> interessi = CategoriaDAO.getAll();
-		ArrayList<CategoriaBean> interessiUtente = CategoriaDAO.getCategorieByUtente(currUser.getId());
+		
+		CategorieManager categorieManager = new CategorieManager();
+		
+		ArrayList<CategoriaBean> interessi = categorieManager.getAll();
+		ArrayList<CategoriaBean> interessiUtente = categorieManager.getCategorieByIdUtente((currUser.getId()));
+
 		request.setAttribute("interessi", interessi);
 		request.setAttribute("interessiUtente", interessiUtente);
-		//
 		
 		int page = 0;
+		
 		if(request.getParameter("pageRi") != null) {
 			log.info("Pagina numero: "+request.getParameter("pageRi"));		
 			page = Integer.parseInt(request.getParameter("pageRi"));	
 		}
 		
-		
-
-		
 		/*ArrayList<RispostaBean> risposte = RispostaDAO.getStoricoRisposteByUtente(ub, page); //aggiunta nPag
-		
 		
 		boolean b = (RispostaDAO.getStoricoRisposteByUtente(ub, page+1)).isEmpty();
 		if(b) {
