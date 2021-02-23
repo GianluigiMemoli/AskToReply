@@ -2,18 +2,30 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!--  -->
+<jsp:include page="Header.jsp"></jsp:include>
+<jsp:include page="Sidebar.jsp">
+	<jsp:param name="active" value="profilo" />
+</jsp:include>
 
+
+<!--  -->
+  
 <%  
-	int currentPage = 0;
-	if(request.getParameter("pageRi") != null){
-		currentPage = Integer.parseInt(request.getParameter("pageRi"));		
+	int currentPage = 1;
+	if(request.getParameter("page") != null){
+		currentPage = Integer.parseInt(request.getParameter("page"));		
 	}  
-	request.setAttribute("pageRi", currentPage);
+	request.setAttribute("page", currentPage);
 %> 
 
 <br>
-<div class="card-body">
+<div class="content row">
+	<div class="col-md-2 order-md-3 ">
+		<jsp:include page="TabSwitcher.jsp">
+				<jsp:param name="active" value="storicoRisposte" />			
+		</jsp:include>
+	</div>
+<div class="card-body col-md-10">
 	<div class="card-title">
 	<a name="storicoRisposte"></a>
 		<h3>Storico Risposte</h3>
@@ -47,11 +59,11 @@
 			<c:if test="${not empty storicoRisposte}">
 		<nav class="paginator d-flex justify-content-center" aria-label="Page navigation example">
   		<ul class="pagination">
-  		<c:if test="${pageRi > 0 }">
+  		<c:if test="${page > 1 }">
     		<li class="page-item"><a class="page-link" onclick=changePage(<%=(currentPage-1)%>)><ion-icon name="arrow-back"></ion-icon> Previous</a></li>
     		</c:if> 
     		   	  
-    		   	  <c:if test="${next == 1 }">
+    		   	  <c:if test="${hasNext}">
     		   	  		<li class="page-item"><a class="page-link" onclick=changePage(<%=(currentPage+1)%>)>Next <ion-icon name="arrow-forward"></ion-icon></a></li>
 		    		</c:if> 
 		
@@ -71,6 +83,8 @@
 	
 		<script>
 		function changePage(pageNumber){
-			window.location.href = "/AskToReply/VisualizzaProfilo?pageRi="+pageNumber+"#storicoRisposte";
+			window.location.href = "/AskToReply/VisualizzaStoricoRisposte?page="+pageNumber+"#storicoRisposte";
 		}
 	</script>
+	<jsp:include page="Footer.jsp"></jsp:include>
+	

@@ -72,12 +72,10 @@ public class VisualizzaProfilo extends CustomServlet {
 			page = Integer.parseInt(request.getParameter("pageRi"));	
 		}
 		
-		UtenteBean ub = new UtenteBean();
-		ub.setId(currUser.getId());
-		log.info("Pagina numero: "+page);		
+		
 
 		
-		ArrayList<RispostaBean> risposte = RispostaDAO.getStoricoRisposteByUtente(ub, page); //aggiunta nPag
+		/*ArrayList<RispostaBean> risposte = RispostaDAO.getStoricoRisposteByUtente(ub, page); //aggiunta nPag
 		
 		
 		boolean b = (RispostaDAO.getStoricoRisposteByUtente(ub, page+1)).isEmpty();
@@ -92,7 +90,7 @@ public class VisualizzaProfilo extends CustomServlet {
 		request.setAttribute("storicoRisposte", risposte);
 		//
 		log.info(interessi.toString());
-		log.info(interessiUtente.toString());
+		log.info(interessiUtente.toString());*/
 		request.getRequestDispatcher("Profilo.jsp").forward(request, response);
 	}
 

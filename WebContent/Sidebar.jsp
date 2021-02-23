@@ -39,7 +39,7 @@
 			
 			
 			function fixbtn(){
-				console.log("test"); //test
+				//console.log("test"); //test
 				var w = window.outerWidth;
 				if(w<=529){
 					document.getElementById("bottonesuperiore_chiudi").style.display="block";
@@ -55,14 +55,14 @@
 				if (x.className === "sidebar") {
 					x.style.height="355pt";
 					x.className += " aperta";
-					console.log("la sidebar si � aperta");
+					//console.log("la sidebar si � aperta");
 					apri.style.top="35px";
 					chiudi.style.top="35px";
 					apri.style.display="none";
 					chiudi.style.display="block";
 				}
 				else{
-					console.log("la sidebar si � chiusa");
+					//console.log("la sidebar si � chiusa");
 					x.style.height="55pt";
 					x.className = "sidebar";
 					apri.style.top="35px";
@@ -82,7 +82,7 @@
 					apri.style.display="none";
 					chiudi.style.display="none";
 					sidebar.className="sidebar";
-					console.log(w);
+					//console.log(w);
 				}
 				else{
 					chiudi.style.display="block";
@@ -91,7 +91,7 @@
 						sidebar.className+=" aperta";
 					}
 					openBar();//AGGIUNTO IL 07/01
-					console.log(w); //test
+					//console.log(w); //test
 				}
 			}
 				

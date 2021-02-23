@@ -14,6 +14,13 @@
 }
 </style>
 <div class="content edit-profile">
+<div class="row">
+	<div class="col-md-2 order-md-3 ">
+		<jsp:include page="TabSwitcher.jsp">
+				<jsp:param name="active" value="modificaProfilo" />			
+		</jsp:include>
+	</div>
+	<div class="col-md-10">	
 	<div class="card-body">
 		<jsp:include page="PopupErrore.jsp"></jsp:include>
 		<div class="card-title">
@@ -61,11 +68,11 @@
 			<br>
 			<button type="submit" class="btn btn-primary btnsmussato">Salva modifiche</button>
 		</form>
+		</div>		
+	</div>	
 	</div>
+	<hr />
 
-	<hr />
-	<jsp:include page="StoricoRisposte.jsp"></jsp:include>
-	<hr />
 
 
 

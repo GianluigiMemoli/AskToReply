@@ -44,17 +44,17 @@ public class RispostaDAO {
 		}
 	}
 
-	public static ArrayList<RispostaBean> getStoricoRisposteByUtente(UtenteBean utente, int numPagina) {//aggiunta: int x
+	public static ArrayList<RispostaBean> getStoricoRisposteByUtente(UtenteBean utente, int start, int offset) {//aggiunta: int x
 		String idUser = utente.getId();
 		DBManager dbManager = DBManager.getInstance();
 		ResultSet rs = null;
 		ArrayList<RispostaBean> elencoRisposte = new ArrayList<RispostaBean>();
 		RispostaBean risposta = null;
 		try {
-			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRisposteByUser", 2); //modificato 1 in 2
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRisposteByUser", 3); //modificato 1 in 2
 			callProcedure.setString(1, idUser);
-			callProcedure.setInt(2, numPagina*4); //rigo aggiunto
-			// rs = callProcedure.getResultSet();//esplosione
+			callProcedure.setInt(2, start); //rigo aggiunto
+			callProcedure.setInt(3, offset);
 			rs = callProcedure.executeQuery();
 			while (rs.next()) {
 				risposta = new RispostaBean();
@@ -99,6 +99,24 @@ public class RispostaDAO {
 		return null;
 	}
 	
+	public static int getNumeroRisposteByUtente(PartecipanteBean user) {
+		DBManager manager = DBManager.getInstance();
+		int amount = 0;
+		
+		try {
+		CallableStatement stmt = manager.prepareStoredProcedureCall("GetNumeroRisposteByUtente", 1);
+		stmt.setString(1, user.getId());
+		ResultSet rs = stmt.executeQuery();	
+		if (rs.next()) {
+			amount = rs.getInt("numeroRisposte");
+		}
+
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return amount;
+	}
 	
 	
 	public static ArrayList<RispostaBean> getRisposteByIdDomanda(String idDomanda, int numPagina) {//aggiunta: int x

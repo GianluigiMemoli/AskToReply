@@ -167,10 +167,10 @@ public class DomandeManager {
 		return domandePopolate;
 	}
 	
-	public ArrayList<DomandaBean> getDomandePertinenti(PartecipanteBean utente, int start, int end){
+	public ArrayList<DomandaBean> getDomandePertinenti(PartecipanteBean utente, int page, int offset){
 		ArrayList<CategoriaBean> categorie = CategoriaDAO.getCategorieByUtente(utente.getId());
 		ArrayList<DomandaBean> domande = new ArrayList<DomandaBean>();
-		for(DomandaBean domanda : DomandaDAO.getDomandePertinenti(categorie, start, end)) {
+		for(DomandaBean domanda : DomandaDAO.getDomandePertinenti(categorie, page, offset)) {
 			domande.add(this.populateReferencedEntities(domanda));
 		}
 		return domande;

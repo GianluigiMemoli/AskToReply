@@ -2,8 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,27 +9,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.DomandaBean;
-import model.DomandeManager;
 import model.PartecipanteBean;
+import model.RispostaBean;
 import model.RispostaDAO;
 import model.RisposteManager;
 
 /**
- * Servlet implementation class VisualizzaHome
+ * Servlet implementation class VisualizzaStoricoRisposte
  */
-@WebServlet("/VisualizzaHome")
-public class VisualizzaHome extends CustomServlet {
+@WebServlet("/VisualizzaStoricoRisposte")
+public class VisualizzaStoricoRisposte extends CustomServlet {
 	private static final long serialVersionUID = 1L;
-	
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VisualizzaHome() {
+    public VisualizzaStoricoRisposte() {
         super();
         // TODO Auto-generated constructor stub
     }
+    
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	// TODO Auto-generated method stub
@@ -42,41 +39,37 @@ public class VisualizzaHome extends CustomServlet {
     	}
     	super.service(req, resp);
     }
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    Logger log = Logger.getAnonymousLogger();
+    final int OFFSET = 2;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		PartecipanteBean currUser = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
+		RisposteManager risposteManager = new RisposteManager();
+		
 		int page = 1;
-		int offset = 10;
-		if(request.getParameter("page") != null) {			
+		if(request.getParameter("page") != null) {					
 			page = Integer.parseInt(request.getParameter("page"));	
 		}
-		DomandeManager managerDomande = new DomandeManager();
-		PartecipanteBean utente = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
-		int start = (page - 1) * offset;		
-		ArrayList<DomandaBean> domande = managerDomande.getDomandePertinenti(utente, start, offset);
-		request.setAttribute("domande", domande);
-		int amountDomandePertinenti = managerDomande.getNumOfDomandePertinenti(utente);
 		
-		HashMap<String, Integer> numeroRisposte = new HashMap<String, Integer>();
-		RisposteManager risposteManager = new RisposteManager();
-		for(DomandaBean domanda : domande) {
-			numeroRisposte.put(domanda.getId(), risposteManager.getNumeroRisposte(domanda));
-		}
+		int numeroRisposte = risposteManager.getNumeroRisposteByUtente(currUser);
 		
-		request.setAttribute("numeroRisposte", numeroRisposte);
-		request.setAttribute("domandeRisposte", managerDomande.getDomandeRisposte(utente));
-		boolean hasNext = start + offset < amountDomandePertinenti; 
-		log.info("start: " + start); 
-		log.info("hasNext: " + hasNext); 
-		request.setAttribute("hasNext", hasNext);   
-		request.getRequestDispatcher("Home.jsp").forward(request, response);
-	}  
+		ArrayList<RispostaBean> storicoRisposte = risposteManager.getStoricoRisposte(currUser, page, OFFSET); 		
+		 		
+						
+		boolean hasNext = (page-1)*OFFSET + OFFSET < numeroRisposte; 
+		request.setAttribute("page", page);
+		request.setAttribute("hasNext", hasNext);
+		request.setAttribute("storicoRisposte", storicoRisposte);
+		request.getRequestDispatcher("StoricoRisposte.jsp").forward(request, response);
+		
+	}
 
-	/**
+	/** 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */ 
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

@@ -481,7 +481,7 @@ public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 		return amount;
 	}
 	
-	public static ArrayList<DomandaBean> getDomandePertinenti(ArrayList<CategoriaBean> categorie, int start, int end){		
+	public static ArrayList<DomandaBean> getDomandePertinenti(ArrayList<CategoriaBean> categorie, int page, int offset){		
 		String paramPlaceholder = "?,";
 		String catParams = paramPlaceholder.repeat(categorie.size());
 		catParams = catParams.substring(0, catParams.length() - 1);
@@ -498,8 +498,8 @@ public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 			for (; currentParam <= categorie.size(); currentParam++) {
 				stmt.setNString(currentParam, categorie.get(currentParam-1).getId());
 			}
-			stmt.setInt(currentParam, start);
-			stmt.setInt(++currentParam, end);
+			stmt.setInt(currentParam, page);
+			stmt.setInt(++currentParam, offset);
 			ResultSet records = stmt.executeQuery();			
 			log.info(stmt.toString());
 			while(records.next()) {
