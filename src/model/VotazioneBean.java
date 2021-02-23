@@ -2,30 +2,34 @@ package model;
 
 public class VotazioneBean {
 	
-	public VotazioneBean(String idUtente, String idRisposta, int valore) {
-		super();
-		this.idUtente = idUtente;
-		this.idRisposta = idRisposta;
-		this.valore = valore;
-	}
-	
 	public VotazioneBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getIdUtente() {
-		return idUtente;
+	public VotazioneBean(PartecipanteBean utente, RispostaBean risposta, int valore) {
+		super();
+		this.utente = utente;
+		this.risposta = risposta;
+		this.valore = valore;
 	}
-	public void setIdUtente(String idUtente) {
-		this.idUtente = idUtente;
+
+	public PartecipanteBean getUtente() {
+		return utente;
 	}
-	public String getIdRisposta() {
-		return idRisposta;
+
+	public void setUtente(PartecipanteBean utente) {
+		this.utente = utente;
 	}
-	public void setIdRisposta(String idRisposta) {
-		this.idRisposta = idRisposta;
+
+	public RispostaBean getRisposta() {
+		return risposta;
 	}
+
+	public void setRisposta(RispostaBean risposta) {
+		this.risposta = risposta;
+	}
+
 	public int getValore() {
 		return valore;
 	}
@@ -33,14 +37,8 @@ public class VotazioneBean {
 		this.valore = valore;
 	}
 	
-	@Override
-	public String toString() {
-		return "SegnalazioneRispostaBean [idUtente=" + idUtente + ", idRisposta=" + idRisposta + ", valore=" + valore
-				+ "]";
-	}
-	
-	private String idUtente;
-	private String idRisposta;
+	private PartecipanteBean utente;
+	private RispostaBean risposta;
 	private int valore;
 	
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.PartecipanteBean;
+import model.RispostaBean;
 import model.VotazioneBean;
 import model.VotazioneDAO;
 
@@ -36,25 +37,27 @@ public class VotazioneRispostaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PartecipanteBean autoreBean = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
-		idUtente = autoreBean.getId();
 
 		idRisposta = request.getParameter("idRisposta");
+		RispostaBean risposta = new RispostaBean();
+		risposta.setId(idRisposta);
 		
 		idDomanda = request.getParameter("idDom");
 		
+		if(request.getParameter("value").equals("")) valore=0; else
 		valore = Integer.parseInt(request.getParameter("value"));
 		
 		int n=-1;
 		ArrayList<VotazioneBean> voti = VotazioneDAO.getVotazioniByIdRisposta(idRisposta);
 		for(int i=0; i<voti.size();i++) {
 			
-			log.info("nella lista c'è: "+voti.get(i).getIdUtente());
-			log.info("mentre l'utente loggato è: "+idUtente);
-			if(voti.get(i).getIdUtente().contentEquals(idUtente))n=i;
+			log.info("nella lista c'è: "+voti.get(i).getUtente().getId());
+			log.info("mentre l'utente loggato è: "+autoreBean.getId());
+			if(voti.get(i).getUtente().getId().contentEquals(autoreBean.getId()))n=i;
 			
 		}
 		
-		VotazioneBean votazione=new VotazioneBean(idUtente, idRisposta, valore);
+		VotazioneBean votazione=new VotazioneBean(autoreBean, risposta, valore);
 
 		if(n>=0) {
 			
@@ -83,13 +86,11 @@ public class VotazioneRispostaServlet extends HttpServlet {
 		}
 		else {
 			log.info("VOTO AGGIUNTO");
-		//VotazioneBean votazione=new VotazioneBean(idUtente, idRisposta, valore);
 		VotazioneDAO.addVotazioneRisposta(votazione);
 		}
 		request.getRequestDispatcher("VisualizzaDomandaServlet?id="+idDomanda).forward(request, response);
 	}
 
-	private String idUtente;
 	private String idRisposta;
 	private String idDomanda;
 	private int valore;

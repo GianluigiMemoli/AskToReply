@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.PartecipanteBean;
+import model.RispostaBean;
 import model.VotazioneBean;
 import model.VotazioneDAO;
 
@@ -30,15 +32,16 @@ public class RimozioneVotazioneRispostaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		idUtente = request.getParameter("idUtente");
-		idRisposta = request.getParameter("idRisposta");
+		utente.setId(request.getParameter("idUtente"));
+		risposta.setId(request.getParameter("idRisposta"));
 		valore = Integer.parseInt(request.getParameter("valore"));
-		VotazioneBean votazione=new VotazioneBean(idUtente, idRisposta, valore);
+		VotazioneBean votazione=new VotazioneBean(utente, risposta, valore);
 		VotazioneDAO.removeVotazioneRisposta(votazione);	
 		
 	}
-	private String idUtente;
-	private String idRisposta;
+	
+	private PartecipanteBean utente;
+	private RispostaBean risposta;
 	private int valore;
 	
 }

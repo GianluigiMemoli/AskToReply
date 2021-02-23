@@ -17,8 +17,8 @@ public class VotazioneDAO {
 		try {
 
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("VotazioneRisposta", 3);
-			callProcedure.setString(1, votazione.getIdUtente());
-			callProcedure.setString(2, votazione.getIdRisposta());
+			callProcedure.setString(1, votazione.getUtente().getId());
+			callProcedure.setString(2, votazione.getRisposta().getId());
 			callProcedure.setInt(3, votazione.getValore());				//	setInt oppure setString	???
 			callProcedure.executeUpdate();
 		}catch(SQLException exc) {
@@ -32,8 +32,8 @@ public class VotazioneDAO {
 		DBManager dbManager = DBManager.getInstance();
 		try {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("RimozioneVotazione", 2);
-			callProcedure.setString(1, votazione.getIdRisposta());
-			callProcedure.setString(2, votazione.getIdUtente());
+			callProcedure.setString(1, votazione.getRisposta().getId());
+			callProcedure.setString(2, votazione.getUtente().getId());
 			callProcedure.executeUpdate();
 		}catch(SQLException exc) {
 			exc.printStackTrace();
@@ -53,15 +53,16 @@ public class VotazioneDAO {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetVotazioniByRisposta", 1);  //DA SCRIVERE (SP)
 			callProcedure.setString(1, idRisposta);
 			rs = callProcedure.executeQuery();
-			
-			log.info("prima del WHILEEE DI VOTAZIONE DAOOOO");
-
+		
 			if(rs!=null)
 			while(rs.next()) {
-				log.info("NEEEL WHILEEE DI VOTAZIONE DAOOOO");
 				voto=new VotazioneBean();
-				voto.setIdRisposta(rs.getString("idRisposta"));
-				voto.setIdUtente(rs.getString("idUtente"));
+				RispostaBean rb = new RispostaBean();
+				rb.setId(rs.getString("idRisposta"));
+				voto.setRisposta(rb);
+				PartecipanteBean pb = new PartecipanteBean();
+				pb.setId(rs.getString("idUtente"));
+				voto.setUtente(pb);
 				voto.setValore(rs.getInt("valore"));
 				
 				elencoVoti.add(voto);
@@ -71,8 +72,5 @@ public class VotazioneDAO {
 			exc.printStackTrace();
 		}
 		return elencoVoti;
-	}
-
-	//Bisogna scrivere la SP GetVotazioniByRisposta e forse anche IsVotataByUser	
-	
+	}	
 }
