@@ -23,7 +23,12 @@
 			
 				<div class="question rounded border">
 					<div class="d-flex w-100 justify-content-between">
-					<small class="text-secondary">@${domanda.getAutore().getUsername()}</small>
+					<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId())}">
+							<small class="text-secondary">hai chiesto:</small>
+						</c:if>
+						<c:if test="${!utenteLoggato.getId().equals(domanda.getAutore().getId())}">
+							<small class="text-secondary">@${domanda.getAutore().getUsername()}</small>
+						</c:if>
 					<small class="text-secondary">${domanda.getDataPubblicazione()}</small>
 				</div>
 				
@@ -46,24 +51,32 @@
 							</c:forEach>
 						</div>
 					</c:when>
-					<c:otherwise>
-						<p><small>Nessun allegato presente.[questo messaggio va poi eliminato]</small></p>
-					</c:otherwise>
 				</c:choose>
 				
 				<!-- form risposta -->
 				<!-- controllare se la domanda è archiviata -->
 					<c:choose>
 						<c:when test="${utenteLoggato != null && utenteLoggato.getId() != domanda.getAutore().getId()}">
+									
 							<button onclick="document.getElementById('idDomanda').value='${domanda.getId()}'" type="submit" class="btn btn-outline-primary btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#pubblicaRispostaModal" data-whatever="@getbootstrap"><ion-icon name="chatbubble-ellipses"></ion-icon> Rispondi</button>
 							<button type="submit" class="btn btn-outline-warning btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#segnalaDomandaModal" data-whatever="@getbootstrap"><ion-icon name="warning"></ion-icon> Segnala&nbsp;</button>
-							<button type="submit" class="btn btn-outline-info btn-sm border-0 btnsmussato" name="allegati" id="allegati"><ion-icon name="eye"></ion-icon> Mostra allegati&nbsp;</button>
-							<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include>
+									<c:choose>
+					<c:when test="${domanda.getAllegati().size() > 0}">
+					<button type="button" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="image"></ion-icon><span class="responsivespan"> Contiene allegati&nbsp;</span></button>
+					</c:when>
+					</c:choose>		
+						<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include>
 						</c:when>
 						<c:otherwise>
-							<p class="lead">Non puoi rispondere</p>
+															<c:choose>
+					<c:when test="${domanda.getAllegati().size() > 0}">
+					<button type="button" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="image"></ion-icon><span class="responsivespan"> Contiene allegati&nbsp;</span></button>
+					</c:when>
+					</c:choose>		
 						</c:otherwise>
 					</c:choose>	
+				
+
 				
 				<!-- risposte -->
 				<!-- 

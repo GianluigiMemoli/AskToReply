@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
@@ -27,6 +28,7 @@ import model.DomandaBean;
 import model.DomandeManager;
 import model.MotivazioneBean;
 import model.MotivazioneDAO;
+import model.PartecipanteBean;
 import model.RispostaBean;
 import model.RispostaDAO;
 import model.RisposteManager;
@@ -65,7 +67,7 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 			try {
 				
 				DomandeManager manager = new DomandeManager();
-				
+				PartecipanteBean user = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 				DomandaBean domandaVisualizzata = manager.getDomandaById(idDomanda);
 				
 				if(domandaVisualizzata != null) {

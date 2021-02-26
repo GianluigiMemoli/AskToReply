@@ -101,9 +101,6 @@ button.responsivebtn{
 								</div>
 							</c:forEach>
 					</c:when>
-					<c:otherwise>
-						<p><small>Nessun allegato presente.[questo messaggio va poi eliminato]</small></p>
-					</c:otherwise>
 				</c:choose>
 											<c:choose>
 						<c:when test="${utenteLoggato != null && utenteLoggato.getId() != risposta.getAutore().getId()}">
@@ -137,7 +134,11 @@ button.responsivebtn{
 					   						</c:otherwise>
 					</c:choose>	
 					
+					<c:choose>
+					<c:when test="${risposta.getAllegati().size() > 0}">
 					<button type="button" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="image"></ion-icon><span class="responsivespan"> Contiene allegati&nbsp;</span></button>
+					</c:when>
+					</c:choose>		
 										 
 				</div>
 				
@@ -150,8 +151,7 @@ button.responsivebtn{
 		</div>	
 						 						<jsp:include page="FormSegnalazioneRisposta.jsp"></jsp:include>
 	
-	<jsp:include page="ModalAllegati.jsp"></jsp:include> 	
-	
+
 
 
 			<c:if test="${not empty risposte}">

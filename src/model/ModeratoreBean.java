@@ -15,5 +15,7 @@ public class ModeratoreBean extends UtenteBean{
 		super(email, passwordHash, nuovaPassword, username, nome, cognome, ruoloID, isDisattivato, id);
 		
 	}
+	
+
 
 }

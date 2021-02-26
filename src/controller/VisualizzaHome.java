@@ -63,6 +63,7 @@ public class VisualizzaHome extends CustomServlet {
 		RisposteManager risposteManager = new RisposteManager();
 		for(DomandaBean domanda : domande) {
 			numeroRisposte.put(domanda.getId(), risposteManager.getNumeroRisposte(domanda));
+			//allegati?		
 		}
 		
 		request.setAttribute("numeroRisposte", numeroRisposte);

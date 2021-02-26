@@ -129,10 +129,7 @@ request.setAttribute("currentPage", currentPage);
 							Segnala
 						</button>
 					</c:if>				
-					
-					<c:if test="${domanda.getAllegati().size() > 0}">									
-						<button type="button" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="image"></ion-icon><span class="responsivespan"> Contiene allegati&nbsp;</span></button>
-					</c:if>					
+				
 					
 				</div>
 
