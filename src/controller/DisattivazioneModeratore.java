@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ModeratoriManager;
+import model.AccountManager;
 
 /**
  * Servlet implementation class DisattivazioneModeratore
@@ -45,8 +45,8 @@ public class DisattivazioneModeratore extends CustomServlet {
 		// TODO Auto-generated method stub
 		String idModeratore; 
 		idModeratore = request.getParameter("idModeratore");
-		ModeratoriManager modManager = new ModeratoriManager();
-		modManager.deleteModeratore(idModeratore);
+		AccountManager accountManager = new AccountManager();
+		accountManager.deleteModeratore(idModeratore);
 		log.info("Mod disattivato");
 		response.sendRedirect("GestioneModeratori");
 		log.info("Dispatching");

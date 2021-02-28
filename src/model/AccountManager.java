@@ -44,7 +44,7 @@ public class AccountManager {
 	
 	public void RegistraModeratore(String email, String password, String username, String nome, String cognome) throws CampiNonConformiException, EmailPresenteException, UsernamePresenteException, NoSuchAlgorithmException {				
 		UtenteBean newUser =   generateUtenteBean(nome, cognome, username, email, password);				
-		ModeratoreDAO.doAddModeratore(newUser);		
+		UtenteDAO.doAddModeratore(newUser);		
 	}
 	
 	public UtenteBean autenticaUtente(String email, String password) throws CredenzialiNonValideException {		
@@ -55,7 +55,7 @@ public class AccountManager {
 		try {
 			String hashedPassword = this.getPasswordHash(password);
 			if(loggingUser.getPasswordHash().equals(hashedPassword)) {
-				return userFactory(loggingUser.getRuoloID(), loggingUser.getEmail());
+				return getUserInstance(loggingUser.getRuoloID(), loggingUser.getEmail());
 				
 			} else {
 				throw new CredenzialiNonValideException();
@@ -176,36 +176,25 @@ public class AccountManager {
 		}
 	
 	
-	private UtenteBean userFactory(int roleId, String email) {
+	private UtenteBean getUserInstance(int roleId, String email) {
 		RuoloBean role = RuoloDAO.getRuoloById(roleId);
 		UtenteBean specializedUser = null; 
 		
 		if (role.getNome().equals(RuoloBean.ROLE_PARTECIPANTE)) {
-			specializedUser = PartecipanteDAO.getPartecipanteByEmail(email);
+			return PartecipanteDAO.getPartecipanteByEmail(email);
 		} else {
-			UtenteBean user = UtenteDAO.getUtenteByEmail(email);
-			if (role.getNome().equals(RuoloBean.ROLE_MODERATORE)) {
-			specializedUser = new ModeratoreBean(email, user.getPasswordHash(),
-					user.getNuovaPassword(), 
-					user.getUsername(),
-					user.getNome(),
-					user.getCognome(),
-					roleId,
-					user.isDisattivato(),
-					user.getId());
-			} else if (role.getNome().equals(RuoloBean.ROLE_MASTER_MODERATORE)) {
-				specializedUser = new MasterModeratoreBean(email, user.getPasswordHash(),
-						user.getNuovaPassword(), 
-						user.getUsername(),
-						user.getNome(),
-						user.getCognome(),
-						roleId,
-						user.isDisattivato(),
-						user.getId());
-			} 
-		}
+			// Se è mastermoderatore o moderatore
+			return UtenteDAO.getUtenteByEmail(email);
+		}				
+	}
+	
+	public ArrayList<UtenteBean> getAllModeratori(){
+		return UtenteDAO.doGetAllModeratori();
+	}
+	
+	public void deleteModeratore(String id){
+		UtenteDAO.doDeactivateUser(id);
 		
-		return specializedUser;
 	}
 		
 }

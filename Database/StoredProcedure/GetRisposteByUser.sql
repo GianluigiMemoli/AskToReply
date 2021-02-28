@@ -9,3 +9,4 @@ CREATE PROCEDURE GetRisposteByUser(
     BEGIN			
         SELECT * FROM Risposte WHERE Risposte.idAutore = userId ORDER BY dataPubblicazione DESC LIMIT currPage, num; 
     END $$
+

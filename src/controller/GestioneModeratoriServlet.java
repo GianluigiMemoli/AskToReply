@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ModeratoreBean;
-import model.ModeratoriManager;
+import model.AccountManager;
+import model.UtenteBean;
+
+
 
 /**
  * Servlet implementation class VisualizzaListaModeratori
@@ -44,9 +46,9 @@ public class GestioneModeratoriServlet extends CustomServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ModeratoriManager modManager = new ModeratoriManager();
-		ArrayList<ModeratoreBean> moderatoriList;		
-		moderatoriList = modManager.getAllModeratori();
+		AccountManager accountManager = new AccountManager();
+		ArrayList<UtenteBean> moderatoriList;		
+		moderatoriList = accountManager.getAllModeratori();
 		request.setAttribute("moderatoriList", moderatoriList);
 		request.getRequestDispatcher("GestioneModeratori.jsp").forward(request, response);		
 	}

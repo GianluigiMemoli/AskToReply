@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class CreazioneModeratoriServlet
  */
 @WebServlet("/CreazioneModeratori")
-public class CreazioneModeratoriServlet extends CustomServlet {
+public class CreazioneModeratori extends CustomServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreazioneModeratoriServlet() {
+    public CreazioneModeratori() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,4 +51,4 @@ public class CreazioneModeratoriServlet extends CustomServlet {
 		doGet(request, response);	
 	}
 
-}
+} 
