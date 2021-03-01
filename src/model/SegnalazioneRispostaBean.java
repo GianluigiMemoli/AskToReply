@@ -139,6 +139,15 @@ public class SegnalazioneRispostaBean {
 
 
 
+	public RispostaBean getRisposta() {
+		return risposta;
+	}
+
+
+	public void setRisposta(RispostaBean risposta) {
+		this.risposta = risposta;
+	}
+
 
 	@Override
 	public String toString() {
@@ -151,7 +160,7 @@ public class SegnalazioneRispostaBean {
 
 
 
-
+	private RispostaBean risposta;
 	private String titoloDomanda;
 	private String corpoDomanda;
 	private String idSegnalazione; 

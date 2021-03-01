@@ -43,7 +43,7 @@
 				//mi è venuta sete
 				var x = document.getElementById("sidebar");
 				if (x.className === "sidebar") {
-					x.style.height="355pt";
+					x.style.height="225pt";
 					x.className += " aperta";
 					//console.log("la sidebar si è aperta");
 					apri.style.top="35px";
@@ -75,7 +75,7 @@
 				}
 				else{
 					chiudi.style.display="block";
-					sidebar.style.height="355pt";
+					sidebar.style.height="225pt";
 					if(sidebar.className!="sidebar aperta"){
 						sidebar.className+=" aperta";
 					}

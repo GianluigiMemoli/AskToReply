@@ -43,13 +43,18 @@
 				<!-- allegati domanda -->
 				<c:choose>
 					<c:when test="${domanda.getAllegati().size() > 0}">
-						<div class="row">
+						<div class="container">
+							<div class="row">
+
 							<c:forEach items="${domanda.getAllegati()}" var="allegato">
-								<div class="col-2 p-1">
-									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail">
+								
+								<div class="col-0 p-0">
+									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail" style="max-height: 150px; min-height: 100px; min-height: 50%;">
 								</div>
+								
 							</c:forEach>
-						</div>
+								</div>
+							</div>
 					</c:when>
 				</c:choose>
 				
@@ -58,7 +63,33 @@
 					<c:choose>
 						<c:when test="${utenteLoggato != null && utenteLoggato.getId() != domanda.getAutore().getId()}">
 									
+									
+									
+									
+									
+									
+									
+					
+					<c:if test="${!utenteLoggato.getId().equals(domanda.getId())}">
+					<c:choose>
+					<c:when test="${domandeRisposte.contains(domanda)}">
+					<button
+						style="background-color:#E3F2FD; pointer-events: none;"
+						type="button"
+						class="btn btn-outline-primary btn-sm border-0 btnsmussato">
+						<ion-icon name="chatbubble-ellipses"></ion-icon>
+						Hai risposto
+						<span style="background-color:#BBDEFB;"  class="badge badge-pill badge-success text-primary">${numeroRisposte.get(domanda.getId())}</span>
+					</button>
+					</c:when>
+					<c:otherwise>
+					<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">					
 							<button onclick="document.getElementById('idDomanda').value='${domanda.getId()}'" type="submit" class="btn btn-outline-primary btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#pubblicaRispostaModal" data-whatever="@getbootstrap"><ion-icon name="chatbubble-ellipses"></ion-icon> Rispondi</button>
+					</c:if>
+					</c:otherwise>	
+					</c:choose>
+					</c:if>
+					
 							<button type="submit" class="btn btn-outline-warning btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#segnalaDomandaModal" data-whatever="@getbootstrap"><ion-icon name="warning"></ion-icon> Segnala&nbsp;</button>
 									<c:choose>
 					<c:when test="${domanda.getAllegati().size() > 0}">

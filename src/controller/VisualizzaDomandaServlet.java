@@ -73,7 +73,8 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 				if(domandaVisualizzata != null) {
 					
 					request.setAttribute("domanda", domandaVisualizzata);
-					
+					request.setAttribute("domandeRisposte", manager.getDomandeRisposte(user));
+
 					// allegati
 					/* 
 					 * Li metto all'interno di un ArrayList perché con un array normale ci sono problemi nella JSP.

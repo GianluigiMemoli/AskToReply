@@ -81,7 +81,7 @@ public class RisposteManager {
 	}
 
 
-	public RispostaBean getRispostaById(String idRisposta) {
+	public static RispostaBean getRispostaById(String idRisposta) {
 
 		RispostaBean rb = RispostaDAO.getRispostaById(idRisposta);
 

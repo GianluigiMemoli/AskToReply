@@ -63,12 +63,34 @@
 						<p style="color: black; margin-bottom:0pt;">in risposta a: ${segnalazionerisposta.getTitoloDomanda()} ${segnalazionerisposta.getCorpoDomanda()}</p>
 						<small>Commento segnalazione: ${segnalazionerisposta.getCommento()}</small>
 					
+					
+									<c:choose>
+					<c:when test="${segnalazionerisposta.getRisposta().getAllegati().size() > 0}">
+						<%session.setAttribute("allegati_${risposta.getId()}", "${risposta.getAllegati()}");%>
+						<div class="container">
+							<div class="row">
+
+							<c:forEach items="${segnalazionerisposta.getRisposta().getAllegati()}" var="allegato">
+								
+								<div class="col-0 p-0">
+									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail" style="max-height: 150px; min-height: 100px; min-height: 50%;">
+								</div>
+								
+							</c:forEach>
+								</div>
+							</div>
+					</c:when>									
+				</c:choose>
+					
 				</div>
 		
 			    <button type="submit" class="btn btn-outline-success btn-sm border-0 btnsmussato" name="approva" id="approva"><ion-icon name="shield-checkmark"></ion-icon> Approva</button>
 			  	<button type="submit" class="btn btn-outline-danger btn-sm border-0 btnsmussato" name="ignora" id="ignora"><ion-icon name="trash"></ion-icon> Ignora</button>
-			    <button type="submit" class="btn btn-outline-info btn-sm border-0 btnsmussato" name="mostraAllegato" id="mostraAllegato"><ion-icon name="eye"></ion-icon> Mostra allegato</button>
-			  
+			  	<c:choose>
+					<c:when test="${segnalazionerisposta.getRisposta().getAllegati().size() > 0}">
+											<button type="button" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="image"></ion-icon><span class="responsivespan"> Contiene allegati&nbsp;</span></button>
+					</c:when>
+				</c:choose>
 
 			</div>
 			</form>

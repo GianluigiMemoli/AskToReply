@@ -87,7 +87,8 @@ public class SegnalazioneRispostaDAO {
 				segnalazioneRisposta.setDataSegnalazione(rs.getDate("dataSegnalazione")); 
 				segnalazioneRisposta.setStato(rs.getInt("stato")); 
 				segnalazioneRisposta.setCommento(rs.getString("commento"));
-				segnalazioneRisposta.setIdRisposta(rs.getString("idRisposta")); //aggiunta ora
+				segnalazioneRisposta.setIdRisposta(rs.getString("idRisposta"));
+				segnalazioneRisposta.setRisposta(RisposteManager.getRispostaById(rs.getString("idRisposta")));
 				segnalazioniRisposte.add(segnalazioneRisposta);
 			}
 		}catch(SQLException exc) {
@@ -115,6 +116,8 @@ public class SegnalazioneRispostaDAO {
 				segnalazioneRisposta.setStato(rs.getInt("stato")); 
 				segnalazioneRisposta.setCommento(rs.getString("commento"));
 				segnalazioneRisposta.setIdRisposta(rs.getString("idRisposta")); //aggiunta ora
+				segnalazioneRisposta.setRisposta(RisposteManager.getRispostaById(rs.getString("idRisposta")));
+
 			}
 			} catch (SQLException exc) {
 				exc.printStackTrace();

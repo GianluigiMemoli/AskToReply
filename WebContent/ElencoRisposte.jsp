@@ -95,11 +95,18 @@ button.responsivebtn{
 					<c:when test="${risposta.getAllegati().size() > 0}">
 						<%session.setAttribute("allegati_${risposta.getId()}", "${risposta.getAllegati()}");%>
 						<%session.setAttribute("testina", "valorepassato");%>
+						<div class="container">
+							<div class="row">
+
 							<c:forEach items="${risposta.getAllegati()}" var="allegato">
-								<div class="col-2 p-0">
-									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail" style="min-width: 150px;">
+								
+								<div class="col-0 p-0">
+									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail" style="max-height: 150px; min-height: 100px; min-height: 50%;">
 								</div>
+								
 							</c:forEach>
+								</div>
+							</div>
 					</c:when>
 				</c:choose>
 											<c:choose>
