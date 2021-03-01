@@ -15,12 +15,12 @@
 </style>
 <div class="content edit-profile">
 <div class="row">
-	<div class="col-md-2 order-md-3 ">
+	<div class="col-md-4 order-md-2 mb-4" unselectable="on"  onselectstart="return false;" onmousedown="return false;">
 		<jsp:include page="TabSwitcher.jsp">
 				<jsp:param name="active" value="modificaProfilo" />			
 		</jsp:include>
 	</div>
-	<div class="col-md-10">	
+	<div class="col-md-8 order-md-1" style="border-right: 1px solid #f0f0f0;">	
 	<div class="card-body">
 		<jsp:include page="PopupErrore.jsp"></jsp:include>
 		<div class="card-title">
@@ -71,10 +71,6 @@
 		</div>		
 	</div>	
 	</div>
-	<hr />
-
-
-
 
 
 </div>

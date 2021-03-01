@@ -1,6 +1,10 @@
 <style>	
 	.active{
+		color: #6615b4;		
+	}
+	.active:hover{
 		color: #6615b4;
+		font-weight:bold;	
 	}
 	a {
 		color: black; 
@@ -8,11 +12,11 @@
 	a:hover {
 		color: black;
 		text-decoration: none;
+		font-weight:bold;
 	}
 		 @media only screen and (min-width: 769px) {
 			.switcher-container{
 				margin-top: 1em;	
-				border-left: 1px solid #f0f0f0;
 			}
 			.switcher{
 				list-style: none;
@@ -52,9 +56,9 @@
 	}
 </style>
 <div class="switcher-container">
-	<ul class="switcher">
+	<ul class="switcher" style="padding:0px 20px;">
 		<li ><a id="modificaProfilo" href="VisualizzaProfilo">Modifica profilo</a></li>
-		<li id="storicoDomande">Storico domande</li>
+		<li ><a id="storicoDomande"  href="#">Storico domande</a></li>	
 		<li ><a id="storicoRisposte"  href="VisualizzaStoricoRisposte">Storico risposte</a></li>	
 	</ul>
 </div>

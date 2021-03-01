@@ -18,14 +18,15 @@
 	request.setAttribute("page", currentPage);
 %> 
 
-<br>
-<div class="content row">
-	<div class="col-md-2 order-md-3 ">
+<div class="content row" style="padding:0pt";>
+	<div class="col-md-4 order-md-2 mb-4" unselectable="on"  onselectstart="return false;" onmousedown="return false;">
 		<jsp:include page="TabSwitcher.jsp">
 				<jsp:param name="active" value="storicoRisposte" />			
 		</jsp:include>
 	</div>
-<div class="card-body col-md-10">
+	
+	<div class="col-md-8 order-md-1" style="border-right: 1px solid #f0f0f0;">
+		<div class="card-body">	
 	<div class="card-title">
 	<a name="storicoRisposte"></a>
 		<h3>Storico Risposte</h3>
@@ -72,6 +73,8 @@
 		<br><br>		
 			</c:if>	
 	
+	</div>
+	</div>
 	</div>
 
 	<c:if test="${empty storicoRisposte}">

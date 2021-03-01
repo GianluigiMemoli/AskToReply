@@ -70,7 +70,7 @@
 			
 			
 			
-			<div class="col-md-8 order-md-1">
+			<div class="col-md-8 order-md-1" style="border-right: 1px solid #f0f0f0;">
 			<div class="card-body">
 					<input type="hidden" id="idDomanda" name="idDomanda" value="">
 					<c:choose>
