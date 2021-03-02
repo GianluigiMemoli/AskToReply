@@ -158,9 +158,20 @@ public class RisposteManager {
 		return RispostaDAO.getNumeroRisposteByUtente(user);
 	}
 	
-	public ArrayList<RispostaBean> getStoricoRisposte(PartecipanteBean user, int page, int offset){
+	public ArrayList<RispostaBean> getStoricoRisposte(PartecipanteBean user, int page, int offset) throws IOException{
 		int start = (page-1) * offset;
-		return RispostaDAO.getStoricoRisposteByUtente(user, start, offset);
+		
+		
+		ArrayList<RispostaBean> arrayListRisposte =  RispostaDAO.getStoricoRisposteByUtente(user, start, offset);
+		ArrayList<RispostaBean> arrayListRisposteConAllegati = new ArrayList<RispostaBean>();
+
+		for (int counter = 0; counter < arrayListRisposte.size(); counter++) { 	
+			AllegatiHandler allegatiHandler = new AllegatiHandler();
+			File[] allegati = allegatiHandler.getAllegati(UPLOAD_PATH + arrayListRisposte.get(counter).getId());
+			arrayListRisposte.get(counter).setAllegati(allegatiHandler.convertToBase64(allegati));
+			arrayListRisposteConAllegati.add(arrayListRisposte.get(counter));
+		}   
+		return arrayListRisposteConAllegati;
 	}
 
 	public HashSet<RispostaBean> getRisposteApprezzate(UtenteBean utente){

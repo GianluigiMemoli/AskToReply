@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -224,6 +226,16 @@ public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 				domanda.setDataPubblicazione(rs.getDate("dataPubblicazione"));
 				domanda.setId(rs.getNString("id"));
 				domanda.setTitolo(rs.getString("titolo"));
+				
+				AllegatiHandler allegatiHandler = new AllegatiHandler();
+				File[] allegati = allegatiHandler.getAllegati(UPLOAD_PATH + (rs.getNString("id")));
+				
+				try {
+					domanda.setAllegati(allegatiHandler.convertToBase64(allegati));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				domande.add(domanda);
 				
@@ -549,5 +561,8 @@ public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 		return -1;
 		
 	}
+	
+	private static final String UPLOAD_PATH = "C:\\uploads\\allegati_domande\\";
+
 	
 }

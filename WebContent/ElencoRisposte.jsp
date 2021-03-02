@@ -100,7 +100,7 @@ button.responsivebtn{
 
 							<c:forEach items="${risposta.getAllegati()}" var="allegato">
 								
-								<div class="col-0 p-0">
+								<div class="col-0 p-0" style="margin-right:5pt; margin-bottom:16px; ">
 									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail" style="max-height: 150px; min-height: 100px; min-height: 50%;">
 								</div>
 								

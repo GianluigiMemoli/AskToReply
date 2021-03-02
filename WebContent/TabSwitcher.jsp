@@ -57,9 +57,9 @@
 </style>
 <div class="switcher-container">
 	<ul class="switcher" style="padding:0px 20px;">
-		<li ><a id="modificaProfilo" href="VisualizzaProfilo">Modifica profilo</a></li>
-		<li ><a id="storicoDomande"  href="#">Storico domande</a></li>	
-		<li ><a id="storicoRisposte"  href="VisualizzaStoricoRisposte">Storico risposte</a></li>	
+		<li ><a id="modificaProfilo" href="VisualizzaProfilo"><ion-icon name="settings"></ion-icon> Modifica profilo</a></li>
+		<li ><a id="storicoDomande"  href="VisualizzaStoricoDomandeServlet"><ion-icon name="megaphone"></ion-icon> Storico domande</a></li>	
+		<li ><a id="storicoRisposte"  href="VisualizzaStoricoRisposte"><ion-icon name="chatbubbles"></ion-icon> Storico risposte</a></li>	
 	</ul>
 </div>
 

@@ -8,7 +8,6 @@
 </jsp:include>
 
 
-<!--  -->
   
 <%  
 	int currentPage = 1;
@@ -33,29 +32,39 @@
 	</div>
 	
 	
-	<c:forEach var="storicoRisposte" items="${storicoRisposte}">
+	<c:forEach var="risposta" items="${storicoRisposte}">
 
 		<div class="list-group">
-			<a href="VisualizzaDomandaServlet?id=${storicoRisposte.getIdDomanda()}"
+			<a href="VisualizzaDomandaServlet?id=${risposta.getIdDomanda()}"
 				class="list-group-item list-group-item-action flex-column align-items-start">
 
 				<div class="d-flex w-100 justify-content-between">
-					<p style="color:black;" class="mt-0">${storicoRisposte.getCorpo()}</p>
-					<small>${storicoRisposte.getDataPubblicazione()}</small>
+					<p style="color:black; margin-bottom:0pt;" class="mt-0"> ${risposta.getCorpo()}</p>
+					<small>${risposta.getDataPubblicazione()}</small>
 				</div>
 
 				<p class="mb-1">
 					<small>
-					in risposta a: ${storicoRisposte.getTitoloDomanda()}
+					in risposta a: ${risposta.getTitoloDomanda()}
 					</small>
 				</p>
+				
+				
+				
+					<button name="mipiace" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" style="padding-left:0;" disabled><ion-icon name="thumbs-up"></ion-icon><span class="responsivespan"> Mi piace</span>&nbsp;<span id="span_${risposta.getId()}_mipiace" style="background-color:Gainsboro;"  class="badge badge-pill badge-success text-dark">${risposta.getMiPiace()}</span></button>
+					<button name="nonmipiace" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="thumbs-down"></ion-icon><span class="responsivespan"> Non mi piace</span>&nbsp;<span id="span_${risposta.getId()}_nonmipiace"  style="background-color:Gainsboro" class="badge badge-pill badge-danger text-dark">${risposta.getNonMiPiace()}</span></button>
+					   					
+					<c:choose>
+					<c:when test="${risposta.getAllegati().size() > 0}">
+					<button type="button" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="image"></ion-icon><span class="responsivespan"> Contiene allegati&nbsp;</span></button>
+					</c:when>
+					</c:choose>		
+									
 			</a>
 		</div>
 		<br>
 	</c:forEach>
-	
-	
-	
+
 	
 			<c:if test="${not empty storicoRisposte}">
 		<nav class="paginator d-flex justify-content-center" aria-label="Page navigation example">

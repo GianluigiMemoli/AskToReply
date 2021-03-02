@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.DomandaBean;
 import model.DomandeManager;
+import model.RisposteManager;
 import model.UtenteBean;
 
 /**
@@ -69,6 +72,17 @@ public class VisualizzaStoricoDomandeServlet extends CustomServlet {
 					(currentPage - 1) * domandePerPagina,
 					currentPage * domandePerPagina
 				);
+		
+		
+		//test
+		HashMap<String, Integer> numeroRisposte = new HashMap<String, Integer>();
+		RisposteManager risposteManager = new RisposteManager();
+		for(DomandaBean domanda : domande) {
+			numeroRisposte.put(domanda.getId(), risposteManager.getNumeroRisposte(domanda));
+		}
+		request.setAttribute("numeroRisposte", numeroRisposte);
+		//test
+
 		
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("totalPages", totalPages);

@@ -23,7 +23,6 @@ public class PartecipanteDAO {
 					rs.getInt("ruoloId"), 
 					rs.getBoolean("isDisattivato"), 
 					rs.getString("id"),
-					rs.getInt("punteggio"),
 					rs.getInt("numeroSegnalazioni")
 					);
 		}

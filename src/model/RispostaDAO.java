@@ -66,6 +66,18 @@ public class RispostaDAO {
 				risposta.setAutore(pb);
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
 				risposta.setTitoloDomanda(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo()); // 151220
+				
+				
+				int miPiace=0;
+				int nonMiPiace=0;
+				ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(rs.getString("id"));
+				risposta.setVoti(vb);//aggiunto
+				if(vb!=null)for(int k=0; k<vb.size(); k++)if(vb.get(k).getValore()==1)miPiace+=1;else nonMiPiace+=1;
+
+				risposta.setMiPiace(miPiace);
+				risposta.setNonMiPiace(nonMiPiace);
+				
+				
 				elencoRisposte.add(risposta);
 			}
 			return elencoRisposte;
