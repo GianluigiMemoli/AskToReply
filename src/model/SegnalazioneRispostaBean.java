@@ -4,87 +4,37 @@ import java.util.Date;
 
 public class SegnalazioneRispostaBean {
 	
+	
+	
 	public SegnalazioneRispostaBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	
-	
-	public SegnalazioneRispostaBean(String idSegnalazione, int idMotivazione, String motivazione,
-			Date dataSegnalazione, int stato, String commento, String idRisposta, String corpoRisposta,
-			String filepathRisposta, RispostaBean rispostaSegnalata, String titoloDomanda, String corpoDomanda) {
+
+	public SegnalazioneRispostaBean(RispostaBean rispostaSegnalata, MotivazioneBean motivazione, Date dataSegnalazione,
+			int stato, String commento, String idSegnalazione, DomandaBean domanda) {
 		super();
-		this.idSegnalazione = idSegnalazione;
-		this.idMotivazione = idMotivazione;
+		this.rispostaSegnalata = rispostaSegnalata;
 		this.motivazione = motivazione;
 		this.dataSegnalazione = dataSegnalazione;
 		this.stato = stato;
 		this.commento = commento;
-		this.idRisposta = idRisposta;
-		this.corpoRisposta = corpoRisposta;
-		this.filepathRisposta = filepathRisposta;
-		this.rispostaSegnalata = rispostaSegnalata;
-		this.titoloDomanda = titoloDomanda;
-		this.corpoDomanda = corpoDomanda;
+		this.idSegnalazione = idSegnalazione;
+		this.domanda = domanda;
 	}
 
 	
-	
-	
-	public String getTitoloDomanda() {
-		return titoloDomanda;
-	}
-
-
-
-	public void setTitoloDomanda(String titoloDomanda) {
-		this.titoloDomanda = titoloDomanda;
-	}
-
-
-
-	public String getCorpoDomanda() {
-		return corpoDomanda;
-	}
-
-
-
-	public void setCorpoDomanda(String corpoDomanda) {
-		this.corpoDomanda = corpoDomanda;
-	}
-
-
-
-	public RispostaBean getRispostaSegnalata() {
-		return rispostaSegnalata;
-	}
-
-	public void setRispostaSegnalata(RispostaBean rispostaSegnalata) {
-		this.rispostaSegnalata = rispostaSegnalata;
-	}
 	
 	public String getIdSegnalazione() {
 		return idSegnalazione;
 	}
 
-
-
-	public int getIdMotivazione() {
-		return idMotivazione;
+	public void setIdSegnalazione(String idSegnalazione) {
+		this.idSegnalazione = idSegnalazione;
 	}
-
-	public void setIdMotivazione(int idMotivazione) {
-		this.idMotivazione = idMotivazione;
-	}
-
-	public String getMotivazione() {
-		return motivazione;
-	}
-
-	public void setMotivazione(String motivazione) {
-		this.motivazione = motivazione;
-	}
-
+	
 	public Date getDataSegnalazione() {
 		return dataSegnalazione;
 	}
@@ -109,70 +59,49 @@ public class SegnalazioneRispostaBean {
 		this.commento = commento;
 	}
 
-	public String getIdRisposta() {
-		return idRisposta;
+	public RispostaBean getRispostaSegnalata() {
+		return rispostaSegnalata;
 	}
 
-	public void setIdRisposta(String idRisposta) {
-		this.idRisposta = idRisposta;
+	public void setRispostaSegnalata(RispostaBean rispostaSegnalata) {
+		this.rispostaSegnalata = rispostaSegnalata;
 	}
 
-	public String getCorpoRisposta() {
-		return corpoRisposta;
+	public DomandaBean getDomanda() {
+		return domanda;
 	}
 
-	public void setCorpoRisposta(String corpoRisposta) {
-		this.corpoRisposta = corpoRisposta;
+	public void setDomanda(DomandaBean domanda) {
+		this.domanda = domanda;
 	}
 
-	public String getFilepathRisposta() {
-		return filepathRisposta;
+	public MotivazioneBean getMotivazione() {
+		return motivazione;
 	}
 
-	public void setFilepathRisposta(String filepathRisposta) {
-		this.filepathRisposta = filepathRisposta;
+	public void setMotivazione(MotivazioneBean motivazione) {
+		this.motivazione = motivazione;
 	}
 
-	public void setIdSegnalazione(String idSegnalazione) {
-		this.idSegnalazione = idSegnalazione;
-	}
-
-
-
-	public RispostaBean getRisposta() {
-		return risposta;
-	}
-
-
-	public void setRisposta(RispostaBean risposta) {
-		this.risposta = risposta;
-	}
-
-
+	
+	
 	@Override
 	public String toString() {
-		return "SegnalazioneRispostaBean [titoloDomanda=" + titoloDomanda + ", corpoDomanda=" + corpoDomanda
-				+ ", idSegnalazione=" + idSegnalazione + ", idMotivazione=" + idMotivazione + ", motivazione="
-				+ motivazione + ", dataSegnalazione=" + dataSegnalazione + ", stato=" + stato + ", commento=" + commento
-				+ ", idRisposta=" + idRisposta + ", corpoRisposta=" + corpoRisposta + ", filepathRisposta="
-				+ filepathRisposta + ", rispostaSegnalata=" + rispostaSegnalata + "]";
+		return "SegnalazioneRispostaBean [rispostaSegnalata=" + rispostaSegnalata + ", motivazione=" + motivazione
+				+ ", dataSegnalazione=" + dataSegnalazione + ", stato=" + stato + ", commento=" + commento
+				+ ", idSegnalazione=" + idSegnalazione + ", domanda=" + domanda + "]";
 	}
 
-
-
-	private RispostaBean risposta;
-	private String titoloDomanda;
-	private String corpoDomanda;
-	private String idSegnalazione; 
-	private int idMotivazione;
-	private String motivazione;
-	private Date dataSegnalazione;
-	private int stato;
-	private String commento;
-	private String idRisposta;
-	private String corpoRisposta;
-	private String filepathRisposta;
+	
+	
 	private RispostaBean rispostaSegnalata; 
+	private MotivazioneBean motivazione;
+	private DomandaBean domanda;	
+	private String idSegnalazione;
+	private Date dataSegnalazione;
+	private String commento;
+	private int stato;
+	
+	
+	
 }
-
-

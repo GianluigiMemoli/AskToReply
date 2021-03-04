@@ -17,7 +17,7 @@
 	request.setAttribute("page", currentPage);
 %> 
 
-<div class="content row" style="padding:0pt";>
+<div class="content row" style="padding:0pt; margin-right:15px;";>
 	<div class="col-md-4 order-md-2 mb-4" unselectable="on"  onselectstart="return false;" onmousedown="return false;">
 		<jsp:include page="TabSwitcher.jsp">
 				<jsp:param name="active" value="storicoRisposte" />			
@@ -35,7 +35,7 @@
 	<c:forEach var="risposta" items="${storicoRisposte}">
 
 		<div class="list-group">
-			<a href="VisualizzaDomandaServlet?id=${risposta.getIdDomanda()}"
+			<a href="VisualizzaDomandaServlet?id=${risposta.getDomanda().getId()}"
 				class="list-group-item list-group-item-action flex-column align-items-start">
 
 				<div class="d-flex w-100 justify-content-between">
@@ -45,7 +45,7 @@
 
 				<p class="mb-1">
 					<small>
-					in risposta a: ${risposta.getTitoloDomanda()}
+					in risposta a: ${risposta.getDomanda().getTitolo()}
 					</small>
 				</p>
 				

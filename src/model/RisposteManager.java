@@ -68,7 +68,9 @@ public class RisposteManager {
 			pb.setId(idAutore);
 			risposta.setAutore(pb);
 			risposta.setCorpo(corpo);
-			risposta.setIdDomanda(idDomanda);
+			DomandaBean domb = new DomandaBean();
+			domb.setId(idDomanda);
+			risposta.setDomanda(domb);
 			risposta.setDataPubblicazione(dataPubblicazione);
 
 			risposta=RispostaDAO.addRisposta(risposta);

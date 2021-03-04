@@ -52,7 +52,7 @@ public class MostraSegnalazioneRispostaServlet extends HttpServlet {
 				
 				RisposteManager managerRisposte = new RisposteManager();
 				
-				RispostaBean rispostaSegnalata = managerRisposte.getRispostaById(segnalazione.getIdRisposta());
+				RispostaBean rispostaSegnalata = managerRisposte.getRispostaById(segnalazione.getRispostaSegnalata().getId());
 				segnalazione.setRispostaSegnalata(rispostaSegnalata);
 				
 				request.setAttribute("segnalazione", segnalazione);

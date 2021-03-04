@@ -11,10 +11,10 @@ public class RispostaBean {
 		super();
 	}
 
-	public RispostaBean(String id, String idDomanda, String corpo,PartecipanteBean autore, Date dataPubblicazione) {
+	public RispostaBean(String id, DomandaBean domanda, String corpo,PartecipanteBean autore, Date dataPubblicazione) {
 		super();
 		this.id = id;
-		this.idDomanda = idDomanda;
+		this.domanda = domanda;
 		this.corpo = corpo;
 		this.autore = autore;
 		this.dataPubblicazione = dataPubblicazione;
@@ -28,13 +28,6 @@ public class RispostaBean {
 		this.id = id;
 	}
 
-	public String getIdDomanda() {
-		return idDomanda;
-	}
-
-	public void setIdDomanda(String idDomanda) {
-		this.idDomanda = idDomanda;
-	}
 
 	public String getCorpo() {
 		return corpo;
@@ -52,13 +45,6 @@ public class RispostaBean {
 		this.dataPubblicazione = dataPubblicazione;
 	}
 
-	public void setTitoloDomanda(String titolo) {
-		this.titoloDomanda = titolo;
-	}
-
-	public String getTitoloDomanda() {
-		return titoloDomanda;
-	}
 
 	public int getMiPiace() {
 		return miPiace;
@@ -100,22 +86,33 @@ public class RispostaBean {
 	public void setAutore(PartecipanteBean autore) {
 		this.autore = autore;
 	}
+	
+	
+	public DomandaBean getDomanda() {
+		return domanda;
+	}
+
+	public void setDomanda(DomandaBean domanda) {
+		this.domanda = domanda;
+	}
+
+	
 
 	@Override
 	public String toString() {
-		return "RispostaBean [id=" + id + ", idDomanda=" + idDomanda + ", corpo=" + corpo + ", dataPubblicazione="
-				+ dataPubblicazione + ", autore=" + autore + ", titoloDomanda=" + titoloDomanda + ", miPiace=" + miPiace
-				+ ", nonMiPiace=" + nonMiPiace + ", voti=" + voti + ", allegati=" + allegati + "]";
+		return "RispostaBean [id=" + id + ", corpo=" + corpo + ", dataPubblicazione=" + dataPubblicazione + ", autore="
+				+ autore + ", miPiace=" + miPiace + ", nonMiPiace=" + nonMiPiace + ", voti=" + voti + ", allegati="
+				+ allegati + ", domanda=" + domanda + "]";
 	}
 
+
 	private String id;
-	private String idDomanda;
 	private String corpo;
 	private Date dataPubblicazione;
 	private PartecipanteBean autore;
-	private String titoloDomanda;
 	private int miPiace;
 	private int nonMiPiace;
 	private ArrayList <VotazioneBean> voti;
 	private ArrayList<String> allegati;
+	private DomandaBean domanda;
 }

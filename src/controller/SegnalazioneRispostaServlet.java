@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.MotivazioneBean;
 import model.PartecipanteBean;
+import model.RispostaBean;
 import model.SegnalazioneRispostaBean;
 import model.SegnalazioneRispostaDAO;
 import model.VotazioneDAO;
@@ -47,15 +49,6 @@ public class SegnalazioneRispostaServlet extends CustomServlet {
 
 		idRisposta = request.getParameter("idRisp");
 		
-		
-		log.info("VSSVSVVS	RISP VSVSVSVSVSVSV");
-		log.info(request.getParameter("idRisp"));
-		log.info("VSSVSVVS	RISP VSVSVSVSVSVSV");
-		
-		log.info("VSSVSVVSVSVSVSVSVSVSV");
-		log.info(request.getParameter("idMotivazione"));
-		log.info("VSSVSVVSVSVSVSVSVSVSV");
-		
 		idMotivazione = Integer.parseInt(request.getParameter("idMotivazione"));
 		commento = request.getParameter("commento");
 		//stato = Integer.parseInt(request.getParameter("stato"));
@@ -63,9 +56,14 @@ public class SegnalazioneRispostaServlet extends CustomServlet {
 		dataSegnalazione = new Date();
 		
 		SegnalazioneRispostaBean sr=new SegnalazioneRispostaBean();
-		sr.setIdRisposta(idRisposta);
+		RispostaBean rb = new RispostaBean();
+		rb.setId(idRisposta);
+		sr.setRispostaSegnalata(rb);
 		sr.setDataSegnalazione(dataSegnalazione);
-		sr.setIdMotivazione(idMotivazione);
+		MotivazioneBean motivazione = new MotivazioneBean();
+		motivazione.setId(idMotivazione);
+		sr.setMotivazione(motivazione);
+		
 		sr.setStato(stato);
 		sr.setCommento(commento);
 		SegnalazioneRispostaDAO.addSegnalazioneRisposta(sr);		

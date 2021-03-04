@@ -17,7 +17,7 @@ public class RispostaDAO {
 		DBManager dbManager = DBManager.getInstance();
 		try {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateRisposta", 5);
-			callProcedure.setString(1, risposta.getIdDomanda());
+			callProcedure.setString(1, risposta.getDomanda().getId());
 			callProcedure.setString(2, risposta.getCorpo());
 			callProcedure.setString(3, risposta.getAutore().getId());
 			callProcedure.setDate(4, new java.sql.Date(risposta.getDataPubblicazione().getTime()));
@@ -59,15 +59,15 @@ public class RispostaDAO {
 			while (rs.next()) {
 				risposta = new RispostaBean();
 				risposta.setId(rs.getString("id"));
-				risposta.setIdDomanda(rs.getString("idDomanda"));
 				risposta.setCorpo(rs.getString("corpo"));
 				PartecipanteBean pb = new PartecipanteBean();
 				pb.setId(rs.getString("idAutore"));
 				risposta.setAutore(pb);
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
-				risposta.setTitoloDomanda(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo()); // 151220
-				
-				
+				DomandaBean dom = new DomandaBean();
+				dom.setId((rs.getString("idDomanda")));
+				dom.setTitolo(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo());
+				risposta.setDomanda(dom);
 				int miPiace=0;
 				int nonMiPiace=0;
 				ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(rs.getString("id"));
@@ -99,7 +99,9 @@ public class RispostaDAO {
 			if (rs.next()) {
 				PartecipanteBean pb=new PartecipanteBean();
 				pb.setId(rs.getNString("idAutore"));
-				RispostaBean risp = new RispostaBean(rs.getString("id"), rs.getString("idDomanda"),
+				DomandaBean dom = new DomandaBean();
+				dom.setId((rs.getString("idDomanda")));
+				RispostaBean risp = new RispostaBean(rs.getString("id"), dom,
 						rs.getString("corpo"), pb, rs.getDate("dataPubblicazione"));
 				return risp;
 			}
@@ -146,12 +148,13 @@ public class RispostaDAO {
 			while (rs.next()) {
 				risposta = new RispostaBean();
 				risposta.setId(rs.getString("id"));
-				risposta.setIdDomanda(rs.getString("idDomanda"));
 				risposta.setCorpo(rs.getString("corpo"));
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
-				risposta.setTitoloDomanda(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo()); // 151220
 				risposta.setAutore(PartecipanteDAO.getPartecipanteByEmail(UtenteDAO.getUtenteById(rs.getString("idAutore")).getEmail()));
-				
+				DomandaBean dom = new DomandaBean();
+				dom.setId((rs.getString("idDomanda")));
+				dom.setTitolo(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo());
+				risposta.setDomanda(dom);
 				int miPiace=0;
 				int nonMiPiace=0;
 				ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(rs.getString("id"));
