@@ -119,7 +119,7 @@ public class AccountManager {
 		if(!oldUser.getEmail().equals(newEmail) && !isEmailAvailable(newEmail))
 			throw new EmailPresenteException();
 		
-		if(!oldUser.getUsername().equals(user.getUsername()) && !isUsernameAvailable(newUsername))
+		if(!oldUser.getUsername().equals(newUsername) && !isUsernameAvailable(newUsername))
 			throw new UsernamePresenteException();
 		user.setNome(newNome);
 		user.setCognome(newCognome);
@@ -149,6 +149,8 @@ public class AccountManager {
 	}
 	
 	private static boolean isUsernameAvailable(String username) {
+		UtenteBean user = UtenteDAO.getUtenteByUsername(username);
+		System.out.println("isusrnameav: " + user);
 		return UtenteDAO.getUtenteByUsername(username) == null;				
 	}
 	

@@ -58,7 +58,7 @@ public class UtenteDAO {
 		return searchedUtente;
 	}
 	
-	public static UtenteBean getUtenteByUsername(String username) {
+	public static  UtenteBean getUtenteByUsername(String username) {
 		DBManager dbManager = DBManager.getInstance();
 		UtenteBean searchedUtente = null;
 		try {

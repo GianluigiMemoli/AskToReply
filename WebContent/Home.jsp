@@ -119,6 +119,16 @@ request.setAttribute("currentPage", currentPage);
 					</c:otherwise>	
 					</c:choose>
 					</c:if>
+					<c:if test="${domanda.getAllegati() != null}"> 
+					<button 
+						type="button"
+						class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark"
+						disabled><ion-icon name="image">
+						</ion-icon><span class="responsivespan">
+						 Contiene allegati&nbsp;
+						 </span>
+					 </button>
+					</c:if>
 					<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">										
 						<button type="submit"
 							class="btn btn-outline-warning btn-sm border-0 btnsmussato"
@@ -129,7 +139,7 @@ request.setAttribute("currentPage", currentPage);
 							Segnala
 						</button>
 					</c:if>				
-				
+				  
 					
 				</div>
 

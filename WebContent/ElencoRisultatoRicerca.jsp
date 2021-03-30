@@ -82,9 +82,17 @@
 																					
 									  <div>
 									  	
-									  				<div class="d-flex w-100 justify-content-between">
-										<small class="text-secondary">@${domanda.getAutore().getUsername()}</small>
-										<small class="text-secondary">${domanda.getDataPubblicazione()}</small>
+						  				<div class="d-flex w-100 justify-content-between">
+						  				<c:choose>
+						  						<c:when test="${utenteLoggato.getId().equals(domanda.getAutore().getId())}">
+						  							<small class="text-secondary">hai chiesto:</small>						  							
+						  						</c:when>
+						  						<c:when  test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">  
+						  							<small class="text-secondary">${domanda.getAutore().getUsername()}</small>						  							
+						  						</c:when>
+						  				</c:choose>
+						  													  				
+											<small class="text-secondary">${domanda.getDataPubblicazione()}</small>
 									</div>
 									
 										<c:forEach items="${domanda.getCategorie()}" var="categoria">
@@ -110,10 +118,17 @@
 									  </div>
 									  <c:if test="${utenteLoggato != null }">
 									<div>							
-										
-										<button onclick="document.getElementById('idDomanda').value='${domanda.getId()}'" type="submit" class="btn btn-outline-primary btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#pubblicaRispostaModal" data-whatever="@getbootstrap"><ion-icon name="chatbubble-ellipses"></ion-icon> Rispondi</button>
-										<button type="submit" class="btn btn-outline-warning btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#dibenedettoinserisciquiiltitolodelmodalchehaifatto" data-whatever="@getbootstrap"><ion-icon name="warning"></ion-icon> Segnala</button>
-										 
+										<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">
+										<button onclick="document.getElementById('idDomanda').value='${domanda.getId()}'" 
+										type="submit" class="btn btn-outline-primary btn-sm border-0 btnsmussato" 
+										data-toggle="modal" data-target="#pubblicaRispostaModal" data-whatever="@getbootstrap">
+											<ion-icon name="chatbubble-ellipses"></ion-icon>
+											 Rispondi</button>
+										<button type="submit" class="btn btn-outline-warning btn-sm border-0 btnsmussato"
+										 data-toggle="modal" data-target="#dibenedettoinserisciquiiltitolodelmodalchehaifatto"
+										  data-whatever="@getbootstrap"><ion-icon name="warning"></ion-icon>
+										  Segnala</button>
+										 </c:if>
 										 
 										<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include> 				
 										
