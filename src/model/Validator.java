@@ -37,7 +37,7 @@ public class Validator {
 			return false;
 		
 		
-		return Pattern.matches("([^\s])+", username);
+		return Pattern.matches("^[a-zA-Z]+[a-zA-Z0-9]*", username);
 	}
 	
 	public static boolean validateRegistationFields(
