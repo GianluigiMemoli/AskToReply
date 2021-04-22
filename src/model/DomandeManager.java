@@ -27,8 +27,8 @@ public class DomandeManager {
 		
 		logger.info("Lunghezza titolo = " + lunghezzaTitolo);
 		
-		if(lunghezzaTitolo < 2) {
-			throw new ErrorePubblicazioneDomandaException("Il titolo deve contenere almeno due caratteri.");
+		if(lunghezzaTitolo < 5 || lunghezzaTitolo > 30) {
+			throw new ErrorePubblicazioneDomandaException("La lunghezza del titolo deve essere compresa tra 5 e 30 caratteri.");
 		}
 		
 		int lunghezzaCorpo = corpo.trim().length(), numeroAllegati = allegati.size();
@@ -40,15 +40,17 @@ public class DomandeManager {
 			throw new ErrorePubblicazioneDomandaException("Il corpo e gli allegati di una domanda non possono essere entrambi nulli.");
 		}
 		
-		int numeroCategorie = idCategorie.length;
+		if(idCategorie == null) {
+			throw new ErrorePubblicazioneDomandaException("Categorie non inviate");
+		}
 		
+		int numeroCategorie = idCategorie.length;
+			
 		logger.info("Numero di categorie = " + numeroCategorie);
 		
 		if(numeroCategorie == 0) {
 			throw new ErrorePubblicazioneDomandaException("Bisogna scegliere almeno un categoria per poter pubblicare una domanda");
 		}
-		
-		//TODO Il controllo su estensione e dimensione degli allegati ci vuole solo per la creazione di certificazioni e quindi non serve per la pubblicazione della domande
 		
 		// Inserimento domanda all'interno della tabella domande
 		
@@ -62,6 +64,21 @@ public class DomandeManager {
 		
 		DomandaDAO.addDomanda(domanda);
 		
+		// Inserimento allegati
+		
+		AllegatiHandler allegatiHandler = new AllegatiHandler();
+		
+		try {
+			
+			allegatiHandler.caricaAllegati(allegati, UPLOAD_PATH + domanda.getId());
+			
+		} catch(Exception e) {
+			
+			DomandaDAO.removeDomanda(domanda.getId());
+			throw new ErrorePubblicazioneDomandaException(e.getMessage());
+			
+		}
+		
 		// Inserimento categorie all'interno della tabella categoriedomande
 	
 		CategoriaBean categoria = new CategoriaBean();
@@ -71,11 +88,6 @@ public class DomandeManager {
 			categoria.setId(idCategoria);
 			DomandaDAO.addCategoriaDomanda(domanda, categoria);
 		}
-		
-		// Inserimento allegati
-		
-		AllegatiHandler allegatiHandler = new AllegatiHandler();
-		allegatiHandler.caricaAllegati(allegati, UPLOAD_PATH + domanda.getId());
 		
 		return domanda;
 	}

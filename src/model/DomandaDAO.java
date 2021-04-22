@@ -67,7 +67,7 @@ public class DomandaDAO {
 	
 	public static void updateCategorieDomanda(DomandaBean domanda) {
 		
-		System.out.println("Dimensioni categorie:" + domanda.getCategorie().size());
+		// TODO Controllo se le categorie della domanda sono > 0
 		
 		DBManager manager = DBManager.getInstance();
 		
@@ -85,19 +85,22 @@ public class DomandaDAO {
 			
 			// 
 			
-			String query_insert = "";
+			String query_insert = "INSERT INTO categoriedomande(idDomanda, idCategoria) VALUES (?, ?)";
 			
-			for(int i = 0; i < domanda.getCategorie().size(); i++) {
-				query_insert += "INSERT INTO categoriedomande(idDomanda, idCategoria) VALUES (?, ?);";
+			for(int i = 1; i < domanda.getCategorie().size(); i++) {
+				query_insert += ", (?, ?)";
 			}
+				
+			query_insert += ";";
 			
 			PreparedStatement stmt_insert = manager.createPreparedStatement(query_insert);
 			
 			int p = 1;
 			
-			for(int i = 0; i < domanda.getCategorie().size(); i++) {
+			for (CategoriaBean categoriaDomanda : domanda.getCategorie()) {
 				stmt_insert.setString(p, domanda.getId());
-				stmt_insert.setString(p + 1, domanda.getCategorie().get(i).getId());
+				stmt_insert.setString(p + 1, categoriaDomanda.getId());
+				
 				p += 2;
 			}
 			

@@ -62,12 +62,14 @@ public class PubblicazioneDomandaServlet extends CustomServlet {
 		
 		try {
 			domanda = manager.pubblicaDomanda(autore, titolo, corpo, dataPubblicazione, idCategorie, allegati);
+			response.sendRedirect(request.getContextPath() + "/VisualizzaDomandaServlet?id=" + domanda.getId());
 		} catch (Exception e) {
-			e.printStackTrace();			
+			e.printStackTrace();
+			response.getWriter().append(e.getMessage());
 			//response.getWriter().print(e.getMessage());
 			// TODO Eliminare questa riga di codice
 		} finally {
-			response.sendRedirect(request.getContextPath() + "/VisualizzaDomandaServlet?id=" + domanda.getId());
+			// response.sendRedirect(request.getContextPath() + "/VisualizzaDomandaServlet?id=" + domanda.getId());
 		}
 		
 				

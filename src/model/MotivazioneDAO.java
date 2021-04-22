@@ -41,7 +41,7 @@ public class MotivazioneDAO {
 	
 	
 	
-public static MotivazioneBean getMotivazioneById(int id) {
+	public static MotivazioneBean getMotivazioneById(int id) {
 		
 		DBManager manager = DBManager.getInstance();
 		
