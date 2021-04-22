@@ -51,7 +51,7 @@ public class CambiaCategorieDomandaServlet extends CustomServlet {
 		
 		PrintWriter writer = response.getWriter();
 		
-		if(idSegnalazione != null && categorieDomanda.length != 0) {
+		if(idSegnalazione != null && categorieDomanda != null && categorieDomanda.length != 0) {
 			
 			SegnalazioniManager managerSegnalazioni = new SegnalazioniManager();
 			DomandeManager managerDomande = new DomandeManager();

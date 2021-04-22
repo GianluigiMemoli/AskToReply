@@ -43,12 +43,11 @@ request.setAttribute("currentPage", currentPage);
 
 		<input type="hidden" id="idDomanda" name="idDomanda" value="">
 
+		<% int counter = 1; %>
 
 		<c:forEach var="domanda" items="${domande}">
 		
-			
 			<div class="question rounded border">
-
 
 				<div>
 
@@ -129,18 +128,30 @@ request.setAttribute("currentPage", currentPage);
 						 </span>
 					 </button>
 					</c:if>
-					<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">										
-						<button type="submit"
+					
+					<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">
+					
+						<% String idModalSegnalazioneDomanda = "msd" + counter; %>
+														
+						<button 
+							type="submit"
 							class="btn btn-outline-warning btn-sm border-0 btnsmussato"
 							data-toggle="modal"
-							data-target="#dibenedettoinserisciquiiltitolodelmodalchehaifatto"
+							data-target="<%= "#" + idModalSegnalazioneDomanda %>"
 							data-whatever="@getbootstrap">
 							<ion-icon name="warning"></ion-icon>
 							Segnala
 						</button>
+						
+						<jsp:include page="ModalSegnalazioneDomanda.jsp">
+							<jsp:param value="${domanda.getId()}" name="idDomanda"/>
+							<jsp:param value="<%= idModalSegnalazioneDomanda %>" name="idModal"/>
+						</jsp:include>
+						
+						<% counter++; %>
+						
 					</c:if>				
 				  
-					
 				</div>
 
 			</div>

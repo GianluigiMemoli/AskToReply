@@ -47,7 +47,6 @@
 							<div class="row">
 
 							<c:forEach items="${domanda.getAllegati()}" var="allegato">
-								
 								<div class="col-0 p-0" style="margin-right:5pt; margin-bottom:16px; ">
 									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail" style="max-height: 150px; min-height: 100px; min-height: 50%;">
 								</div>
@@ -90,7 +89,12 @@
 					</c:choose>
 					</c:if>
 					
-							<button type="submit" class="btn btn-outline-warning btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#segnalaDomandaModal" data-whatever="@getbootstrap"><ion-icon name="warning"></ion-icon> Segnala&nbsp;</button>
+							<button type="button" class="btn btn-outline-warning btn-sm border-0 btnsmussato" data-toggle="modal" data-target="#segnalaDomandaModal" data-whatever="@getbootstrap"><ion-icon name="warning"></ion-icon> Segnala&nbsp;</button>
+							
+							<jsp:include page="ModalSegnalazioneDomanda.jsp">
+								<jsp:param value="segnalaDomandaModal" name="idModal"/>
+								<jsp:param value="${domanda.getId()}" name="idDomanda"/>
+							</jsp:include>
 									<c:choose>
 					<c:when test="${domanda.getAllegati().size() > 0}">
 					<button type="button" class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark" disabled><ion-icon name="image"></ion-icon><span class="responsivespan"> Contiene allegati&nbsp;</span></button>

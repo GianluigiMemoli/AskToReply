@@ -6,7 +6,7 @@ BEGIN
     FROM Segnalazioni AS Segn
     INNER JOIN segnalazioniDomanda AS SegnDom
 		ON (Segn.id = SegnDom.idSegnalazione)
-    WHERE Segn.stato=0
+    WHERE Segn.stato=1
 	ORDER BY Segn.dataSegnalazione ASC;
 END $$
 DELIMITER ;

@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.CategoriaDAO;
+import model.CategorieManager;
 import model.SegnalazioneDomandaBean;
 import model.SegnalazioniManager;
 
 /**
  * Servlet implementation class ElencoSegnalazioniDomandaServlet
  */
-@WebServlet("/ElencoSegnalazioniDomandaServlet")
-public class ElencoSegnalazioniDomandaServlet extends CustomServlet {
+@WebServlet("/VisualizzaElencoSegnalazioniDomanda")
+public class VisualizzaElencoSegnalazioniDomandaServlet extends CustomServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ElencoSegnalazioniDomandaServlet() {
+    public VisualizzaElencoSegnalazioniDomandaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,13 +43,41 @@ public class ElencoSegnalazioniDomandaServlet extends CustomServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int segnalazioniPerPagina = 5;
+		int paginaCorrente = 1;
+		
+		String pagina = request.getParameter("p");
+		
+		if(pagina != null) {
+			try {
+				paginaCorrente = Integer.parseInt(pagina);
+			} catch (NumberFormatException e) {
+				paginaCorrente = 1;
+			}
+		}
+		
 		SegnalazioniManager managerSegnalazioni = new SegnalazioniManager();
 		
-		ArrayList<SegnalazioneDomandaBean> segnalazioni = managerSegnalazioni.getAllSegnalazioniDomanda();
+		int numeroSegnalazioniDomanda = managerSegnalazioni.getNumeroSegnalazioniDomanda();
+		
+		ArrayList<SegnalazioneDomandaBean> segnalazioni = 
+				managerSegnalazioni.getSegnalazioniDomanda(
+						(paginaCorrente - 1) * segnalazioniPerPagina, 
+						paginaCorrente * segnalazioniPerPagina
+					);
+		
+		System.out.println(segnalazioni.size());
+		
+		int pagineTotali = (int) Math.ceil((double) numeroSegnalazioniDomanda/segnalazioniPerPagina);
+		
+		CategorieManager categorieManager = new CategorieManager();
 		
 		request.setAttribute("segnalazioniDomanda", segnalazioni);
+		request.setAttribute("categorie", categorieManager.getAll());
+		request.setAttribute("paginaCorrente", paginaCorrente);
+		request.setAttribute("pagineTotali", pagineTotali);
 		
-		request.getRequestDispatcher("WEB-INF\\ElencoSegnalazioniDomanda.jsp").forward(request, response);
+		request.getRequestDispatcher("/ElencoSegnalazioniDomanda.jsp").forward(request, response);
 		
 	}
 

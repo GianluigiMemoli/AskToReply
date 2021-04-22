@@ -6,7 +6,7 @@
 			</div>
 
 		   				 <a class="mod" href="VisualizzaElencoSegnalazioniRisposte" id="risposte"><ion-icon class="responsive" name = "chatbubbles"></ion-icon> Risposte</a>
-		    			<a class="mod" href="VisualizzaElencoSegnalazioniDomande" id="domande"><ion-icon name="megaphone" class="responsive"></ion-icon> Domande</a>
+		    			<a class="mod" href="VisualizzaElencoSegnalazioniDomanda" id="domande"><ion-icon name="megaphone" class="responsive"></ion-icon> Domande</a>
 					<a class="mod" href="LogoutServlet" id="logout"><ion-icon name="trail-sign" class="responsive"></ion-icon> Esci</a>
 
 			<button style="display:none;" id="bottonesuperiore_apri" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()">

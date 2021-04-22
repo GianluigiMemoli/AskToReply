@@ -142,5 +142,74 @@ public class SegnalazioneDomandaDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public static ArrayList<SegnalazioneDomandaBean> getSegnalazioniDomanda(int start, int end) {
+		
+		DBManager manager = DBManager.getInstance();
+		
+		try {
+			
+			CallableStatement stmt = manager.prepareStoredProcedureCall("GetSegnalazioniDomandaLimit", 2);
+			
+			stmt.setInt(1, start);
+			stmt.setInt(2, end);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			ArrayList<SegnalazioneDomandaBean> segnalazioni = new ArrayList<SegnalazioneDomandaBean>();
+			
+			while(rs.next()) {
+				
+				SegnalazioneDomandaBean segnalazione = new SegnalazioneDomandaBean();
+				
+				segnalazione.setId(rs.getNString("s.id"));
+				
+				MotivazioneBean motivazione = new MotivazioneBean();
+				motivazione.setId(rs.getInt("s.idMotivazione"));
+				segnalazione.setMotivazione(motivazione);
+				
+				segnalazione.setDataSegnalazione(rs.getDate("s.dataSegnalazione"));
+				segnalazione.setStato(rs.getInt("s.stato"));
+				segnalazione.setCommento(rs.getString("s.commento"));
+				
+				DomandaBean domanda = new DomandaBean();
+				domanda.setId(rs.getString("sd.idDomanda"));
+				segnalazione.setDomandaSegnalata(domanda);
+				
+				segnalazioni.add(segnalazione);
+				
+			}
+			
+			return segnalazioni;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public static int getNumeroSegnalazioniDomanda() {
+		
+		DBManager manager = DBManager.getInstance();
+		
+		try {
+			
+			CallableStatement stmt = manager.prepareStoredProcedureCall("GetNumeroSegnalazioniDomanda", 0);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next())
+				return rs.getInt(1);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return -1;
+		
+	}
 	
 }

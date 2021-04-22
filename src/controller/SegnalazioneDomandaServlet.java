@@ -72,6 +72,8 @@ public class SegnalazioneDomandaServlet extends CustomServlet {
 					
 					managerSegnalazioni.creazioneSegnalazioneDomanda(motivazione, dataSegnalazione, commento, domandaSegnalata);
 					
+					writer.print("Segnalazione inviata con successo!");
+					
 				} else {
 					writer.print("La domanda segnalata con id = '" + idDomanda + "' non esiste.");
 				}
