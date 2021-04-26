@@ -61,9 +61,13 @@
 
 						<h5 style="margin-bottom: 0pt; color: black;" class="lead">${segnalazionerisposta.getRispostaSegnalata().getCorpo()}</h5>
 						<p style="color: black; margin-bottom:0pt;">in risposta a: ${segnalazionerisposta.getDomanda().getTitolo()} ${segnalazionerisposta.getDomanda().getCorpo()}</p>
+						
+						
+										<c:if test="${!segnalazionerisposta.getCommento().isEmpty()}">
+						
 						<small>Commento segnalazione: ${segnalazionerisposta.getCommento()}</small>
 					
-					
+					</c:if>
 									<c:choose>
 					<c:when test="${segnalazionerisposta.getRispostaSegnalata().getAllegati().size() > 0}">
 						<%session.setAttribute("allegati_${getRispostaSegnalata.getId()}", "${getRispostaSegnalata.getAllegati()}");%>

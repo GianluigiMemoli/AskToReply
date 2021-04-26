@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -47,14 +48,17 @@ public class SegnalazioneRispostaServlet extends CustomServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
 		idRisposta = request.getParameter("idRisp");
-		
-		idMotivazione = Integer.parseInt(request.getParameter("idMotivazione"));
-		commento = request.getParameter("commento");
+		if(idRisposta!=null) {
+			if(request.getParameter("idMotivazione")!=null) {
+				idMotivazione = Integer.parseInt(request.getParameter("idMotivazione"));
+				commento = request.getParameter("commento");
+				
 		//stato = Integer.parseInt(request.getParameter("stato"));
 		stato=1;
 		dataSegnalazione = new Date();
-		
+					
 		SegnalazioneRispostaBean sr=new SegnalazioneRispostaBean();
 		RispostaBean rb = new RispostaBean();
 		rb.setId(idRisposta);
@@ -68,7 +72,13 @@ public class SegnalazioneRispostaServlet extends CustomServlet {
 		sr.setCommento(commento);
 		SegnalazioneRispostaDAO.addSegnalazioneRisposta(sr);		
 		
+
+				} else log.info("Errore: Id motivazione Null");
+					} else log.info("Errore: Id risposta Null");
+
+		
 		request.getRequestDispatcher("VisualizzaDomandaServlet?id="+request.getParameter("idDomanda")).forward(request, response);
+
 
 	}
 	

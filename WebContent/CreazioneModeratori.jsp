@@ -44,23 +44,23 @@ align-self: center;
 				<form class="mod-form" action="CreazioneModeratoreServlet" method="post" enctype="application/x-www-form-urlencoded">
 				<div class="form-group">
 						<label for="nome">Nome</label>
-						<input id="nome" type="text" class="form-control" name="nome" pattern="([A-Za-z']+\s*)+" required >
+						<input id="nome" type="text" class="form-control" name="nome" pattern="([A-Za-z']+\s*)+">
 					</div>
 					<div class="form-group">
 						<label for="cognome">Cognome</label>
-						<input id="cognome" type="text" class="form-control" name="cognome" pattern="([A-Za-z']+\s*)+" required >
+						<input id="cognome" type="text" class="form-control" name="cognome" pattern="([A-Za-z']+\s*)+" >
 					</div>
 					<div class="form-group">
 						<label for="username">Username</label>
-						<input id="username" type="text" class="form-control" name="username" pattern=".{3,10}" required >
+						<input id="username" type="text" class="form-control" name="username" pattern=".{3,10}">
 					</div>
 					<div class="form-group">
 						<label for="email">Indirizzo email</label>
-						<input id="email" type="email" class="form-control" name="email" required >
+						<input id="email" type="email" class="form-control" name="email">
 					</div>
 					<div class="form-group">
 						<label for="password">Password</label>
-						<input id="password" type="password" class="form-control" name="password" pattern=".{6,32}" required >
+						<input id="password" type="password" class="form-control" name="password" pattern=".{6,32}">
 					</div>									
 				 	<button type="submit" class="btn btn-primary">Invia</button>
 			</form>
