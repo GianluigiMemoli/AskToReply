@@ -5,15 +5,12 @@
 			<div class="line">
 				<a class="title"> <b>Ask to Reply</b></a>
 			</div>
-		    <a href="GestioneModeratori" id="gestione"><ion-icon name="cog"></ion-icon></ion-icon>Mods</a>
-		    <a href="CreazioneModeratori" id="registra"><ion-icon class="responsive" name="person-add"></ion-icon>Registra</a>		    
+		    <a href="GestioneModeratori" id="gestione"><ion-icon name="cog" class="responsive"></ion-icon></ion-icon> Mods</a>
+		    <a href="CreazioneModeratori" id="registra"><ion-icon class="responsive" name="person-add"></ion-icon> Registra</a>		    
 		    <a href="LogoutServlet" id="logout"><ion-icon name="trail-sign" class="responsive"></ion-icon> Esci</a>
 			
 			<input type="hidden" id="empty" name="empty" value="">
-			
-			
-			<button onclick="chiedi()" id="chiedi_sidebar_button">CHIEDI</button>
-			
+						
 			
 			<button style="display:none;" id="bottonesuperiore_apri" class="bottonesuperiore" href="javascript:void(0);" onclick="openBar()">
 				<ion-icon name="add-circle"></ion-icon>
@@ -52,7 +49,7 @@
 				//mi � venuta sete
 				var x = document.getElementById("sidebar");
 				if (x.className === "sidebar") {
-					x.style.height="355pt";
+					x.style.height="225pt";
 					x.className += " aperta";
 					console.log("la sidebar si � aperta");
 					apri.style.top="35px";
@@ -85,7 +82,7 @@
 				}
 				else{
 					chiudi.style.display="block";
-					sidebar.style.height="355pt";
+					sidebar.style.height="225pt";
 					if(sidebar.className!="sidebar aperta"){
 						sidebar.className+=" aperta";
 					}

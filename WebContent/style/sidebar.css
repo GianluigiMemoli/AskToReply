@@ -9,7 +9,7 @@
   background-color: white;
   position: fixed;
   overflow: auto;
-  font-size: 20pt;
+  font-size: 18pt;
 }
 
 .sidebar a {
@@ -35,8 +35,7 @@ font-family: 'Lexend Deca', sans-serif;
   text-decoration: none;
   font-weight: bold;
   margin-left: 45pt;
-  
-    margin-right: 20pt;
+  margin-right: 20pt;  
   
 }
 
