@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -60,7 +61,11 @@ public class SegnalazioneRispostaDAO {
 			stmt.setInt(2, segnalazione.getStato());
 			
 			stmt.executeQuery();
-						
+			
+			String test = segnalazione.getRispostaSegnalata().getId();
+			log.info(">>>>>>>>>>>>>>>"+test);
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

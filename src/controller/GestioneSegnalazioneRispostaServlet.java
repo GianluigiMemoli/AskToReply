@@ -47,6 +47,7 @@ public class GestioneSegnalazioneRispostaServlet extends HttpServlet {
 			SegnalazioneRispostaBean  srb = new SegnalazioneRispostaBean();
 			srb.setIdSegnalazione(request.getParameter("idSegnalazione"));
 			srb.setStato(SegnalazioneBean.APPROVATA);
+			srb.setRispostaSegnalata(rb);
 			SegnalazioneRispostaDAO.updateStatoSegnalazioneRisposta(srb);
 			
 			//request.getRequestDispatcher("ElencoSegnalazioniRisposte.jsp").forward(request, response);

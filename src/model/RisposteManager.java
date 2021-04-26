@@ -40,7 +40,7 @@ public class RisposteManager {
 
 		DBManager manager = DBManager.getInstance();
 
-		String query = "SELECT * FROM risposte WHERE idDomanda = ? AND idAutore = ?;";
+		String query = "SELECT * FROM risposte WHERE idDomanda = ? AND idAutore = ? AND isNascosta=0;";
 		//String query = "SELECT * FROM risposte;";
 		PreparedStatement statement = manager.createPreparedStatement(query);
 		statement.setString(1, idDomanda);
