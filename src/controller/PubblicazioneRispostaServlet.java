@@ -8,12 +8,9 @@ import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 import model.DomandaDAO;
 import model.PartecipanteBean;
 import model.RisposteManager;
@@ -50,13 +47,16 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		idDomanda = request.getParameter("idDom");
+		if (idDomanda.isEmpty()) log.info("Errore: Id Domanda Null");
+		else {
+
 		idAutoreDomanda=DomandaDAO.getDomandaById(idDomanda).getAutore().getId();
 		
 		List <Part> allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
 		
 		corpo = request.getParameter("corpo");
 		
-		PartecipanteBean autoreBean = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
+		autoreBean = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 		idAutore = autoreBean.getId();
 		
 		Date dataPubblicazione = new Date(System.currentTimeMillis());
@@ -68,21 +68,15 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		}
 		
 		request.getRequestDispatcher("VisualizzaHome").forward(request, response);
 
-
 	}
 
-	Logger logger = Logger.getLogger(PubblicazioneRispostaServlet.class.getName());
-
 	private PartecipanteBean autoreBean;
-	
-	private String href;
 	private String idAutoreDomanda;
 	private String idDomanda;
 	private String corpo;
 	private String idAutore; //Autore della risposta
-	//private Date dataPubblicazione;
 }

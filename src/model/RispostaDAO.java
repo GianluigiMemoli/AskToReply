@@ -2,7 +2,6 @@ package model;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -190,10 +189,6 @@ public class RispostaDAO {
 		}
 		return num;
 	}
-	
-	
-	
-	
 
 	public static ArrayList<RispostaBean> getRisposteApprezzate(String idutente){		
 		String query = "SELECT idRisposta FROM votazioni WHERE idUtente = ? AND valore = 1";		
@@ -237,7 +232,5 @@ public class RispostaDAO {
 		}
 		return risposte;
 	}
-	
-	
 
 }

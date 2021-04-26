@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.RispostaBean;
 import model.RispostaDAO;
+import model.SegnalazioneBean;
 import model.SegnalazioneRispostaBean;
 import model.SegnalazioneRispostaDAO;
 import model.SegnalazioniManager;
@@ -43,9 +44,9 @@ public class GestioneSegnalazioneRispostaServlet extends HttpServlet {
 			RispostaBean rb = new RispostaBean();
 			rb.setId(request.getParameter("idRisposta"));
 			RispostaDAO.removeRisposta(rb);
-			
 			SegnalazioneRispostaBean  srb = new SegnalazioneRispostaBean();
 			srb.setIdSegnalazione(request.getParameter("idSegnalazione"));
+			srb.setStato(SegnalazioneBean.APPROVATA);
 			SegnalazioneRispostaDAO.updateStatoSegnalazioneRisposta(srb);
 			
 			//request.getRequestDispatcher("ElencoSegnalazioniRisposte.jsp").forward(request, response);
@@ -61,7 +62,7 @@ public class GestioneSegnalazioneRispostaServlet extends HttpServlet {
 			
 			SegnalazioneRispostaBean  srb = new SegnalazioneRispostaBean();
 			srb.setIdSegnalazione(request.getParameter("idSegnalazione"));
-			srb.setStato(2);
+			srb.setStato(SegnalazioneBean.DECLINATA);
 			SegnalazioneRispostaDAO.updateStatoSegnalazioneRisposta(srb);
 			
 			//response.sendRedirect(request.getContextPath() + "/ElencoSegnalazioniRisposte.jsp");

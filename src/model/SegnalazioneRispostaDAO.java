@@ -56,6 +56,7 @@ public class SegnalazioneRispostaDAO {
 			CallableStatement stmt = manager.prepareStoredProcedureCall("RisolviSegnalazione", 2);
 			
 			stmt.setString(1, segnalazione.getIdSegnalazione());
+			log.info("##########################"+segnalazione.getStato());
 			stmt.setInt(2, segnalazione.getStato());
 			
 			stmt.executeQuery();

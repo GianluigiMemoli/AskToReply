@@ -8,7 +8,9 @@ WHERE Risposte.id=_idRisposta;
 CALL IsArchiviata(@domanda, @output);
 SELECT @output;
 IF @output = 0 THEN
-	DELETE FROM Risposte WHERE id=_idRisposta;
+	UPDATE Risposte 
+	SET isNascosta = 1
+	WHERE id=_idRisposta;
 END IF;
 END $$
-DELIMITER;
+DELIMITER ;

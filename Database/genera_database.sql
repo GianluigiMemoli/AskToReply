@@ -53,6 +53,7 @@ CREATE TABLE Domande (
     idAutore VARCHAR(256) NOT NULL,
     dataPubblicazione DATETIME NOT NULL, 
     isArchiviata bit DEFAULT 0 NOT NULL, 
+    isNascosta bit DEFAULT 0 NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (idAutore) REFERENCES Partecipanti(idUtente),
     FULLTEXT (titolo, corpo)
@@ -72,7 +73,8 @@ CREATE TABLE Risposte (
     corpo VARCHAR(256) NOT NULL, 
     allegati VARCHAR(256), 
     idAutore VARCHAR(256),
-	dataPubblicazione DATETIME NOT NULL, 
+	dataPubblicazione DATETIME NOT NULL,
+	isNascosta bit DEFAULT 0 NOT NULL,
 	FOREIGN KEY (idDomanda) REFERENCES Domande(id),
     FOREIGN KEY (idAutore) REFERENCES Utenti(id),
     PRIMARY KEY(id)

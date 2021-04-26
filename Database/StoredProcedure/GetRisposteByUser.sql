@@ -7,6 +7,6 @@ CREATE PROCEDURE GetRisposteByUser(
     num integer
 )
     BEGIN			
-        SELECT * FROM Risposte WHERE Risposte.idAutore = userId ORDER BY dataPubblicazione DESC LIMIT currPage, num; 
+        SELECT * FROM Risposte WHERE Risposte.idAutore = userId AND Risposte.isNascosta=0 ORDER BY dataPubblicazione DESC LIMIT currPage, num; 
     END $$
 
