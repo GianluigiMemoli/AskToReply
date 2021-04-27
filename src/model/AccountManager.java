@@ -15,16 +15,15 @@ import Exceptions.UsernamePresenteException;
 public class AccountManager {
 	static Logger log = Logger.getLogger(AccountManager.class.getName());
 	
-	public void RegisterUser(String nome,String cognome, String username, String email, String password, String[] interessi) throws CampiNonConformiException, NoSuchAlgorithmException, EmailPresenteException, UsernamePresenteException {
-		if(interessi == null) {
-			throw new CampiNonConformiException("Scegli almeno una categoria");
-		}
+	public void RegisterUser(String nome,String cognome, String username, String email, String password, String[] interessi) throws CampiNonConformiException, NoSuchAlgorithmException, EmailPresenteException, UsernamePresenteException {		
 		try {
 			UtenteBean newUser = generateUtenteBean(nome, cognome, username, email, password);
 			
-			UtenteDAO.doAddUtente(newUser);
-			
-			PartecipanteBean registeredPartecipante = PartecipanteDAO.getPartecipanteByEmail(newUser.getEmail()); 
+			UtenteDAO.doAddUtente(newUser);			
+			PartecipanteBean registeredPartecipante = PartecipanteDAO.getPartecipanteByEmail(newUser.getEmail());
+			if(interessi == null) {
+				throw new CampiNonConformiException("Scegli almeno una categoria");
+			}
 			for (String interesse : interessi) {
 				CategoriaBean categoria = new CategoriaBean();
 				categoria.setNome(interesse);

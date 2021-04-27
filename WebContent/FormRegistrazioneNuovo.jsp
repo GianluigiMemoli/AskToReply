@@ -25,7 +25,7 @@
 
               <div class="col-md-6 mb-3">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" required="">
+                <input type="text" class="form-control" id="nome" name="nome" >
                 <div class="invalid-feedback">
                   Nome richiesto.
                 </div>
@@ -33,7 +33,7 @@
               
               <div class="col-md-6 mb-3">
                 <label for="cognome">Cognome</label>
-                <input type="text" class="form-control" id="cognome" name="cognome" required="">
+                <input type="text" class="form-control" id="cognome" name="cognome" >
                 <div class="invalid-feedback">
                   Cognome richiesto.
                 </div>
@@ -48,7 +48,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">@</span>
                 </div>
-                <input type="text" class="form-control" id="username" name="username" required="">
+                <input type="text" class="form-control" id="username" name="username" >
                 <div class="invalid-feedback" style="width: 100%;">
                   Username richiesto.
                 </div>
@@ -58,7 +58,7 @@
 
 <div class="mb-3">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required="">
+              <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" >
               <div class="invalid-feedback">
                 Inserisci un indirizzo email corretto.
               </div>
@@ -66,7 +66,7 @@
 
 <div class="mb-3">
               <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" name="password" required="">
+              <input type="password" class="form-control" id="password" name="password" >
               <div class="invalid-feedback">
 				Inserisi una password.
               </div>
@@ -77,7 +77,7 @@
 		<span class="text-muted"><small>Potrai modificare le categorie scelte successivamente mediante l'apposita sezione</small></span>
 		
 		<div class="overflow-auto" style="height: 172px;">
-		<ul class="list-group " required="" style="margin-right:5pt;">
+		<ul class="list-group "  style="margin-right:5pt;">
 			<c:forEach var="interesse" items="${interessi}">	
 				<li class="list-group-item">
 		              <input type="checkbox" name="interessi" id="interesseCheck" value="${interesse.getNome()}">
@@ -92,7 +92,7 @@
 
 </form>
 
-</div>
+</div> 
 
 </div>
 <jsp:include page="Footer.jsp"></jsp:include>
