@@ -308,7 +308,7 @@ public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 		String query_order_by = "ORDER BY d.dataPubblicazione ASC";
 		
 		if(testo != null) {
-			query_select += ", MATCH(d.titolo, d.corpo) AGAINST (?) AS rilevanza";
+			query_select += ", MATCH(d.titolo, d.corpo) AGAINST (? IN BOOLEAN MODE) AS rilevanza";
 			query_order_by = "ORDER BY rilevanza DESC";
 		}
 		
@@ -349,7 +349,7 @@ public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 			PreparedStatement stmt = manager.createPreparedStatement(query);
 			
 			if(testo != null) {
-				stmt.setString(p, testo);
+				stmt.setString(p, "'" + testo + "'");
 				p++;
 			}
 			

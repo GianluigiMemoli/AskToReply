@@ -30,26 +30,24 @@
 			enctype="application/x-www-form-urlencoded">
 			<div class="form-group">
 				<label for="nome">Nome</label> <input id="nome" type="text"
-					class="form-control" name="nome" value="${utenteLoggato.getNome()}"
-					pattern="([A-Za-z']+\s*)+" required>
+					class="form-control" name="nome" value="${utenteLoggato.getNome()}">
 			</div>
 			<div class="form-group">
 				<label for="cognome">Cognome</label> <input id="cognome" type="text"
 					class="form-control" name="cognome"
-					value="${utenteLoggato.getCognome()}" pattern="([A-Za-z']+\s*)+"
-					required>
+					value="${utenteLoggato.getCognome()}">
 			</div>
 			<div class="form-group">
 				<label for="username">Username</label> <input id="username"
 					type="text" class="form-control" name="username"
-					value="${utenteLoggato.getUsername()}" pattern=".{3,10}" required>
+					value="${utenteLoggato.getUsername()}">
 			</div>
 			<div class="form-group">
 				<label for="email">Indirizzo email</label> <input id="email"
 					type="email" class="form-control" name="email"
-					value="${utenteLoggato.getEmail()}" required>
+					value="${utenteLoggato.getEmail()}" >
 			</div>
-
+ 
 			<label>Scegli almeno un'area di interesse</label>
 			<div class="overflow-auto" style="height: 229px;">
 				<ul class="list-group" style="margin-right:5pt;">

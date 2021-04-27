@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 import javax.servlet.http.Part;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
+
 import Exceptions.ErrorePubblicazioneDomandaException;
 
 public class DomandeManager {
@@ -96,7 +98,9 @@ public class DomandeManager {
 		if(testo != null)
 			if(testo.length() < 3)
 				throw new Exception("Il testo, se inserito, deve essere di almeno 3 caratteri.");
-		
+			else {
+				testo = testo.replace(" ", "* ") + "*";		
+			}
 		// TODO Aggiungere l'eliminazione delle congiunzioni, articoli ecc per la ricerca full text
 		
 		return DomandaDAO.getDomandeCercate(testo, isArchiviata, categorie);	
