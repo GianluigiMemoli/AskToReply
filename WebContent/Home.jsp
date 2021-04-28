@@ -43,6 +43,8 @@ request.setAttribute("currentPage", currentPage);
 
 		<input type="hidden" id="idDomanda" name="idDomanda" value="">
 
+		<jsp:include page="PopupErrore.jsp"></jsp:include>
+
 		<% int counter = 1; %>
 
 		<c:forEach var="domanda" items="${domande}">

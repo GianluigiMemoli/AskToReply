@@ -59,12 +59,7 @@ public class SegnalazioneRispostaDAO {
 			stmt.setString(1, segnalazione.getIdSegnalazione());
 			log.info("##########################"+segnalazione.getStato());
 			stmt.setInt(2, segnalazione.getStato());
-			
-			stmt.executeQuery();
-			
-			String test = segnalazione.getRispostaSegnalata().getId();
-			log.info(">>>>>>>>>>>>>>>"+test);
-			
+			stmt.executeQuery();			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

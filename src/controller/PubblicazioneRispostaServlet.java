@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -11,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import Exceptions.ErrorePubblicazioneRispostaException;
 import model.DomandaDAO;
 import model.PartecipanteBean;
 import model.RisposteManager;
@@ -45,33 +48,59 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		idDomanda = request.getParameter("idDom");
-		if (idDomanda.isEmpty()) log.info("Errore: Id Domanda Null");
-		else {
 
-		idAutoreDomanda=DomandaDAO.getDomandaById(idDomanda).getAutore().getId();
+
 		
-		List <Part> allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
+			
+			idDomanda = request.getParameter("idDom");
+			List <Part> allegati = null;
+			if (idDomanda.isEmpty()){
+				log.info("Errore: Id Domanda Null");
+				request.setAttribute("errore", "Il corpo della risposta deve contenere almeno due caratteri.");
+				response.setStatus(401);
+				log.info("Etest");
+
+				//request.getRequestDispatcher("VisualizzaHome").forward(request, response);
+				request.getRequestDispatcher("VisualizzaDomandaServlet?id="+idDomanda).forward(request, response);
+
+			} 
+			else {
 		
-		corpo = request.getParameter("corpo");
-		
-		autoreBean = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
-		idAutore = autoreBean.getId();
-		
+
+			
+
+				idAutoreDomanda=DomandaDAO.getDomandaById(idDomanda).getAutore().getId();
+			
+				allegati = request.getParts().stream().filter(part -> "allegati".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
+			
+				corpo = request.getParameter("corpo");
+			
+				autoreBean = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
+				idAutore = autoreBean.getId();
+	
+
+				
+			
+
 		Date dataPubblicazione = new Date(System.currentTimeMillis());
-		RisposteManager manager = new RisposteManager();
 
-		try {
+			try {
+			RisposteManager manager = new RisposteManager();
 			manager.pubblicaRisposta(idDomanda, corpo, allegati, idAutore, idAutoreDomanda, dataPubblicazione);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		}
-		
-		request.getRequestDispatcher("VisualizzaHome").forward(request, response);
+			//request.getRequestDispatcher("VisualizzaHome").forward(request, response);
+			request.getRequestDispatcher("VisualizzaDomandaServlet?id="+idDomanda).forward(request, response);
 
+
+		} catch (SQLException | ErrorePubblicazioneRispostaException exc) {
+			// TODO Auto-generated catch block
+			request.setAttribute("errore", exc.getMessage());
+			response.setStatus(401);
+			//request.getRequestDispatcher("VisualizzaHome").forward(request, response);
+			request.getRequestDispatcher("VisualizzaDomandaServlet?id="+idDomanda).forward(request, response);
+			log.info("RISPOSTA NON PUBBLICATA!");
+		}
+
+			}
 	}
 
 	private PartecipanteBean autoreBean;

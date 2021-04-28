@@ -4,15 +4,13 @@ package Exceptions;
 
 public class ErrorePubblicazioneRispostaException extends Exception{
 
-	
+	private static final long serialVersionUID = 1L;
+
 	public ErrorePubblicazioneRispostaException() {
-		super();
+		super("Errore pubblicazione risposta.");
 	}
 	
 	public ErrorePubblicazioneRispostaException(String message) {
 		super(message);
-	}
-	
-	private static final long serialVersionUID = -5466547296574670567L;
-	
+	}	
 }

@@ -28,7 +28,7 @@ public class RisposteManager {
 
 
 	public void pubblicaRisposta(String idDomanda, String corpo, List<Part> allegati, String idAutore
-			,String idAutoreDomanda, Date dataPubblicazione) throws Exception{
+			,String idAutoreDomanda, Date dataPubblicazione) throws ErrorePubblicazioneRispostaException, SQLException{
 
 
 		//controllo se l'utente tenta di rispondere ad una propria domanda
@@ -77,7 +77,12 @@ public class RisposteManager {
 
 
 			AllegatiHandler allegatiHandler = new AllegatiHandler();
-			allegatiHandler.caricaAllegati(allegati, UPLOAD_PATH + risposta.getId());
+			try {
+				allegatiHandler.caricaAllegati(allegati, UPLOAD_PATH + risposta.getId());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 	}

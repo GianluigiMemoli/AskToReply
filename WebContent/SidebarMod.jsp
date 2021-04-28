@@ -34,6 +34,7 @@
 				var w = window.outerWidth;
 				if(w<=529){
 					document.getElementById("bottonesuperiore_chiudi").style.display="block";
+					openBar();//AGGIUNTO IL 07/01
 				}
 			}
 			

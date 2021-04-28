@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import Exceptions.ErrorePubblicazioneRispostaException;
+import Exceptions.ErroreSegnalazioneRispostaException;
 import model.MotivazioneBean;
 import model.RispostaBean;
 import model.SegnalazioneRispostaBean;
@@ -45,14 +49,12 @@ public class SegnalazioneRispostaServlet extends CustomServlet {
 
 
 		idRisposta = request.getParameter("idRisp");
-		if(idRisposta!=null) {
-			if(request.getParameter("idMotivazione")!=null) {
+if(idRisposta!=null) {
+		if(request.getParameter("idMotivazione")!=null) {
 				idMotivazione = Integer.parseInt(request.getParameter("idMotivazione"));
 				commento = request.getParameter("commento");
-				
-		//stato = Integer.parseInt(request.getParameter("stato"));
-		stato=1;
-		dataSegnalazione = new Date();
+				stato=1;
+				dataSegnalazione = new Date();
 					
 		SegnalazioneRispostaBean sr=new SegnalazioneRispostaBean();
 		RispostaBean rb = new RispostaBean();
@@ -68,12 +70,15 @@ public class SegnalazioneRispostaServlet extends CustomServlet {
 		SegnalazioneRispostaDAO.addSegnalazioneRisposta(sr);		
 		
 
-				} else log.info("Errore: Id motivazione Null");
-					} else log.info("Errore: Id risposta Null");
+				} else {log.info("Errore: Id motivazione Null");		request.setAttribute("errore", "Segnalazione non effettuata");
+				response.setStatus(401);}
+					} else {log.info("Errore: Id risposta Null");		request.setAttribute("errore", "Segnalazione non effettuata");
+					response.setStatus(401);}
 
-		
+	
+
 		request.getRequestDispatcher("VisualizzaDomandaServlet?id="+request.getParameter("idDomanda")).forward(request, response);
-
+		
 
 	}
 	

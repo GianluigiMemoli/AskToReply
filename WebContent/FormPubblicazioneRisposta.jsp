@@ -30,7 +30,7 @@
         </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-secondary btnsmussato" data-dismiss="modal">Annulla</button>
-        <button type="submit" class="btn btn-primary btnsmussato"><ion-icon name="send"></ion-icon> Invia risposta</button>
+        <button type="submit" class="btn btn-primary btnsmussato" onmouseover="getIdDom()"><ion-icon name="send"></ion-icon> Invia risposta</button>
       </div>
     </div>
   </div>
