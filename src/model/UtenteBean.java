@@ -4,7 +4,6 @@ public class UtenteBean {
 		
 	private String email;
 	private String passwordHash;
-	private String nuovaPassword;
 	private String username;
 	private String nome;
 	private String cognome;
@@ -13,12 +12,11 @@ public class UtenteBean {
 	
 	
 	
-	public UtenteBean(String email, String passwordHash, String nuovaPassword, String username, String nome,
+	public UtenteBean(String email, String passwordHash, String username, String nome,
 			String cognome, int ruoloID, boolean isDisattivato, String id) {
 		super();
 		this.email = email;
 		this.passwordHash = passwordHash;
-		this.nuovaPassword = nuovaPassword;
 		this.username = username;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -41,12 +39,7 @@ public class UtenteBean {
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
-	public String getNuovaPassword() {
-		return nuovaPassword;
-	}
-	public void setNuovaPassword(String nuovaPassword) {
-		this.nuovaPassword = nuovaPassword;
-	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -87,7 +80,7 @@ public class UtenteBean {
 	
 	@Override
 	public String toString() {
-		return "UtenteBean [email=" + email + ", passwordHash=" + passwordHash + ", nuovaPassword=" + nuovaPassword
+		return "UtenteBean [email=" + email + ", passwordHash=" + passwordHash 
 				+ ", username=" + username + ", nome=" + nome + ", cognome=" + cognome + ", ruoloID=" + ruoloID
 				+ ", isDisattivato=" + isDisattivato + ", id=" + id + "]";
 	}

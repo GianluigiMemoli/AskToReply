@@ -22,7 +22,7 @@ public class Validator {
 	}
 
 	 
-	private static boolean isPasswordValid(String password) {
+	public static boolean isPasswordValid(String password) {
 				
 		return 	password.length() <= MAX_PASSWORD_LENGTH  
 				&&
@@ -60,12 +60,13 @@ public class Validator {
 		
 	}
 	
-	public static boolean validateUpdateProfileFields(String nome, String cognome, String username, String email) {
+	public static boolean validateUpdateProfileFields(String nome, String cognome, String username, String email, String password) {
 		return 
 			   hasOnlyLettersApostropheAndSpaces(nome) &&
 			   hasOnlyLettersApostropheAndSpaces(cognome) && 
 			   isAnEmail(email) && 
-			   isUsernameValid(username); 				   
+			   isUsernameValid(username) &&
+			   isPasswordValid(password); 				   
 	}
 	
 }

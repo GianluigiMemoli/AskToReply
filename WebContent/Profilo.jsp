@@ -47,9 +47,13 @@
 					type="email" class="form-control" name="email"
 					value="${utenteLoggato.getEmail()}" >
 			</div>
+			<div class="form-group">
+				<label for="password">Nuova password</label> <input id="password"
+					type="password" class="form-control" name="password" autocomplete="off">
+			</div>
  
 			<label>Scegli almeno un'area di interesse</label>
-			<div class="overflow-auto" style="height: 229px;">
+			<div class="overflow-auto" style="height: 229px;">  
 				<ul class="list-group" style="margin-right:5pt;">
 					<c:forEach var="interesse" items="${interessi}">
 						<li class="list-group-item"><c:if

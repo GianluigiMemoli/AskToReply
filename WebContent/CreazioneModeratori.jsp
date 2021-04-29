@@ -44,15 +44,15 @@ align-self: center;
 				<form class="mod-form" action="CreazioneModeratoreServlet" method="post" enctype="application/x-www-form-urlencoded">
 				<div class="form-group">
 						<label for="nome">Nome</label>
-						<input id="nome" type="text" class="form-control" name="nome" pattern="([A-Za-z']+\s*)+">
+						<input id="nome" type="text" class="form-control" name="nome" >
 					</div>
 					<div class="form-group">
 						<label for="cognome">Cognome</label>
-						<input id="cognome" type="text" class="form-control" name="cognome" pattern="([A-Za-z']+\s*)+" >
+						<input id="cognome" type="text" class="form-control" name="cognome"  >
 					</div>
 					<div class="form-group">
 						<label for="username">Username</label>
-						<input id="username" type="text" class="form-control" name="username" pattern=".{3,10}">
+						<input id="username" type="text" class="form-control" name="username" >
 					</div>
 					<div class="form-group">
 						<label for="email">Indirizzo email</label>
@@ -60,7 +60,7 @@ align-self: center;
 					</div>
 					<div class="form-group">
 						<label for="password">Password</label>
-						<input id="password" type="password" class="form-control" name="password" pattern=".{6,32}">
+						<input id="password" type="password" class="form-control" name="password">
 					</div>									
 				 	<button type="submit" class="btn btn-primary">Invia</button>
 			</form>

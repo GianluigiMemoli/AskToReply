@@ -20,7 +20,7 @@
 					</div>
 					<div class="form-group">
 						<label for="password">Password</label>
-						<input id="password" type="password" class="form-control" name="password" pattern=".{6,32}">
+						<input id="password" type="password" class="form-control" name="password">
 					</div>
 				 	<button type="submit" class="btn btn-primary btnsmussato">Accedi</button>
 			</form>

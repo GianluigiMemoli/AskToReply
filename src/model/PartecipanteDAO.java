@@ -16,7 +16,6 @@ public class PartecipanteDAO {
 			searchedPartecipante = new PartecipanteBean(
 					rs.getString("email"),
 					rs.getString("passwordHash"), 
-					rs.getString("nuovaPassword"), 
 					rs.getString("username"), 
 					rs.getString("nome"),
 					rs.getString("cognome"), 
@@ -74,12 +73,13 @@ public class PartecipanteDAO {
 	public static void updateUtente(PartecipanteBean partecipante) {
 		DBManager dbManager = DBManager.getInstance();		
 		try {
-		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("UpdateUtente", 5);		
+		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("UpdateUtente", 6);		
 		callProcedure.setString(1, partecipante.getEmail());
 		callProcedure.setString(2, partecipante.getUsername());
 		callProcedure.setString(3, partecipante.getCognome());
 		callProcedure.setString(4, partecipante.getNome());
 		callProcedure.setString(5, partecipante.getId());
+		callProcedure.setString(6, partecipante.getPasswordHash());
 		callProcedure.executeUpdate();
 				
 		} catch (SQLException exc) {

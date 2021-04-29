@@ -6,9 +6,9 @@ public class PartecipanteBean extends UtenteBean{
 		super();
 	}
 	
-	public PartecipanteBean(String email, String passwordHash, String nuovaPassword, String username, String nome,
+	public PartecipanteBean(String email, String passwordHash, String username, String nome,
 			String cognome, int ruoloID, boolean isDisattivato, String id, int numeroSegnalazioni) {
-		super(email, passwordHash, nuovaPassword, username, nome, cognome, ruoloID, isDisattivato, id);
+		super(email, passwordHash,  username, nome, cognome, ruoloID, isDisattivato, id);
 		this.numeroSegnalazioni = numeroSegnalazioni;
 	}
 	

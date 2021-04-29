@@ -56,18 +56,21 @@ public class UpdateProfilo extends CustomServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nome,cognome,username,password,email;
+		String nome,cognome,username,email;
 		log.info(request.getParameterMap().toString());
 		nome = request.getParameter("nome").trim(); 
 		cognome = request.getParameter("cognome").trim();
 		username = request.getParameter("username").trim();		
 		email = request.getParameter("email").trim();
-		String[] interessi = request.getParameterValues("interessi"); 
-		
+		String[] interessi = request.getParameterValues("interessi");
+		String password = null;
+		if(request.getParameter("password") != null || !request.getParameter("password").isBlank()) {
+			password = request.getParameter("password");
+		}
 		AccountManager accountManager = new AccountManager();
 		PartecipanteBean loggedUser =(PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 		try {
-			accountManager.updateUtente(loggedUser, nome, cognome, username, email, interessi);			
+			accountManager.updateUtente(loggedUser, nome, cognome, username, email, interessi, password);			
 		} catch(CampiNonConformiException exc) {			
 			log.info("Eccezione:" + exc.getMessage() + " gestita");
 			request.setAttribute("errore", exc.getMessage());

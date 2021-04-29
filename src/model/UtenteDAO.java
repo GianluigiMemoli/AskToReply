@@ -43,7 +43,6 @@ public class UtenteDAO {
 			searchedUtente = new UtenteBean(
 					rs.getString("email"),
 					rs.getString("passwordHash"), 
-					rs.getString("nuovaPassword"), 
 					rs.getString("username"), 
 					rs.getString("nome"),
 					rs.getString("cognome"), 
@@ -69,7 +68,6 @@ public class UtenteDAO {
 			searchedUtente = new UtenteBean(
 					rs.getString("email"),
 					rs.getString("passwordHash"), 
-					rs.getString("nuovaPassword"), 
 					rs.getString("username"), 
 					rs.getString("nome"),
 					rs.getString("cognome"), 
@@ -95,7 +93,6 @@ public class UtenteDAO {
 			searchedUtente = new UtenteBean(
 					rs.getString("email"),
 					rs.getString("passwordHash"), 
-					rs.getString("nuovaPassword"), 
 					rs.getString("username"), 
 					rs.getString("nome"),
 					rs.getString("cognome"), 
@@ -137,7 +134,6 @@ public class UtenteDAO {
 					new UtenteBean(
 						resultSet.getNString("email"),
 						resultSet.getNString("passwordHash"),
-						resultSet.getNString("nuovaPassword"),
 						resultSet.getNString("username"),
 						resultSet.getNString("nome"),
 						resultSet.getNString("cognome"),

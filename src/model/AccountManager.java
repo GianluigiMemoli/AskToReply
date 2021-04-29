@@ -103,11 +103,16 @@ public class AccountManager {
 	}
 	
 	
-	public void updateUtente(PartecipanteBean user, String newNome, String newCognome, String newUsername, String newEmail, String[] interessi) throws CampiNonConformiException, EmailPresenteException, UsernamePresenteException {
+	public void updateUtente(PartecipanteBean user, String newNome, String newCognome, String newUsername, String newEmail, String[] interessi, String password) throws CampiNonConformiException, EmailPresenteException, UsernamePresenteException, NoSuchAlgorithmException {
 		if(interessi == null) {
 			throw new CampiNonConformiException("Inserisci almeno una categoria");
 		}
-		if((!Validator.validateUpdateProfileFields(newNome, newCognome, newUsername, newEmail))) {
+		if(password != null) {
+			if(!Validator.isPasswordValid(password)) {
+				throw new CampiNonConformiException("Password non valida");
+			}
+		}
+		if((!Validator.validateUpdateProfileFields(newNome, newCognome, newUsername, newEmail, password))) {
 			throw new CampiNonConformiException();
 		}
 		if (interessi.length == 0) {
@@ -124,6 +129,7 @@ public class AccountManager {
 		user.setCognome(newCognome);
 		user.setEmail(newEmail);
 		user.setUsername(newUsername);		
+		user.setPasswordHash(getPasswordHash(password));
 		this.updateInteressiUtente(user, interessi);
 		PartecipanteDAO.updateUtente(user);		
 	}
@@ -148,8 +154,6 @@ public class AccountManager {
 	}
 	
 	private static boolean isUsernameAvailable(String username) {
-		UtenteBean user = UtenteDAO.getUtenteByUsername(username);
-		System.out.println("isusrnameav: " + user);
 		return UtenteDAO.getUtenteByUsername(username) == null;				
 	}
 	
