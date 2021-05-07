@@ -21,7 +21,17 @@ public class Validator {
 		return Pattern.matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", text);		
 	}
 
-	 
+	private static boolean isNomeValid(String nome) {
+		if (nome.length() < MIN_NOME_LENGTH || !hasOnlyLettersApostropheAndSpaces(nome))
+			return false;
+		else return true;
+	}
+	
+	private static boolean isCognomeValid(String cognome) {
+		if (cognome.length() < MIN_COGNOME_LENGTH || !hasOnlyLettersApostropheAndSpaces(cognome))
+			return false;
+		else return true;
+	}
 	public static boolean isPasswordValid(String password) {
 				
 		return 	password.length() <= MAX_PASSWORD_LENGTH  
@@ -33,7 +43,7 @@ public class Validator {
  
 	private static boolean isUsernameValid(String username) {
 		int usernameLength = username.length(); 
-		if((usernameLength < MIN_USERNAME_LENGTH && usernameLength > MAX_USERNAME_LENGTH))
+		if((usernameLength < MIN_USERNAME_LENGTH || usernameLength > MAX_USERNAME_LENGTH))
 			return false;
 		
 		
@@ -48,6 +58,7 @@ public class Validator {
 			String password
 			){
 		
+		
 		if (nome.length() < MIN_NOME_LENGTH || cognome.length() < MIN_COGNOME_LENGTH)
 			return false;
 		
@@ -60,13 +71,13 @@ public class Validator {
 		
 	}
 	
-	public static boolean validateUpdateProfileFields(String nome, String cognome, String username, String email, String password) {
+	public static boolean validateUpdateProfileFields(String nome, String cognome, String username, String email) {
 		return 
-			   hasOnlyLettersApostropheAndSpaces(nome) &&
-			   hasOnlyLettersApostropheAndSpaces(cognome) && 
+			   isNomeValid(nome) &&
+			   isCognomeValid(cognome) && 
 			   isAnEmail(email) && 
-			   isUsernameValid(username) &&
-			   isPasswordValid(password); 				   
+			   isUsernameValid(username);
+			   
 	}
 	
 }

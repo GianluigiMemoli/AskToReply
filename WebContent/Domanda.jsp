@@ -8,7 +8,7 @@
 	<jsp:param name="active" value="empty" />
 </jsp:include>
 
-<style>
+<style> 
 	.question{
 		margin-bottom: 2em;
 		padding: 1em;

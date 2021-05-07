@@ -112,7 +112,7 @@ public class AccountManager {
 				throw new CampiNonConformiException("Password non valida");
 			}
 		}
-		if((!Validator.validateUpdateProfileFields(newNome, newCognome, newUsername, newEmail, password))) {
+		if((!Validator.validateUpdateProfileFields(newNome, newCognome, newUsername, newEmail))) {
 			throw new CampiNonConformiException();
 		}
 		if (interessi.length == 0) {
@@ -129,7 +129,11 @@ public class AccountManager {
 		user.setCognome(newCognome);
 		user.setEmail(newEmail);
 		user.setUsername(newUsername);		
-		user.setPasswordHash(getPasswordHash(password));
+		if(password != null) {
+			user.setPasswordHash(getPasswordHash(password));
+		} else {
+			user.setPasswordHash(oldUser.getPasswordHash());
+		}
 		this.updateInteressiUtente(user, interessi);
 		PartecipanteDAO.updateUtente(user);		
 	}

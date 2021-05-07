@@ -81,9 +81,9 @@ public class CreazioneModeratoreServlet extends CustomServlet {
 				request.setAttribute("errore", "Unhandled error"); 
 			}	
 			
-			request.getRequestDispatcher("/GestioneModeratori").forward(request, response);
+			request.getRequestDispatcher("/CreazioneModeratori").forward(request, response);
 		
-		
+		 
 	}
 
 }

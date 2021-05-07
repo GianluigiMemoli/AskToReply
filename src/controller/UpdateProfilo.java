@@ -64,7 +64,7 @@ public class UpdateProfilo extends CustomServlet {
 		email = request.getParameter("email").trim();
 		String[] interessi = request.getParameterValues("interessi");
 		String password = null;
-		if(request.getParameter("password") != null || !request.getParameter("password").isBlank()) {
+		if(request.getParameter("password") != null && request.getParameter("password").trim().length() != 0) {
 			password = request.getParameter("password");
 		}
 		AccountManager accountManager = new AccountManager();
