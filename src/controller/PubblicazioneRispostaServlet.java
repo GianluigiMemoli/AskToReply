@@ -83,22 +83,24 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 			
 
 		Date dataPubblicazione = new Date(System.currentTimeMillis());
-
+boolean s=true;
 			try {
 			RisposteManager manager = new RisposteManager();
 			manager.pubblicaRisposta(idDomanda, corpo, allegati, idAutore, idAutoreDomanda, dataPubblicazione);
 			//request.getRequestDispatcher("VisualizzaHome").forward(request, response);
-			request.getRequestDispatcher("VisualizzaDomandaServlet?id="+idDomanda).forward(request, response);
 
 
-		} catch (SQLException | ErrorePubblicazioneRispostaException exc) {
+		} catch (Exception exc) {
+			s=false;
+			log.info("RISPOSTA NON PUBBLICATA!");
 			// TODO Auto-generated catch block
 			request.setAttribute("errore", exc.getMessage());
 			response.setStatus(401);
 			//request.getRequestDispatcher("VisualizzaHome").forward(request, response);
 			request.getRequestDispatcher("VisualizzaDomandaServlet?id="+idDomanda).forward(request, response);
-			log.info("RISPOSTA NON PUBBLICATA!");
 		}
+			if(s)request.getRequestDispatcher("VisualizzaDomandaServlet?id="+idDomanda).forward(request, response);
+
 
 			}
 	}

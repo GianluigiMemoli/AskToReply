@@ -28,7 +28,7 @@ public class RisposteManager {
 
 
 	public void pubblicaRisposta(String idDomanda, String corpo, List<Part> allegati, String idAutore
-			,String idAutoreDomanda, Date dataPubblicazione) throws ErrorePubblicazioneRispostaException, SQLException{
+			,String idAutoreDomanda, Date dataPubblicazione) throws Exception{
 
 
 		//controllo se l'utente tenta di rispondere ad una propria domanda
@@ -55,7 +55,6 @@ public class RisposteManager {
 		}
 
 		else {
-			log.info("RISPOSTA INVIATA CON SUCCESSO");
 
 
 			if(corpo.trim().length() < 2) {
@@ -73,16 +72,18 @@ public class RisposteManager {
 			risposta.setDomanda(domb);
 			risposta.setDataPubblicazione(dataPubblicazione);
 
-			risposta=RispostaDAO.addRisposta(risposta);
 
 
 			AllegatiHandler allegatiHandler = new AllegatiHandler();
 			try {
 				allegatiHandler.caricaAllegati(allegati, UPLOAD_PATH + risposta.getId());
-			} catch (Exception e) {
+			} catch (ErrorePubblicazioneRispostaException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			risposta=RispostaDAO.addRisposta(risposta);
+			log.info("RISPOSTA INVIATA CON SUCCESSO");
 
 		}
 	}
