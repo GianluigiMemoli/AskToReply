@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 
 import com.mysql.cj.jdbc.CallableStatement;
 
+import Exceptions.ErrorePubblicazioneDomandaException;
 import Exceptions.ErrorePubblicazioneRispostaException;
 
 public class RisposteManager {
@@ -57,8 +58,8 @@ public class RisposteManager {
 		else {
 
 
-			if(corpo.trim().length() < 2) {
-				throw new ErrorePubblicazioneRispostaException("Il corpo della risposta deve contenere almeno due caratteri.");
+			if(corpo.trim().length() < 1) {
+				throw new ErrorePubblicazioneRispostaException("Il corpo della risposta deve contenere almeno un carattere.");
 			}
 
 			RispostaBean risposta = new RispostaBean();
@@ -73,16 +74,21 @@ public class RisposteManager {
 			risposta.setDataPubblicazione(dataPubblicazione);
 
 
+			risposta=RispostaDAO.addRisposta(risposta);
 
 			AllegatiHandler allegatiHandler = new AllegatiHandler();
 			try {
+				log.info("Carico allegati (Risposte Manager)");
 				allegatiHandler.caricaAllegati(allegati, UPLOAD_PATH + risposta.getId());
-			} catch (ErrorePubblicazioneRispostaException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
+				log.info("errore ALLEGATI 0000");
 				e.printStackTrace();
+				RispostaDAO.removeRisposta(risposta);
+				throw new ErrorePubblicazioneDomandaException(e.getMessage());
+
 			}
 
-			risposta=RispostaDAO.addRisposta(risposta);
 			log.info("RISPOSTA INVIATA CON SUCCESSO");
 
 		}
