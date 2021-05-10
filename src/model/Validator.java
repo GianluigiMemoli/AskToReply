@@ -14,7 +14,7 @@ public class Validator {
 	final static int MIN_COGNOME_LENGTH = 2;
 	
 	private static boolean hasOnlyLettersApostropheAndSpaces(String text) {						
-		return Pattern.matches("([A-Za-z']+\\s*)+", text);
+		return Pattern.matches("([A-Za-z'À-ÖØ-öø-ÿ]+\\s*)+", text);
 	}
 	
 	private static boolean isAnEmail(String text) {

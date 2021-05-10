@@ -44,7 +44,7 @@
 			</div>
 			<div class="form-group">
 				<label for="email">Indirizzo email</label> <input id="email"
-					type="email" class="form-control" name="email"
+					type="text" class="form-control" name="email"
 					value="${utenteLoggato.getEmail()}" >
 			</div>
 			<div class="form-group">

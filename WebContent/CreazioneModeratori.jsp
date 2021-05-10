@@ -56,7 +56,7 @@ align-self: center;
 					</div>
 					<div class="form-group">
 						<label for="email">Indirizzo email</label>
-						<input id="email" type="email" class="form-control" name="email">
+						<input id="email" type="text" class="form-control" name="email">
 					</div>
 					<div class="form-group">
 						<label for="password">Password</label>
@@ -71,3 +71,4 @@ align-self: center;
 
 
 <jsp:include page="Footer.jsp"></jsp:include>
+ 
