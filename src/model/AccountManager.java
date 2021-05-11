@@ -163,6 +163,12 @@ public class AccountManager {
 	
 	private UtenteBean generateUtenteBean(String nome,String cognome, String username, String email, String password) throws CampiNonConformiException, EmailPresenteException, UsernamePresenteException, NoSuchAlgorithmException {		
 		UtenteBean newUser;	
+		if(!isEmailAvailable(email))
+			throw new EmailPresenteException();
+		
+		if(!isUsernameAvailable(username))
+			throw new UsernamePresenteException();	
+		
 		if(!Validator.validateRegistationFields(nome, cognome, email, username, password)) {
 			throw new CampiNonConformiException();
 		}				
@@ -175,11 +181,7 @@ public class AccountManager {
 		newUser.setUsername(username);
 		newUser.setPasswordHash(passwordHash);
 		
-		if(!isEmailAvailable(newUser.getEmail()))
-			throw new EmailPresenteException();
-		
-		if(!isUsernameAvailable(newUser.getUsername()))
-			throw new UsernamePresenteException();						
+							
 			
 			return newUser;
 		}
