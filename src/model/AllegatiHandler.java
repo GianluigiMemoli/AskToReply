@@ -101,7 +101,7 @@ public class AllegatiHandler {
 		*/
 		
 		File[] files = new File(folder).listFiles();
-	
+		
 		if(files != null) {
 			for (File file : files) {
 				logger.info(file.getName());

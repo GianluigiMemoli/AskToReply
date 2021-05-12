@@ -8,6 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import= "java.util.HashMap" %>
 <%@page import= "java.util.HashSet" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -24,7 +25,7 @@ request.setAttribute("currentPage", currentPage);
 .debug-media {
 	border: 2px solid blue;
 }
-.questions-list {
+.questions-list { 
 	padding: 2em;
 }
 .question {
@@ -120,7 +121,7 @@ request.setAttribute("currentPage", currentPage);
 					</c:otherwise>	
 					</c:choose>
 					</c:if>
-					<c:if test="${domanda.getAllegati() != null}"> 
+					<c:if test="${fn:length(domanda.getAllegati()) > 0}"> 
 					<button 
 						type="button"
 						class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark"

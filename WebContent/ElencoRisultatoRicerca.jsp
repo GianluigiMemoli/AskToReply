@@ -2,7 +2,7 @@
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.DomandaBean" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="Header.jsp" />
 <c:choose>
 	<c:when test="${utenteLoggato != null }">
@@ -120,42 +120,18 @@
 									    	    
 									  </div>
 									  <c:if test="${utenteLoggato != null }">
-									<div>							
-										<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">
-										
-											<% String idModalSegnalazioneDomanda = "msd" + counter; %>
-										
-											<button 
-												onclick="document.getElementById('idDomanda').value='${domanda.getId()}'" 
-												type="submit" 
-												class="btn btn-outline-primary btn-sm border-0 btnsmussato" 
-												data-toggle="modal" 
-												data-target="#pubblicaRispostaModal" 
-												data-whatever="@getbootstrap">
-												<ion-icon name="chatbubble-ellipses"></ion-icon>
-												Rispondi
-											</button>
-												 
-											<button 
-												type="submit" 
-												class="btn btn-outline-warning btn-sm border-0 btnsmussato"
-											 	data-toggle="modal" 
-											 	data-target="<%= "#" + idModalSegnalazioneDomanda %>"
-											  	data-whatever="@getbootstrap">
-											  		<ion-icon name="warning"></ion-icon> Segnala
-											</button>
-											
-											<jsp:include page="ModalSegnalazioneDomanda.jsp">
-												<jsp:param value="${domanda.getId()}" name="idDomanda"/>
-												<jsp:param value="<%= idModalSegnalazioneDomanda %>" name="idModal"/>
-											</jsp:include>
-											
-										 </c:if>
-										 
-										 
-										 
-										<jsp:include page="FormPubblicazioneRisposta.jsp"></jsp:include> 				
-										
+									<div>																											
+											<c:if test="${fn:length(domanda.getAllegati()) > 0}"> 
+												<button 
+													type="button"
+													class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark"
+													disabled><ion-icon name="image">
+													</ion-icon><span class="responsivespan">
+													 Contiene allegati&nbsp;
+													 </span>
+												 </button>
+												</c:if>																																											 										 										 
+																			
 									</div>
 									</c:if>
 																 

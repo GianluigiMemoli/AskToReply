@@ -102,8 +102,11 @@ public class DomandeManager {
 				testo = testo.replace(" ", "* ") + "*";		
 			}
 		// TODO Aggiungere l'eliminazione delle congiunzioni, articoli ecc per la ricerca full text
-		
-		return DomandaDAO.getDomandeCercate(testo, isArchiviata, categorie);	
+		ArrayList<DomandaBean> domandeTrovate = DomandaDAO.getDomandeCercate(testo, isArchiviata, categorie);
+		for(DomandaBean domanda: domandeTrovate) {
+			domanda = populateReferencedEntities(domanda);
+		}
+		return domandeTrovate;	
 	}
 	
 	public DomandaBean getDomandaById(String idDomanda) {
@@ -171,9 +174,21 @@ public class DomandeManager {
 	private DomandaBean populateReferencedEntities(DomandaBean domanda) {
 		domanda = populateAutore(domanda);
 		domanda = populateCategorie(domanda);
+		domanda = populateAllegati(domanda);
 		return domanda;
 	}
-	
+	public DomandaBean populateAllegati(DomandaBean domanda) {
+		
+		AllegatiHandler allegatiHandler = new AllegatiHandler();
+		File[] allegati = allegatiHandler.getAllegati(UPLOAD_PATH + domanda.getId());		
+		try {
+			domanda.setAllegati(allegatiHandler.convertToBase64(allegati));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return domanda;		
+	}
 	public ArrayList<DomandaBean> getDomandeRecenti(int start, int end){
 		ArrayList<DomandaBean> domandeRecenti = DomandaDAO.getDomandeRecenti(start, end);
 		ArrayList<DomandaBean> domandePopolate = new ArrayList<DomandaBean>();
