@@ -71,7 +71,7 @@
 									<c:choose>
 					<c:when test="${segnalazionerisposta.getRispostaSegnalata().getAllegati().size() > 0}">
 						<%session.setAttribute("allegati_${getRispostaSegnalata.getId()}", "${getRispostaSegnalata.getAllegati()}");%>
-						<div class="container">
+						<div class="container" style="margin-left:0px;">
 							<div class="row">
 
 							<c:forEach items="${segnalazionerisposta.getRispostaSegnalata().getAllegati()}" var="allegato">

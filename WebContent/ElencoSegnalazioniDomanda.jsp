@@ -8,15 +8,48 @@
 	<jsp:param name="active" value="domande" />
 </jsp:include>
 
-<div class="content">
+<style>
+.debug-content {
+	border: 2px solid red;
+}
 
-	<ul class="list-group">
+.debug-media {
+	border: 2px solid blue;
+}
+
+.questions-list {
+	padding: 2em;
+}
+
+.question {
+	margin-bottom: 2em;
+	padding: 1em;
+}
+
+.paginator {
+	align-self: center;
+}
+</style>
+
+<div class="content debug">
+
+	<div class="card-body">
 
 		<% int counter = 1; %>
 
 		<c:forEach items="${segnalazioniDomanda}" var="s">
 
-			<li class="list-group-item">
+								<jsp:include page="PopupErrore.jsp"></jsp:include>
+
+
+			<div class="question rounded border">
+			
+			
+					<div class="d-flex w-100 justify-content-between">
+						<small class="text-secondary" style="  text-transform: uppercase;">Motivazione (quando funziona va tolto) ${s.getMotivazione().getNome()}</small>
+						<small class="text-secondary">${s.getDataSegnalazione()}</small>
+					</div>
+			
 			
 				<c:choose>
 					<c:when test="${s.getMotivazione().getId() == 1}">
@@ -28,32 +61,48 @@
 							value="CambiaCategorieDomandaServlet" />
 					</c:when>
 				</c:choose>
+			
 
 				<form action="${url_risoluzione_segnalazione}" method="get">
 
 					<input type="hidden" name="idSegnalazione" value="${s.getId()}" />
 
-					<p class="text-secondary">${s.getDataSegnalazione()}</p>
+					<h5 style="margin-bottom: 0pt; color: black;" class="lead">${s.getDomandaSegnalata().getTitolo()}</h5>
 
-					<p class="text-secondary">Motivazione: ${s.getMotivazione().getNome()}</p>
 
-					<h5>Titolo domanda segnalata: ${s.getDomandaSegnalata().getTitolo()}</h5>
+					<p style="color: black; margin-bottom:0pt;">${s.getDomandaSegnalata().getCorpo()}</p>
+					
+					
+					<c:if test="${!s.getCommento().isEmpty()}">
+						
+						<small>Commento segnalazione: ${s.getCommento()}</small>
+					
+					</c:if>
 
-					<p>Corpo domanda segnalata: ${s.getDomandaSegnalata().getCorpo()}</p>
+					<c:choose>
+						<c:when test="${s.getDomandaSegnalata().getAllegati().size() > 0}">
+						
+						<div class="container" style="margin-left:0px;">
+							<div class="row">
 
-					<p>Commento segnalazione: ${s.getCommento()}</p>
+							<c:forEach items="${s.getDomandaSegnalata().getAllegati()}" var="allegato">
+								
+								<div class="col-0 p-0">
+									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail" style="max-height: 150px; min-height: 100px; min-height: 50%;">
+								</div>
+								
+							</c:forEach>
+								</div>
+							</div>
+						</c:when>
+					</c:choose>
 
 					<c:choose>
 
 						<c:when test="${s.getMotivazione().getId() == 1}">
+			  	
+ <button type="submit" class="btn btn-outline-success btn-sm border-0 btnsmussato" name="approva" id="approva"><ion-icon name="shield-checkmark"></ion-icon> Approva</button>
 
-							<button 
-								type="submit"
-								class="btn btn-outline-success btn-sm border-0 btnsmussato"
-								name="approva" id="approva">
-								<ion-icon name="shield-checkmark"></ion-icon>
-								Approva
-							</button>
 
 						</c:when>
 
@@ -106,12 +155,9 @@
 						</c:when>
 					</c:choose>
 
-					<a
-						href="DeclinaSegnalazioneDomandaServlet?idSegnalazione=${s.getId()}"
-						class="btn btn-outline-danger btn-sm border-0 btnsmussato"
-						name="ignora" id="ignora"> <ion-icon name="trash"></ion-icon>
-						Ignora
-					</a>
+
+					<button  onclick="location.href='DeclinaSegnalazioneDomandaServlet?idSegnalazione=${s.getId()}'" type="button" class="btn btn-outline-danger btn-sm border-0 btnsmussato" name="ignora" id="ignora"><ion-icon name="trash"></ion-icon> Ignora</button>
+					
 
 					<c:choose>
 						<c:when test="${s.getDomandaSegnalata().getAllegati().size() > 0}">
@@ -124,13 +170,13 @@
 						</c:when>
 					</c:choose>
 
-				</form></li>
+				</form></div>
 				
 				<c:set var="counter" value="${counter + 1}"></c:set>
 				
 		</c:forEach>
 
-	</ul>
+	</div>
 
 	<div class="col-12">
 

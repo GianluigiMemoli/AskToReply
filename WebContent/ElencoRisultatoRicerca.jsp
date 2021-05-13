@@ -48,15 +48,20 @@
 						</div>
 						
 						<div class="form-group">
-							<label>Categorie:</label>
-							<c:forEach items="${categorie}" var="c">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="${c.getId()}" name="categorie">
-									<label class="form-check-label">
-										<a style="background-color:#EDE7F6; color:purple; border-radius:99em;" class="badge">${c.nome}</a>
-									</label>							
-								</div>
-							</c:forEach>
+						
+						
+			<div class="overflow-auto" style="height: 229px;">  
+				<ul class="list-group" style="margin-right:5pt;">
+					<c:forEach items="${categorie}" var="c">
+						<li class="list-group-item">
+								<input type="checkbox" value="${c.getId()}" name="categorie" id="interesseCheck">
+							<label for="interesseCheck"><a style="background-color:#EDE7F6; color:purple; border-radius:99em;" class="badge">${c.nome}</a></label>
+							</li>
+					</c:forEach>
+				</ul>
+			</div>
+						
+							
 						</div>
 						
 						
@@ -91,7 +96,7 @@
 						  							<small class="text-secondary">hai chiesto:</small>						  							
 						  						</c:when>
 						  						<c:when  test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">  
-						  							<small class="text-secondary">${domanda.getAutore().getUsername()}</small>						  							
+						  							<small class="text-secondary">@${domanda.getAutore().getUsername()}</small>						  							
 						  						</c:when>
 						  				</c:choose>
 						  													  				

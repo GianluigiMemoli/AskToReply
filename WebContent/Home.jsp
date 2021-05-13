@@ -121,16 +121,7 @@ request.setAttribute("currentPage", currentPage);
 					</c:otherwise>	
 					</c:choose>
 					</c:if>
-					<c:if test="${fn:length(domanda.getAllegati()) > 0}"> 
-					<button 
-						type="button"
-						class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark"
-						disabled><ion-icon name="image">
-						</ion-icon><span class="responsivespan">
-						 Contiene allegati&nbsp;
-						 </span>
-					 </button>
-					</c:if>
+
 					
 					<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId()) == false}">
 					
@@ -154,6 +145,17 @@ request.setAttribute("currentPage", currentPage);
 						<% counter++; %>
 						
 					</c:if>				
+				  
+				  					<c:if test="${fn:length(domanda.getAllegati()) > 0}"> 
+					<button 
+						type="button"
+						class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark"
+						disabled><ion-icon name="image">
+						</ion-icon><span class="responsivespan">
+						 Contiene allegati&nbsp;
+						 </span>
+					 </button>
+					</c:if>
 				  
 				</div>
 
