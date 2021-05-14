@@ -8,7 +8,8 @@ BEGIN
 		ON(Dom.id=CaDom.idDomanda)
 	INNER JOIN Interessi AS Inter
 		ON(CaDom.idCategoria=Inter.idCategoria)
-	WHERE Inter.idUtente=_idUtente
+	WHERE Inter.idUtente=_idUtente AND
+	Dom.isNascosta = 0
     ORDER BY Dom.dataPubblicazione DESC;
 END $$
 DELIMITER ; 

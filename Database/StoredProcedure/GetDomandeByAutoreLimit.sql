@@ -12,7 +12,8 @@ create procedure GetDomandeByAutoreLimit(
 begin
 	select *
 	from domande d
-	where d.idAutore = idAutore
+	where d.idAutore = idAutore and
+	d.isNascosta = 0
 	order by d.dataPubblicazione desc
 	limit s, e;
 end && 
