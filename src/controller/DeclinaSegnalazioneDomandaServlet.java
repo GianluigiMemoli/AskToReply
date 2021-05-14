@@ -1,15 +1,13 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.logging.Logger;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.SegnalazioneBean;
 import model.SegnalazioneDomandaBean;
 import model.SegnalazioniManager;
 
@@ -18,7 +16,12 @@ import model.SegnalazioniManager;
  */
 @WebServlet("/DeclinaSegnalazioneDomandaServlet")
 public class DeclinaSegnalazioneDomandaServlet extends CustomServlet {
+	
 	private static final long serialVersionUID = 1L;
+	
+	private final static Logger LOGGER = Logger.getLogger(CambiaCategorieDomandaServlet.class.getName());
+	
+	private final static String PATH_ELENCO_SEGNALAZIONI_DOMANDA = "VisualizzaElencoSegnalazioniDomanda";
 
     /**
      * Default constructor. 
@@ -26,35 +29,66 @@ public class DeclinaSegnalazioneDomandaServlet extends CustomServlet {
     public DeclinaSegnalazioneDomandaServlet() {
         // TODO Auto-generated constructor stub
     }
+    
+    private void setStringAttributeThenRedirect(
+    		String nomeAttributo, 
+    		String messaggioAttributo, 
+    		HttpServletRequest request,
+    		HttpServletResponse response, 
+    		String path) throws ServletException, IOException {
+    	
+    	LOGGER.info(messaggioAttributo);
+    	request.setAttribute(nomeAttributo, messaggioAttributo);
+    	request.getRequestDispatcher(path).forward(request, response);
+    	
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String idSegnalazione = request.getParameter("idSegnalazione");
+		String idSegnalazioneDaDeclinare = request.getParameter("idSegnalazione");
 		
-		PrintWriter out = response.getWriter();
-		
-		if(idSegnalazione != null) {
+		if(idSegnalazioneDaDeclinare == null) {
 			
-			SegnalazioniManager manager = new SegnalazioniManager();
+			setStringAttributeThenRedirect(
+					"messaggioDiErrore", 
+					"Parametro ID segnalazione mancante", 
+					request, 
+					response, 
+					PATH_ELENCO_SEGNALAZIONI_DOMANDA);
 			
-			SegnalazioneDomandaBean segnalazione = manager.getSegnalazioneDomanda(idSegnalazione);
+			return ;
 			
-			if(segnalazione != null) {
-				
-				manager.declinaSegnalazioneDomanda(segnalazione);
-				
-				out.print("Segnalazone domanda con ID '" + idSegnalazione + "' declinata.");
-				
-			} else {
-				out.print("Non esiste una segnalazione per una domanda con ID '" + idSegnalazione + "'.");
-			}
-			
-		} else {
-			out.print("ID segnalazione mancante.");
 		}
+		
+		SegnalazioniManager managerSegnalazioni = new SegnalazioniManager();
+		
+		SegnalazioneDomandaBean segnalazioneDaDeclinare = 
+				managerSegnalazioni.getSegnalazioneDomanda(idSegnalazioneDaDeclinare);
+		
+		if(segnalazioneDaDeclinare == null) {
+
+			setStringAttributeThenRedirect(
+					"messaggioDiErrore", 
+					"Segnalazione con ID '" + idSegnalazioneDaDeclinare + "' inesistente", 
+					request, 
+					response, 
+					PATH_ELENCO_SEGNALAZIONI_DOMANDA);
+			
+			return ;
+			
+		}
+		
+		managerSegnalazioni.declinaSegnalazioneDomanda(segnalazioneDaDeclinare);
+		
+		setStringAttributeThenRedirect(
+				"messaggioDiSuccesso", 
+				"Segnalazione declinata con successo", 
+				request, 
+				response, 
+				PATH_ELENCO_SEGNALAZIONI_DOMANDA);
 		
 	}
 
