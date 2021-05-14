@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.DomandeManager;
 import model.MotivazioneBean;
+import model.RispostaBean;
+import model.RisposteManager;
 import model.SegnalazioneDomandaBean;
 import model.SegnalazioniManager;
 
@@ -18,8 +22,13 @@ import model.SegnalazioniManager;
  */
 @WebServlet("/RisolviSegnalazioneDomandaServlet")
 public class RisolviSegnalazioneDomandaServlet extends CustomServlet {
+	
 	private static final long serialVersionUID = 1L;
-       
+ 	
+	private final static Logger LOGGER = Logger.getLogger(CambiaCategorieDomandaServlet.class.getName());
+	
+	private final static String PATH_ELENCO_SEGNALAZIONI_DOMANDA = "VisualizzaElencoSegnalazioniDomanda";
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,46 +45,113 @@ public class RisolviSegnalazioneDomandaServlet extends CustomServlet {
     	super.service(req, resp);
     	
     }
+    
+    private void setStringAttributeThenRedirect(
+    		String nomeAttributo, 
+    		String messaggioAttributo, 
+    		HttpServletRequest request, 
+    		HttpServletResponse response, 
+    		String path) throws ServletException, IOException {
+    	
+    	LOGGER.info(messaggioAttributo);
+    	request.setAttribute(nomeAttributo, messaggioAttributo);
+    	request.getRequestDispatcher(path).forward(request, response);
+    	
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String idSegnalazione = request.getParameter("idSegnalazione");
+		// Controllo se sono stati inviati parametri
 		
-		PrintWriter out = response.getWriter();
+		String idSegnalazioneDaRisolvere = request.getParameter("idSegnalazione");
 		
-		if(idSegnalazione != null) {
+		if(idSegnalazioneDaRisolvere == null) {
 			
-			SegnalazioniManager managerSegnalazioni = new SegnalazioniManager();
+			setStringAttributeThenRedirect(
+					"errore", 
+					"ID segnalazione domanda mancante", 
+					request, 
+					response, 
+					PATH_ELENCO_SEGNALAZIONI_DOMANDA);
 			
-			SegnalazioneDomandaBean segnalazione = managerSegnalazioni.getSegnalazioneDomanda(idSegnalazione);
+			return ;
 			
-			if(segnalazione != null) {
-				
-				DomandeManager managerDomande = new DomandeManager();
-				
-				if(segnalazione.getMotivazione().getId() == MotivazioneBean.CONTENUTI_OFFENSIVI) {
-					
-					// Con la domanda rimossa, c'è un dangling reference nella segnalazione
-					
-					managerDomande.removeDomanda(segnalazione.getDomandaSegnalata().getId());
-					managerSegnalazioni.risolviSegnalazioneDomanda(segnalazione);
-					
-					out.print("Segnalazione risolta.");
-					
-				} else {
-					out.print("La motivazione della segnalazione NON è 'Contenuto Offensivo'.");
-				}
-				
-			} else {
-				out.print("La segnalazione con ID " + idSegnalazione + " non esiste.");
-			}
-				
-		} else {
-			out.print("ID segnalazione mancante.");
 		}
+		
+		// Controllo se la segnalazione esiste ed è per 'contenuti offensivi'
+		
+		SegnalazioniManager managerSegnalazioni = new SegnalazioniManager();
+		
+		SegnalazioneDomandaBean segnalazioneDaRisolvere = 
+				managerSegnalazioni.getSegnalazioneDomanda(idSegnalazioneDaRisolvere);
+		
+		if(segnalazioneDaRisolvere == null) {
+			
+			setStringAttributeThenRedirect(
+					"errore", 
+					"La segnalazione con ID '" + idSegnalazioneDaRisolvere + "' non esiste", 
+					request, 
+					response, 
+					PATH_ELENCO_SEGNALAZIONI_DOMANDA);
+			
+			return ;
+			
+		}
+		
+		if(segnalazioneDaRisolvere.getMotivazione().getId() != MotivazioneBean.CONTENUTI_OFFENSIVI) {
+			
+			setStringAttributeThenRedirect(
+					"errore", 
+					"La motivazione della segnalazione NON è 'Contenuto Offensivo'", 
+					request, 
+					response, 
+					PATH_ELENCO_SEGNALAZIONI_DOMANDA);
+			
+			return ;
+			
+		}
+		
+		String idDomandaSegnalata = segnalazioneDaRisolvere.getDomandaSegnalata().getId();
+		
+		// Eliminazione domande
+		
+		DomandeManager domandeManager = new DomandeManager();
+		
+		domandeManager.removeDomanda(idDomandaSegnalata);
+		
+		// Eliminazione risposte
+		
+		RisposteManager risposteManager = new RisposteManager();
+		
+		ArrayList<RispostaBean> risposteDaEliminare = new ArrayList<RispostaBean>();
+		
+		int i = 0;
+		
+		while(RisposteManager.getRisposteByIdDomanda(idDomandaSegnalata, i).size() != 0) {
+			risposteDaEliminare.addAll(RisposteManager.getRisposteByIdDomanda(idDomandaSegnalata, i));
+			i++;
+		}
+		
+		for (int j = 0; j < risposteDaEliminare.size(); j++)
+			risposteManager.removeRisposta(risposteDaEliminare.get(j));
+		
+		// Eliminazione allegati
+		
+		// TODO
+		
+		// Risoluzione di tutte le segnalazioni (contenuti offessinvi & offtopic)
+		
+		managerSegnalazioni. risolviSegnalazioneDomanda(segnalazioneDaRisolvere);
+			
+		setStringAttributeThenRedirect(
+				"messaggioDiSuccesso", 
+				"Segnalazione risolta con successo", 
+				request, 
+				response, 
+				PATH_ELENCO_SEGNALAZIONI_DOMANDA);
 		
 	}
 

@@ -39,11 +39,13 @@
 
 		<c:forEach items="${segnalazioniDomanda}" var="s">
 
-								<jsp:include page="PopupErrore.jsp"></jsp:include>
-
+			<jsp:include page="PopupErrore.jsp"></jsp:include>
+			
+			<c:if test="${not empty messaggioDiSuccesso}">
+            	<div class="p-3 mt-2 mb-2 bg-success text-white">${messaggioDiSuccesso}</div>
+       		</c:if>
 
 			<div class="question rounded border">
-			
 			
 					<div class="d-flex w-100 justify-content-between">
 						<small class="text-secondary" style="  text-transform: uppercase;">Motivazione (quando funziona va tolto) ${s.getMotivazione().getNome()}</small>

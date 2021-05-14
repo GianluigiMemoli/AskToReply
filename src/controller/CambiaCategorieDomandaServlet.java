@@ -1,8 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +22,12 @@ import model.CategoriaBean;
  */
 @WebServlet("/CambiaCategorieDomandaServlet")
 public class CambiaCategorieDomandaServlet extends CustomServlet {
+	
 	private static final long serialVersionUID = 1L;
+	
+	private final static Logger LOGGER = Logger.getLogger(CambiaCategorieDomandaServlet.class.getName());
+	
+	private final static String PATH_ELENCO_SEGNALAZIONI_DOMANDA = "VisualizzaElencoSegnalazioniDomanda";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,54 +45,101 @@ public class CambiaCategorieDomandaServlet extends CustomServlet {
     	super.service(req, resp);
     	
     }
+    
+    private void setStringAttributeThenRedirect(
+    		String nomeAttributo, 
+    		String messaggioAttributo, 
+    		HttpServletRequest request,
+    		HttpServletResponse response, 
+    		String path) throws ServletException, IOException {
+    	
+    	LOGGER.info(messaggioAttributo);
+    	request.setAttribute(nomeAttributo, messaggioAttributo);
+    	request.getRequestDispatcher(path).forward(request, response);
+    	
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String idSegnalazione = request.getParameter("idSegnalazione");
-		String[] categorieDomanda = request.getParameterValues("categorieDomanda");
+		String idSegnalazioneDaRisolvere = request.getParameter("idSegnalazione");
+		String[] idNuoveCategorie = request.getParameterValues("categorieDomanda");
 		
-		PrintWriter writer = response.getWriter();
-		
-		if(idSegnalazione != null && categorieDomanda != null && categorieDomanda.length != 0) {
+		if(idSegnalazioneDaRisolvere == null || idNuoveCategorie == null || idNuoveCategorie.length == 0) {
 			
-			SegnalazioniManager managerSegnalazioni = new SegnalazioniManager();
-			DomandeManager managerDomande = new DomandeManager();
+			setStringAttributeThenRedirect(
+					"errore", 
+					"Sono stati compiuti errori durante l'invio dei parametri", 
+					request, 
+					response, 
+					PATH_ELENCO_SEGNALAZIONI_DOMANDA);
 			
-			SegnalazioneDomandaBean segnalazione = managerSegnalazioni.getSegnalazioneDomanda(idSegnalazione);
-			DomandaBean domanda = managerDomande.getDomandaById(segnalazione.getDomandaSegnalata().getId());
 			
-			if(segnalazione != null && domanda != null) {
-				
-				if(segnalazione.getMotivazione().getId() == MotivazioneBean.OFFTOPIC) {
-				
-					ArrayList<CategoriaBean> nuoveCategorie = new ArrayList<CategoriaBean>();
-					
-					for(int i = 0; i < categorieDomanda.length; i++) {
-						CategoriaBean categoria = new CategoriaBean();
-						categoria.setId(categorieDomanda[i]);
-						nuoveCategorie.add(categoria);
-					}
-					
-					domanda.setCategorie(nuoveCategorie);
-					
-					managerDomande.updateCategorieDomanda(domanda);
-					managerSegnalazioni.risolviSegnalazioneDomanda(segnalazione);
-					
-				} else {
-					writer.print("La motivazione della segnalazione NON è 'Offtopic'.");
-				}
-				
-			} else {
-				writer.print("Segnalazione con ID '" + idSegnalazione + "' e/o Domanda con ID '" + segnalazione.getDomandaSegnalata().getId() + "' inesistenti.");
-			}
+			return ;
 			
-		} else {
-			writer.print("Sono stati compiuti errori durante l'invio dei parametri.");
 		}
 		
+		SegnalazioniManager managerSegnalazioni = new SegnalazioniManager();
+		
+		SegnalazioneDomandaBean segnalazioneDaRisolvere = managerSegnalazioni.getSegnalazioneDomanda(idSegnalazioneDaRisolvere);
+		
+		if(segnalazioneDaRisolvere == null) {
+			
+			setStringAttributeThenRedirect(
+					"errore", 
+					"Segnalazione con ID '" + idSegnalazioneDaRisolvere + "' inesistente", 
+					request, 
+					response, 
+					PATH_ELENCO_SEGNALAZIONI_DOMANDA);
+			
+			return ;
+		}
+		
+		if(segnalazioneDaRisolvere.getMotivazione().getId() != MotivazioneBean.OFFTOPIC) {
+			
+			setStringAttributeThenRedirect(
+					"errore", 
+					"La segnalazione con ID '" + idSegnalazioneDaRisolvere + "' non è offtopic", 
+					request, 
+					response, 
+					PATH_ELENCO_SEGNALAZIONI_DOMANDA);
+			
+			return ;
+		}
+		
+		// Aggiornamento categorie
+		
+		DomandeManager managerDomande = new DomandeManager();
+		
+		String idDomandaSegnalata = segnalazioneDaRisolvere.getDomandaSegnalata().getId();
+		
+		DomandaBean domandaSegnalata = managerDomande.getDomandaById(idDomandaSegnalata);
+		
+		ArrayList<CategoriaBean> nuoveCategorie = new ArrayList<CategoriaBean>();
+		
+		for(int i = 0; i < idNuoveCategorie.length; i++) {
+			CategoriaBean categoria = new CategoriaBean();
+			categoria.setId(idNuoveCategorie[i]);
+			nuoveCategorie.add(categoria);
+		}
+		
+		domandaSegnalata.setCategorie(nuoveCategorie);
+		
+		managerDomande.updateCategorieDomanda(domandaSegnalata);
+		
+		// Risoluzione di TUTTE le segnalazioni off-topic
+		
+		managerSegnalazioni.risolviSegnalazioneDomanda(segnalazioneDaRisolvere);
+			
+		setStringAttributeThenRedirect(
+				"messaggioDiSuccesso", 
+				"Segnalazione risolta con successo", 
+				request, 
+				response, 
+				PATH_ELENCO_SEGNALAZIONI_DOMANDA
+			);
 	}
 
 	/**
