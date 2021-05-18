@@ -61,7 +61,7 @@ public class MostraSegnalazioneDomandaServlet extends CustomServlet {
 				
 				request.setAttribute("segnalazione", segnalazione);
 				
-				request.getRequestDispatcher("WEB-INF\\SegnalazioneDomanda.jsp").forward(request, response);;
+				request.getRequestDispatcher("/SegnalazioneDomanda.jsp").forward(request, response);;
 				
 			} else {
 				out.print("La segnalazione con ID " + idSegnalazione + " non esiste.");

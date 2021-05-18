@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.MotivazioneDAO;
+import model.MotivazioniManager;
 
 /**
  * Servlet implementation class VisualizzaFormSegnalazioneDomandaServlet
@@ -43,10 +43,11 @@ public class VisualizzaFormSegnalazioneDomandaServlet extends CustomServlet {
 		if(idDomanda != null) {
 			
 			request.setAttribute("idDomanda", idDomanda);
-			request.setAttribute("motivazioni", MotivazioneDAO.getAll());
 			
-			request.getRequestDispatcher("WEB-INF/FormSegnalazioneDomanda.jsp").forward(request, response);
-		
+			MotivazioniManager motivazioniManager = new MotivazioniManager();
+			request.setAttribute("motivazioni", motivazioniManager.getAll());
+			request.getRequestDispatcher("/FormSegnalazioneDomanda.jsp").forward(request, response);
+			
 		} else {
 			response.getWriter().print("L'ID della domanda non può essere nullo.");
 		}

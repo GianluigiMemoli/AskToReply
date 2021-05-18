@@ -13,7 +13,9 @@
 	
 		<div class="card-title">
 			<h3>Pubblicazione domanda</h3>
-		</div>		
+		</div>
+		
+				<jsp:include page="PopupErrore.jsp"></jsp:include>
 			
 				<form action="PubblicazioneDomandaServlet" method="post" enctype="multipart/form-data">
 				

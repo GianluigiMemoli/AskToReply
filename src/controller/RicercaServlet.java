@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.CategoriaBean;
 import model.CategoriaDAO;
+import model.CategorieManager;
 import model.DomandaBean;
 import model.DomandeManager;
 
@@ -71,8 +72,8 @@ public class RicercaServlet extends HttpServlet {
 			response.getWriter().print(e.getMessage());
 		}
 		
-		ArrayList<CategoriaBean> categorie = CategoriaDAO.getAll();
-		
+		CategorieManager categorieManager = new CategorieManager();
+		ArrayList<CategoriaBean> categorie = categorieManager.getAll();
 		request.setAttribute("categorie", categorie);
 		
 		request.getRequestDispatcher("ElencoRisultatoRicerca.jsp").forward(request, response);

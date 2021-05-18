@@ -21,9 +21,8 @@
 	
 		<div class="questions-list">
 		
-					<jsp:include page="PopupErrore.jsp"></jsp:include>
+				<jsp:include page="PopupErrore.jsp"></jsp:include>
 		
-			
 				<div class="question rounded border">
 					<div class="d-flex w-100 justify-content-between">
 					<c:if test="${utenteLoggato.getId().equals(domanda.getAutore().getId())}">

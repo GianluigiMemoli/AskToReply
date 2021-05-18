@@ -38,7 +38,7 @@ public class DomandeManager {
 		logger.info("Lunghezza corpo = " + lunghezzaCorpo);
 		logger.info("Numero di allegati = " + numeroAllegati);
 		
-		if(lunghezzaCorpo == 0 &&  numeroAllegati == 0) {
+		if(numeroAllegati == 0 && (lunghezzaCorpo < 5 || lunghezzaCorpo > 250)) {
 			throw new ErrorePubblicazioneDomandaException("Il corpo e gli allegati di una domanda non possono essere entrambi nulli.");
 		}
 		

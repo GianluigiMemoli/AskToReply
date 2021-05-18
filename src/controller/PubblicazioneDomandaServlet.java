@@ -65,9 +65,8 @@ public class PubblicazioneDomandaServlet extends CustomServlet {
 			response.sendRedirect(request.getContextPath() + "/VisualizzaDomandaServlet?id=" + domanda.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.getWriter().append(e.getMessage());
-			//response.getWriter().print(e.getMessage());
-			// TODO Eliminare questa riga di codice
+			request.setAttribute("errore", e.getMessage());
+			request.getRequestDispatcher("VisualizzaFormPubblicazioneDomandaServlet").forward(request, response);
 		} finally {
 			// response.sendRedirect(request.getContextPath() + "/VisualizzaDomandaServlet?id=" + domanda.getId());
 		}

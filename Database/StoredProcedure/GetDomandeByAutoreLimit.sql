@@ -1,6 +1,6 @@
 use asktoreply;
 
-drop procedure if exists GetDomandaByAutoreLimit;
+drop procedure if exists GetDomandeByAutoreLimit;
 
 delimiter &&
 

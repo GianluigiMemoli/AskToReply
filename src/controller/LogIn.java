@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.PartecipanteBean;
 import model.RuoloBean;
 import model.RuoloDAO;
 import model.UtenteBean;
@@ -40,7 +41,10 @@ public class LogIn extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		if(p == 1) {
-			utente.setRuoloID(RuoloDAO.getRuoloByName(RuoloBean.ROLE_PARTECIPANTE).getId());
+			//PartecipanteBean partecipante = new PartecipanteBean(null, null, null, null, null, null, RuoloDAO.getRuoloByName(RuoloBean.ROLE_PARTECIPANTE).getId(), false, "codice_utente_1", p, p);
+			// UtenteBean partecipante = new UtenteBean("codice_utente_1", null, null, null, null, null, RuoloDAO.getRuoloByName(RuoloBean.ROLE_PARTECIPANTE).getId(), false, null);
+			//request.getSession().setAttribute("utenteLoggato", partecipante);
+			return ;
 		}			
 		else if(p == 2) {
 			utente.setRuoloID(RuoloDAO.getRuoloByName(RuoloBean.ROLE_MODERATORE).getId());

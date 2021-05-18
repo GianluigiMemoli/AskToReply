@@ -70,7 +70,7 @@ public class SegnalazioniManager {
 	 * e declina per domanda e risposta.
 	 */
 	
-	public void risolviSegnalazioneDomanda(SegnalazioneDomandaBean segnalazione) {
+	public void risolviSegnalazioneDomanda(SegnalazioneDomandaBean segnalazioneDaRisolvere) {
 		
 		/*
 		 *  TODO: Per migliorare le perfomance si potrebbero prelevare dal DB solo le segnalazioni ad un certa domanda
@@ -79,12 +79,12 @@ public class SegnalazioniManager {
 		
 		ArrayList<SegnalazioneDomandaBean> segnalazioni = getAllSegnalazioniDomanda();
 		
-		String idDomandaSegnalata = segnalazione.getDomandaSegnalata().getId();
-		int idMotivazioneSegnalazione = segnalazione.getMotivazione().getId();
+		String idDomandaSegnalata = segnalazioneDaRisolvere.getDomandaSegnalata().getId();
+		int idMotivazioneSegnalazione = segnalazioneDaRisolvere.getMotivazione().getId();
 		
 		for (SegnalazioneDomandaBean segnalazioneDomandaBean : segnalazioni) {
 					
-			if(segnalazioneDomandaBean.getDomandaSegnalata().getId() == idDomandaSegnalata) {
+			if(segnalazioneDomandaBean.getDomandaSegnalata().getId().equals(idDomandaSegnalata)) {
 				
 				if(idMotivazioneSegnalazione == MotivazioneBean.CONTENUTI_OFFENSIVI) {
 					

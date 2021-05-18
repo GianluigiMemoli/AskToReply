@@ -48,7 +48,7 @@ public class AllegatiHandler {
 		for (Part filePart : allegati) {
 			
 			// Controllo dimensione allegato
-			if(filePart.getSize() >= DIMENSIONE_MAX_ALLEGATO)
+			if(filePart.getSize() > DIMENSIONE_MAX_ALLEGATO)
 				throw new Exception("Allegato '" + filePart.getSubmittedFileName() + "' ha una dimensione superiore a " + DIMENSIONE_MAX_ALLEGATO + " byte");
 		
 			// Controllo sull'estensione dell'allegato
