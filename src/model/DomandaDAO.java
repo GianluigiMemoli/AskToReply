@@ -155,7 +155,7 @@ public class DomandaDAO {
 		
 	}
 	
-public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
+	public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 		
 		DBManager manager = DBManager.getInstance();
 		

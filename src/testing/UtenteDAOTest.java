@@ -20,7 +20,7 @@ public class UtenteDAOTest {
 		UtenteDAO.doAddUtente(ub);
 		assertNotNull(UtenteDAO.getUtenteByUsername("cap4"));
 	}
-	
+/*	
 	@Test
 	public void getUtenteByEmail() {
 		String email="steve4@roger.com";
@@ -77,7 +77,7 @@ public class UtenteDAOTest {
 		assertEquals(true,(UtenteDAO.getUtenteById(ID_UTENTE)).isDisattivato());
 
 	}
-	
+	*/
 	private String getPasswordHash(String password) throws NoSuchAlgorithmException{
 		MessageDigest digest;
 		digest = MessageDigest.getInstance("SHA-256");
