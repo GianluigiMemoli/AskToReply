@@ -134,7 +134,9 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 					 
 					 log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
-					boolean b = RispostaDAO.getRisposteByIdDomanda(idDomanda, page+1).isEmpty();
+					//boolean b = RispostaDAO.getRisposteByIdDomanda(idDomanda, page+1).isEmpty();
+					 boolean b = RisposteManager.getRisposteByIdDomanda(idDomanda, page+1).isEmpty();
+					
 					if(b) {
 						//log.info("La prossima scheda è vuota");
 						request.setAttribute("next", 0);

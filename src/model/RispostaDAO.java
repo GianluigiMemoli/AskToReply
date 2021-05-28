@@ -65,16 +65,17 @@ public class RispostaDAO {
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
 				DomandaBean dom = new DomandaBean();
 				dom.setId((rs.getString("idDomanda")));
-				dom.setTitolo(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo());
+				//dom.setTitolo(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo());								#DAO
 				risposta.setDomanda(dom);
-				int miPiace=0;
+				
+				/*int miPiace=0;
 				int nonMiPiace=0;
-				ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(rs.getString("id"));
+				ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(rs.getString("id"));						#DAO
 				risposta.setVoti(vb);//aggiunto
 				if(vb!=null)for(int k=0; k<vb.size(); k++)if(vb.get(k).getValore()==1)miPiace+=1;else nonMiPiace+=1;
 
 				risposta.setMiPiace(miPiace);
-				risposta.setNonMiPiace(nonMiPiace);
+				risposta.setNonMiPiace(nonMiPiace);*/
 				
 				
 				elencoRisposte.add(risposta);
@@ -149,19 +150,22 @@ public class RispostaDAO {
 				risposta.setId(rs.getString("id"));
 				risposta.setCorpo(rs.getString("corpo"));
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
-				risposta.setAutore(PartecipanteDAO.getPartecipanteByEmail(UtenteDAO.getUtenteById(rs.getString("idAutore")).getEmail()));
+				PartecipanteBean autore = new PartecipanteBean();
+				autore.setId(rs.getString("idAutore"));
+				//risposta.setAutore(PartecipanteDAO.getPartecipanteByEmail(UtenteDAO.getUtenteById(rs.getString("idAutore")).getEmail()));   #DAO
+				risposta.setAutore(autore);
 				DomandaBean dom = new DomandaBean();
 				dom.setId((rs.getString("idDomanda")));
-				dom.setTitolo(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo());
+				//dom.setTitolo(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo());
 				risposta.setDomanda(dom);
-				int miPiace=0;
+			/*	int miPiace=0;
 				int nonMiPiace=0;
 				ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(rs.getString("id"));
 				risposta.setVoti(vb);//aggiunto
 				if(vb!=null)for(int k=0; k<vb.size(); k++)if(vb.get(k).getValore()==1)miPiace+=1;else nonMiPiace+=1;
 
 				risposta.setMiPiace(miPiace);
-				risposta.setNonMiPiace(nonMiPiace);
+				risposta.setNonMiPiace(nonMiPiace);*/
 				elencoRisposte.add(risposta);
 			}
 			return elencoRisposte;

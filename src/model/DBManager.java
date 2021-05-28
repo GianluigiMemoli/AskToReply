@@ -1,11 +1,15 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.String;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
@@ -76,5 +80,11 @@ public class DBManager {
 		conn.close();
 		return stmt;
 	}  	
+	
+	public void executeFromScript(String filePath) throws IOException, SQLException {
+        ScriptRunner sr = new ScriptRunner(this.getSQLConnection());
+        java.io.Reader reader = new BufferedReader(new FileReader(filePath));
+        sr.runScript(reader);
+    }
 	
 }

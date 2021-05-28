@@ -117,6 +117,20 @@ public class RisposteManager {
 		ArrayList<RispostaBean> arrayListRisposteConAllegati = new ArrayList<RispostaBean>();
 
 		for (int counter = 0; counter < arrayListRisposte.size(); counter++) { 	
+			
+			arrayListRisposte.get(counter).setAutore(PartecipanteDAO.getPartecipanteByEmail(UtenteDAO.getUtenteById(arrayListRisposte.get(counter).getAutore().getId()).getEmail()));
+			arrayListRisposte.get(counter).setDomanda(DomandaDAO.getDomandaById(arrayListRisposte.get(counter).getDomanda().getId()));
+
+			
+			int miPiace=0;
+			int nonMiPiace=0;
+			ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(arrayListRisposte.get(counter).getId());
+			arrayListRisposte.get(counter).setVoti(vb);
+			if(vb!=null)for(int k=0; k<vb.size(); k++)if(vb.get(k).getValore()==1)miPiace+=1;else nonMiPiace+=1;
+			arrayListRisposte.get(counter).setMiPiace(miPiace);
+			arrayListRisposte.get(counter).setNonMiPiace(nonMiPiace);
+			
+			
 			AllegatiHandler allegatiHandler = new AllegatiHandler();
 			File[] allegati = allegatiHandler.getAllegati(UPLOAD_PATH + arrayListRisposte.get(counter).getId());
 			arrayListRisposte.get(counter).setAllegati(allegatiHandler.convertToBase64(allegati));
@@ -179,7 +193,24 @@ public class RisposteManager {
 		ArrayList<RispostaBean> arrayListRisposte =  RispostaDAO.getStoricoRisposteByUtente(user, start, offset);
 		ArrayList<RispostaBean> arrayListRisposteConAllegati = new ArrayList<RispostaBean>();
 
-		for (int counter = 0; counter < arrayListRisposte.size(); counter++) { 	
+		for (int counter = 0; counter < arrayListRisposte.size(); counter++) { 
+			
+			//dal DAO
+			
+			DomandaBean dom = arrayListRisposte.get(counter).getDomanda();
+			dom.setTitolo(DomandaDAO.getDomandaById(arrayListRisposte.get(counter).getDomanda().getId()).getTitolo());
+			arrayListRisposte.get(counter).setDomanda(dom);
+			
+			int miPiace=0;
+			int nonMiPiace=0;
+			ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(arrayListRisposte.get(counter).getId());
+			arrayListRisposte.get(counter).setVoti(vb);
+			if(vb!=null)for(int k=0; k<vb.size(); k++)if(vb.get(k).getValore()==1)miPiace+=1;else nonMiPiace+=1;
+			arrayListRisposte.get(counter).setMiPiace(miPiace);
+			arrayListRisposte.get(counter).setNonMiPiace(nonMiPiace);
+			
+			//
+			
 			AllegatiHandler allegatiHandler = new AllegatiHandler();
 			File[] allegati = allegatiHandler.getAllegati(UPLOAD_PATH + arrayListRisposte.get(counter).getId());
 			arrayListRisposte.get(counter).setAllegati(allegatiHandler.convertToBase64(allegati));
