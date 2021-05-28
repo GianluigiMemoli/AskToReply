@@ -1,0 +1,12 @@
+use asktoreply;
+delete from risposte where id = "idRisp1" OR id = "idRisp2" OR id = "idRisp3" OR id = "idRisp4";
+delete from categoriedomande where idCategoria = "id000" OR idCategoria = "id001" OR idCategoria = "idmock";
+delete from categorie where nome = "tennis"; 
+delete from categorie where nome = "pesca"; 
+delete from domande where id = "idmock";
+delete from domande where id = "idmockpertinenti1";
+delete from domande where id = "idmockpertinenti2";
+delete from domande where id = "idmockpertinenti3";
+delete from partecipanti where idUtente = "idautoremock";
+delete from utenti where id = "idautoremock";
+delete from utenti where id ="idrisponditoremock";
