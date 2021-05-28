@@ -1,11 +1,18 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.String;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 import java.util.logging.Logger;
-
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
@@ -76,5 +83,13 @@ public class DBManager {
 		conn.close();
 		return stmt;
 	}  	
+	
+	public void executeFromScript(String filePath) throws IOException, SQLException {
+		
+		Connection conn = getSQLConnection();
+		ScriptRunner sr = new ScriptRunner(conn);
+		sr.runScript(new BufferedReader(new FileReader(filePath)));
+		conn.close();
+	}
 	
 }
