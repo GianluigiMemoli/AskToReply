@@ -1,14 +1,24 @@
 package model;
 
 import java.io.BufferedReader;
+<<<<<<< HEAD
+=======
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+>>>>>>> 9c4faeadf73f0d24e1f6b090e5af6a4f0837f114
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.String;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 import java.util.logging.Logger;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9c4faeadf73f0d24e1f6b090e5af6a4f0837f114
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
@@ -82,9 +92,18 @@ public class DBManager {
 	}  	
 	
 	public void executeFromScript(String filePath) throws IOException, SQLException {
+<<<<<<< HEAD
         ScriptRunner sr = new ScriptRunner(this.getSQLConnection());
         java.io.Reader reader = new BufferedReader(new FileReader(filePath));
         sr.runScript(reader);
     }
+=======
+		
+		Connection conn = getSQLConnection();
+		ScriptRunner sr = new ScriptRunner(conn);
+		sr.runScript(new BufferedReader(new FileReader(filePath)));
+		conn.close();
+	}
+>>>>>>> 9c4faeadf73f0d24e1f6b090e5af6a4f0837f114
 	
 }
