@@ -21,6 +21,10 @@ public class SegnalazioniManager {
 		
 	}
 	
+	public void creazioneSegnalazioneRisposta(SegnalazioneRispostaBean srb) {
+		SegnalazioneRispostaDAO.addSegnalazioneRisposta(srb);
+	}
+	
 	public ArrayList<SegnalazioneDomandaBean> getSegnalazioniDomanda(int start, int end) {
 		
 		ArrayList<SegnalazioneDomandaBean> segnalazioni = SegnalazioneDomandaDAO.getSegnalazioniDomanda(start, end);
@@ -59,7 +63,9 @@ public class SegnalazioniManager {
 	
 	public ArrayList<SegnalazioneRispostaBean> getAllSegnalazioniRisposta() {
 		// TODO
-		return SegnalazioneRispostaDAO.getElencoSegnalazioniRisposte();
+		ArrayList<SegnalazioneRispostaBean> elenco =  SegnalazioneRispostaDAO.getElencoSegnalazioniRisposte();
+		for(int c=0; c<elenco.size(); c++) elenco.get(c).setMotivazione(MotivazioneDAO.getMotivazioneById(elenco.get(c).getMotivazione().getId()));
+		return elenco;
 	}
 
 	public SegnalazioneDomandaBean getSegnalazioneDomanda(String id) {
@@ -68,7 +74,9 @@ public class SegnalazioniManager {
 
 	public SegnalazioneRispostaBean getSegnalazioneRisposta(String id) {
 		// TODO
-		return SegnalazioneRispostaDAO.getSegnalazioneRispostaById(id);
+		SegnalazioneRispostaBean srb = SegnalazioneRispostaDAO.getSegnalazioneRispostaById(id);
+		srb.setMotivazione(MotivazioneDAO.getMotivazioneById(srb.getMotivazione().getId()));
+		return srb;
 	}
 
 	public void risolviSegnalazioneDomanda(SegnalazioneDomandaBean segnalazioneDaRisolvere) {

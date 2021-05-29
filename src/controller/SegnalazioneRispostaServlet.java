@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -9,13 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import Exceptions.ErrorePubblicazioneRispostaException;
-import Exceptions.ErroreSegnalazioneRispostaException;
 import model.MotivazioneBean;
 import model.RispostaBean;
 import model.SegnalazioneRispostaBean;
-import model.SegnalazioneRispostaDAO;
+import model.SegnalazioniManager;
 
 /**
  * Servlet implementation class SegnalazioneRispostaServlet
@@ -23,7 +19,7 @@ import model.SegnalazioneRispostaDAO;
 @WebServlet("/SegnalazioneRispostaServlet")
 public class SegnalazioneRispostaServlet extends CustomServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); //test
+	static Logger log = Logger.getLogger(SegnalazioneRispostaServlet.class.getName()); //test
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -54,20 +50,19 @@ if(idRisposta!=null) {
 				idMotivazione = Integer.parseInt(request.getParameter("idMotivazione"));
 				commento = request.getParameter("commento");
 				stato=1;
-				dataSegnalazione = new Date();
-					
-		SegnalazioneRispostaBean sr=new SegnalazioneRispostaBean();
-		RispostaBean rb = new RispostaBean();
-		rb.setId(idRisposta);
-		sr.setRispostaSegnalata(rb);
-		sr.setDataSegnalazione(dataSegnalazione);
-		MotivazioneBean motivazione = new MotivazioneBean();
-		motivazione.setId(idMotivazione);
-		sr.setMotivazione(motivazione);
-		
-		sr.setStato(stato);
-		sr.setCommento(commento);
-		SegnalazioneRispostaDAO.addSegnalazioneRisposta(sr);		
+				dataSegnalazione = new Date();		
+				SegnalazioneRispostaBean sr=new SegnalazioneRispostaBean();
+				RispostaBean rb = new RispostaBean();
+				rb.setId(idRisposta);
+				sr.setRispostaSegnalata(rb);
+				sr.setDataSegnalazione(dataSegnalazione);
+				MotivazioneBean motivazione = new MotivazioneBean();
+				motivazione.setId(idMotivazione);
+				sr.setMotivazione(motivazione);
+				sr.setStato(stato);
+				sr.setCommento(commento);
+				SegnalazioniManager sm = new SegnalazioniManager();
+				sm.creazioneSegnalazioneRisposta(sr);
 		
 
 				} else {log.info("Errore: Id motivazione Null");		request.setAttribute("errore", "Segnalazione non effettuata");
