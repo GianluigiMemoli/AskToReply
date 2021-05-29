@@ -29,14 +29,23 @@ public class SegnalazioniManager {
 		
 		for (SegnalazioneDomandaBean segnalazione : segnalazioni) {
 			
+			// Inserimento della domanda
+			
 			String idDomandaSegnalata = segnalazione.getDomandaSegnalata().getId();
-			DomandaBean domandaSegnalata = managerDomande.getDomandaById(idDomandaSegnalata);	
+			
+			DomandaBean domandaSegnalata = managerDomande.getDomandaById(idDomandaSegnalata);
+			
+			domandaSegnalata.setCategorie(CategoriaDAO.getCategorieDomandaByIdDomanda(domandaSegnalata.getId()));
+			
 			segnalazione.setDomandaSegnalata(domandaSegnalata);
-				
-			if(segnalazione.getMotivazione().getId() == MotivazioneBean.OFFTOPIC 
-					&& domandaSegnalata != null) {
-				domandaSegnalata.setCategorie(CategoriaDAO.getCategorieDomandaByIdDomanda(domandaSegnalata.getId()));
-			}
+			
+			// Inserimento della motivazione
+			
+			int idMotivazioneSegnalazione = segnalazione.getMotivazione().getId();
+			
+			MotivazioneBean motivazioneSegnalazione = MotivazioneDAO.getMotivazioneById(idMotivazioneSegnalazione);
+			
+			segnalazione.setMotivazione(motivazioneSegnalazione);
 			
 		}
 		

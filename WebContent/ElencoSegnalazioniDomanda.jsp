@@ -35,20 +35,20 @@
 
 	<div class="card-body">
 
+		<jsp:include page="PopupErrore.jsp"></jsp:include>
+			
+		<c:if test="${not empty messaggioDiSuccesso}">
+        	<div class="p-3 mt-2 mb-2 bg-success text-white">${messaggioDiSuccesso}</div>
+      	</c:if>
+
 		<% int counter = 1; %>
 
 		<c:forEach items="${segnalazioniDomanda}" var="s">
 
-			<jsp:include page="PopupErrore.jsp"></jsp:include>
-			
-			<c:if test="${not empty messaggioDiSuccesso}">
-            	<div class="p-3 mt-2 mb-2 bg-success text-white">${messaggioDiSuccesso}</div>
-       		</c:if>
-
 			<div class="question rounded border">
 			
 					<div class="d-flex w-100 justify-content-between">
-						<small class="text-secondary" style="  text-transform: uppercase;">Motivazione (quando funziona va tolto) ${s.getMotivazione().getNome()}</small>
+						<small class="text-secondary" style="  text-transform: uppercase;">Motivazione: ${s.getMotivazione().getNome()}</small>
 						<small class="text-secondary">${s.getDataSegnalazione()}</small>
 					</div>
 			
@@ -188,7 +188,7 @@
 			<ul class="pagination">
 				<c:if test="${paginaCorrente > 1}">
 					<li class="page-item"><a class="page-link"
-						href="ElencoSegnalazioniDomandaServlet?p=${paginaCorrente-1}">Precedente</a>
+						href="VisualizzaElencoSegnalazioniDomanda?p=${paginaCorrente-1}">Precedente</a>
 					</li>
 				</c:if>
 				
@@ -197,7 +197,7 @@
 
 				<c:if test="${paginaCorrente < pagineTotali}">
 					<li class="page-item"><a class="page-link"
-						href="ElencoSegnalazioniDomandaServlet?p=${paginaCorrente+1}">Avanti</a>
+						href="VisualizzaElencoSegnalazioniDomanda?p=${paginaCorrente+1}">Avanti</a>
 					</li>
 				</c:if>
 			</ul>
