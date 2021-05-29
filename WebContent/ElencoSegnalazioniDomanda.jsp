@@ -9,26 +9,28 @@
 </jsp:include>
 
 <style>
-.debug-content {
-	border: 2px solid red;
-}
 
-.debug-media {
-	border: 2px solid blue;
-}
+	.debug-content {
+		border: 2px solid red;
+	}
+	
+	.debug-media {
+		border: 2px solid blue;
+	}
+	
+	.questions-list {
+		padding: 2em;
+	}
+	
+	.question {
+		margin-bottom: 2em;
+		padding: 1em;
+	}
+	
+	.paginator {
+		align-self: center;
+	}
 
-.questions-list {
-	padding: 2em;
-}
-
-.question {
-	margin-bottom: 2em;
-	padding: 1em;
-}
-
-.paginator {
-	align-self: center;
-}
 </style>
 
 <div class="content debug">
@@ -48,11 +50,10 @@
 			<div class="question rounded border">
 			
 					<div class="d-flex w-100 justify-content-between">
-						<small class="text-secondary" style="  text-transform: uppercase;">Motivazione: ${s.getMotivazione().getNome()}</small>
+						<small class="text-secondary" style="text-transform: uppercase;">Motivazione: ${s.getMotivazione().getNome()}</small>
 						<small class="text-secondary">${s.getDataSegnalazione()}</small>
 					</div>
-			
-			
+		
 				<c:choose>
 					<c:when test="${s.getMotivazione().getId() == 1}">
 						<c:set var="url_risoluzione_segnalazione"
@@ -71,29 +72,26 @@
 
 					<h5 style="margin-bottom: 0pt; color: black;" class="lead">${s.getDomandaSegnalata().getTitolo()}</h5>
 
-
 					<p style="color: black; margin-bottom:0pt;">${s.getDomandaSegnalata().getCorpo()}</p>
 					
-					
 					<c:if test="${!s.getCommento().isEmpty()}">
-						
 						<small>Commento segnalazione: ${s.getCommento()}</small>
-					
 					</c:if>
 
 					<c:choose>
 						<c:when test="${s.getDomandaSegnalata().getAllegati().size() > 0}">
-						
-						<div class="container" style="margin-left:0px;">
-							<div class="row">
-
-							<c:forEach items="${s.getDomandaSegnalata().getAllegati()}" var="allegato">
-								
-								<div class="col-0 p-0">
-									<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail" style="max-height: 150px; min-height: 100px; min-height: 50%;">
-								</div>
-								
-							</c:forEach>
+							<div class="container" style="margin-left:0px;">
+							
+								<div class="row">
+	
+									<c:forEach items="${s.getDomandaSegnalata().getAllegati()}" var="allegato">
+										
+										<div class="col-0 p-0">
+											<img src="data:image/jpg;base64,${allegato}" alt="" class="img-fluid img-thumbnail" style="max-height: 150px; min-height: 100px; min-height: 50%;">
+										</div>
+										
+									</c:forEach>
+									
 								</div>
 							</div>
 						</c:when>
@@ -103,8 +101,7 @@
 
 						<c:when test="${s.getMotivazione().getId() == 1}">
 			  	
- <button type="submit" class="btn btn-outline-success btn-sm border-0 btnsmussato" name="approva" id="approva"><ion-icon name="shield-checkmark"></ion-icon> Approva</button>
-
+ 							<button type="submit" class="btn btn-outline-success btn-sm border-0 btnsmussato" name="approva" id="approva"><ion-icon name="shield-checkmark"></ion-icon> Approva</button>
 
 						</c:when>
 
