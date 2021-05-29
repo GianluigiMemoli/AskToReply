@@ -62,28 +62,32 @@ public class SegnalazioniManager {
 		return SegnalazioneRispostaDAO.getSegnalazioneRispostaById(id);
 	}
 
-	/*
-	 * TODO Possibile refactoring: Fare una classe SegnalazioneDAO in modo da mettere al suo interno 
-	 * updateStatoSegnalazione() ed usare quest'ultimo metodo invece di avere un metodo risolvi
-	 * e declina per domanda e risposta.
-	 */
-	
 	public void risolviSegnalazioneDomanda(SegnalazioneDomandaBean segnalazioneDaRisolvere) {
-		
-		/*
-		 *  TODO: Per migliorare le perfomance si potrebbero prelevare dal DB solo le segnalazioni ad un certa domanda
-		 *  piuttosto che tutte.
-		 */
 		
 		ArrayList<SegnalazioneDomandaBean> segnalazioni = getAllSegnalazioniDomanda();
 		
 		String idDomandaSegnalata = segnalazioneDaRisolvere.getDomandaSegnalata().getId();
-		int idMotivazioneSegnalazione = segnalazioneDaRisolvere.getMotivazione().getId();
+		int idMotivazioneSegnalazioneDaRisolvere = segnalazioneDaRisolvere.getMotivazione().getId();
 		
 		for (SegnalazioneDomandaBean segnalazioneDomandaBean : segnalazioni) {
 					
 			if(segnalazioneDomandaBean.getDomandaSegnalata().getId().equals(idDomandaSegnalata)) {
 				
+				if(idMotivazioneSegnalazioneDaRisolvere == MotivazioneBean.OFFTOPIC) {
+					
+					if(segnalazioneDomandaBean.getMotivazione().getId() == MotivazioneBean.OFFTOPIC) {
+						segnalazioneDomandaBean.setStato(SegnalazioneBean.APPROVATA);
+						SegnalazioneDomandaDAO.updateStatoSegnalazioneDomanda(segnalazioneDomandaBean);
+					}
+				
+				} else {
+					
+					segnalazioneDomandaBean.setStato(SegnalazioneBean.APPROVATA);
+					SegnalazioneDomandaDAO.updateStatoSegnalazioneDomanda(segnalazioneDomandaBean);
+					
+				}
+				
+				/*
 				if(idMotivazioneSegnalazione == MotivazioneBean.CONTENUTI_OFFENSIVI) {
 					
 					segnalazioneDomandaBean.setStato(SegnalazioneBean.APPROVATA);
@@ -97,6 +101,7 @@ public class SegnalazioniManager {
 					}
 					
 				}
+				*/
 				
 			}
 			
