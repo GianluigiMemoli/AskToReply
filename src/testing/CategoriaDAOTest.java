@@ -1,35 +1,25 @@
 package testing;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-
 import java.io.IOException;
 import java.sql.SQLException;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import model.CategoriaBean;
 import model.CategoriaDAO;
 import model.DBManager;
-
-
 
 public class CategoriaDAOTest {
 
 	@BeforeEach
 	public void setup() throws IOException, SQLException{
-		System.out.println("@@@@@@###########@@@@@@@@@@");
 		DBManager dbManager = DBManager.getInstance();
-		dbManager.executeFromScript("Database/popola.sql");
+		dbManager.executeFromScript("Database/populate/populateCategorie.sql");
 	}
 	
-
 	@Test
 	public void getCategoriaByNomeTest() {
-		String NOME = "CATEGORIA_DI_TEST";
+		String NOME = "Economia";
 		assertNull(CategoriaDAO.getCategoriaByNome("categorianonpresente"));
 		assertNotNull(CategoriaDAO.getCategoriaByNome(NOME));
 	}
@@ -43,16 +33,12 @@ public class CategoriaDAOTest {
 		CategoriaDAO.addCategoria(cb);
 		assertNotNull(CategoriaDAO.getCategoriaByNome(NOME));
 	}
-	
-
-	
 
 	@Test
 	public void getAllTest() {
-		int NUMERO_CATEGORIE = 7;
+		int NUMERO_CATEGORIE = 6;
 		assertEquals(NUMERO_CATEGORIE, CategoriaDAO.getAll().size());
 	}
-	
 	
 	@Test
 	public void getCategorieDomandaByIdDomandaTest() {
@@ -60,7 +46,6 @@ public class CategoriaDAOTest {
 		int N_CATEGORIE_DOM = 3;
 		assertEquals(N_CATEGORIE_DOM, CategoriaDAO.getCategorieDomandaByIdDomanda(ID_DOMANDA).size());
 	}
-	
 	
 	@Test
 	public void getCategorieByUtenteTest() {

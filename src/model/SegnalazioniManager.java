@@ -12,13 +12,11 @@ public class SegnalazioniManager {
 			DomandaBean domandaSegnalata) {
 		
 		SegnalazioneDomandaBean segnalazione = new SegnalazioneDomandaBean();
-		
 		segnalazione.setMotivazione(motivazione);
 		segnalazione.setDataSegnalazione(dataSegnalazione);
 		segnalazione.setStato(SegnalazioneBean.DA_GESTIRE);
 		segnalazione.setCommento(commento);
 		segnalazione.setDomandaSegnalata(domandaSegnalata);
-		
 		SegnalazioneDomandaDAO.addSegnalazioneDomanda(segnalazione);
 		
 	}

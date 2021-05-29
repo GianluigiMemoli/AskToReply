@@ -7,12 +7,9 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class MotivazioneDAO {
-
-	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); // test
 	
 	public static ArrayList<MotivazioneBean> getAll() {
 
-		
 		DBManager manager = DBManager.getInstance();
 		
 		try {
@@ -28,15 +25,7 @@ public class MotivazioneDAO {
 				MotivazioneBean motivazione = new MotivazioneBean();
 				motivazione.setId(rs.getInt("id"));
 				motivazione.setNome(rs.getNString("nome"));
-				
-				
-				log.info("***********************************");
-				log.info(motivazione.getNome());
-				log.info("***********************************");
-
-				
-				motivazioni.add(motivazione);
-				
+				motivazioni.add(motivazione);	
 			}
 			
 			return motivazioni;

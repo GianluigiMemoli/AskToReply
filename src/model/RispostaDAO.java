@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class RispostaDAO {
 
-	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); // test
+	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName());
 
 	public static RispostaBean addRisposta(RispostaBean risposta) {
 		DBManager dbManager = DBManager.getInstance();
@@ -23,7 +23,7 @@ public class RispostaDAO {
 			callProcedure.registerOutParameter(5, Types.VARCHAR);
 			callProcedure.executeUpdate();
 			RispostaBean rb = new RispostaBean();
-			rb.setId(callProcedure.getNString(5)); // forse è 6???
+			rb.setId(callProcedure.getNString(5));
 			return rb;
 		} catch (SQLException exc) {
 			exc.printStackTrace();
@@ -43,16 +43,16 @@ public class RispostaDAO {
 		}
 	}
 
-	public static ArrayList<RispostaBean> getStoricoRisposteByUtente(UtenteBean utente, int start, int offset) {//aggiunta: int x
+	public static ArrayList<RispostaBean> getStoricoRisposteByUtente(UtenteBean utente, int start, int offset) {
 		String idUser = utente.getId();
 		DBManager dbManager = DBManager.getInstance();
 		ResultSet rs = null;
 		ArrayList<RispostaBean> elencoRisposte = new ArrayList<RispostaBean>();
 		RispostaBean risposta = null;
 		try {
-			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRisposteByUser", 3); //modificato 1 in 2
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRisposteByUser", 3);
 			callProcedure.setString(1, idUser);
-			callProcedure.setInt(2, start); //rigo aggiunto
+			callProcedure.setInt(2, start);
 			callProcedure.setInt(3, offset);
 			rs = callProcedure.executeQuery();
 			while (rs.next()) {
@@ -65,19 +65,7 @@ public class RispostaDAO {
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
 				DomandaBean dom = new DomandaBean();
 				dom.setId((rs.getString("idDomanda")));
-				//dom.setTitolo(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo());								#DAO
 				risposta.setDomanda(dom);
-				
-				/*int miPiace=0;
-				int nonMiPiace=0;
-				ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(rs.getString("id"));						#DAO
-				risposta.setVoti(vb);//aggiunto
-				if(vb!=null)for(int k=0; k<vb.size(); k++)if(vb.get(k).getValore()==1)miPiace+=1;else nonMiPiace+=1;
-
-				risposta.setMiPiace(miPiace);
-				risposta.setNonMiPiace(nonMiPiace);*/
-				
-				
 				elencoRisposte.add(risposta);
 			}
 			return elencoRisposte;
@@ -141,8 +129,7 @@ public class RispostaDAO {
 		try {
 			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetRisposteByIdDomanda", 2); //modificato 1 in 2
 			callProcedure.setString(1, idDomanda);
-			callProcedure.setInt(2, numPagina*4); //rigo aggiunto
-			// rs = callProcedure.getResultSet();//esplosione
+			callProcedure.setInt(2, numPagina*4);
 			rs = callProcedure.executeQuery();
 			log.info("prima del while");
 			while (rs.next()) {
@@ -152,20 +139,10 @@ public class RispostaDAO {
 				risposta.setDataPubblicazione(rs.getDate("dataPubblicazione"));
 				PartecipanteBean autore = new PartecipanteBean();
 				autore.setId(rs.getString("idAutore"));
-				//risposta.setAutore(PartecipanteDAO.getPartecipanteByEmail(UtenteDAO.getUtenteById(rs.getString("idAutore")).getEmail()));   #DAO
 				risposta.setAutore(autore);
 				DomandaBean dom = new DomandaBean();
 				dom.setId((rs.getString("idDomanda")));
-				//dom.setTitolo(DomandaDAO.getDomandaById(rs.getString("idDomanda")).getTitolo());
 				risposta.setDomanda(dom);
-			/*	int miPiace=0;
-				int nonMiPiace=0;
-				ArrayList <VotazioneBean> vb = VotazioneDAO.getVotazioniByIdRisposta(rs.getString("id"));
-				risposta.setVoti(vb);//aggiunto
-				if(vb!=null)for(int k=0; k<vb.size(); k++)if(vb.get(k).getValore()==1)miPiace+=1;else nonMiPiace+=1;
-
-				risposta.setMiPiace(miPiace);
-				risposta.setNonMiPiace(nonMiPiace);*/
 				elencoRisposte.add(risposta);
 			}
 			return elencoRisposte;

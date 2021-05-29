@@ -3,11 +3,14 @@ package testing;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import model.DBManager;
 import model.DomandaDAO;
 import model.MotivazioneBean;
 import model.SegnalazioneDomandaBean;
@@ -15,10 +18,22 @@ import model.SegnalazioneDomandaDAO;
 
 public class SegnalazioneDomandaDAOTest {
 
+	@BeforeAll
+	public static void boh() throws IOException, SQLException {
+		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/reset.sql");
+	}
+	
+	@BeforeEach
+	public void setup() throws IOException, SQLException{
+		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/populate/populateSegnalazioniDomande.sql");
+	}
+	
 	@Test
-	public void getAllTest(){
+	public void getSegnalazioniDomandaTest(){
 		int NUMERO_SEGNALAZIONI = 3;
-		assertEquals(NUMERO_SEGNALAZIONI, SegnalazioneDomandaDAO.getAll().size());
+		assertEquals(NUMERO_SEGNALAZIONI, SegnalazioneDomandaDAO.getSegnalazioniDomanda(0,10).size());
 	}
 	
 	@Test
@@ -28,17 +43,24 @@ public class SegnalazioneDomandaDAOTest {
 	}
 	
 	@Test
-	public void getSegnalazioniDomandaTest(){
-		int NUMERO_SEGNALAZIONI = 3;
-		assertEquals(NUMERO_SEGNALAZIONI, SegnalazioneDomandaDAO.getSegnalazioniDomanda(0,10));
+	public void getSegnalazioneDomandaByIdTest(){
+		assertNull(SegnalazioneDomandaDAO.getSegnalazioneDomandaById("ID_NON_PRESENTE"));
+		assertNotNull(SegnalazioneDomandaDAO.getSegnalazioneDomandaById("SE1ID"));
+	}
+
+	@Test
+	public void updateStatoSegnalazioneDomandaTest(){
+		SegnalazioneDomandaBean sb = SegnalazioneDomandaDAO.getSegnalazioneDomandaById("SE1ID");
+		assertEquals(1, sb.getStato());
+		sb.setStato(2);
+		SegnalazioneDomandaDAO.updateStatoSegnalazioneDomanda(sb);
+		assertEquals(2, sb.getStato());
 	}
 	
 	@Test
-	public void getSegnalazioneDomandaByIdTest(){
-		/*Random random = new Random();
-		assertNotNull(SegnalazioneDomandaDAO.getSegnalazioneDomandaById(SegnalazioneDomandaDAO.getAll().get(random.nextInt(SegnalazioneDomandaDAO.getAll().size())).getId()));*/
-		assertNull(SegnalazioneDomandaDAO.getSegnalazioneDomandaById("ID_NON_PRESENTE"));
-		assertNotNull(SegnalazioneDomandaDAO.getSegnalazioneDomandaById("SE1ID"));
+	public void getAllTest(){
+		int NUMERO_SEGNALAZIONI = 3;
+		assertEquals(NUMERO_SEGNALAZIONI, SegnalazioneDomandaDAO.getAll().size());
 	}
 		
 	@Test
@@ -57,16 +79,5 @@ public class SegnalazioneDomandaDAOTest {
 		NUMERO_SEGNALAZIONI = 4;
 		assertEquals(NUMERO_SEGNALAZIONI, SegnalazioneDomandaDAO.getAll().size());
 	}
-	
-	@Test
-	public void updateStatoSegnalazioneDomandaTest(){
-		SegnalazioneDomandaBean sb = SegnalazioneDomandaDAO.getSegnalazioneDomandaById("SE1ID");
-		assertEquals(1, sb.getStato());
-		sb.setStato(2);
-		SegnalazioneDomandaDAO.updateStatoSegnalazioneDomanda(sb);
-		assertEquals(2, sb.getStato());
-	}
-
-
 	
 }

@@ -3,34 +3,35 @@ package testing;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
 import model.DBManager;
 import model.UtenteBean;
 import model.UtenteDAO;
 
 public class UtenteDAOTest {
 	
+	@BeforeAll
+	public static void boh() throws IOException, SQLException {
+		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/reset.sql");
+	}
+	
 	@BeforeEach
 	public void setup() throws IOException, SQLException{
-		System.out.println("@@@@@@###########@@@@@@@@@@");
 		DBManager dbManager = DBManager.getInstance();
-		dbManager.executeFromScript("Database/popola.sql");
+		dbManager.executeFromScript("Database/populate/populateUtenti.sql");
 	}
 	
 	@Test
-	public void doAddUtente() throws NoSuchAlgorithmException {
+	public void doAddUtente() {
 		UtenteBean ub = new UtenteBean("utente4@email.com", "notHashedPass", "user4", "Carmine", "Verdi", 1, false, null);
 		assertNull(UtenteDAO.getUtenteByEmail("utente4@email.com"));
 		assertNull(UtenteDAO.getUtenteByUsername("user4"));
@@ -38,17 +39,13 @@ public class UtenteDAOTest {
 		assertNotNull(UtenteDAO.getUtenteByUsername("user4"));
 	}
 
-	
 	@Test
 	public void getUtenteByEmail() {
-		String email="utente4@email.com";
+		String email="utente3@email.com";
 		assertNotNull(UtenteDAO.getUtenteByEmail(email));
 		email="email@nonpresente.com";
 		assertNull(UtenteDAO.getUtenteByEmail(email));
 	}
-	
-
-
 	
 	@Test
 	public void doGetAllModeratori() {
@@ -56,10 +53,8 @@ public class UtenteDAOTest {
 		assertEquals(NUMERO_MOD, UtenteDAO.doGetAllModeratori().size());
 	}
 	
-
-
 	@Test
-	public void doAddModeratore() throws NoSuchAlgorithmException{
+	public void doAddModeratore() {
 		String EMAIL = "mod2@email.com";
 		String PASSWORD = "notHashedPass";
 		String USERNAME = "mod2";
@@ -71,14 +66,12 @@ public class UtenteDAOTest {
 		assertNotNull(UtenteDAO.getUtenteByUsername(USERNAME));
 	}
 
-
 	@Test
 	public void doDeactivateUser(){
 		String ID_UTENTE ="MOD1ID";
 		assertEquals(false,(UtenteDAO.getUtenteById(ID_UTENTE)).isDisattivato());
 		UtenteDAO.doDeactivateUser(ID_UTENTE);
 		assertEquals(true,(UtenteDAO.getUtenteById(ID_UTENTE)).isDisattivato());
-
 	}
 	
 	@Test
@@ -89,14 +82,11 @@ public class UtenteDAOTest {
 		assertNull(UtenteDAO.getUtenteByUsername(id));
 	}
 	
-	
 	@Test
 	public void getUtenteByUsername() {
-		String username="user4";
+		String username="user3";
 		assertNotNull(UtenteDAO.getUtenteByUsername(username));
 		username="usernonpresente";
 		assertNull(UtenteDAO.getUtenteByUsername(username));
 	}
-
-
 }
