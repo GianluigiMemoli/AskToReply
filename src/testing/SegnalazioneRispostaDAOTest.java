@@ -59,13 +59,10 @@ public class SegnalazioneRispostaDAOTest {
 	@Test
 	public void updateStatoSegnalazioneRispostaTest() {
 		SegnalazioneRispostaBean segn = SegnalazioneRispostaDAO.getSegnalazioneRispostaById("idSegn2");
-		segn.setStato(2);
-		System.out.println("UPDATE STATO SEGN");		
-		System.out.println(segn.getStato());
+		segn.setStato(2);		
 		SegnalazioneRispostaDAO.updateStatoSegnalazioneRisposta(segn);
 		SegnalazioneRispostaBean segn2 = SegnalazioneRispostaDAO.getSegnalazioneRispostaById("idSegn2");
-		System.out.println(segn2);
-		assertEquals(2, 2);
+		assertNull(segn2);
 		
 	}
 }
