@@ -71,7 +71,9 @@ public class SegnalazioneRispostaDAO {
 				segnalazioneRisposta.setIdSegnalazione(rs.getString("id"));
 				segnalazioneRisposta.setRispostaSegnalata(RisposteManager.getRispostaById(rs.getString("idRisposta")));
 				segnalazioneRisposta.setDomanda(DomandaDAO.getDomandaById(RispostaDAO.getRispostaById((rs.getString("idRisposta"))).getDomanda().getId()));
-				segnalazioneRisposta.setMotivazione((MotivazioneDAO.getMotivazioneById(rs.getInt("idMotivazione"))));
+				MotivazioneBean mb = new MotivazioneBean();
+				mb.setId(rs.getInt("idMotivazione"));
+				segnalazioneRisposta.setMotivazione(mb);
 				segnalazioneRisposta.setDataSegnalazione(rs.getDate("dataSegnalazione")); 
 				segnalazioneRisposta.setStato(rs.getInt("stato")); 
 				segnalazioneRisposta.setCommento(rs.getString("commento"));
@@ -93,7 +95,9 @@ public class SegnalazioneRispostaDAO {
 			if(rs.next()) {
 				segnalazioneRisposta = new SegnalazioneRispostaBean();
 				segnalazioneRisposta.setIdSegnalazione(rs.getString("id"));
-				segnalazioneRisposta.setMotivazione((MotivazioneDAO.getMotivazioneById(rs.getInt("idMotivazione"))));
+				MotivazioneBean mb = new MotivazioneBean();
+				mb.setId(rs.getInt("idMotivazione"));
+				segnalazioneRisposta.setMotivazione(mb);
 				segnalazioneRisposta.setDataSegnalazione(rs.getDate("dataSegnalazione")); 
 				segnalazioneRisposta.setStato(rs.getInt("stato")); 
 				segnalazioneRisposta.setCommento(rs.getString("commento"));

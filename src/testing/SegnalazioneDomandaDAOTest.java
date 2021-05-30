@@ -19,7 +19,7 @@ import model.SegnalazioneDomandaDAO;
 public class SegnalazioneDomandaDAOTest {
 
 	@BeforeAll
-	public static void boh() throws IOException, SQLException {
+	public static void reset() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
 		dbManager.executeFromScript("Database/reset.sql");
 	}

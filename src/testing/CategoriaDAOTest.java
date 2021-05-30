@@ -3,6 +3,8 @@ package testing;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.sql.SQLException;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import model.CategoriaBean;
@@ -11,6 +13,12 @@ import model.DBManager;
 
 public class CategoriaDAOTest {
 
+	@BeforeAll
+	public static void reset() throws IOException, SQLException {
+		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/reset.sql");
+	}
+	
 	@BeforeEach
 	public void setup() throws IOException, SQLException{
 		DBManager dbManager = DBManager.getInstance();
@@ -51,5 +59,6 @@ public class CategoriaDAOTest {
 	public void getCategorieByUtenteTest() {
 		int N_INTERESSI_USER = 3;
 		assertEquals(N_INTERESSI_USER, CategoriaDAO.getCategorieByUtente("USER2ID").size());
+		//vedere se ha preso quelli giusti.
 	}
 }

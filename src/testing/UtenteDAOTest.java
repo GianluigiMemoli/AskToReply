@@ -19,7 +19,7 @@ import model.UtenteDAO;
 public class UtenteDAOTest {
 	
 	@BeforeAll
-	public static void boh() throws IOException, SQLException {
+	public static void reset() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
 		dbManager.executeFromScript("Database/reset.sql");
 	}
@@ -51,6 +51,8 @@ public class UtenteDAOTest {
 	public void doGetAllModeratori() {
 		int NUMERO_MOD = 1;
 		assertEquals(NUMERO_MOD, UtenteDAO.doGetAllModeratori().size());
+		String ID_MOD = "MOD1ID";
+		assertEquals(ID_MOD, UtenteDAO.doGetAllModeratori().get(0).getId());
 	}
 	
 	@Test

@@ -24,8 +24,6 @@ public class SegnalazioneRispostaBean {
 		this.idSegnalazione = idSegnalazione;
 		this.domanda = domanda;
 	}
-
-	
 	
 	public String getIdSegnalazione() {
 		return idSegnalazione;

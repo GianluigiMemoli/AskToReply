@@ -4,7 +4,6 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 public class MotivazioneDAO {
 	
@@ -51,6 +50,7 @@ public class MotivazioneDAO {
 			
 			if(rs.next()) {
 				MotivazioneBean motivazione = new MotivazioneBean();
+				motivazione.setId(id);
 				motivazione.setNome(rs.getString("nome"));
 		        return motivazione;
 			}
