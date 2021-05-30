@@ -34,7 +34,6 @@ public class DomandaDAOTest {
 	 * ASPETTARE:
 		  removeDomanda
 		  updateCategorieDomanda
-		  getDomandeCercate
 	 * */
 	
 	@Test

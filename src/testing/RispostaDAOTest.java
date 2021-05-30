@@ -22,24 +22,24 @@ import model.RispostaBean;
 import model.RispostaDAO;
 
 class RispostaDAOTest {
-	@BeforeAll
-	public static void setup() throws IOException, SQLException {
+	@BeforeEach
+	public void setup() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
 		dbManager.executeFromScript("Database/testingQueries/initRispostaDAO.sql");
 	}
 	
-	@AfterAll
-	public static void teardown() throws IOException, SQLException {
+	@AfterEach
+	public void teardown() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
 		dbManager.executeFromScript("Database/testingQueries/teardownRispostaDAO.sql");
 	}
-	@Ignore
+	@Test
 	public void addRispostaTest() {
 		DomandaBean domandaDaRispondere = new DomandaBean();
 		PartecipanteBean partecipante = new PartecipanteBean();
 		partecipante.setId("idrisponditoremock"); 
-		domandaDaRispondere.setId("domandaDaRispondere");		
-		RispostaBean risposta = new RispostaBean(null, domandaDaRispondere, "corpo", partecipante, new Date());
+		domandaDaRispondere.setId("domandaDaRispondere");
+		RispostaBean risposta = new RispostaBean("", domandaDaRispondere, "corpo", partecipante, new Date());
 		assertNotNull(RispostaDAO.addRisposta(risposta));
 	}
 	
@@ -81,5 +81,12 @@ class RispostaDAOTest {
 		}
 		
 	}
-
+	/*
+	@Test public void removeRispostaTest() {
+		RispostaBean risposta = RispostaDAO.getRispostaById("idRisp1");
+		RispostaDAO.removeRisposta(risposta);
+		RispostaBean rispostaNascosta = RispostaDAO.getRispostaById("idRisp1");
+		assertTrue(rispostaNascosta.is)
+	}
+*/
 }
