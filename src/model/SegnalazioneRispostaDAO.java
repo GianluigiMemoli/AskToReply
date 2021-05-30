@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -70,7 +69,6 @@ public class SegnalazioneRispostaDAO {
 				segnalazioneRisposta = new SegnalazioneRispostaBean();
 				segnalazioneRisposta.setIdSegnalazione(rs.getString("id"));
 				segnalazioneRisposta.setRispostaSegnalata(RisposteManager.getRispostaById(rs.getString("idRisposta")));
-				segnalazioneRisposta.setDomanda(DomandaDAO.getDomandaById(RispostaDAO.getRispostaById((rs.getString("idRisposta"))).getDomanda().getId()));
 				MotivazioneBean mb = new MotivazioneBean();
 				mb.setId(rs.getInt("idMotivazione"));
 				segnalazioneRisposta.setMotivazione(mb);

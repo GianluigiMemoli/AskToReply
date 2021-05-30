@@ -14,7 +14,7 @@ public class SegnalazioneRispostaBean {
 	
 
 	public SegnalazioneRispostaBean(RispostaBean rispostaSegnalata, MotivazioneBean motivazione, Date dataSegnalazione,
-			int stato, String commento, String idSegnalazione, DomandaBean domanda) {
+			int stato, String commento, String idSegnalazione) {
 		super();
 		this.rispostaSegnalata = rispostaSegnalata;
 		this.motivazione = motivazione;
@@ -22,7 +22,6 @@ public class SegnalazioneRispostaBean {
 		this.stato = stato;
 		this.commento = commento;
 		this.idSegnalazione = idSegnalazione;
-		this.domanda = domanda;
 	}
 	
 	public String getIdSegnalazione() {
@@ -65,14 +64,6 @@ public class SegnalazioneRispostaBean {
 		this.rispostaSegnalata = rispostaSegnalata;
 	}
 
-	public DomandaBean getDomanda() {
-		return domanda;
-	}
-
-	public void setDomanda(DomandaBean domanda) {
-		this.domanda = domanda;
-	}
-
 	public MotivazioneBean getMotivazione() {
 		return motivazione;
 	}
@@ -87,14 +78,13 @@ public class SegnalazioneRispostaBean {
 	public String toString() {
 		return "SegnalazioneRispostaBean [rispostaSegnalata=" + rispostaSegnalata + ", motivazione=" + motivazione
 				+ ", dataSegnalazione=" + dataSegnalazione + ", stato=" + stato + ", commento=" + commento
-				+ ", idSegnalazione=" + idSegnalazione + ", domanda=" + domanda + "]";
+				+ ", idSegnalazione=" + idSegnalazione + "]";
 	}
 
 	
 	
 	private RispostaBean rispostaSegnalata; 
 	private MotivazioneBean motivazione;
-	private DomandaBean domanda;	
 	private String idSegnalazione;
 	private Date dataSegnalazione;
 	private String commento;

@@ -98,6 +98,8 @@ public class RisposteManager {
 	public static RispostaBean getRispostaById(String idRisposta) {
 
 		RispostaBean rb = RispostaDAO.getRispostaById(idRisposta);
+		DomandeManager dm = new DomandeManager();
+		rb.setDomanda(dm.getDomandaById(rb.getDomanda().getId()));
 
 		AllegatiHandler allegatiHandler = new AllegatiHandler();
 		File[] allegati = allegatiHandler.getAllegati(UPLOAD_PATH + idRisposta);
