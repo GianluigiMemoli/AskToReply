@@ -1,0 +1,10 @@
+use asktoreply;
+DELETE FROM votazioni WHERE idUtente = "idautoremock";
+DELETE FROM risposte where idDomanda = "iddomandamock";
+DELETE FROM risposte where corpo = "corpo";
+DELETE FROM domande WHERE id = "iddomandamock";
+DELETE FROM domande WHERE idAutore = "idautoremock";
+DELETE FROM partecipanti WHERE idUtente = "idrisponditoremock" OR idUtente = "idautoremock";
+DELETE FROM utenti WHERE id = "idrisponditoremock" OR id = "idautoremock";
+DELETE FROM segnalazionirisposta WHERE idSegnalazione = "idSegn1" OR idSegnalazione = "idSegn2" OR idSegnalazione = "idSegn3";
+DELETE FROM segnalazioni WHERE id = "idSegn1" or id = "idSegn2" or id = "idSegn3";
