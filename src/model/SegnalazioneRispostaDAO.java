@@ -15,7 +15,7 @@ public class SegnalazioneRispostaDAO {
 	
 	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName());
 	
-	public static void addSegnalazioneRisposta(SegnalazioneRispostaBean segnalazione) {
+	public static SegnalazioneRispostaBean addSegnalazioneRisposta(SegnalazioneRispostaBean segnalazione) {
 		
 		DBManager dbManager = DBManager.getInstance();
 		try {
@@ -26,14 +26,17 @@ public class SegnalazioneRispostaDAO {
 			callProcedure.setString(4, segnalazione.getCommento());
 			callProcedure.registerOutParameter(5, Types.VARCHAR);
 			ResultSet rsId = callProcedure.executeQuery();
+			
 			if (rsId.next()){
 			CallableStatement callProcedure2 = dbManager.prepareStoredProcedureCall("CreateSegnalazioneRisposta", 2);
 			callProcedure2.setString(1, rsId.getString("id"));
+			segnalazione.setIdSegnalazione(rsId.getString("id"));
 			callProcedure2.setString(2, segnalazione.getRispostaSegnalata().getId());
 			callProcedure2.executeQuery();
 			}}catch(SQLException exc) {
 			exc.printStackTrace();
 		}
+		return segnalazione;
 	}
 
 	public static void updateStatoSegnalazioneRisposta(SegnalazioneRispostaBean segnalazione) {
