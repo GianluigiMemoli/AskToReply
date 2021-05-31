@@ -302,7 +302,7 @@ public class DomandaDAO {
 		
 		String query_select = "SELECT u.id, u.username, d.dataPubblicazione, d.titolo, d.corpo, d.id, d.isArchiviata";
 		String query_from = "FROM domande d, categoriedomande cd, utenti u";
-		String query_where = "WHERE cd.idDomanda = d.id AND d.idAutore = u.id";
+		String query_where = "WHERE cd.idDomanda = d.id AND d.idAutore = u.id AND d.isNascosta = 0";
 		String query_group_by = "";
 		String query_having = "";
 		String query_order_by = "ORDER BY d.dataPubblicazione ASC";
@@ -432,7 +432,7 @@ public class DomandaDAO {
 	}
 	
 	public static ArrayList<DomandaBean> getDomandeRecenti(int start, int end){		
-		String query = "SELECT * FROM Domande ORDER BY dataPubblicazione  LIMIT ?, ?" ;		
+		String query = "SELECT * FROM Domande d WHERE d.isNascosta = 0 ORDER BY dataPubblicazione  LIMIT ?, ?" ;		
 		DBManager dbManager = DBManager.getInstance();
 		ArrayList<DomandaBean> domande = new ArrayList<DomandaBean>();
 		try {
@@ -473,7 +473,7 @@ public class DomandaDAO {
 		catParams = catParams.substring(0, catParams.length() - 1);
 		String query =
 				"SELECT Count(DISTINCT dom.id) as Amount FROM Domande AS dom JOIN categoriedomande as catDom ON dom.id = catDom.idDomanda "
-				+ "WHERE catDom.idCategoria IN (" + catParams +")" ;
+				+ "WHERE catDom.idCategoria IN (" + catParams +") and dom.isNascosta = 0" ;
 		log.info(query);
 		log.info(catParams);
 		DBManager dbManager = DBManager.getInstance();
@@ -502,7 +502,7 @@ public class DomandaDAO {
 		catParams = catParams.substring(0, catParams.length() - 1);
 		String query =
 				"SELECT * FROM Domande AS dom JOIN categoriedomande as catDom ON dom.id = catDom.idDomanda "
-				+ "WHERE catDom.idCategoria IN (" + catParams +") GROUP BY dom.id ORDER BY dom.dataPubblicazione DESC limit ?, ?" ;										
+				+ "WHERE catDom.idCategoria IN (" + catParams +") AND dom.isNascosta = 0 GROUP BY dom.id ORDER BY dom.dataPubblicazione DESC limit ?, ?" ;										
 		log.info(query);
 		log.info(catParams);
 		DBManager dbManager = DBManager.getInstance();

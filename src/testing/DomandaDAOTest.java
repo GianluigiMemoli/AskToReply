@@ -135,12 +135,14 @@ public class DomandaDAOTest {
 		ArrayList<DomandaBean> domandeRisposte = DomandaDAO.getDomandeRisposte("idrisponditoremock");
 		assertEquals(domandeRisposte.size(), 4);
 	}
-	/*
-	 * Aspettando il nuovo DomandaBean
+	
+	 /* Aspettando il nuovo DomandaBean */
 	@Test
 	public void testRemoveDomanda() {
+		
+		int sizeBefore = DomandaDAO.getDomandePertinenti(null, 0, 0)
 		DomandaDAO.removeDomanda("idmock");
 		assertTrue(DomandaDAO.getDomandaById("idmock").is);
 	}
-	*/
+	
 }
