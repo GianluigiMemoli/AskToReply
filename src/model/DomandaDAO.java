@@ -111,50 +111,6 @@ public class DomandaDAO {
 		}
 	}
 	
-	public static ArrayList<DomandaBean> getDomandeByUtente(String idUtente) {
-		
-		DBManager manager = DBManager.getInstance();
-		
-		try {
-			
-			CallableStatement procedure = manager.prepareStoredProcedureCall("GetDomandeByUser", 1);
-			
-			procedure.setNString(1, idUtente);
-			
-			ResultSet rs = procedure.executeQuery();
-			
-			ArrayList<DomandaBean> domande = new ArrayList<DomandaBean>();
-			
-			while(rs.next()) {
-				
-				DomandaBean domanda = new DomandaBean();
-				
-				domanda.setArchiviata(rs.getBoolean("isArchiviata"));
-				
-				UtenteBean autore = new UtenteBean();
-				autore.setId(rs.getNString("idAutore"));
-				
-				domanda.setAutore(autore);
-				domanda.setCorpo(rs.getNString("corpo"));
-				domanda.setDataPubblicazione(rs.getDate("dataPubblicazione"));
-				domanda.setId(rs.getNString("id"));
-				domanda.setTitolo(rs.getString("titolo"));
-				
-				domande.add(domanda);
-				
-			}
-			
-			return domande;
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
-		
-	}
-	
 	public static ArrayList<DomandaBean> getDomandeRisposte(String idUtente) {
 		
 		DBManager manager = DBManager.getInstance();

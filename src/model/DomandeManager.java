@@ -143,10 +143,6 @@ public class DomandeManager {
 		return domanda;
 	}
 	
-	public ArrayList<DomandaBean> getDomandeByAutore(String idAutore) {
-		return DomandaDAO.getDomandeByUtente(idAutore);
-	}
-	
 	public ArrayList<DomandaBean> getDomandeByAutore(String idAutore, int start, int end) {
 		return DomandaDAO.getDomandeByUtente(idAutore, start, end);
 	}
