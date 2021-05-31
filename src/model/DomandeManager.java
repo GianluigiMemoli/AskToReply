@@ -10,11 +10,15 @@ import java.util.logging.Logger;
 
 import javax.servlet.http.Part;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
-
 import Exceptions.ErrorePubblicazioneDomandaException;
 
 public class DomandeManager {
+	
+	public static final int LUNGHEZZA_MINIMA_TITOLO = 5;
+	public static final int LUNGHEZZA_MASSIMA_TITOLO = 90;
+	
+	public static final int LUNGHEZZA_MINIMA_CORPO = 5;
+	public static final int LUNGHEZZA_MASSIMA_CORPO = 250;
 	
 	public DomandaBean pubblicaDomanda (
 		PartecipanteBean autore,
@@ -29,8 +33,8 @@ public class DomandeManager {
 		
 		logger.info("Lunghezza titolo = " + lunghezzaTitolo);
 		
-		if(lunghezzaTitolo < 5 || lunghezzaTitolo > 90) {
-			throw new ErrorePubblicazioneDomandaException("La lunghezza del titolo deve essere compresa tra 5 e 30 caratteri.");
+		if(lunghezzaTitolo < LUNGHEZZA_MINIMA_TITOLO || lunghezzaTitolo > LUNGHEZZA_MASSIMA_TITOLO) {
+			throw new ErrorePubblicazioneDomandaException("La lunghezza del titolo deve essere compresa tra " + LUNGHEZZA_MINIMA_TITOLO + " e " + LUNGHEZZA_MASSIMA_TITOLO + " caratteri.");
 		}
 		
 		int lunghezzaCorpo = corpo.trim().length(), numeroAllegati = allegati.size();
@@ -38,8 +42,8 @@ public class DomandeManager {
 		logger.info("Lunghezza corpo = " + lunghezzaCorpo);
 		logger.info("Numero di allegati = " + numeroAllegati);
 		
-		if(numeroAllegati == 0 && (lunghezzaCorpo < 5 || lunghezzaCorpo > 250)) {
-			throw new ErrorePubblicazioneDomandaException("Se non sono stati caricati allegati, la lunghezza del corpo deve essere compreso tra 5 e 250.");
+		if(numeroAllegati == 0 && (lunghezzaCorpo < LUNGHEZZA_MINIMA_CORPO || lunghezzaCorpo > LUNGHEZZA_MASSIMA_CORPO)) {
+			throw new ErrorePubblicazioneDomandaException("Se non sono stati caricati allegati, la lunghezza del corpo deve essere compreso tra " + LUNGHEZZA_MINIMA_CORPO + " e " + LUNGHEZZA_MASSIMA_CORPO);
 		}
 		
 		if(idCategorie == null) {
