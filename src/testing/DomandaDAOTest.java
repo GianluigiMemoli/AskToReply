@@ -9,6 +9,7 @@ import java.util.Date;
 
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -21,21 +22,19 @@ import model.PartecipanteBean;
 import model.PartecipanteDAO;
 
 public class DomandaDAOTest {
-	/*RIVEDERE:
-	 		* 	addCategoriaDomanda()
-	 * FATTE:
-	 * 		getDomandeByUtente
-	 * 		getDomandePertinenti
-	 * 		getDomandeRecenti
-  	 		getDomandeRisposte
-  			getNumeroDomandePertinenti
-	  		getNumeroDomandeByAutore
-	 
-	 * ASPETTARE:
-		  removeDomanda
-		  updateCategorieDomanda
-	 * */
-	
+		
+	@BeforeEach
+	public void setup() throws IOException, SQLException{
+		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/testingQueries/initDomandaDAO.sql");		
+	}
+	@AfterEach 
+	public void reset() throws IOException, SQLException {
+		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/testingQueries/teardownDomandaDAO.sql");
+	}
+
+		
 	@Test
 	public void testAddDomanda() {
 		
@@ -63,25 +62,17 @@ public class DomandaDAOTest {
 	}
 	
 	@Ignore 
-	// non posso testarlo ??????
 	public void testAddCategoriaDomanda() {
 		CategoriaBean categoria = CategoriaDAO.getCategoriaByNome("pesca");
 		DomandaBean domanda = DomandaDAO.getDomandaById("idmock");
 		DomandaDAO.addCategoriaDomanda(domanda, categoria);		
 	}
 	
-	@Test
-	public void testGetDomandeByUtente() {
-		ArrayList<DomandaBean> domandeUtente = DomandaDAO.getDomandeByUtente("idautoremock");
-		for(DomandaBean domanda : domandeUtente) {
-			assertEquals(domanda.getAutore().getId(), "idautoremock");
-		}
-	}
-	
+
 	@Test 
 	public void testGetNumeroDomandeByAutore() {
 		int amount = DomandaDAO.getNumeroDomandeByAutore("idautoremock");
-		assertEquals(amount, 4);
+		assertEquals(4, amount);
 	}
 	
 	@Test 
@@ -96,7 +87,7 @@ public class DomandaDAOTest {
 		categorie.add(cat1);
 		categorie.add(cat2);
 		ArrayList<DomandaBean> domande = DomandaDAO.getDomandePertinenti(categorie, 0, 1000);
-		assertEquals(domande.size(), 3);
+		assertEquals(3, domande.size());
 	}
 	// praticamente è lo stesso test !? 
 	
@@ -138,11 +129,9 @@ public class DomandaDAOTest {
 	
 	 /* Aspettando il nuovo DomandaBean */
 	@Test
-	public void testRemoveDomanda() {
-		
-		int sizeBefore = DomandaDAO.getDomandePertinenti(null, 0, 0)
+	public void testRemoveDomanda() {				
 		DomandaDAO.removeDomanda("idmock");
-		assertTrue(DomandaDAO.getDomandaById("idmock").is);
+		assertNull(DomandaDAO.getDomandaById("idmock"));
 	}
 	
 }

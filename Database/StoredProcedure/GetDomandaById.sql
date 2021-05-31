@@ -17,7 +17,7 @@ begin
         dataPubblicazione,
         isArchiviata
 	from domande
-    where id = idDomanda;
+    where id = idDomanda and isNascosta = 0;
 		
 end $$;
 

@@ -8,5 +8,11 @@
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
+    <welcome-file>VisualizzaHome</welcome-file>
   </welcome-file-list>
+  <servlet-mapping>
+    <servlet-name>VisualizzaFormAccesso</servlet-name>
+    <url-pattern>/AskToReply/</url-pattern>
+</servlet-mapping>
+  
 </web-app>
