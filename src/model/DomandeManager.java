@@ -29,7 +29,7 @@ public class DomandeManager {
 		
 		logger.info("Lunghezza titolo = " + lunghezzaTitolo);
 		
-		if(lunghezzaTitolo < 5 || lunghezzaTitolo > 30) {
+		if(lunghezzaTitolo < 5 || lunghezzaTitolo > 90) {
 			throw new ErrorePubblicazioneDomandaException("La lunghezza del titolo deve essere compresa tra 5 e 30 caratteri.");
 		}
 		
@@ -39,7 +39,7 @@ public class DomandeManager {
 		logger.info("Numero di allegati = " + numeroAllegati);
 		
 		if(numeroAllegati == 0 && (lunghezzaCorpo < 5 || lunghezzaCorpo > 250)) {
-			throw new ErrorePubblicazioneDomandaException("Il corpo e gli allegati di una domanda non possono essere entrambi nulli.");
+			throw new ErrorePubblicazioneDomandaException("Se non sono stati caricati allegati, la lunghezza del corpo deve essere compreso tra 5 e 250.");
 		}
 		
 		if(idCategorie == null) {
