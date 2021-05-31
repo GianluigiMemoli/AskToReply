@@ -155,7 +155,8 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 					dispatcher.forward(request, response);
 					
 				} else {
-					writer.print("Domanda con id = '" + idDomanda + "' non trovata.");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/VisualizzaHome");
+					dispatcher.forward(request, response);
 				}
 				
 			} catch (Exception e) {
