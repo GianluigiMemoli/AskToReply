@@ -8,9 +8,6 @@ public class CategorieManager {
 		return CategoriaDAO.getAll();
 	}
 	
-	// TODO Non va passato un UtenteBean invece di String?
-	public ArrayList<CategoriaBean> getCategorieByIdUtente(String idUtente) {
-		return CategoriaDAO.getCategorieByUtente(idUtente);
-	}
+	
 	
 }

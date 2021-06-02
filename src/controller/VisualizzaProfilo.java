@@ -66,10 +66,9 @@ public class VisualizzaProfilo extends CustomServlet {
 		CategorieManager categorieManager = new CategorieManager();
 		
 		ArrayList<CategoriaBean> interessi = categorieManager.getAll();
-		ArrayList<CategoriaBean> interessiUtente = categorieManager.getCategorieByIdUtente((currUser.getId()));
+		
 
 		request.setAttribute("interessi", interessi);
-		request.setAttribute("interessiUtente", interessiUtente);
 		
 		int page = 0;
 		

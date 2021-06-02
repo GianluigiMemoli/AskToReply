@@ -70,7 +70,9 @@ public class UpdateProfilo extends CustomServlet {
 		AccountManager accountManager = new AccountManager();
 		PartecipanteBean loggedUser =(PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 		try {
-			accountManager.updateUtente(loggedUser, nome, cognome, username, email, interessi, password);			
+			accountManager.updateUtente(loggedUser, nome, cognome, username, email, interessi, password);
+			
+
 		} catch(CampiNonConformiException exc) {			
 			log.info("Eccezione:" + exc.getMessage() + " gestita");
 			request.setAttribute("errore", exc.getMessage());

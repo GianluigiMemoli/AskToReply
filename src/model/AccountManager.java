@@ -100,6 +100,7 @@ public class AccountManager {
 				this.removeInteressePartecipante(user, interesse);
 			}
 		}
+		user.setInteressi(newInteressi);
 	}
 	
 	
@@ -136,6 +137,7 @@ public class AccountManager {
 		}
 		this.updateInteressiUtente(user, interessi);
 		PartecipanteDAO.updateUtente(user);		
+		
 	}
 	
 	private String getPasswordHash(String password) throws NoSuchAlgorithmException{
@@ -189,10 +191,12 @@ public class AccountManager {
 	
 	private UtenteBean getUserInstance(int roleId, String email) {
 		RuoloBean role = RuoloDAO.getRuoloById(roleId);
-		UtenteBean specializedUser = null; 
 		
 		if (role.getNome().equals(RuoloBean.ROLE_PARTECIPANTE)) {
-			return PartecipanteDAO.getPartecipanteByEmail(email);
+			PartecipanteBean partecipante =  PartecipanteDAO.getPartecipanteByEmail(email);
+			ArrayList<CategoriaBean> interessi = CategoriaDAO.getCategorieByUtente(partecipante.getId());
+			partecipante.setInteressi(interessi);
+			return partecipante;
 		} else {
 			// Se è mastermoderatore o moderatore
 			return UtenteDAO.getUtenteByEmail(email);

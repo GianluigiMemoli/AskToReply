@@ -199,7 +199,8 @@ public class DomandeManager {
 	}
 	
 	public ArrayList<DomandaBean> getDomandePertinenti(PartecipanteBean utente, int page, int offset){
-		ArrayList<CategoriaBean> categorie = CategoriaDAO.getCategorieByUtente(utente.getId());
+		ArrayList<CategoriaBean> categorie = utente.getInteressi();
+		logger.info("INTERESSI: " + categorie);
 		ArrayList<DomandaBean> domande = new ArrayList<DomandaBean>();
 		for(DomandaBean domanda : DomandaDAO.getDomandePertinenti(categorie, page, offset)) {
 			domande.add(this.populateReferencedEntities(domanda));

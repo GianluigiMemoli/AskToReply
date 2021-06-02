@@ -47,7 +47,7 @@ public class CustomServlet extends HttpServlet {
 	public void checkPartecipante(HttpSession session, HttpServletResponse resp) {
 		if(!isPartecipanteLogged(session)) {
 			// resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso negato. Non sei un Partecipante.");
-			throw new RuntimeException("Non sei un Patecipante");
+			throw new RuntimeException("Non sei un Partecipante");
 		}
 	}
 	

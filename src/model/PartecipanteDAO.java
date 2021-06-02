@@ -3,6 +3,7 @@ package model;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PartecipanteDAO {
 	public static PartecipanteBean getPartecipanteByEmail(String email) {
@@ -12,6 +13,7 @@ public class PartecipanteDAO {
 		CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("GetPartecipanteByEmail", 1);		
 		callProcedure.setString(1, email);
 		ResultSet rs = callProcedure.executeQuery();
+				
 		if(rs.next()) {
 			searchedPartecipante = new PartecipanteBean(
 					rs.getString("email"),
@@ -22,9 +24,10 @@ public class PartecipanteDAO {
 					rs.getInt("ruoloId"), 
 					rs.getBoolean("isDisattivato"), 
 					rs.getString("id"),
-					rs.getInt("numeroSegnalazioni")
+					rs.getInt("numeroSegnalazioni"),
+					null
 					);
-		}
+		}		
 		} catch (SQLException exc) {
 			exc.printStackTrace();
 		}
