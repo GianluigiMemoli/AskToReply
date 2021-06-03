@@ -57,10 +57,10 @@
 				<ul class="list-group" style="margin-right:5pt;">
 					<c:forEach var="interesse" items="${interessi}">
 						<li class="list-group-item"><c:if
-								test="${interessiUtente.contains(interesse)}">
+								test="${utenteLoggato.getInteressi().contains(interesse)}">
 								<input type="checkbox" value="${interesse.getNome()}"
 									name="interessi" id="interesseCheck" checked>
-							</c:if> <c:if test="${interessiUtente.contains(interesse) == false}">
+							</c:if> <c:if test="${utenteLoggato.getInteressi().contains(interesse) == false}">
 								<input type="checkbox" value="${interesse.getNome()}"
 									name="interessi" id="interesseCheck">
 							</c:if> <label for="interesseCheck"> ${interesse.getNome()}</label></li>
