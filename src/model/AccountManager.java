@@ -108,17 +108,21 @@ public class AccountManager {
 		if(interessi == null) {
 			throw new CampiNonConformiException("Inserisci almeno una categoria");
 		}
+		
 		if(password != null) {
 			if(!Validator.isPasswordValid(password)) {
 				throw new CampiNonConformiException("Password non valida");
 			}
 		}
+		
 		if((!Validator.validateUpdateProfileFields(newNome, newCognome, newUsername, newEmail))) {
 			throw new CampiNonConformiException();
 		}
+		
 		if (interessi.length == 0) {
 			throw new CampiNonConformiException("Inserire almeno una categoria");
-		}		
+		}	
+		
 		UtenteBean oldUser = UtenteDAO.getUtenteById(user.getId());
 		
 		if(!oldUser.getEmail().equals(newEmail) && !isEmailAvailable(newEmail))
@@ -126,15 +130,18 @@ public class AccountManager {
 		
 		if(!oldUser.getUsername().equals(newUsername) && !isUsernameAvailable(newUsername))
 			throw new UsernamePresenteException();
+		
 		user.setNome(newNome);
 		user.setCognome(newCognome);
 		user.setEmail(newEmail);
-		user.setUsername(newUsername);		
+		user.setUsername(newUsername);	
+		
 		if(password != null) {
 			user.setPasswordHash(getPasswordHash(password));
 		} else {
 			user.setPasswordHash(oldUser.getPasswordHash());
 		}
+		
 		this.updateInteressiUtente(user, interessi);
 		PartecipanteDAO.updateUtente(user);		
 		
@@ -195,6 +202,12 @@ public class AccountManager {
 		if (role.getNome().equals(RuoloBean.ROLE_PARTECIPANTE)) {
 			PartecipanteBean partecipante =  PartecipanteDAO.getPartecipanteByEmail(email);
 			ArrayList<CategoriaBean> interessi = CategoriaDAO.getCategorieByUtente(partecipante.getId());
+			int totaleDomandeUtente = DomandaDAO.getNumeroDomandeByAutore(partecipante.getId());
+			ArrayList<DomandaBean> domandeUtente = DomandaDAO.getDomandeByUtente(partecipante.getId(), 0, totaleDomandeUtente);
+			System.out.println("Utente accede con numero domande: " + domandeUtente.size());
+			partecipante.setDomandeUtente(domandeUtente);
+			int totaleRisposteUtente = RispostaDAO.getNumeroRisposteByUtente(partecipante);
+			partecipante.setRisposteUtente(RispostaDAO.getStoricoRisposteByUtente(partecipante, 0, totaleRisposteUtente));
 			partecipante.setInteressi(interessi);
 			return partecipante;
 		} else {
@@ -207,7 +220,7 @@ public class AccountManager {
 		return UtenteDAO.doGetAllModeratori();
 	}
 	
-	public void deleteModeratore(String id){
+	public void deleteUtente(String id){
 		UtenteDAO.doDeactivateUser(id);
 		
 	}

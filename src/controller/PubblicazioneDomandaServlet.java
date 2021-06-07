@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -59,10 +60,14 @@ public class PubblicazioneDomandaServlet extends CustomServlet {
 		DomandeManager manager = new DomandeManager();
 		
 		DomandaBean domanda = null;
+		ArrayList<DomandaBean> domandeUtente = autore.getDomandeUtente();
 		
 		try {
 			domanda = manager.pubblicaDomanda(autore, titolo, corpo, dataPubblicazione, idCategorie, allegati);
+			domandeUtente.add(domanda);
+			autore.setDomandeUtente(domandeUtente);
 			response.sendRedirect(request.getContextPath() + "/VisualizzaDomandaServlet?id=" + domanda.getId());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errore", e.getMessage());

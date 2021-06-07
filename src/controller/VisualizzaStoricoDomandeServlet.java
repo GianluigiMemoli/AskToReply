@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.DomandaBean;
 import model.DomandeManager;
+import model.PartecipanteBean;
 import model.RisposteManager;
 import model.UtenteBean;
 
@@ -58,21 +59,31 @@ public class VisualizzaStoricoDomandeServlet extends CustomServlet {
 		}
 				
 		DomandeManager manager = new DomandeManager();
-
+		
 		int numeroDomande = manager.getNumeroDomandeByAutore(getLoggedUser(request.getSession()).getId());
+		
+		
 		int totalPages = (int) Math.ceil((double) numeroDomande/domandePerPagina);
 		
 		// TODO Cambiare in partecipanteBean
 		
-		UtenteBean utente = getLoggedUser(request.getSession());
+		PartecipanteBean utente = (PartecipanteBean) getLoggedUser(request.getSession());
 		
-		ArrayList<DomandaBean> domande = 
-				manager.getDomandeByAutore(
-					utente.getId(), 
-					(currentPage - 1) * domandePerPagina,
-					currentPage * domandePerPagina
-				);
-		
+		/*ArrayList<DomandaBean> domande = 
+				(ArrayList<DomandaBean>) manager.getDomandeByAutore(
+			utente.getId(), 
+			(currentPage - 1) * domandePerPagina,
+			currentPage * domandePerPagina
+		);
+		*/
+		int startIndex = (currentPage - 1) * domandePerPagina;
+		int endIndex = currentPage * domandePerPagina;
+		if(endIndex > numeroDomande) {
+			endIndex = numeroDomande;
+		}
+		ArrayList<DomandaBean> domande =  new ArrayList<DomandaBean>( 
+				utente.getDomandeUtente().subList(startIndex,endIndex
+				));
 		
 		//test
 		HashMap<String, Integer> numeroRisposte = new HashMap<String, Integer>();

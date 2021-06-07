@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.DomandaBean;
 import model.DomandeManager;
 import model.PartecipanteBean;
+import model.RispostaBean;
 import model.RispostaDAO;
 import model.RisposteManager;
 
@@ -65,9 +66,13 @@ public class VisualizzaHome extends CustomServlet {
 			numeroRisposte.put(domanda.getId(), risposteManager.getNumeroRisposte(domanda));
 			//allegati?		
 		}
-		
+		ArrayList<DomandaBean> domandeRisposte = new ArrayList<DomandaBean>();
+		for(RispostaBean rispostaUtente : utente.getRisposteUtente()) {
+			domandeRisposte.add(rispostaUtente.getDomanda());
+		}
 		request.setAttribute("numeroRisposte", numeroRisposte);
-		request.setAttribute("domandeRisposte", managerDomande.getDomandeRisposte(utente));
+		request.setAttribute("domandeRisposte", domandeRisposte);
+		//request.setAttribute("domandeRisposte", managerDomande.getDomandeRisposte(utente));
 		boolean hasNext = start + offset < amountDomandePertinenti; 
 		log.info("start: " + start); 
 		log.info("hasNext: " + hasNext); 

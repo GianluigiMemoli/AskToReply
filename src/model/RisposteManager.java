@@ -28,7 +28,7 @@ public class RisposteManager {
 	private static final String UPLOAD_PATH = "C:\\uploads\\allegati_risposte\\";
 
 
-	public void pubblicaRisposta(String idDomanda, String corpo, List<Part> allegati, String idAutore
+	public RispostaBean pubblicaRisposta(String idDomanda, String corpo, List<Part> allegati, String idAutore
 			,String idAutoreDomanda, Date dataPubblicazione) throws Exception{
 
 
@@ -47,6 +47,7 @@ public class RisposteManager {
 		statement.setString(1, idDomanda);
 		statement.setString(2, idAutore);
 		ResultSet rs = statement.executeQuery();
+		RispostaBean risposta = null;
 
 		if(rs.next()){
 
@@ -62,19 +63,18 @@ public class RisposteManager {
 				throw new ErrorePubblicazioneRispostaException("Il corpo della risposta deve contenere almeno un carattere.");
 			}
 
-			RispostaBean risposta = new RispostaBean();
-
+			risposta = new RispostaBean();
 			PartecipanteBean pb = new PartecipanteBean();
 			pb.setId(idAutore);
 			risposta.setAutore(pb);
 			risposta.setCorpo(corpo);
-			DomandaBean domb = new DomandaBean();
-			domb.setId(idDomanda);
+			DomandaBean domb = DomandaDAO.getDomandaById(idDomanda);
+			
 			risposta.setDomanda(domb);
 			risposta.setDataPubblicazione(dataPubblicazione);
 
-
-			risposta=RispostaDAO.addRisposta(risposta);
+			RispostaBean rispostaSalvata = RispostaDAO.addRisposta(risposta); 
+			risposta.setId(rispostaSalvata.getId());
 
 			AllegatiHandler allegatiHandler = new AllegatiHandler();
 			try {
@@ -92,6 +92,7 @@ public class RisposteManager {
 			log.info("RISPOSTA INVIATA CON SUCCESSO");
 
 		}
+		return risposta;
 	}
 
 

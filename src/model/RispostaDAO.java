@@ -22,9 +22,9 @@ public class RispostaDAO {
 			callProcedure.setDate(4, new java.sql.Date(risposta.getDataPubblicazione().getTime()));
 			callProcedure.registerOutParameter(5, Types.VARCHAR);
 			callProcedure.executeUpdate();
-			RispostaBean rb = new RispostaBean();
-			rb.setId(callProcedure.getNString(5));
-			return rb;
+			
+			risposta.setId(callProcedure.getNString(5));
+			return risposta;
 		} catch (SQLException exc) {
 			exc.printStackTrace();
 		}

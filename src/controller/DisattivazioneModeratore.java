@@ -46,7 +46,7 @@ public class DisattivazioneModeratore extends CustomServlet {
 		String idModeratore; 
 		idModeratore = request.getParameter("idModeratore");
 		AccountManager accountManager = new AccountManager();
-		accountManager.deleteModeratore(idModeratore);
+		accountManager.deleteUtente(idModeratore);
 		log.info("Mod disattivato");
 		response.sendRedirect("GestioneModeratori");
 		log.info("Dispatching");

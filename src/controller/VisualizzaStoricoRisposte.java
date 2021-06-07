@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.DomandaBean;
 import model.PartecipanteBean;
 import model.RispostaBean;
 import model.RispostaDAO;
@@ -55,8 +56,15 @@ public class VisualizzaStoricoRisposte extends CustomServlet {
 		}
 		
 		int numeroRisposte = risposteManager.getNumeroRisposteByUtente(currUser);
-		
-		ArrayList<RispostaBean> storicoRisposte = risposteManager.getStoricoRisposte(currUser, page, OFFSET); 		
+		int startIndex = (page - 1) * OFFSET;
+		int endIndex = page * OFFSET;
+		if(endIndex > numeroRisposte) {
+			endIndex = numeroRisposte;
+		}
+		ArrayList<RispostaBean> storicoRisposte =  new ArrayList<RispostaBean>( 
+				currUser.getRisposteUtente().subList(startIndex,endIndex
+				));
+		 		
 		 		
 						
 		boolean hasNext = (page-1)*OFFSET + OFFSET < numeroRisposte; 

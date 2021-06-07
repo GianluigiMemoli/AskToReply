@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ import javax.servlet.http.Part;
 import Exceptions.ErrorePubblicazioneRispostaException;
 import model.DomandaDAO;
 import model.PartecipanteBean;
+import model.RispostaBean;
 import model.RisposteManager;
 import model.SegnalazioneRispostaDAO;
 
@@ -65,9 +67,6 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 
 			} 
 			else {
-		
-
-			
 
 				idAutoreDomanda=DomandaDAO.getDomandaById(idDomanda).getAutore().getId();
 			
@@ -86,10 +85,13 @@ public class PubblicazioneRispostaServlet extends CustomServlet {
 boolean s=true;
 			try {
 			RisposteManager manager = new RisposteManager();
-			manager.pubblicaRisposta(idDomanda, corpo, allegati, idAutore, idAutoreDomanda, dataPubblicazione);
+			RispostaBean risposta = manager.pubblicaRisposta(idDomanda, corpo, allegati, idAutore, idAutoreDomanda, dataPubblicazione);
+			System.out.println("RISPOSTA DA AGGIUNGERE: " + risposta);
+			ArrayList<RispostaBean> risposteUtente = autoreBean.getRisposteUtente();
+			risposteUtente.add(risposta);
+			autoreBean.setRisposteUtente(risposteUtente);
 			//request.getRequestDispatcher("VisualizzaHome").forward(request, response);
-
-
+ 
 		} catch (Exception exc) {
 			s=false;
 			log.info("RISPOSTA NON PUBBLICATA!");
