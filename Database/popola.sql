@@ -23,8 +23,8 @@ insert into statosegnalazione values(1, "da gestire"),
 									(2, "ignorata"),
                                     (3, "gestita");
                                     
-insert into motivazioni values(1,"Offtopic"),
-							  (2,"Offensiva"),
+insert into motivazioni values(2,"Offtopic"),
+							  (1,"Offensiva"),
                               (3,"Spam"),
                               (4,"Contenuti inappropriati"),
                               (5,"Link dannosi"),
@@ -63,9 +63,9 @@ insert into interessi values("USER1ID","CAT1ID"),
                             ("USER3ID","CAT4ID"),
 							("USER3ID","CAT5ID");
                             
-insert into domande values ("DOM1ID", "Chi ha inventato la lampadina?","C'è chi dice che sia opera di Edison, altri citano Joseph Wilson Swan. Chi dei due?",null,"USER1ID",CURDATE(),0,0),
-						   ("DOM2ID", "Cosa determina il prezzo di una criptovaluta?","Inoltre, perchè alcune al lancio valgono già tanto?",null,"USER2ID",CURDATE(),0,0),
-						   ("DOM3ID", "Quanto tempo ci vuole per raggiungere Marte?","Con le tecnologie attuali quanto tempo è necessario per viaggiare dalla Terra al Pianeta rosso?",null,"USER3ID",CURDATE(),0,0);
+insert into domande values ("DOM1ID", "Chi ha inventato la lampadina?","C'è chi dice che sia opera di Edison, altri citano Joseph Wilson Swan. Chi dei due?","USER1ID",CURDATE(),0,0),
+						   ("DOM2ID", "Cosa determina il prezzo di una criptovaluta?","Inoltre, perchè alcune al lancio valgono già tanto?","USER2ID",CURDATE(),0,0),
+						   ("DOM3ID", "Quanto tempo ci vuole per raggiungere Marte?","Con le tecnologie attuali quanto tempo è necessario per viaggiare dalla Terra al Pianeta rosso?","USER3ID",CURDATE(),0,0);
                            
 insert into categoriedomande values("DOM1ID","CAT3ID"),
 								   ("DOM1ID","CAT4ID"),
@@ -74,9 +74,9 @@ insert into categoriedomande values("DOM1ID","CAT3ID"),
                                    ("DOM2ID","CAT3ID"),
 								   ("DOM3ID","CAT1ID");
 
-insert into segnalazioni values("SE1ID",1,CURDATE(),1, "commento test"),
-							   ("SE2ID",5,CURDATE(),1, "commento test"),
-							   ("SE3ID",1,CURDATE(),1, "commento test");
+insert into segnalazioni values("SE1ID",1,CURDATE(),1, "commento test","USER1ID"),
+							   ("SE2ID",5,CURDATE(),1, "commento test","USER1ID"),
+							   ("SE3ID",1,CURDATE(),1, "commento test","USER1ID");
 
 insert into segnalazionidomanda values("SE1ID","DOM3ID"),
 									  ("SE2ID","DOM2ID"),

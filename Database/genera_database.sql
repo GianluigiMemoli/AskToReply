@@ -106,8 +106,10 @@ CREATE TABLE Segnalazioni (
     idMotivazione integer NOT NULL,
     dataSegnalazione DATETIME NOT NULL,
     stato integer NOT NULL,
-    commento VARCHAR(256) DEFAULT NULL, 
+    commento VARCHAR(256) DEFAULT NULL,
+    idUtente VARCHAR(256),
     PRIMARY KEY(id), 
+	FOREIGN KEY(idUtente) REFERENCES Utenti(id) ON DELETE CASCADE,
     FOREIGN KEY(idMotivazione) REFERENCES Motivazioni(id),
     FOREIGN KEY(stato) REFERENCES StatoSegnalazione(id)
 );

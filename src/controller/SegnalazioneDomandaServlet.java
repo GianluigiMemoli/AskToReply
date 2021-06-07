@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.DomandaBean;
 import model.DomandeManager;
 import model.MotivazioneBean;
+import model.PartecipanteBean;
 import model.SegnalazioniManager;
 
 /**
@@ -122,12 +123,14 @@ public class SegnalazioneDomandaServlet extends CustomServlet {
 		motivazione.setId(Integer.parseInt(idMotivazione));
 		
 		Date dataSegnalazione = new Date();
-		
+		PartecipanteBean utente = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
+
 		managerSegnalazioni.creazioneSegnalazioneDomanda(
 				motivazione, 
 				dataSegnalazione, 
 				commento, 
-				domandaSegnalata
+				domandaSegnalata,
+				utente
 		);
 					
 		setStringAttributeThenRedirect(

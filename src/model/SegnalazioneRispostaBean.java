@@ -2,16 +2,12 @@ package model;
 
 import java.util.Date;
 
-public class SegnalazioneRispostaBean {
-	
-	
+public class SegnalazioneRispostaBean extends SegnalazioneBean{
 	
 	public SegnalazioneRispostaBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	
 
 	public SegnalazioneRispostaBean(RispostaBean rispostaSegnalata, MotivazioneBean motivazione, Date dataSegnalazione,
 			int stato, String commento, String idSegnalazione) {

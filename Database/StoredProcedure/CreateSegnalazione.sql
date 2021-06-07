@@ -8,14 +8,15 @@ create procedure CreateSegnalazione(
     in dataSegnalazione datetime,
     in stato integer,
     in commento varchar(256),
+	in idUtente varchar(256),
     out id varchar(256)
 )
 
 begin
 	set id = UUID();
     
-    insert into Segnalazioni(id, idMotivazione, dataSegnalazione, stato, commento)
-    values (id, idMotivazione, dataSegnalazione, stato, commento);
+    insert into Segnalazioni(id, idMotivazione, dataSegnalazione, stato, commento, idUtente)
+    values (id, idMotivazione, dataSegnalazione, stato, commento, idUtente);
     
     select id;
 end $$

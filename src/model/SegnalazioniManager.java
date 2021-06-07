@@ -9,7 +9,8 @@ public class SegnalazioniManager {
 			MotivazioneBean motivazione, 
 			Date dataSegnalazione,
 			String commento,
-			DomandaBean domandaSegnalata) {
+			DomandaBean domandaSegnalata,
+			PartecipanteBean utente) {
 		
 		SegnalazioneDomandaBean segnalazione = new SegnalazioneDomandaBean();
 		segnalazione.setMotivazione(motivazione);
@@ -17,6 +18,7 @@ public class SegnalazioniManager {
 		segnalazione.setStato(SegnalazioneBean.DA_GESTIRE);
 		segnalazione.setCommento(commento);
 		segnalazione.setDomandaSegnalata(domandaSegnalata);
+		segnalazione.setUtente(utente);
 		SegnalazioneDomandaDAO.addSegnalazioneDomanda(segnalazione);
 		
 	}

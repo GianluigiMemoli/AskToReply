@@ -14,8 +14,8 @@ begin
 	set id = UUID();
     set dataPubblicazione = CURDATE();
     
-    insert into Risposte (id, idDomanda, corpo, idAutore, dataPubblicazione)
-    values (id, idDomanda, corpo, idAutore, dataPubblicazione);
+    insert into Risposte (id, idDomanda, corpo, idAutore, dataPubblicazione, isNascosta)
+    values (id, idDomanda, corpo, idAutore, dataPubblicazione, 0);
     
     select id;
 end $$

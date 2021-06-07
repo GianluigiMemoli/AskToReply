@@ -43,24 +43,29 @@ public abstract class SegnalazioneBean {
 		this.commento = commento;
 	}
 	
+	public PartecipanteBean getUtente() {
+		return utente;
+	}
+
+	public void setUtente(PartecipanteBean utente) {
+		this.utente = utente;
+	}
+
+	
+
 	@Override
 	public String toString() {
-		String s = "Segnalazione[";
-		
-		s += "id = " + id + ", ";
-		s += "idMotivazione = " + motivazione + ", ";
-		s += "dataSegnalazione = " + dataSegnalazione + ", ";
-		s += "stato = " + stato + ", ";
-		s += "commento = " + commento + "]";
-		
-		return s;
+		return "SegnalazioneBean [id=" + id + ", motivazione=" + motivazione + ", dataSegnalazione=" + dataSegnalazione
+				+ ", stato=" + stato + ", commento=" + commento + ", utente=" + utente + "]";
 	}
-	
+
+
 	private String id;
 	private MotivazioneBean motivazione;
 	private Date dataSegnalazione;
 	private int stato;
 	private String commento;
+	private PartecipanteBean utente;
 	
 	public static final int DA_GESTIRE = 1;
 	public static final int APPROVATA = 2;

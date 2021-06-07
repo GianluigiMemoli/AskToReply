@@ -21,13 +21,15 @@ public class SegnalazioneDomandaDAO {
 			 * SQLException: Parameter nummber X is not an OUT parameter
 			 */
 			
-			CallableStatement stmt = manager.prepareStoredProcedureCall("CreateSegnalazioneDomanda", 5);
+			CallableStatement stmt = manager.prepareStoredProcedureCall("CreateSegnalazioneDomanda", 6);
 			
 			stmt.setInt(1, segnalazione.getMotivazione().getId());
 			stmt.setDate(2, new Date(segnalazione.getDataSegnalazione().getTime()));
 			stmt.setInt(3, segnalazione.getStato());
 			stmt.setNString(4, segnalazione.getCommento());
 			stmt.setNString(5, segnalazione.getDomandaSegnalata().getId());
+			stmt.setNString(6, segnalazione.getUtente().getId());
+
 			
 			stmt.executeUpdate();
 			

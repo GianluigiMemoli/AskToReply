@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.MotivazioneBean;
+import model.PartecipanteBean;
 import model.RispostaBean;
 import model.SegnalazioneRispostaBean;
 import model.SegnalazioniManager;
@@ -61,6 +62,8 @@ if(idRisposta!=null) {
 				sr.setMotivazione(motivazione);
 				sr.setStato(stato);
 				sr.setCommento(commento);
+				PartecipanteBean utente = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
+				sr.setUtente(utente);
 				SegnalazioniManager sm = new SegnalazioniManager();
 				sm.creazioneSegnalazioneRisposta(sr);
 		
