@@ -24,6 +24,7 @@ public class AccountManager {
 			if(interessi == null) {
 				throw new CampiNonConformiException("Scegli almeno una categoria");
 			}
+			
 			for (String interesse : interessi) {
 				CategoriaBean categoria = new CategoriaBean();
 				categoria.setNome(interesse);
@@ -48,7 +49,7 @@ public class AccountManager {
 	
 	public UtenteBean autenticaUtente(String email, String password) throws CredenzialiNonValideException {		
 		UtenteBean loggingUser = UtenteDAO.getUtenteByEmail(email);
-		if(loggingUser == null) {
+		if(loggingUser == null || loggingUser.isDisattivato()) {
 			throw new CredenzialiNonValideException();
 		}
 		try {
@@ -59,7 +60,7 @@ public class AccountManager {
 			} else {
 				throw new CredenzialiNonValideException();
 			}
-		} catch (NoSuchAlgorithmException e) {			
+		} catch (NoSuchAlgorithmException e) {			 
 			e.printStackTrace();
 		}
 		return null;

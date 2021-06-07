@@ -44,7 +44,8 @@ public class VisualizzaStoricoRisposte extends CustomServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    final int OFFSET = 10;
+    
+    final int OFFSET = 10	;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PartecipanteBean currUser = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
