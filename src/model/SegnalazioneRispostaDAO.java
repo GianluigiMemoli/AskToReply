@@ -18,12 +18,13 @@ public class SegnalazioneRispostaDAO {
 		
 		DBManager dbManager = DBManager.getInstance();
 		try {
-			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateSegnalazione", 5);
+			CallableStatement callProcedure = dbManager.prepareStoredProcedureCall("CreateSegnalazione", 6);
 			callProcedure.setInt(1, segnalazione.getMotivazione().getId());
 			callProcedure.setDate(2, new java.sql.Date(segnalazione.getDataSegnalazione().getTime()));
 			callProcedure.setInt(3, segnalazione.getStato());
 			callProcedure.setString(4, segnalazione.getCommento());
-			callProcedure.registerOutParameter(5, Types.VARCHAR);
+			callProcedure.setString(5, segnalazione.getUtente().getId());
+			callProcedure.registerOutParameter(6, Types.VARCHAR);
 			ResultSet rsId = callProcedure.executeQuery();
 			
 			if (rsId.next()){
