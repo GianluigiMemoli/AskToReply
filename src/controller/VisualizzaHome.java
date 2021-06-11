@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.DomandaBean;
 import model.DomandeManager;
+import model.MotivazioniManager;
 import model.PartecipanteBean;
 import model.RispostaBean;
 import model.RispostaDAO;
@@ -70,6 +71,8 @@ public class VisualizzaHome extends CustomServlet {
 		for(RispostaBean rispostaUtente : utente.getRisposteUtente()) {
 			domandeRisposte.add(rispostaUtente.getDomanda());
 		}
+		MotivazioniManager managerMotivazioni = new MotivazioniManager();
+		request.setAttribute("motivazioni", managerMotivazioni.getAll());
 		request.setAttribute("numeroRisposte", numeroRisposte);
 		request.setAttribute("domandeRisposte", domandeRisposte);
 		//request.setAttribute("domandeRisposte", managerDomande.getDomandeRisposte(utente));

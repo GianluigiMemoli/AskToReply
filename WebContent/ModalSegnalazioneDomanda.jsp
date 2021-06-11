@@ -1,3 +1,7 @@
+<%@page import="model.MotivazioneBean"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <div 
 	class="modal fade" 
 	id="${param.idModal}" 
@@ -34,15 +38,29 @@
 					<p>Seleziona motivazione:</p>
 					
 					<ul class="list-group">
+					
+						<c:forEach items="${motivazioni}" var="motivazione">
+							<li class="list-group-item">				
+								<input 
+									type="radio" 
+									value="${motivazione.id}" 
+									name="idMotivazione" 
+									id="radio${motivazione.id}">
+								<label for="radio${motivazione.id}">${motivazione.nome}</label>
+							</li>
+						</c:forEach>
+					
+						<!--
 						<li class="list-group-item">					
-							<input type="radio" value="1" name="idMotivazione" id="radio1" required>
+							<input type="radio" value="1" name="idMotivazione" id="radio1">
 							<label for="radio1">Contenuto offensivo</label>
 						</li>
 	
 						<li class="list-group-item">					
-							<input type="radio" value="2" name="idMotivazione" id="radio2" required>
+							<input type="radio" value="2" name="idMotivazione" id="radio2">
 							<label for="radio2">Off-topic</label>
 						</li>
+						 -->
 					</ul> 
 	
 				    <div class="modal-footer">

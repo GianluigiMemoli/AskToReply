@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.CategorieManager;
-import model.MotivazioneDAO;
 import model.SegnalazioneDomandaBean;
 import model.SegnalazioniManager;
 
@@ -68,6 +67,9 @@ public class VisualizzaElencoSegnalazioniDomandaServlet extends CustomServlet {
 		
 		int pagineTotali = (int) Math.ceil((double) numeroSegnalazioniDomanda/segnalazioniPerPagina);
 		
+		if(pagineTotali == 0)
+			pagineTotali = 1;
+			
 		CategorieManager categorieManager = new CategorieManager();
 		
 		request.setAttribute("segnalazioniDomanda", segnalazioni);

@@ -43,11 +43,27 @@ public class DomandeManager {
 		logger.info("Numero di allegati = " + numeroAllegati);
 		
 		if(numeroAllegati == 0 && (lunghezzaCorpo < LUNGHEZZA_MINIMA_CORPO || lunghezzaCorpo > LUNGHEZZA_MASSIMA_CORPO)) {
-			throw new ErrorePubblicazioneDomandaException("Se non sono stati caricati allegati, la lunghezza del corpo deve essere compreso tra " + LUNGHEZZA_MINIMA_CORPO + " e " + LUNGHEZZA_MASSIMA_CORPO);
+			throw new ErrorePubblicazioneDomandaException("Se non sono stati caricati allegati, la lunghezza del corpo della domanda deve essere compreso tra " + LUNGHEZZA_MINIMA_CORPO + " e " + LUNGHEZZA_MASSIMA_CORPO);
+		}
+		
+		if(
+				numeroAllegati != 0 &&
+				lunghezzaCorpo != 0 &&
+				(lunghezzaCorpo < LUNGHEZZA_MINIMA_CORPO || lunghezzaCorpo > LUNGHEZZA_MASSIMA_CORPO)
+		) {
+			throw new  ErrorePubblicazioneDomandaException("Se sono stati caricati allegati e il corpo non è vuoto, la lunghezza del corpo della domanda deve essere compreso tra " + LUNGHEZZA_MINIMA_CORPO + " e " + LUNGHEZZA_MASSIMA_CORPO);
+		}
+		
+		if(
+			numeroAllegati != 0 &&
+			lunghezzaCorpo != 0 &&
+			(lunghezzaCorpo < LUNGHEZZA_MINIMA_CORPO || lunghezzaCorpo > LUNGHEZZA_MASSIMA_CORPO)
+		) {
+			throw new  ErrorePubblicazioneDomandaException("Se sono stati caricati allegati e il corpo non è vuoto, la lunghezza del corpo della domanda deve essere compreso tra " + LUNGHEZZA_MINIMA_CORPO + " e " + LUNGHEZZA_MASSIMA_CORPO);
 		}
 		
 		if(idCategorie == null) {
-			throw new ErrorePubblicazioneDomandaException("Categorie non inviate");
+			throw new ErrorePubblicazioneDomandaException("Bisogna scegliere almeno una categoria per poter pubblicare una domanda");
 		}
 		
 		int numeroCategorie = idCategorie.length;

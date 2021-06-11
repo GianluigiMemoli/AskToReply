@@ -5,12 +5,19 @@ import java.util.Date;
 
 public class SegnalazioniManager {
 
+	private final static int LUNGHEZZA_MASSIMA_COMMENTO = 256;
+	
 	public void creazioneSegnalazioneDomanda(
 			MotivazioneBean motivazione, 
 			Date dataSegnalazione,
 			String commento,
 			DomandaBean domandaSegnalata,
-			PartecipanteBean utente) {
+			PartecipanteBean utente) throws Exception {
+		
+		if(commento.length() > LUNGHEZZA_MASSIMA_COMMENTO) {
+			throw new Exception("Lunghezza commento segnalazione superiore a " + LUNGHEZZA_MASSIMA_COMMENTO);
+		}
+
 		
 		SegnalazioneDomandaBean segnalazione = new SegnalazioneDomandaBean();
 		segnalazione.setMotivazione(motivazione);

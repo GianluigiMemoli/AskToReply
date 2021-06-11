@@ -56,19 +56,24 @@ public class SegnalazioneDomandaDAO {
 				
 				SegnalazioneDomandaBean segnalazione = new SegnalazioneDomandaBean();
 				
-				segnalazione.setId(rs.getString(1));
+				segnalazione.setId(rs.getString("id"));
 				
 				MotivazioneBean motivazione = new MotivazioneBean();
-				motivazione.setId(rs.getInt(2));
+				motivazione.setId(rs.getInt("idMotivazione"));
 				segnalazione.setMotivazione(motivazione);
 				
-				segnalazione.setDataSegnalazione(rs.getDate(3));
-				segnalazione.setStato(rs.getInt(4));
-				segnalazione.setCommento(rs.getString(5));
+				segnalazione.setDataSegnalazione(rs.getDate("dataSegnalazione"));
+				
+				segnalazione.setStato(rs.getInt("stato"));
+				
+				segnalazione.setCommento(rs.getString("commento"));
 				
 				DomandaBean domanda = new DomandaBean();
-				domanda.setId(rs.getString(6));
+				domanda.setId(rs.getString("idDomanda"));
 				segnalazione.setDomandaSegnalata(domanda);
+				
+				PartecipanteBean partecipante = new PartecipanteBean();
+				partecipante.setId(rs.getString("idUtente"));
 				
 				segnalazioni.add(segnalazione);
 				
@@ -100,19 +105,24 @@ public class SegnalazioneDomandaDAO {
 				
 				SegnalazioneDomandaBean segnalazione = new SegnalazioneDomandaBean();
 				
-				segnalazione.setId(rs.getString(1));
+				segnalazione.setId(rs.getString("id"));
 				
 				MotivazioneBean motivazione = new MotivazioneBean();
-				motivazione.setId(rs.getInt(2));
+				motivazione.setId(rs.getInt("idMotivazione"));
 				segnalazione.setMotivazione(motivazione);
 				
-				segnalazione.setDataSegnalazione(rs.getDate(3));
-				segnalazione.setStato(rs.getInt(4));
-				segnalazione.setCommento(rs.getString(5));
+				segnalazione.setDataSegnalazione(rs.getDate("dataSegnalazione"));
+				
+				segnalazione.setStato(rs.getInt("stato"));
+				
+				segnalazione.setCommento(rs.getString("commento"));
 				
 				DomandaBean domanda = new DomandaBean();
-				domanda.setId(rs.getString(6));
+				domanda.setId(rs.getString("idDomanda"));
 				segnalazione.setDomandaSegnalata(domanda);
+				
+				PartecipanteBean partecipante = new PartecipanteBean();
+				partecipante.setId(rs.getString("idUtente"));
 				
 				return segnalazione;
 				
@@ -177,6 +187,9 @@ public class SegnalazioneDomandaDAO {
 				DomandaBean domanda = new DomandaBean();
 				domanda.setId(rs.getString("sd.idDomanda"));
 				segnalazione.setDomandaSegnalata(domanda);
+				
+				PartecipanteBean partecipante = new PartecipanteBean();
+				partecipante.setId(rs.getString("s.idUtente"));
 				
 				segnalazioni.add(segnalazione);
 				

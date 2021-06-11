@@ -125,21 +125,43 @@ public class SegnalazioneDomandaServlet extends CustomServlet {
 		Date dataSegnalazione = new Date();
 		PartecipanteBean utente = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 
-		managerSegnalazioni.creazioneSegnalazioneDomanda(
-				motivazione, 
-				dataSegnalazione, 
-				commento, 
-				domandaSegnalata,
-				utente
-		);
-					
-		setStringAttributeThenRedirect(
-				"successo", 
-				"Segnalazione inviata con successo", 
-				request, 
-				response, 
-				requestURL
-		);
+		try {
+			
+			managerSegnalazioni.creazioneSegnalazioneDomanda(
+					motivazione, 
+					dataSegnalazione, 
+					commento, 
+					domandaSegnalata,
+					utente
+			);
+			
+
+			
+			setStringAttributeThenRedirect(
+					"successo", 
+					"Segnalazione inviata con successo", 
+					request, 
+					response, 
+					requestURL
+			);
+			
+		} catch(ServletException e) {
+			e.printStackTrace();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
+			
+			setStringAttributeThenRedirect(
+					"error", 
+					e.getMessage(), 
+					request, 
+					response, 
+					requestURL
+			);
+			
+			return ;
+			
+		}
 		
 	}
 

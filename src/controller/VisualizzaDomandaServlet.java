@@ -28,6 +28,7 @@ import model.DomandaBean;
 import model.DomandeManager;
 import model.MotivazioneBean;
 import model.MotivazioneDAO;
+import model.MotivazioniManager;
 import model.PartecipanteBean;
 import model.RispostaBean;
 import model.RispostaDAO;
@@ -84,7 +85,8 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 					ArrayList<RispostaBean> risposte = new ArrayList<RispostaBean>();
 					ArrayList<MotivazioneBean> motivazioni = new ArrayList<MotivazioneBean>();
 					
-					motivazioni=MotivazioneDAO.getAll();
+					MotivazioniManager managerMotivazioni = new MotivazioniManager();
+					motivazioni = managerMotivazioni.getAll();
 					request.setAttribute("motivazioni", motivazioni);
 											
 					int page = 0;
