@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.SegnalazioneRispostaBean;
 import model.SegnalazioniManager;
+import javax.servlet.http.HttpSession;
+
 
 /**
  * Servlet implementation class ElencoSegnalazioniRisposteServlet
  */
 @WebServlet("/ElencoSegnalazioniRisposteServlet")
-public class ElencoSegnalazioniRisposteServlet extends HttpServlet {
+public class ElencoSegnalazioniRisposteServlet extends CustomServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -27,6 +29,15 @@ public class ElencoSegnalazioniRisposteServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	
+    	checkModeratore(req.getSession(), resp);
+    	
+    	super.service(req, resp);
+    	
+    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

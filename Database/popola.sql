@@ -20,8 +20,8 @@ delete from categorie;
 #POPULATE DATABASE:
 
 insert into statosegnalazione values(1, "da gestire"),
-									(2, "ignorata"),
-                                    (3, "gestita");
+									(2, "approvata"),
+                                    (3, "declinata");
                                     
 insert into motivazioni values(2,"Offtopic"),
 							  (1,"Offensiva"),

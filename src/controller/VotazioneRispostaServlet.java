@@ -19,7 +19,7 @@ import model.VotazioneDAO;
  * Servlet implementation class VotazioneRispostaServlet
  */
 @WebServlet("/VotazioneRispostaServlet")
-public class VotazioneRispostaServlet extends HttpServlet {
+public class VotazioneRispostaServlet extends CustomServlet {
 	private static final long serialVersionUID = 1L;
 	static Logger log = Logger.getLogger(VotazioneDAO.class.getName()); // test
 
@@ -32,17 +32,37 @@ public class VotazioneRispostaServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			checkPartecipante(req.getSession(), resp);
+		} catch(RuntimeException exc) {
+			req.getRequestDispatcher("/accesso").forward(req, resp);
+		}
+		super.service(req, resp);  
+		
+	}
+
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+			
+		
 		PartecipanteBean autoreBean = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
-
 		idRisposta = request.getParameter("idRisposta");
 		RispostaBean risposta = new RispostaBean();
 		risposta.setId(idRisposta);
-		
 		idDomanda = request.getParameter("idDom");
+		
+		if (autoreBean==null) {throw new Exception("Errore. Il sistema non è riuscito ad autenticare l'utente.");}
+		if (idRisposta==null) throw new Exception("Errore. Il sistema non è riuscito a completare l'operazione.");
+		if (idDomanda==null) throw new Exception("Errore. Il sistema non è riuscito a completare l'operazione.");
+
 		
 		if(request.getParameter("value").equals("")) valore=0; else
 		valore = Integer.parseInt(request.getParameter("value"));
@@ -89,6 +109,11 @@ public class VotazioneRispostaServlet extends HttpServlet {
 		VotazioneDAO.addVotazioneRisposta(votazione);
 		}
 		request.getRequestDispatcher("VisualizzaDomandaServlet?id="+idDomanda).forward(request, response);
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private String idRisposta;

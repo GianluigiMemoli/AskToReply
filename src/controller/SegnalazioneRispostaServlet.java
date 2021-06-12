@@ -32,10 +32,12 @@ public class SegnalazioneRispostaServlet extends CustomServlet {
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		checkPartecipante(req.getSession(), resp);
-		
-		super.service(req, resp);
+		try {
+			checkPartecipante(req.getSession(), resp);
+		} catch(RuntimeException exc) {
+			req.getRequestDispatcher("/accesso").forward(req, resp);
+		}
+		super.service(req, resp);  
 		
 	}
 

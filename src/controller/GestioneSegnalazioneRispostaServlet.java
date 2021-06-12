@@ -21,7 +21,7 @@ import model.SegnalazioniManager;
  * Servlet implementation class gestioneSegnalazioneRispostaServlet
  */
 @WebServlet("/gestioneSegnalazioneRispostaServlet")
-public class GestioneSegnalazioneRispostaServlet extends HttpServlet {
+public class GestioneSegnalazioneRispostaServlet extends CustomServlet {
 	static Logger log = Logger.getLogger(SegnalazioneRispostaDAO.class.getName()); //test
 
 	private static final long serialVersionUID = 1L;
@@ -34,6 +34,17 @@ public class GestioneSegnalazioneRispostaServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	// TODO Auto-generated method stub
+    	try {
+    		super.checkModeratore(req.getSession(), resp);
+    	} catch(Exception exc) {    		    	
+    		req.getRequestDispatcher("/accesso").forward(req, resp);
+    	}
+    	super.service(req, resp);
+    }
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	    if (request.getParameter("approva") != null) {
