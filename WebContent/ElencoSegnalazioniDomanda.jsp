@@ -142,6 +142,17 @@
 						<ion-icon name="trash"></ion-icon>
 						Ignora
 					</button>
+					
+										<c:choose>
+						<c:when test="${s.getDomandaSegnalata().getAllegati().size() > 0}">
+							<button type="button"
+								class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark"
+								disabled>
+								<ion-icon name="image"></ion-icon>
+								<span class="responsivespan"> Contiene allegati&nbsp;</span>
+							</button>
+						</c:when>
+					</c:choose>
 
 							<div class="modal fade" id="<%= "modal" + counter  %>"
 								tabindex="-1" role="dialog" aria-labelledby="${s.getId()}"
@@ -166,13 +177,19 @@
 												<input type="hidden" name="idSegnalazione"
 													value="${s.getId()}" />
 
-												<c:forEach items="${categorie}" var="c">
-													<div class="form-check">
-														<input class="form-check-input" type="checkbox"
-															name="categorieDomanda" value="${c.getId()}"> <label
-															class="form-check-label"> ${c.getNome()} </label>
-													</div>
-												</c:forEach>
+			
+																	<div class="form-group">	
+						<div class="overflow-auto" style="height: 229px;">  
+							<ul class="list-group" style="margin-right:5pt;">
+								<c:forEach items="${categorie}" var="c">
+									<li class="list-group-item">
+										<input type="checkbox" value="${c.getId()}" name="categorieDomanda" id="interesseCheck">
+										<label for="interesseCheck"><a style="background-color:#EDE7F6; color:purple; border-radius:99em;" class="badge">${c.getNome()}</a></label>
+									</li>
+								</c:forEach>
+							</ul>
+						</div>	
+					</div>
 
 												<input type="submit" class="btn btn-primary mt-2"
 													value="Invia" />
@@ -191,7 +208,7 @@
 
 
 					<c:choose>
-						<c:when test="${s.getDomandaSegnalata().getAllegati().size() > 0}">
+						<c:when test="${s.getDomandaSegnalata().getAllegati().size() > 0 and s.getMotivazione().getId() != 2}">
 							<button type="button"
 								class="btn btn-outline-light btn-sm border-0 btnsmussato text-dark"
 								disabled>

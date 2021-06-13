@@ -30,7 +30,9 @@ public class SegnalazioniManager {
 		
 	}
 	
-	public void creazioneSegnalazioneRisposta(SegnalazioneRispostaBean srb) {
+	public void creazioneSegnalazioneRisposta(SegnalazioneRispostaBean srb) throws Exception {
+		
+		if(srb.getCommento().length() > LUNGHEZZA_MASSIMA_COMMENTO) throw new Exception("Lunghezza commento segnalazione superiore a " + LUNGHEZZA_MASSIMA_COMMENTO);
 		SegnalazioneRispostaDAO.addSegnalazioneRisposta(srb);
 	}
 	

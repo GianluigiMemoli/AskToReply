@@ -67,7 +67,12 @@ if(idRisposta!=null) {
 				PartecipanteBean utente = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 				sr.setUtente(utente);
 				SegnalazioniManager sm = new SegnalazioniManager();
-				sm.creazioneSegnalazioneRisposta(sr);
+				try {
+					sm.creazioneSegnalazioneRisposta(sr);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		
 
 				} else {log.info("Errore: Id motivazione Null");		request.setAttribute("errore", "Segnalazione non effettuata");

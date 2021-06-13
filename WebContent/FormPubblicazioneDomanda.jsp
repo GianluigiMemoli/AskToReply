@@ -33,17 +33,21 @@
 						<label for="allegati">Allegati</label>
 						<input type="file" name="allegati" id="allegati" class="form-control-file" multiple>	
 					</div>
-				
-					<div class="form-group">
-						<c:forEach var="cat" items="${categorie}">
-							<div class="form-check">
-								<input type="checkbox" name="categorie" class="form-check-input" value="${cat.id}">
-								<label class="form-check-label">
-									<a style="background-color:#EDE7F6; color:purple; border-radius:99em;" class="badge">${cat.nome}</a>
-								</label>
-							</div>
-						</c:forEach>
+					
+					
+					<div class="form-group">	
+						<div class="overflow-auto" style="height: 229px;">  
+							<ul class="list-group" style="margin-right:5pt;">
+								<c:forEach items="${categorie}" var="cat">
+									<li class="list-group-item">
+										<input type="checkbox" value="${cat.getId()}" name="categorie" id="interesseCheck">
+										<label for="interesseCheck"><a style="background-color:#EDE7F6; color:purple; border-radius:99em;" class="badge">${cat.getNome()}</a></label>
+									</li>
+								</c:forEach>
+							</ul>
+						</div>	
 					</div>
+					
 						
 					<input type="submit" class="btn btn-primary" value="Pubblica" style="border-radius:99em;">		
 

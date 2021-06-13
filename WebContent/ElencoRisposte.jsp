@@ -95,7 +95,7 @@ button.responsivebtn{
 					<c:when test="${risposta.getAllegati().size() > 0}">
 						<%session.setAttribute("allegati_${risposta.getId()}", "${risposta.getAllegati()}");%>
 						<%session.setAttribute("testina", "valorepassato");%>
-						<div class="container">
+						<div class="container" style="margin-left:0px">
 							<div class="row">
 
 							<c:forEach items="${risposta.getAllegati()}" var="allegato">
