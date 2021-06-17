@@ -46,10 +46,12 @@ public class SegnalazioneRispostaServlet extends CustomServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
 		idRisposta = request.getParameter("idRisp");
-if(idRisposta!=null) {
-		if(request.getParameter("idMotivazione")!=null) {
+		
+		if(idRisposta != null) {
+			
+		if(request.getParameter("idMotivazione")!= null) {
+			
 				idMotivazione = Integer.parseInt(request.getParameter("idMotivazione"));
 				commento = request.getParameter("commento");
 				stato=1;
@@ -67,6 +69,7 @@ if(idRisposta!=null) {
 				PartecipanteBean utente = (PartecipanteBean) request.getSession().getAttribute("utenteLoggato");
 				sr.setUtente(utente);
 				SegnalazioniManager sm = new SegnalazioniManager();
+				
 				try {
 					sm.creazioneSegnalazioneRisposta(sr);
 				} catch (Exception e) {
@@ -75,10 +78,17 @@ if(idRisposta!=null) {
 				}
 		
 
-				} else {log.info("Errore: Id motivazione Null");		request.setAttribute("errore", "Segnalazione non effettuata");
-				response.setStatus(401);}
-					} else {log.info("Errore: Id risposta Null");		request.setAttribute("errore", "Segnalazione non effettuata");
-					response.setStatus(401);}
+			} else {
+				log.info("Errore: Id motivazione Null");		
+				request.setAttribute("errore", "Segnalazione non effettuata");
+				response.setStatus(401);
+			}
+					
+		} else {
+			log.info("Errore: Id risposta Null");		
+			request.setAttribute("errore", "Segnalazione non effettuata");
+			response.setStatus(401);
+		}
 
 	
 
