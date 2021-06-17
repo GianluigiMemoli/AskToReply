@@ -50,7 +50,7 @@ public class SegnalazioneRispostaServlet extends CustomServlet {
 		
 		if(idRisposta != null) {
 			
-		if(request.getParameter("idMotivazione")!= null) {
+			if(request.getParameter("idMotivazione") != null) {
 			
 				idMotivazione = Integer.parseInt(request.getParameter("idMotivazione"));
 				commento = request.getParameter("commento");
@@ -90,11 +90,8 @@ public class SegnalazioneRispostaServlet extends CustomServlet {
 			response.setStatus(401);
 		}
 
-	
-
 		request.getRequestDispatcher("VisualizzaDomandaServlet?id="+request.getParameter("idDomanda")).forward(request, response);
 		
-
 	}
 	
 	private String idRisposta;
