@@ -40,7 +40,11 @@ public class RisolviSegnalazioneDomandaServlet extends CustomServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
-    	checkModeratore(req.getSession(), resp);
+    	try {
+    		checkModeratore(req.getSession(), resp);
+    	} catch (RuntimeException e) {
+    		req.getRequestDispatcher("/accesso").forward(req, resp);
+    	}
     	
     	super.service(req, resp);
     	
@@ -101,11 +105,11 @@ public class RisolviSegnalazioneDomandaServlet extends CustomServlet {
 			
 		}
 		
-		if(segnalazioneDaRisolvere.getMotivazione().getId() != MotivazioneBean.CONTENUTI_OFFENSIVI) {
+		if(segnalazioneDaRisolvere.getMotivazione().getId() == MotivazioneBean.OFFTOPIC) {
 			
 			setStringAttributeThenRedirect(
 					"errore", 
-					"La motivazione della segnalazione NON è 'Contenuto Offensivo'", 
+					"Questa classe non può risolvere segnalazioni Off-topic", 
 					request, 
 					response, 
 					PATH_ELENCO_SEGNALAZIONI_DOMANDA);
@@ -144,7 +148,7 @@ public class RisolviSegnalazioneDomandaServlet extends CustomServlet {
 		
 		// Risoluzione di tutte le segnalazioni (contenuti offessinvi & offtopic)
 		
-		managerSegnalazioni. risolviSegnalazioneDomanda(segnalazioneDaRisolvere);
+		managerSegnalazioni.risolviSegnalazioneDomanda(segnalazioneDaRisolvere);
 			
 		setStringAttributeThenRedirect(
 				"messaggioDiSuccesso", 

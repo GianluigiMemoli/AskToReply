@@ -34,7 +34,11 @@ public class VisualizzaStoricoDomandeServlet extends CustomServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
-    	checkPartecipante(req.getSession(), resp);
+    	try {
+    		checkPartecipante(req.getSession(), resp);
+    	} catch(RuntimeException e) {
+    		req.getRequestDispatcher("/accesso").forward(req, resp);
+    	}
     	
     	super.service(req, resp);
     	

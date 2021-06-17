@@ -40,7 +40,12 @@ public class CambiaCategorieDomandaServlet extends CustomServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
-    	checkModeratore(req.getSession(), resp);
+    	try {
+    		checkModeratore(req.getSession(), resp);
+		} catch (RuntimeException e) {
+			LOGGER.info("L'utente non è autenticato ma se lo è, non è un moderatore");
+			req.getRequestDispatcher("/accesso").forward(req, resp);
+		}
     	
     	super.service(req, resp);
     	

@@ -31,7 +31,11 @@ public class VisualizzaElencoSegnalazioniDomandaServlet extends CustomServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
-    	checkModeratore(req.getSession(), resp);
+    	try {
+    		checkModeratore(req.getSession(), resp);
+    	} catch(RuntimeException e) {
+    		req.getRequestDispatcher("/accesso").forward(req, resp);
+    	}
     	
     	super.service(req, resp);
     	

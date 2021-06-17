@@ -1,16 +1,8 @@
 package controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
@@ -21,22 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-
-import model.AllegatiHandler;
 import model.DomandaBean;
 import model.DomandeManager;
 import model.MotivazioneBean;
-import model.MotivazioneDAO;
 import model.MotivazioniManager;
 import model.PartecipanteBean;
 import model.RispostaBean;
-import model.RispostaDAO;
 import model.RisposteManager;
 import model.UtenteBean;
-import model.UtenteDAO;
-import model.VotazioneBean;
-import model.VotazioneDAO;
 
 /**
  * Servlet implementation class VisualizzaDomandaServlet
@@ -52,6 +36,19 @@ public class VisualizzaDomandaServlet extends CustomServlet {
     public VisualizzaDomandaServlet() {
         super();
         // TODO Auto-generated constructor stub
+    }
+    
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	
+    	try {
+    		checkPartecipante(req.getSession(), resp);
+    	} catch(RuntimeException e) {
+    		req.getRequestDispatcher("/accesso").forward(req, resp);
+    	}
+    	
+    	super.service(req, resp);
+    	
     }
 
 	/**
@@ -106,10 +103,7 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 					HashSet<RispostaBean> rsrb =  managerRisposte.getRisposteApprezzate(utenteloggato);
 					HashSet<RispostaBean> rsrb2 =  managerRisposte.getRisposteNonApprezzate(utenteloggato);
 
-
-					
-					 log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-					 log.info("LA SIZE DELL'HASHSET E' "+ String.valueOf(rsrb.size()));
+					log.info("LA SIZE DELL'HASHSET E' "+ String.valueOf(rsrb.size()));
 					 
 					 HashSet<String> risposteApprezzate = new HashSet<String>();
 					 HashSet<String> risposteNonApprezzate = new HashSet<String>();
@@ -134,7 +128,6 @@ public class VisualizzaDomandaServlet extends CustomServlet {
 							log.info(k.getId());
 						});*/
 					 
-					 log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 					//boolean b = RispostaDAO.getRisposteByIdDomanda(idDomanda, page+1).isEmpty();
 					 boolean b = RisposteManager.getRisposteByIdDomanda(idDomanda, page+1).isEmpty();
