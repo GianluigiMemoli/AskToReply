@@ -9,17 +9,16 @@ import java.util.Date;
 
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
+
+import gestioneAccount.PartecipanteBean;
+import gestioneDomanda.CategoriaBean;
+import gestioneDomanda.DomandaBean;
+import gestioneDomanda.DomandaDAO;
+import util.DBManager;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-
-import model.CategoriaBean;
-import model.CategoriaDAO;
-import model.DBManager;
-import model.DomandaBean;
-import model.DomandaDAO;
-import model.PartecipanteBean;
-import model.PartecipanteDAO;
 
 public class DomandaDAOTest {
 		
@@ -38,9 +37,12 @@ public class DomandaDAOTest {
 	@Test
 	public void testAddDomanda() {
 		
-		PartecipanteBean autore = PartecipanteDAO.getPartecipanteByEmail("BERNDO@BRUEGGE.COM");
+		PartecipanteBean autore = new PartecipanteBean();
+		autore.setId("idautoremock");
 		DomandaBean domanda = new DomandaBean();
-		CategoriaBean categoriaDomanda = CategoriaDAO.getCategoriaByNome("biologia");
+		CategoriaBean categoriaDomanda = new CategoriaBean();
+		categoriaDomanda.setId("id000");
+		categoriaDomanda.setNome("pesca");
 		domanda.setTitolo("Domanda di test");
 		domanda.setCorpo("Questo qui è un test");
 		domanda.setAutore(autore);
@@ -61,12 +63,7 @@ public class DomandaDAOTest {
 		assertNull(DomandaDAO.getDomandaById("idmock42"));
 	}
 	
-	@Ignore 
-	public void testAddCategoriaDomanda() {
-		CategoriaBean categoria = CategoriaDAO.getCategoriaByNome("pesca");
-		DomandaBean domanda = DomandaDAO.getDomandaById("idmock");
-		DomandaDAO.addCategoriaDomanda(domanda, categoria);		
-	}
+
 	
 
 	@Test 

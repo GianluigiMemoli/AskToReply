@@ -10,8 +10,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.DBManager;
-import model.MotivazioneDAO;
+
+import moderazione.MotivazioneDAO;
+import util.DBManager;
 
 public class MotivazioneDAOTest {
 

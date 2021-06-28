@@ -10,11 +10,12 @@ import java.util.Date;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.DBManager;
-import model.DomandaDAO;
-import model.MotivazioneBean;
-import model.SegnalazioneDomandaBean;
-import model.SegnalazioneDomandaDAO;
+
+import gestioneDomanda.DomandaDAO;
+import moderazione.MotivazioneBean;
+import moderazione.SegnalazioneDomandaBean;
+import moderazione.SegnalazioneDomandaDAO;
+import util.DBManager;
 
 public class SegnalazioneDomandaDAOTest {
 

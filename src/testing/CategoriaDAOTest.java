@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.CategoriaBean;
-import model.CategoriaDAO;
-import model.DBManager;
+
+import gestioneDomanda.CategoriaBean;
+import gestioneDomanda.CategoriaDAO;
+import util.DBManager;
 
 public class CategoriaDAOTest {
 

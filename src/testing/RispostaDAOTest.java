@@ -14,11 +14,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.DBManager;
-import model.DomandaBean;
-import model.PartecipanteBean;
-import model.RispostaBean;
-import model.RispostaDAO;
+import gestioneAccount.PartecipanteBean;
+import gestioneDomanda.DomandaBean;
+import gestioneRisposta.RispostaBean;
+import gestioneRisposta.RispostaDAO;
+import util.DBManager;
 
 class RispostaDAOTest {
 	@BeforeEach

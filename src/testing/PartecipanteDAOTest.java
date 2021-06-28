@@ -11,11 +11,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.CategoriaBean;
-import model.CategoriaDAO;
-import model.DBManager;
-import model.PartecipanteBean;
-import model.PartecipanteDAO;
+import gestioneAccount.PartecipanteBean;
+import gestioneAccount.PartecipanteDAO;
+import gestioneDomanda.CategoriaBean;
+import gestioneDomanda.CategoriaDAO;
+import util.DBManager;
 
 class PartecipanteDAOTest {
 

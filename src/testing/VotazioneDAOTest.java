@@ -9,11 +9,11 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import model.DBManager;
-import model.PartecipanteBean;
-import model.RispostaBean;
-import model.VotazioneBean;
-import model.VotazioneDAO;
+import gestioneAccount.PartecipanteBean;
+import gestioneRisposta.RispostaBean;
+import gestioneRisposta.VotazioneBean;
+import gestioneRisposta.VotazioneDAO;
+import util.DBManager;
 
 class VotazioneDAOTest {
 	

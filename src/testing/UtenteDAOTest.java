@@ -12,9 +12,10 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import model.DBManager;
-import model.UtenteBean;
-import model.UtenteDAO;
+
+import gestioneAccount.UtenteBean;
+import gestioneAccount.UtenteDAO;
+import util.DBManager;
 
 public class UtenteDAOTest {
 	

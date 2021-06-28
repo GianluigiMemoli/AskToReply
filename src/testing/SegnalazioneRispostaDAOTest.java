@@ -15,14 +15,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.DBManager;
-import model.DomandaBean;
-import model.MotivazioneBean;
-import model.PartecipanteBean;
-import model.RispostaBean;
-import model.RispostaDAO;
-import model.SegnalazioneRispostaBean;
-import model.SegnalazioneRispostaDAO;
+import gestioneAccount.PartecipanteBean;
+import gestioneDomanda.DomandaBean;
+import gestioneRisposta.RispostaBean;
+import gestioneRisposta.RispostaDAO;
+import moderazione.MotivazioneBean;
+import moderazione.SegnalazioneRispostaBean;
+import moderazione.SegnalazioneRispostaDAO;
+import util.DBManager;
 public class SegnalazioneRispostaDAOTest {
 	@BeforeEach
 	public  void setup() throws IOException, SQLException {
@@ -45,6 +45,9 @@ public class SegnalazioneRispostaDAOTest {
 		segnalazione.setStato(1);
 		MotivazioneBean motivazione = new MotivazioneBean(1, "contenuti offensivi");
 		segnalazione.setMotivazione(motivazione);
+		PartecipanteBean autoreSegnalazione = new PartecipanteBean();
+		autoreSegnalazione.setId("idautoremock");
+		segnalazione.setUtente(autoreSegnalazione);
 		segnalazione = SegnalazioneRispostaDAO.addSegnalazioneRisposta(segnalazione);
 		assertNotNull(segnalazione.getIdSegnalazione());		
 	}
