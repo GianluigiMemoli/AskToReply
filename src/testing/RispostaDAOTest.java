@@ -24,13 +24,14 @@ class RispostaDAOTest {
 	@BeforeEach
 	public void setup() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/seed.sql");
 		dbManager.executeFromScript("Database/testingQueries/initRispostaDAO.sql");
 	}
 	
 	@AfterEach
 	public void teardown() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
-		dbManager.executeFromScript("Database/testingQueries/teardownRispostaDAO.sql");
+		dbManager.executeFromScript("Database/reset.sql");
 	}
 	@Test
 	public void addRispostaTest() {
@@ -80,12 +81,12 @@ class RispostaDAOTest {
 		}
 		
 	}
-	/*
-	@Test public void removeRispostaTest() {
+	
+	@Ignore public void removeRispostaTest() {
 		RispostaBean risposta = RispostaDAO.getRispostaById("idRisp1");
 		RispostaDAO.removeRisposta(risposta);
 		RispostaBean rispostaNascosta = RispostaDAO.getRispostaById("idRisp1");
-		assertTrue(rispostaNascosta.is)
+		assertNull(rispostaNascosta);
 	}
-*/
+
 }

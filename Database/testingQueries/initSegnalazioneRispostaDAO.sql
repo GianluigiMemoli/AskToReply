@@ -11,7 +11,7 @@ INSERT INTO risposte VALUES ("idRisp2", "iddomandamock", "corpo", null, "idrispo
 INSERT INTO risposte VALUES ("idRisp3", "iddomandamock", "corpo", null, "idrisponditoremock", "2021-05-25", 0);
 INSERT INTO risposte VALUES ("idRisp4", "iddomandamock", "corpo", null, "idrisponditoremock", "2021-05-25", 0);
 
-INSERT INTO segnalazioni VALUES ("idsegn1", "1", "2021-05-25", 1, "un commento");
+INSERT INTO segnalazioni VALUES ("idsegn1", "1", "2021-05-25", 1, "un commento", "idautoremock");
 INSERT INTO segnalazionirisposta VALUES ("idsegn1", "idRisp1");
-INSERT INTO segnalazioni VALUES ("idsegn2", "1", "2021-05-25", 1, "un commento");
+INSERT INTO segnalazioni VALUES ("idsegn2", "1", "2021-05-25", 1, "un commento", "idautoremock");
 INSERT INTO segnalazionirisposta VALUES ("idsegn2", "idRisp2");

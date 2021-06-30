@@ -27,12 +27,13 @@ public class SegnalazioneRispostaDAOTest {
 	@BeforeEach
 	public  void setup() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/seed.sql");
 		dbManager.executeFromScript("Database/testingQueries/initSegnalazioneRispostaDAO.sql");
 	}
 	@AfterEach
 	public  void teardown() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
-		dbManager.executeFromScript("Database/testingQueries/teardownSegnalazioneRispostaDAO.sql");
+		dbManager.executeFromScript("Database/reset.sql");
 	}
 	@Test
 	public void addSegnalazioneRispostaTest() {
