@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.CategoriaBean"%>
+<%@page import="gestioneDomanda.CategoriaBean"%>
 
 <jsp:include page="Header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

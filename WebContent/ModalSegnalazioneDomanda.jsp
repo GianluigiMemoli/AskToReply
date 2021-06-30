@@ -1,4 +1,4 @@
-<%@page import="model.MotivazioneBean"%>
+<%@page import="moderazione.MotivazioneBean"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 

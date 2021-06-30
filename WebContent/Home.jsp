@@ -4,7 +4,7 @@
 <jsp:include page="Sidebar.jsp">
 	<jsp:param name="active" value="home" />
 </jsp:include>
-<%@page import="model.DomandaBean"%>
+<%@page import="gestioneDomanda.DomandaBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import= "java.util.HashMap" %>
 <%@page import= "java.util.HashSet" %>
