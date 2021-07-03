@@ -20,12 +20,14 @@ class RuoloDAOTest {
 	@BeforeEach
 	public void init() throws IOException, SQLException {
 		DBManager manager = DBManager.getInstance();
+		manager.executeFromScript("Database/seed.sql");
 		manager.executeFromScript(PATH_INIT_SCRIPT);
 	}
 	
 	@AfterEach
 	public void clean() throws IOException, SQLException {
 		DBManager manager = DBManager.getInstance();
+		manager.executeFromScript("Database/reset.sql");
 		manager.executeFromScript(PATH_TEAR_DOWN_SCRIPT);
 	}
 	
