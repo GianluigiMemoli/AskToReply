@@ -3,11 +3,11 @@ use asktoreply;
 DELIMITER $$
 
 CREATE PROCEDURE RemovePartecipante(
-    @id VARCHAR(256)
+    _id VARCHAR(256)
 )
 
 BEGIN
-    DELETE FROM Partecipanti WHERE idUtente = @id ;
-    DELETE FROM Interessi WHERE idUtente = @id; 
-    DELETE FROM Utenti WHERE id = @id;
+    DELETE FROM Partecipanti WHERE idUtente = _id ;
+    DELETE FROM Interessi WHERE idUtente = _id; 
+    DELETE FROM Utenti WHERE id = _id;
 END $$

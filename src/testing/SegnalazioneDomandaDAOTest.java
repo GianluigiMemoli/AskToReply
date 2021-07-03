@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import gestioneAccount.PartecipanteBean;
 import gestioneDomanda.DomandaDAO;
 import moderazione.MotivazioneBean;
 import moderazione.SegnalazioneDomandaBean;
@@ -71,11 +72,14 @@ public class SegnalazioneDomandaDAOTest {
 		SegnalazioneDomandaBean segnalazione = new SegnalazioneDomandaBean();
 		segnalazione.setCommento("Commento test");
 		MotivazioneBean mb = new MotivazioneBean();
+		PartecipanteBean partecipante = new PartecipanteBean();
+		partecipante.setId("USER2ID");
 		mb.setId(3);
 		segnalazione.setMotivazione(mb);
 		segnalazione.setStato(1);
 		segnalazione.setDomandaSegnalata(DomandaDAO.getDomandaById("DOM1ID"));
 		segnalazione.setDataSegnalazione(new Date());
+		segnalazione.setUtente(partecipante);
 		SegnalazioneDomandaDAO.addSegnalazioneDomanda(segnalazione);
 		NUMERO_SEGNALAZIONI = 4;
 		assertEquals(NUMERO_SEGNALAZIONI, SegnalazioneDomandaDAO.getAll().size());

@@ -47,10 +47,10 @@ insert into interessi values("USER1ID","CAT1ID"),
                             ("USER3ID","CAT4ID"),
 							("USER3ID","CAT5ID");
                             
-insert into domande values ("DOM1ID", "Chi ha inventato la lampadina?","C'è chi dice che sia opera di Edison, altri citano Joseph Wilson Swan. Chi dei due?",null,"USER1ID",CURDATE(),0,0),
-						   ("DOM2ID", "Cosa determina il prezzo di una criptovaluta?","Inoltre, perchè alcune al lancio valgono già tanto?",null,"USER2ID",CURDATE(),0,0),
-						   ("DOM3ID", "Quanto tempo ci vuole per raggiungere Marte?","Con le tecnologie attuali quanto tempo è necessario per viaggiare dalla Terra al Pianeta rosso?",null,"USER3ID",CURDATE(),0,0);
-                           
+insert into domande values ("DOM1ID", "Chi ha inventato la lampadina?","C'è chi dice che sia opera di Edison, altri citano Joseph Wilson Swan. Chi dei due?","USER1ID",CURDATE(),0,0),
+						   ("DOM2ID", "Cosa determina il prezzo di una criptovaluta?","Inoltre, perchè alcune al lancio valgono già tanto?","USER2ID",CURDATE(),0,0),
+						   ("DOM3ID", "Quanto tempo ci vuole per raggiungere Marte?","Con le tecnologie attuali quanto tempo è necessario per viaggiare dalla Terra al Pianeta rosso?","USER3ID",CURDATE(),0,0);
+                         
 insert into categoriedomande values("DOM1ID","CAT3ID"),
 								   ("DOM1ID","CAT4ID"),
                                    ("DOM2ID","CAT1ID"),

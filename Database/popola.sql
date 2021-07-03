@@ -37,11 +37,17 @@ insert into ruoli values (1,"Partecipante"),
 insert into utenti values ("USER1ID","utente1@email.com","notHashedPass",null,"user1","Mario","Rossi",1,0),
 						  ("USER2ID","utente2@email.com","notHashedPass",null,"user2","Luca","Bianchi",1,0),
                           ("USER3ID","utente3@email.com","notHashedPass",null,"user3","Antonella","Neri",1,0),
-                          ("MOD1ID","mod1@email.com","notHashedPass",null,"mod1","Victor","White",2,0);
+                          ("USER4ID","laura@marcocci.com","notHashedPass",null,"user4","Laura","Marcocci",1,0),
+                          ("MOD1ID","mod1@email.com","notHashedPass",null,"mod1","Victor","White",2,0),
+						  ("MOD2ID","mod2@email.com","notHashedPass",null,"mod2","Vincent","Manetti",2,0),
+                          ("USER5ID", "giorgia@santi.it", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", null, "user5", "Giorgia", "Santi",1,0);
                           
+
 insert into partecipanti values("USER1ID",0,0),
 							   ("USER2ID",0,0),
-                               ("USER3ID",0,0);
+                               ("USER3ID",0,0),
+							   ("USER4ID",0,0),
+                               ("USER5ID",0,0);
 
 insert into categorie values("CAT1ID", "Economia"),
 							("CAT2ID", "Informatica"),
@@ -61,11 +67,13 @@ insert into interessi values("USER1ID","CAT1ID"),
                             ("USER2ID","CAT3ID"),
                             ("USER3ID","CAT3ID"),
                             ("USER3ID","CAT4ID"),
-							("USER3ID","CAT5ID");
+							("USER3ID","CAT5ID"),
+                            ("USER4ID","CAT1ID"),
+                            ("USER5ID","CAT1ID");
                             
-insert into domande values ("DOM1ID", "Chi ha inventato la lampadina?","C'√® chi dice che sia opera di Edison, altri citano Joseph Wilson Swan. Chi dei due?","USER1ID",CURDATE(),0,0),
-						   ("DOM2ID", "Cosa determina il prezzo di una criptovaluta?","Inoltre, perch√® alcune al lancio valgono gi√† tanto?","USER2ID",CURDATE(),0,0),
-						   ("DOM3ID", "Quanto tempo ci vuole per raggiungere Marte?","Con le tecnologie attuali quanto tempo √® necessario per viaggiare dalla Terra al Pianeta rosso?","USER3ID",CURDATE(),0,0);
+insert into domande values ("DOM1ID", "Chi ha inventato la lampadina?","C'Ë chi dice che sia opera di Edison, altri citano Joseph Wilson Swan. Chi dei due?","USER1ID",CURDATE(),0,0),
+						   ("DOM2ID", "Cosa determina il prezzo di una criptovaluta?","Inoltre, perchË alcune al lancio valgono gi‡ tanto?","USER2ID",CURDATE(),0,0),
+						   ("DOM3ID", "Quanto tempo ci vuole per raggiungere Marte?","Con le tecnologie attuali quanto tempo Ë necessario per viaggiare dalla Terra al Pianeta rosso?","USER3ID",CURDATE(),0,0);
                            
 insert into categoriedomande values("DOM1ID","CAT3ID"),
 								   ("DOM1ID","CAT4ID"),
