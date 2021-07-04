@@ -1,22 +1,7 @@
 use asktoreply;
 
-#RESET DATABASE:
-
-delete from categoriedomande;
-delete from domande;
-delete from interessi;
-delete from partecipanti;
-delete from utenti;
-delete from ruoli;
-delete from categorie;
-
-
-
 #POPULATE DATABASE:
 
-insert into ruoli values (1,"Partecipante"),
-						 (2,"Moderatore"),
-                         (3,"MasterModeratore");
 
 insert into utenti values ("USER1ID","utente1@email.com","notHashedPass",null,"user1","Mario","Rossi",1,0),
 						  ("USER2ID","utente2@email.com","notHashedPass",null,"user2","Luca","Bianchi",1,0),

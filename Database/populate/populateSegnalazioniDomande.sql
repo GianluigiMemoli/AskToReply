@@ -1,40 +1,6 @@
 use asktoreply;
 
-#RESET DATABASE:
-
-delete from categoriedomande;
-delete from segnalazionidomanda;
-delete from segnalazionirisposta;
-delete from segnalazioni;
-delete from statosegnalazione;
-delete from votazioni;
-delete from risposte;
-delete from domande;
-delete from interessi;
-delete from partecipanti;
-delete from utenti;
-delete from ruoli;
-delete from motivazioni;
-delete from categorie;
-
-
-
 #POPULATE DATABASE:
-
-insert into statosegnalazione values(1, "da gestire"),
-									(2, "ignorata"),
-                                    (3, "gestita");
-                                    
-insert into motivazioni values(1,"Offtopic"),
-							  (2,"Offensiva"),
-                              (3,"Spam"),
-                              (4,"Contenuti inappropriati"),
-                              (5,"Link dannosi"),
-                              (6,"Altro");
-
-insert into ruoli values (1,"Partecipante"),
-						 (2,"Moderatore"),
-                         (3,"MasterModeratore");
 
 insert into utenti values ("USER1ID","utente1@email.com","notHashedPass",null,"user1","Mario","Rossi",1,0),
 						  ("USER2ID","utente2@email.com","notHashedPass",null,"user2","Luca","Bianchi",1,0),

@@ -34,6 +34,7 @@ public class AccountManagerTest {
 	@BeforeEach
 	public void setup() throws IOException, SQLException{
 		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/seed.sql");
 		dbManager.executeFromScript("Database/popola.sql");
 	}
 	

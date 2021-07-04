@@ -25,7 +25,7 @@ public class MotivazioneDAOTest {
 	@BeforeEach
 	public void setup() throws IOException, SQLException{
 		DBManager dbManager = DBManager.getInstance();
-		dbManager.executeFromScript("Database/populate/populateMotivazioni.sql");
+		dbManager.executeFromScript("Database/seed.sql");
 	}
 	
 	@Test
