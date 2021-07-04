@@ -18,7 +18,7 @@ public class Validator {
 	}
 	
 	private static boolean isAnEmail(String text) {
-		return Pattern.matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", text);		
+		return Pattern.matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", text) && text.length() < 320 ;		
 	}
 
 	private static boolean isNomeValid(String nome) {
@@ -32,7 +32,7 @@ public class Validator {
 			return false;
 		else return true;
 	}
-	public static boolean isPasswordValid(String password) {
+	public static boolean isPasswordValid(String password) { 
 				
 		return 	password.length() <= MAX_PASSWORD_LENGTH  
 				&&
