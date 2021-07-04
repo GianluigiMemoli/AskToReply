@@ -233,7 +233,7 @@ public class AccountManager {
 		
 		UtenteBean oldUser = UtenteDAO.getUtenteById(user.getId());
 		
-		if(!oldUser.getEmail().equals(newEmail) && !isEmailAvailable(newEmail))
+		if(!oldUser.getEmail().equalsIgnoreCase(newEmail) && !isEmailAvailable(newEmail))
 			throw new EmailPresenteException();
 		
 		if(!oldUser.getUsername().equals(newUsername) && !isUsernameAvailable(newUsername))
