@@ -77,7 +77,7 @@ public class SegnalazioneDomandaServlet extends CustomServlet {
 		if(idDomanda == null) {
 			
 			setStringAttributeThenRedirect(
-					"error",
+					"errore",
 					"L'ID della domanda non può essere nullo", 
 					request, 
 					response,
@@ -90,7 +90,7 @@ public class SegnalazioneDomandaServlet extends CustomServlet {
 		if(idMotivazione == null) {
 			
 			setStringAttributeThenRedirect(
-					"error", 
+					"errore", 
 					"L'ID della motivazione non può essere nullo",
 					request, 
 					response, 
@@ -108,7 +108,7 @@ public class SegnalazioneDomandaServlet extends CustomServlet {
 		if(domandaSegnalata == null) {
 			
 			setStringAttributeThenRedirect(
-					"error", 
+					"errore", 
 					"La domanda segnalata con id = '" + idDomanda + "' non esiste", 
 					request, 
 					response, 
@@ -155,7 +155,7 @@ public class SegnalazioneDomandaServlet extends CustomServlet {
 		}catch (Exception e) {
 			
 			setStringAttributeThenRedirect(
-					"error", 
+					"errore", 
 					e.getMessage(), 
 					request, 
 					response, 
