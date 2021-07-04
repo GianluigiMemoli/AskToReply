@@ -17,4 +17,4 @@ insert into ruoli values (1,"Partecipante"),
 						 (2,"Moderatore"),
                          (3,"MasterModeratore");
 # passwordHash è "password"
-insert into utenti values ("USER1ID","master@moderatore.com","5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",null,"mod","Mario","Rossi",3,0);
+insert into utenti values ("USER0ID","master@moderatore.com","5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",null,"mod","Mario","Rossi",3,0);

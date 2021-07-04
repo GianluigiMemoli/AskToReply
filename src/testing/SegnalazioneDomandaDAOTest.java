@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,8 @@ import util.DBManager;
 
 public class SegnalazioneDomandaDAOTest {
 
-	@BeforeAll
-	public static void reset() throws IOException, SQLException {
+	@AfterEach
+	public void reset() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
 		dbManager.executeFromScript("Database/reset.sql");
 	}

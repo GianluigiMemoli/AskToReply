@@ -9,6 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,8 +20,8 @@ import util.DBManager;
 
 public class UtenteDAOTest {
 	
-	@BeforeAll
-	public static void reset() throws IOException, SQLException {
+	@AfterEach
+	public void reset() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
 		dbManager.executeFromScript("Database/reset.sql");
 	}

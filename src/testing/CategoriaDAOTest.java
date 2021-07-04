@@ -46,7 +46,7 @@ public class CategoriaDAOTest {
 
 	@Test
 	public void getAllTest() {
-		int NUMERO_CATEGORIE = 6;
+		int NUMERO_CATEGORIE = 7;
 		assertEquals(NUMERO_CATEGORIE, CategoriaDAO.getAll().size());
 	}
 	
