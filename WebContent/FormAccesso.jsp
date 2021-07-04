@@ -16,7 +16,7 @@
 			<form action="AccessoServlet" method="post" enctype="application/x-www-form-urlencoded">														
 					<div class="form-group">
 						<label for="email">Indirizzo email</label>
-						<input id="email" type="email" class="form-control" name="email">
+						<input id="email" type="text" class="form-control" name="email">
 					</div>
 					<div class="form-group">
 						<label for="password">Password</label>
