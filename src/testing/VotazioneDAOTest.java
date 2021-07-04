@@ -20,13 +20,14 @@ class VotazioneDAOTest {
 	@BeforeAll
 	public static void init() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/seed.sql");
 		dbManager.executeFromScript("Database/testingQueries/initVotazioneDAO.sql");
 	}
 	
 	@AfterAll
 	public static void teardown() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
-		dbManager.executeFromScript("Database/testingQueries/tearDownVotazioneDAO.sql");
+		dbManager.executeFromScript("Database/reset.sql");
 	}
 	
 	

@@ -130,7 +130,7 @@ public class AccountManager {
 	 * @throws CampiNonConformiException
 	 * Se non esiste alcuna categoria con quel ID (causa manipolazione del frontend)
 	 */
-	public void addInteressePartecipante(PartecipanteBean partecipante, CategoriaBean categoria) throws CampiNonConformiException {
+	private void addInteressePartecipante(PartecipanteBean partecipante, CategoriaBean categoria) throws CampiNonConformiException {
 		log.info(categoria.getNome());
 		if(CategoriaDAO.getCategoriaByNome(categoria.getNome()) == null) {			
 			throw new CampiNonConformiException();

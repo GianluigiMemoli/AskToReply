@@ -15,6 +15,7 @@ import gestioneAccount.PartecipanteBean;
 import gestioneAccount.UtenteBean;
 import gestioneAccount.UtenteDAO;
 import gestioneRisposta.RispostaBean;
+import gestioneRisposta.RispostaDAO;
 import util.AllegatiHandler;
 
 public class DomandeManager {
@@ -193,6 +194,8 @@ public class DomandeManager {
 	}
 	
 	private DomandaBean populateReferencedEntities(DomandaBean domanda) {
+		RispostaDAO rispostaDAO = new RispostaDAO();
+		
 		domanda = populateAutore(domanda);
 		domanda = populateCategorie(domanda);
 		domanda = populateAllegati(domanda);

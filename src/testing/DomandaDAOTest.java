@@ -25,11 +25,14 @@ public class DomandaDAOTest {
 	@BeforeEach
 	public void setup() throws IOException, SQLException{
 		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/seed.sql");
 		dbManager.executeFromScript("Database/testingQueries/initDomandaDAO.sql");		
 	}
 	@AfterEach 
 	public void reset() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
+		dbManager.executeFromScript("Database/reset.sql");
+
 		dbManager.executeFromScript("Database/testingQueries/teardownDomandaDAO.sql");
 	}
 
