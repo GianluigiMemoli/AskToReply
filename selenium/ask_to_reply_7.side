@@ -1,0 +1,562 @@
+{
+  "id": "03472bdc-a944-4bea-8c05-576f4407f746",
+  "version": "2.0",
+  "name": "ask to reply",
+  "url": "http://localhost:8080/AskToReply/accesso",
+  "tests": [{
+    "id": "b7e7da55-ada2-40da-9663-7fb3a699c169",
+    "name": "TC_7_1",
+    "commands": [{
+      "id": "19dc62c9-2ebd-42e9-9834-384f6b6f32dc",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/VisualizzaDomandaServlet?id=id-domanda-demo-1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d4fd54d0-e7b8-4184-a30d-6abb626e101f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "56f6ec04-1c7b-4150-9ace-7cd2a360e77d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=(//button[@type='submit'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,' Invia risposta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d2f31400-131b-4217-a5ec-16b4f56634cb",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=error-msg",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "663f767a-d27f-4e75-91fa-84f96b6ba4dd",
+    "name": "TC_7_2",
+    "commands": [{
+      "id": "42d8b1b7-f3a5-422e-bd95-27d3dc1c873a",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/VisualizzaDomandaServlet?id=id-domanda-demo-1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b488f5da-d95e-4c6a-bd98-fe7396298183",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "aac9d24f-5a9c-4203-882f-31b26df7c3ed",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bc42a19a-745c-4017-af8f-957559a35be3",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0dde0829-8ff8-4442-8f5e-c04b88dcc04e",
+      "comment": "",
+      "command": "click",
+      "target": "id=corpo",
+      "targets": [
+        ["id=corpo", "id"],
+        ["name=corpo", "name"],
+        ["css=#corpo", "css:finder"],
+        ["xpath=//textarea[@id='corpo']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/div/textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a5eed00a-92a6-4f74-bf0d-4bc6bb0fda14",
+      "comment": "",
+      "command": "type",
+      "target": "id=corpo",
+      "targets": [
+        ["id=corpo", "id"],
+        ["name=corpo", "name"],
+        ["css=#corpo", "css:finder"],
+        ["xpath=//textarea[@id='corpo']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/div/textarea", "xpath:position"]
+      ],
+      "value": "Si"
+    }, {
+      "id": "2e3a9b29-4c6d-47d4-b5bd-fbfbe3ff3f42",
+      "comment": "",
+      "command": "type",
+      "target": "id=allegati",
+      "targets": [
+        ["id=allegati", "id"],
+        ["name=allegati", "name"],
+        ["css=#allegati", "css:finder"],
+        ["xpath=//input[@id='allegati']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "C:\\troppo_pesante.png"
+    }, {
+      "id": "7b089bb8-ac85-4176-a023-dcb75458d6b6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=(//button[@type='submit'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,' Invia risposta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "23497b55-1b26-456e-9bca-a976ee61be80",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=error-msg",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "25314980-5ed4-4009-9be6-a19f90deaa44",
+    "name": "TC_7_3",
+    "commands": [{
+      "id": "a3b42a8d-73ca-43cb-9cfa-b8bfe625f3ab",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/VisualizzaDomandaServlet?id=id-domanda-demo-1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "31ac4d32-629c-46e2-a01d-5532c930d06b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6da755d1-b6ef-49f8-9bcd-58ae4ee93312",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "72e38fa6-f72f-413f-a7f2-67c456e73303",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6f713dea-727f-42f9-b09a-2867c9f9cd74",
+      "comment": "",
+      "command": "click",
+      "target": "id=corpo",
+      "targets": [
+        ["id=corpo", "id"],
+        ["name=corpo", "name"],
+        ["css=#corpo", "css:finder"],
+        ["xpath=//textarea[@id='corpo']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/div/textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4ca4f2e8-dd11-46b7-8fcf-8a329357da3d",
+      "comment": "",
+      "command": "type",
+      "target": "id=corpo",
+      "targets": [
+        ["id=corpo", "id"],
+        ["name=corpo", "name"],
+        ["css=#corpo", "css:finder"],
+        ["xpath=//textarea[@id='corpo']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/div/textarea", "xpath:position"]
+      ],
+      "value": "Si"
+    }, {
+      "id": "d59e692a-7d61-4f4f-ab05-69149bb6e227",
+      "comment": "",
+      "command": "type",
+      "target": "id=allegati",
+      "targets": [
+        ["id=allegati", "id"],
+        ["name=allegati", "name"],
+        ["css=#allegati", "css:finder"],
+        ["xpath=//input[@id='allegati']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "C:\\montserrat.zip"
+    }, {
+      "id": "979545cd-0133-48e0-9ea0-f227037c4e42",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=(//button[@type='submit'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,' Invia risposta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5a1d91cb-3e41-4ee0-9362-291cf3cbca32",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=error-msg",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "7f0fedd1-80cc-4018-b213-89b71f3b1723",
+    "name": "TC_7_5",
+    "commands": [{
+      "id": "05ba920a-18c5-464b-afcc-279281369b79",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/VisualizzaDomandaServlet?id=DOM2ID",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6b104201-ab84-4810-9e9e-e302cc292050",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8fc859d8-3776-4806-925b-20dd44d6e0ad",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "05e87f3b-9b1d-40f2-92bc-4b769a3518d4",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d55f55a5-9c1d-4650-9762-514af6acf5b1",
+      "comment": "",
+      "command": "click",
+      "target": "id=corpo",
+      "targets": [
+        ["id=corpo", "id"],
+        ["name=corpo", "name"],
+        ["css=#corpo", "css:finder"],
+        ["xpath=//textarea[@id='corpo']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/div/textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8ab48c1b-13d3-4ea1-85da-70685df4c812",
+      "comment": "",
+      "command": "type",
+      "target": "id=corpo",
+      "targets": [
+        ["id=corpo", "id"],
+        ["name=corpo", "name"],
+        ["css=#corpo", "css:finder"],
+        ["xpath=//textarea[@id='corpo']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/div/textarea", "xpath:position"]
+      ],
+      "value": "Si"
+    }, {
+      "id": "6f86ca03-d742-45c3-8631-c2bac25faa21",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=(//button[@type='submit'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,' Invia risposta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "95ab4666-d1f1-48a4-91b0-914401e118f8",
+      "comment": "",
+      "command": "assertElementNotPresent",
+      "target": "id=error-msg",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "b71b2281-30ee-4251-8592-26444755dfc8",
+    "name": "TC_7_6",
+    "commands": [{
+      "id": "fa61782b-907b-4a8d-b9da-5817c064a65e",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/VisualizzaDomandaServlet?id=id-domanda-demo-1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b584d5ab-328b-43e9-b43e-0b43b8be0025",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "622160f7-9079-4516-bddf-cc35dbcfacea",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f90705ce-10e5-4570-8c61-0a81727d4440",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.btn-outline-primary",
+      "targets": [
+        ["css=.btn-outline-primary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Rispondi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "96160032-b097-4989-8dd1-620fa1ad37c7",
+      "comment": "",
+      "command": "click",
+      "target": "id=corpo",
+      "targets": [
+        ["id=corpo", "id"],
+        ["name=corpo", "name"],
+        ["css=#corpo", "css:finder"],
+        ["xpath=//textarea[@id='corpo']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/div/textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a1f68551-5d7f-4693-9672-f687f71cd818",
+      "comment": "",
+      "command": "type",
+      "target": "id=corpo",
+      "targets": [
+        ["id=corpo", "id"],
+        ["name=corpo", "name"],
+        ["css=#corpo", "css:finder"],
+        ["xpath=//textarea[@id='corpo']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/div/textarea", "xpath:position"]
+      ],
+      "value": "Si"
+    }, {
+      "id": "0284196f-48aa-42e6-9bbf-afa90550aec1",
+      "comment": "",
+      "command": "type",
+      "target": "id=allegati",
+      "targets": [
+        ["id=allegati", "id"],
+        ["name=allegati", "name"],
+        ["css=#allegati", "css:finder"],
+        ["xpath=//input[@id='allegati']", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "C:\\img_1.jpg"
+    }, {
+      "id": "0a382c7e-ab30-4e58-9be5-3d5764044f41",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-primary",
+      "targets": [
+        ["css=.btn-primary", "css:finder"],
+        ["xpath=(//button[@type='submit'])[5]", "xpath:attributes"],
+        ["xpath=//div[@id='pubblicaRispostaModal']/div/div/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,' Invia risposta')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "17af9ded-f747-4554-b64f-cd12cbcc7dc1",
+      "comment": "",
+      "command": "assertElementNotPresent",
+      "target": "id=error-msg",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "e620538e-7194-46c1-a255-fad6a7a15839",
+    "name": "TC_0",
+    "commands": [{
+      "id": "ce05cb5c-b0e0-45d5-9b0f-98956ac01eb7",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/accesso",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b3ef6621-53a2-492c-ab79-a3051922a0fc",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "945x1030",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b4bd0c74-3e5f-4b71-9977-aa254e14367c",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "966a983d-76fd-47d7-8e27-eb707ff85f43",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "partecipante3@gmail.com"
+    }, {
+      "id": "4deee4e9-8d8c-49d8-b947-7ad77882a600",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "2053720f-65d5-4a98-98e9-ec44dfc2279b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "f129e3ae-2219-441b-befb-692922d77a63",
+    "name": "TC_99",
+    "commands": [{
+      "id": "cb13266a-563b-42ca-81d2-d35be5ba1c5e",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/LogoutServlet",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "0d089856-1d42-4bf2-b852-e0e1890db4e1",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:8080/AskToReply/accesso"],
+  "plugins": []
+}
