@@ -212,3 +212,6 @@ insert into categoriedomande values("DOM1ID","id-categoria-demo-8"),
                                    ("DOM2ID","id-categoria-demo-9"),
 								   ("DOM2ID","id-categoria-demo-1"),
 								   ("DOM3ID","id-categoria-demo-5");
+
+insert into segnalazioni VALUES("id-segnalazione-demo-1", 1, CURDATE(), 1, "Questa domanda è offensiva", "id-utente-demo-3");
+insert into segnalazionidomanda values("id-segnalazione-demo-1", "DOM3ID");
