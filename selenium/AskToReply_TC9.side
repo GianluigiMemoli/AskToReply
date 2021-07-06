@@ -1,0 +1,208 @@
+{
+  "id": "719b82cb-6fba-4525-8e2c-ef10923c986d",
+  "version": "2.0",
+  "name": "AskToReply_TC9",
+  "url": "http://localhost:8080/AskToReply/LogoutServlet",
+  "tests": [{
+    "id": "57b9b05e-ab3d-46b2-9f4c-322512441471",
+    "name": "TC_9_1",
+    "commands": [{
+      "id": "cdfb16b4-e011-4dd7-a3f2-6da6f73e0721",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/VisualizzaElencoSegnalazioniDomanda",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "480aa432-ab3d-40d2-9195-534608e5138f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1536x338",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b718dff7-3f7e-4157-b366-08f9f9429ea5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.question:nth-child(1) .btn-outline-success",
+      "targets": [
+        ["css=.question:nth-child(1) .btn-outline-success", "css:finder"],
+        ["xpath=//button[@type='button']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "90f6c89b-dffa-4022-956d-b69d98b13ba2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.question:nth-child(1) #modal1 .btn",
+      "targets": [
+        ["css=.question:nth-child(1) #modal1 .btn", "css:finder"],
+        ["xpath=//input[@value='Invia']", "xpath:attributes"],
+        ["xpath=//div[@id='modal1']/div/div/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b2609da1-f1f2-47b0-a802-bec36fc53e07",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=error-msg",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "756befb8-e46f-49d0-aed3-350ffbd4fb38",
+    "name": "TC_9_2",
+    "commands": [{
+      "id": "f6face4b-ffe9-4674-b641-95ca0ef518cc",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/VisualizzaElencoSegnalazioniDomanda",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ea101a13-ff45-458b-8425-7bce0797c977",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x840",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "67d9724c-7ced-493f-9c3b-ed2fc1534048",
+      "comment": "",
+      "command": "click",
+      "target": "css=.question:nth-child(1) .btn-outline-success",
+      "targets": [
+        ["css=.question:nth-child(1) .btn-outline-success", "css:finder"],
+        ["xpath=//button[@type='button']", "xpath:attributes"],
+        ["xpath=//form/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e2c78c7a-b659-4d48-88bc-8e426faff89e",
+      "comment": "",
+      "command": "click",
+      "target": "id=interesseCheck",
+      "targets": [
+        ["id=interesseCheck", "id"],
+        ["name=categorieDomanda", "name"],
+        ["css=.question:nth-child(1) .list-group-item:nth-child(1) > #interesseCheck", "css:finder"],
+        ["xpath=//input[@id='interesseCheck']", "xpath:attributes"],
+        ["xpath=//div[@id='modal1']/div/div/div[2]/div/div/ul/li/input", "xpath:idRelative"],
+        ["xpath=//li/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "11df6602-c6f5-45a7-bf70-dc2f536c513c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.question:nth-child(1) #modal1 .btn",
+      "targets": [
+        ["css=.question:nth-child(1) #modal1 .btn", "css:finder"],
+        ["xpath=//input[@value='Invia']", "xpath:attributes"],
+        ["xpath=//div[@id='modal1']/div/div/div[2]/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3f03d6dc-57f8-4868-890c-3357c1e82e32",
+      "comment": "",
+      "command": "assertElementNotPresent",
+      "target": "id=error-msg",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "8fe05f85-18e2-44fd-a2a1-71ee5049b4a4",
+    "name": "TC_0",
+    "commands": [{
+      "id": "6f29cbc6-a2d5-443a-a773-1f0c2c214e7c",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/VisualizzaElencoSegnalazioniDomanda",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a80a8c89-e3da-4450-84f9-5fee962e1574",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "945x1030",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "92551283-8498-4217-9dc6-007f3f624631",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "52384f0a-c284-43af-a089-fb14473ca42d",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "moderatore1@gmail.com"
+    }, {
+      "id": "6d434bfc-6979-400d-8f73-e0e17ffbdc46",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "b927b154-a827-4c51-bb7c-e7c3a607e7ef",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }]
+  }, {
+    "id": "711f12ed-a737-44d2-b0ad-8bf5d7f3cb7c",
+    "name": "TC_10",
+    "commands": [{
+      "id": "e27b3b9a-2d83-4b9a-8b71-2ab6dd651d25",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AskToReply/LogoutServlet",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "bd9b584a-f230-4b75-bae6-165616bc7517",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:8080/AskToReply/VisualizzaElencoSegnalazioniDomanda", "http://localhost:8080/AskToReply/LogoutServlet"],
+  "plugins": []
+}
