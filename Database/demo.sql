@@ -45,7 +45,7 @@ insert into categorie values
 ('id-categoria-demo-8', 'Storia'),
 ('id-categoria-demo-9', 'Economia');
 
--- Il campo 'password' di tutti gli utenti è 'password'
+-- Il campo 'password' di tutti gli utenti e' 'password'
 
 --
 
@@ -87,7 +87,7 @@ insert into utenti values
 --
 
 insert into utenti values 
-('id-utente-demo-1', 'partecipante1@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null, 'sommervilleian', 'Ian', 'Sommerville', 1, 0);
+('id-utente-demo-1', 'partecipante1@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null, 'sommer', 'Ian', 'Sommerville', 1, 0);
 
 insert into partecipanti values
 ('id-utente-demo-1', 0, 0);
@@ -146,7 +146,7 @@ INSERT INTO domande VALUES
 (
 	"id-domanda-demo-1", 
 	"E' possibile dimostrare che NON viviamo in una simulazione?", 
-	"Vorrei sapere se è possibile dimostrare che NON viviamo in una simulazione.", 
+	"Vorrei sapere se e' possibile dimostrare che NON viviamo in una simulazione.", 
 	"id-utente-demo-1", 
 	"2021-05-24", 
 	0, 
@@ -160,7 +160,7 @@ INSERT INTO risposte VALUES
 (
 	"id-risposta-demo-1", 
 	"id-domanda-demo-1", 
-	"No, non è possibile.", 
+	"No, non e' possibile.", 
 	null,
 	"id-utente-demo-2", 
 	"2021-05-25", 
