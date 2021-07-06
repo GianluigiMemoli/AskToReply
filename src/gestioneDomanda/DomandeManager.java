@@ -127,7 +127,7 @@ public class DomandeManager {
 			else {
 				testo = testo.replace(" ", "* ") + "*";		
 			}
-		// TODO Aggiungere l'eliminazione delle congiunzioni, articoli ecc per la ricerca full text
+		
 		ArrayList<DomandaBean> domandeTrovate = DomandaDAO.getDomandeCercate(testo, isArchiviata, categorie);
 		for(DomandaBean domanda: domandeTrovate) {
 			domanda = populateReferencedEntities(domanda);
