@@ -9,15 +9,12 @@ import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.Part;
-
-import com.mysql.cj.jdbc.CallableStatement;
 
 import Exceptions.ErrorePubblicazioneDomandaException;
 import Exceptions.ErrorePubblicazioneRispostaException;
@@ -94,7 +91,7 @@ public class RisposteManager {
 				log.info("errore ALLEGATI 0000");
 				e.printStackTrace();
 				RispostaDAO.removeRisposta(risposta);
-				throw new ErrorePubblicazioneDomandaException(e.getMessage());
+				throw new ErrorePubblicazioneRispostaException(e.getMessage());
 
 			}
 
@@ -149,40 +146,6 @@ public class RisposteManager {
 			arrayListRisposteConAllegati.add(arrayListRisposte.get(counter));
 		}   
 		return arrayListRisposteConAllegati;
-	}
-
-
-	//DIBENEDETTO:
-	private void caricaAllegati(List<Part> allegati, RispostaBean risposta) throws Exception {
-		if(allegati.size() > 0) {
-
-			String destinationFolder =  UPLOAD_PATH + risposta.getId();
-
-			File dir = new File(destinationFolder);
-
-			if(!dir.exists())
-				dir.mkdirs();
-
-			OutputStream out = null;
-
-			for (Part filePart : allegati) {
-				String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-				InputStream fileContent = filePart.getInputStream();
-
-				// TODO Risolvere il problema del nome del file (contiene anche il path)
-
-				byte[] data = new byte[fileContent.available()];
-
-				fileContent.read(data);
-
-				File file = new File(destinationFolder + "\\" + fileName);
-
-				out = new FileOutputStream(file);
-				out.write(data);
-			}
-
-			out.close();
-		}
 	}
 
 

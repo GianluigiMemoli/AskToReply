@@ -2,7 +2,6 @@ package gestioneRisposta;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import Exceptions.ErrorePubblicazioneRispostaException;
 import gestioneAccount.PartecipanteBean;
 import gestioneDomanda.DomandaDAO;
 import moderazione.SegnalazioneRispostaDAO;
