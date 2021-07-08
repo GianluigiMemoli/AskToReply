@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,8 @@ import util.DBManager;
 
 public class CategoriaDAOTest {
 
-	@BeforeAll
-	public static void reset() throws IOException, SQLException {
+	@AfterEach
+	public void reset() throws IOException, SQLException {
 		DBManager dbManager = DBManager.getInstance();
 		dbManager.executeFromScript("Database/reset.sql");
 	}
@@ -46,7 +47,7 @@ public class CategoriaDAOTest {
 
 	@Test
 	public void getAllTest() {
-		int NUMERO_CATEGORIE = 7;
+		int NUMERO_CATEGORIE = 6;
 		assertEquals(NUMERO_CATEGORIE, CategoriaDAO.getAll().size());
 	}
 	

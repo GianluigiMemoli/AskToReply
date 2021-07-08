@@ -6,8 +6,7 @@ import static org.junit.Assert.assertNull;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,17 +15,18 @@ import util.DBManager;
 
 public class MotivazioneDAOTest {
 
-	@BeforeAll
-	public static void reset() throws IOException, SQLException {
-		DBManager dbManager = DBManager.getInstance();
-		dbManager.executeFromScript("Database/reset.sql");
-	}
-	
 	@BeforeEach
-	public void setup() throws IOException, SQLException{
-		DBManager dbManager = DBManager.getInstance();
-		dbManager.executeFromScript("Database/seed.sql");
-	}
+	  public  void reset() throws IOException, SQLException {
+	    DBManager dbManager = DBManager.getInstance();
+	    dbManager.executeFromScript("Database/seed.sql");
+	  }
+	  
+	  @AfterEach
+	  public  void setup() throws IOException, SQLException{
+	    DBManager dbManager = DBManager.getInstance();
+	    dbManager.executeFromScript("Database/reset.sql");
+
+	  }
 	
 	@Test
 	public void getAllTest(){
